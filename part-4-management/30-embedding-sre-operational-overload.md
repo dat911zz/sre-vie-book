@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 30 - Embedding an SRE to Recover from Operational Overload](https://sre.google/sre-book/operational-overload/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

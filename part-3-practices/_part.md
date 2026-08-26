@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Part III - Practices](https://sre.google/sre-book/part-III-practices/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

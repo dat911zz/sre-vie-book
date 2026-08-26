@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Chapter 34 - Conclusion](https://sre.google/sre-book/conclusion/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 7 - The Evolution of Automation at Google](https://sre.google/sre-book/automation-at-google/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

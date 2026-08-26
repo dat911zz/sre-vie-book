@@ -1,6 +1,6 @@
 # SRE Book (Bản dịch tiếng Việt)
 
-Bản dịch tiếng Việt của [Google SRE Book](https://sre.google/sre-book/table-of-contents/) (Site Reliability Engineering) — O'Reilly, 2017. Dịch bằng model AI (Qwen local qua Kilo Code), rà soát nhiều lượt để đảm bảo thuật ngữ nhất quán và văn phong tự nhiên.
+Bản dịch tiếng Việt của [Google SRE Book](https://sre.google/sre-book/table-of-contents/) (Site Reliability Engineering) — O'Reilly, 2017. Dịch bởi Đội biên tập Softdreams RnD, rà soát nhiều lượt để đảm bảo thuật ngữ nhất quán và văn phong tự nhiên.
 
 **Đọc online:** https://dat911zz.github.io/sre-vie-book/
 

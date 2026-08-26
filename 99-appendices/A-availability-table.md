@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Appendix A. Availability Table](https://sre.google/sre-book/availability-table/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

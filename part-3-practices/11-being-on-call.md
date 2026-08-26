@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 11 - Being On-Call](https://sre.google/sre-book/being-on-call/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

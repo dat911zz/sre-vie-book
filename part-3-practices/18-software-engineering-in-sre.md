@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 18 - Software Engineering in SRE](https://sre.google/sre-book/software-engineering-in-sre/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

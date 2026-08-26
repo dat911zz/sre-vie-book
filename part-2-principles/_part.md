@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Part II - Principles](https://sre.google/sre-book/part-II-principles/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

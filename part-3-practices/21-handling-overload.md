@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 21 - Handling Overload](https://sre.google/sre-book/handling-overload/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

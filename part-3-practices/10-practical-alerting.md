@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 10 - Practical Alerting](https://sre.google/sre-book/practical-alerting/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

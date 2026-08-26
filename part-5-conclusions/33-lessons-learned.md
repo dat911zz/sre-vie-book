@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Chapter 33 - Lessons Learned from Other Industries](https://sre.google/sre-book/lessons-learned/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

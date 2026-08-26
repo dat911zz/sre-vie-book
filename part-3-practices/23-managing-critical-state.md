@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Chapter 23 - Managing Critical State: Distributed Consensus for Reliability](https://sre.google/sre-book/managing-critical-state/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

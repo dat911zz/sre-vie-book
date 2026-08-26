@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 13 - Emergency Response](https://sre.google/sre-book/emergency-response/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 

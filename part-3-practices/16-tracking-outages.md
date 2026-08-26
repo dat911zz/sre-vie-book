@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 16 - Tracking Outages](https://sre.google/sre-book/tracking-outages/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
 
 ---
 
