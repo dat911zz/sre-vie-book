@@ -13,7 +13,7 @@ Không thể quản lý một dịch vụ đúng, chứ chưa nói là quản l�
 
 Chúng tôi dùng trực giác, kinh nghiệm và sự hiểu biết về những gì người dùng muốn để định nghĩa *service level indicator* (SLI — chỉ báo mức dịch vụ), *objective* (SLO — mục tiêu mức dịch vụ) và *agreement* (SLA — thỏa thuận mức dịch vụ). Những phép đo này mô tả các thuộc tính cơ bản của các metrics (chỉ số) quan trọng, các giá trị mà chúng ta muốn các metrics đó đạt, và cách chúng ta sẽ phản ứng nếu không thể cung cấp được dịch vụ mong đợi. Cuối cùng, việc chọn metrics phù hợp giúp thúc đẩy hành động đúng khi có sự cố, và cho đội SRE (Site Reliability Engineer — kỹ sư độ tin cậy trang web) niềm tin rằng một dịch vụ đang khỏe mạnh.
 
-Chương này mô tả khung (framework) mà chúng tôi dùng để xử lý các vấn đề mô hình hóa, chọn và phân tích metrics. Phần lớn lời giải thích sẽ khá trừu tượng nếu thiếu ví dụ, nên chúng tôi sẽ dùng dịch vụ Shakespeare được phác thảo trong [Shakespeare: A Sample Service](https://sre.google/sre-book/production-environment#xref_production-environment_shakespeare) để minh họa các điểm chính.
+Chương này mô tả khung (framework) mà chúng tôi dùng để xử lý các vấn đề mô hình hóa, chọn và phân tích metrics. Thiếu ví dụ, phần lớn lời giải thích sẽ khá trừu tượng, nên chúng tôi sẽ dùng dịch vụ Shakespeare được phác thảo trong [Shakespeare: A Sample Service](https://sre.google/sre-book/production-environment#xref_production-environment_shakespeare) để minh họa các điểm chính.
 
 ## Thuật ngữ về Mức Dịch vụ (Service Level Terminology)
 
@@ -25,27 +25,29 @@ Một SLI là một service level *indicator* — phép đo định lượng đ�
 
 Phần lớn các dịch vụ coi *request latency* (độ trễ yêu cầu) — thời gian cần để trả về phản hồi cho một yêu cầu — là một SLI chính. Các SLI phổ biến khác gồm *error rate* (tỷ lệ lỗi), thường biểu thị dưới dạng phân số của toàn bộ các yêu cầu nhận được, và *system throughput* (lưu lượng hệ thống), thường đo bằng số yêu cầu mỗi giây (requests per second). Các phép đo thường được gộp (aggregate): dữ liệu thô được thu thập trong một cửa sổ đo rồi chuyển thành một tỷ lệ, giá trị trung bình hoặc phân vị (percentile).
 
-Lý tưởng nhất, SLI đo trực tiếp mức dịch vụ cần quan tâm, nhưng đôi khi chỉ có một đại diện (proxy) có sẵn vì phép đo mong muốn có thể khó thu được hoặc khó diễn giải. Ví dụ, độ trễ phía client (khách hàng) thường là metrics gắn với trải nghiệm người dùng hơn, nhưng có khi chỉ đo được độ trễ ở phía server (máy chủ).
+Lý tưởng nhất, SLI đo trực tiếp mức dịch vụ cần quan tâm, nhưng đôi khi chỉ có một chỉ số đại diện (proxy) có sẵn vì phép đo mong muốn có thể khó thu được hoặc khó diễn giải. Ví dụ, độ trễ phía client thường là metrics gắn với trải nghiệm người dùng hơn, nhưng có khi chỉ đo được độ trễ ở phía server.
 
-Một loại SLI khác quan trọng với SRE là *availability* (khả dụng), tức phần thời gian mà một dịch vụ có thể sử dụng được. Nó thường được định nghĩa theo phần trăm các yêu cầu hợp lệ (well-formed) thành công, đôi khi gọi là *yield* (tỷ lệ thành công). (*Durability* (độ bền) — khả năng dữ liệu được giữ lại trong một khoảng thời gian dài — cũng quan trọng như vậy cho [các hệ thống lưu trữ dữ liệu](https://sre.google/sre-book/data-integrity/)). Dù khả dụng 100% là bất khả thi, khả dụng gần 100% thường dễ đạt được, và ngành thường biểu đạt các mức khả dụng cao theo số "nines" (số chín) trong phần trăm khả dụng. Ví dụ, các mức khả dụng 99% và 99.999% có thể gọi là "2 nines" và "5 nines" tương ứng, và mục tiêu khả dụng công bố hiện tại của Google Compute Engine là "hai phẩy năm nines" — khả dụng 99.95%.
+Một loại SLI khác quan trọng với SRE là *availability* (khả dụng), tức phần thời gian mà một dịch vụ có thể sử dụng được. Nó thường được định nghĩa theo phần trăm các yêu cầu hợp lệ (well-formed) thành công, đôi khi gọi là *yield* (tỷ lệ thành công). (*Durability* (độ bền) — khả năng dữ liệu được lưu giữ trong một khoảng thời gian dài — cũng quan trọng như vậy cho [các hệ thống lưu trữ dữ liệu](https://sre.google/sre-book/data-integrity/)). Dù khả dụng 100% là bất khả thi, khả dụng gần 100% thường dễ đạt được, và ngành thường biểu đạt các mức khả dụng cao theo số "nines" (số chín) trong phần trăm khả dụng. Ví dụ, các mức khả dụng 99% và 99.999% có thể gọi là "2 nines" và "5 nines" tương ứng, và mục tiêu khả dụng công bố hiện tại của Google Compute Engine là "hai phẩy năm nines" — khả dụng 99.95%.
 
 ## Mục tiêu (Objectives)
 
 Một SLO là một *service level objective*: một giá trị mục tiêu hoặc một khoảng giá trị cho mức dịch vụ được đo bằng một SLI. Do đó, cấu trúc tự nhiên cho SLO là *SLI ≤ target*, hoặc *lower bound ≤ SLI ≤ upper bound*. Ví dụ, chúng ta có thể quyết định trả về kết quả tìm kiếm Shakespeare "nhanh" bằng cách áp dụng SLO rằng độ trễ trung bình của yêu cầu tìm kiếm phải nhỏ hơn 100 mili giây.
 
-Việc chọn một SLO phù hợp là phức tạp. Trước hết, bạn không phải lúc nào cũng được chọn giá trị của nó! Đối với các yêu cầu HTTP (HyperText Transfer Protocol — giao thức truyền siêu văn bản) từ bên ngoài vào dịch vụ của bạn, metrics queries per second (QPS — số truy vấn mỗi giây) về cơ bản được quyết định bởi nhu cầu của người dùng, và bạn không thực sự có thể đặt một SLO cho nó.
+Việc chọn một SLO phù hợp là phức tạp. Trước hết, giá trị của nó không phải lúc nào cũng do bạn chọn! Đối với các yêu cầu HTTP (HyperText Transfer Protocol — giao thức truyền siêu văn bản) từ bên ngoài vào dịch vụ của bạn, metrics queries per second (QPS — số truy vấn mỗi giây) về cơ bản do chính người dùng quyết định, nên bạn không thực sự có thể đặt một SLO cho nó.
 
 Mặt khác, bạn *có thể* nói rằng bạn muốn độ trễ trung bình mỗi yêu cầu dưới 100 mili giây, và việc đặt một mục tiêu như vậy có thể thúc đẩy bạn viết frontend (phần phía trước) với các hành vi độ trễ thấp theo nhiều cách, hoặc mua một số loại thiết bị độ trễ thấp nhất định. (100 mili giây rõ ràng là một giá trị tùy ý, nhưng nhìn chung con số độ trễ thấp hơn là tốt hơn. Có đủ lý do để tin rằng nhanh tốt hơn chậm, và rằng độ trễ người dùng trải nghiệm vượt quá một ngưỡng nhất định sẽ thực sự đuổi khách hàng đi — xem "Speed Matters" [[Bru09]](https://sre.google/sre-book/bibliography#Bru09).)
 
 Lại một lần nữa, điều này tinh tế hơn vẻ bề ngoài, ở chỗ hai SLI đó — QPS và độ trễ — có thể liên kết với nhau ở hậu trường: QPS cao hơn thường kéo theo độ trễ lớn hơn, và phổ biến khi các dịch vụ có một vách hiệu năng (performance cliff) vượt quá một ngưỡng tải nhất định.
 
-Việc chọn và [công bố SLOs](https://sre.google/resources/practices-and-processes/art-of-slos/) cho người dùng đặt kỳ vọng về cách một dịch vụ sẽ hoạt động. Chiến lược này có thể giảm bớt các phàn nàn vô căn cứ gửi đến chủ sở hữu dịch vụ về, ví dụ, việc dịch vụ chậm. Khi không có SLO rõ ràng, người dùng thường tự hình thành niềm tin riêng về hiệu năng mong muốn, có thể không khớp với niềm tin của những người thiết kế và vận hành dịch vụ. Động lực này có thể dẫn đến cả phụ thuộc quá mức — khi người dùng tin sai rằng một dịch vụ khả dụng hơn thực tế (như đã xảy ra với Chubby: xem [Sự cố có kế hoạch toàn cầu của Chubby](#the-global-chubby-planned-outage)) — lẫn phụ thuộc thiếu, khi người dùng tiềm năng tin rằng một hệ thống yếu và kém tin cậy hơn thực tế.
+Việc chọn và [công bố SLOs](https://sre.google/resources/practices-and-processes/art-of-slos/) cho người dùng đặt kỳ vọng về cách một dịch vụ sẽ hoạt động. Chiến lược này có thể giảm bớt các phàn nàn vô căn cứ gửi đến chủ sở hữu dịch vụ về, ví dụ, chuyện dịch vụ chậm. Khi không có SLO rõ ràng, người dùng thường tự hình thành niềm tin riêng về hiệu năng mong muốn, có thể không khớp với niềm tin của những người thiết kế và vận hành dịch vụ. Động lực này có thể dẫn đến cả phụ thuộc quá mức — khi người dùng tin sai rằng một dịch vụ khả dụng hơn thực tế (như đã xảy ra với Chubby: xem [Sự cố có kế hoạch toàn cầu của Chubby](#the-global-chubby-planned-outage)) — lẫn phụ thuộc thiếu, khi người dùng tiềm năng tin rằng một hệ thống yếu và kém tin cậy hơn thực tế.
 
-<a id="the-global-chubby-planned-outage"></a>### Sự cố Có Kế hoạch Toàn cầu của Chubby (The Global Chubby Planned Outage)
+<a id="the-global-chubby-planned-outage"></a>
+
+### Sự cố Có Kế hoạch Toàn cầu của Chubby (The Global Chubby Planned Outage)
 
 *Tác giả:* Marc Alvidrez
 
-Chubby [[Bur06]](https://sre.google/sre-book/bibliography#Bur06) là dịch vụ lock (khóa) của Google cho các hệ thống phân tán liên kết lỏng lẻo. Trong trường hợp toàn cầu, chúng tôi phân phối các instance (thực thể) của Chubby sao cho mỗi replica (bản sao) nằm ở một khu vực địa lý khác nhau. Theo thời gian, chúng tôi nhận thấy rằng sự thất bại của instance toàn cầu Chubby liên tục gây ra các sự cố dịch vụ (service outages), nhiều trong số đó người dùng cuối có thể nhìn thấy. Hóa ra, các sự cố toàn cầu của Chubby hiếm đến mức các chủ sở hữu dịch vụ bắt đầu thêm các sự phụ thuộc (dependencies) vào Chubby, mặc định nó sẽ không bao giờ down (mất). Độ tin cậy cao của nó tạo ra cảm giác an toàn sai, vì các dịch vụ không thể hoạt động đúng khi Chubby không khả dụng, dù hiếm như thế nào.
+Chubby [[Bur06]](https://sre.google/sre-book/bibliography#Bur06) là dịch vụ lock (khóa) của Google cho các hệ thống phân tán có liên kết lỏng lẻo. Trong trường hợp toàn cầu, chúng tôi phân phối các instance (thực thể) của Chubby sao cho mỗi replica (bản sao) nằm ở một khu vực địa lý khác nhau. Theo thời gian, chúng tôi nhận thấy rằng sự thất bại của instance toàn cầu Chubby liên tục gây ra các sự cố dịch vụ (service outages), nhiều trong số đó người dùng cuối có thể nhìn thấy. Hóa ra, các sự cố toàn cầu của Chubby hiếm đến mức các chủ sở hữu dịch vụ bắt đầu thêm các sự phụ thuộc (dependencies) vào Chubby, mặc định nó sẽ không bao giờ down (mất). Độ tin cậy cao của nó tạo ra cảm giác an toàn sai, vì các dịch vụ không thể hoạt động đúng khi Chubby không khả dụng, dù hiếm như thế nào.
 
 Giải pháp cho kịch bản Chubby này khá thú vị: SRE đảm bảo Chubby toàn cầu đáp ứng, nhưng không vượt quá đáng kể, mục tiêu mức dịch vụ của nó. Trong bất kỳ quý nào, nếu một sự cố thực sự chưa làm khả dụng tụt xuống dưới mục tiêu, chúng tôi sẽ chủ động gây ra một sự cố có kiểm soát bằng cách cố tình đưa hệ thống down. Bằng cách này, chúng tôi có thể phát hiện và loại bỏ các sự phụ thuộc không hợp lý vào Chubby ngay sau khi chúng được thêm. Làm vậy buộc các chủ sở hữu dịch vụ phải đối diện với thực tế của các hệ thống phân tán sớm hơn là muộn.
 
@@ -65,7 +67,7 @@ Khi đã lập luận được *tại sao* việc chọn các [metrics phù hợ
 
 ## Bạn và Người dùng Quan tâm đến Điều gì?
 
-Bạn không nên dùng mọi metrics có thể theo dõi trong hệ thống giám sát làm SLI; việc hiểu người dùng của bạn muốn gì từ hệ thống sẽ dẫn dắt bạn chọn một vài chỉ báo một cách cẩn trọng. Chọn quá nhiều chỉ báo khiến khó chú ý đúng mức đến các chỉ báo quan trọng, trong khi chọn quá ít có thể bỏ sót các hành vi quan trọng của hệ thống. Chúng tôi thường thấy rằng một vài chỉ báo đại diện là đủ để đánh giá và suy luận về sức khỏe của một hệ thống.
+Bạn không nên dùng mọi metrics có thể theo dõi trong hệ thống giám sát làm SLI; việc hiểu người dùng của bạn muốn gì từ hệ thống sẽ dẫn dắt bạn cẩn trọng chọn một vài chỉ báo. Chọn quá nhiều chỉ báo khiến khó chú ý đúng mức đến các chỉ báo quan trọng, trong khi chọn quá ít có thể bỏ sót các hành vi quan trọng của hệ thống. Chúng tôi thường thấy rằng một vài chỉ báo đại diện là đủ để đánh giá và suy luận về sức khỏe của một hệ thống.
 
 Các dịch vụ có xu hướng rơi vào một vài phạm trù rộng về các SLI mà chúng coi là liên quan:
 
@@ -91,7 +93,7 @@ Phần lớn các metrics được suy nghĩ tốt hơn như các *phân bố* (
 
 [Hình 4-1.](#hinh-4-1) Các độ trễ phân vị thứ 50, 85, 95, và 99 của một hệ thống. Lưu ý rằng trục Y có một thang log (logarithmic).
 
-Dùng các phân vị (percentile) cho chỉ báo cho phép bạn xem xét hình dạng của phân bố và các thuộc tính khác nhau của nó: một phân vị bậc cao, như phân vị thứ 99 hoặc 99.9, cho bạn một giá trị tệ nhất hợp lý, trong khi phân vị thứ 50 (còn gọi là trung vị) nhấn mạnh trường hợp điển hình. Phương sai (variance) của thời gian phản hồi càng lớn, trải nghiệm người dùng điển hình càng bị ảnh hưởng bởi hành vi tail dài — một hiệu ứng bị khuếch đại ở tải cao do hiệu ứng xếp hàng. Các nghiên cứu về người dùng cho thấy họ thường thích một hệ thống chậm hơn một chút hơn là một hệ thống có phương sai cao về thời gian phản hồi, nên một số đội SRE chỉ tập trung vào các giá trị phân vị cao, với lập luận rằng nếu hành vi ở phân vị 99.9 tốt thì trải nghiệm điển hình chắc chắn sẽ tốt.
+Dùng các phân vị (percentile) cho chỉ báo cho phép bạn xem xét hình dạng của phân bố và các thuộc tính khác nhau của nó: một phân vị bậc cao, như phân vị thứ 99 hoặc 99.9, cho bạn một giá trị tệ nhất hợp lý, trong khi phân vị thứ 50 (còn gọi là trung vị) nhấn mạnh trường hợp điển hình. Phương sai (variance) của thời gian phản hồi càng lớn, trải nghiệm người dùng điển hình càng bị ảnh hưởng bởi hành vi tail dài — một hiệu ứng bị khuếch đại ở tải cao do hiệu ứng xếp hàng. Các nghiên cứu về người dùng (user studies) cho thấy họ thường thích một hệ thống chậm hơn một chút hơn là một hệ thống có phương sai cao về thời gian phản hồi, nên một số đội SRE chỉ tập trung vào các giá trị phân vị cao, với lập luận rằng nếu hành vi ở phân vị 99.9 tốt thì trải nghiệm điển hình chắc chắn sẽ tốt.
 
 ### Một Ghi chú về Các Sai lầm Thống kê (A Note on Statistical Fallacies)
 
@@ -156,13 +158,13 @@ Mặc dù hấp dẫn khi đòi hỏi một hệ thống scale tải "vô hạn"
 
 **Có càng ít SLO càng tốt**
 
-Chọn đủ SLO để bao phủ tốt các thuộc tính của hệ thống. Bảo vệ các SLO bạn chọn: nếu bạn không bao giờ thắng được một cuộc thảo luận về ưu tiên bằng cách trích dẫn một SLO cụ thể, có thể SLO đó không đáng có.<sup>[2](#fn2)</sup> Tuy nhiên, không phải mọi thuộc tính sản phẩm đều phù hợp với SLO: khó quy định "sự thích thú của người dùng" bằng một SLO.
+Chọn đủ SLO để bao phủ tốt các thuộc tính của hệ thống. Bảo vệ các SLO bạn chọn: nếu bạn không bao giờ thắng được một cuộc thảo luận về ưu tiên bằng cách trích dẫn một SLO cụ thể, có thể SLO đó không đáng có.<sup>[2](#fn2)</sup> Tuy nhiên, không phải mọi thuộc tính sản phẩm đều phù hợp với SLO: khó dùng SLO để quy định "sự thích thú của người dùng".
 
 **Sự hoàn hảo có thể đợi**
 
 Bạn luôn có thể tinh chỉnh định nghĩa SLO và các mục tiêu theo thời gian khi nắm được hành vi của hệ thống. Tốt hơn là bắt đầu với một mục tiêu nới lỏng rồi thắt chặt dần, thay vì chọn một mục tiêu quá khắt khe đến mức phải nới lỏng khi phát hiện ra nó không thể đạt.
 
-SLO có thể — và nên — là động lực lớn trong việc ưu tiên công việc cho SRE và developer sản phẩm, vì chúng phản ánh những gì người dùng quan tâm. Một SLO tốt là một forcing function (hàm ép buộc) hữu ích, hợp lệ cho một đội phát triển. Nhưng một SLO được nghĩ cẩu thả có thể dẫn đến công việc lãng phí nếu một đội dùng nỗ lực phi thường để đáp ứng một SLO quá tham vọng, hoặc ra một sản phẩm tồi nếu SLO quá nới lỏng. SLO là một đòn bẩy mạnh: hãy dùng chúng một cách khôn ngoan.
+SLO có thể — và nên — là động lực lớn trong việc ưu tiên công việc cho SRE và developer sản phẩm, vì chúng phản ánh những gì người dùng quan tâm. Một SLO tốt là một forcing function (yếu tố ép buộc) hữu ích, hợp lệ cho một đội phát triển. Nhưng một SLO được nghĩ cẩu thả có thể dẫn đến công việc lãng phí nếu một đội dùng nỗ lực phi thường để đáp ứng một SLO quá tham vọng, hoặc ra một sản phẩm tồi nếu SLO quá nới lỏng. SLO là một đòn bẩy mạnh: hãy dùng chúng khôn ngoan.
 
 ## Các Biện pháp Điều khiển (Control Measures)
 

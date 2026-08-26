@@ -52,6 +52,9 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | slack capacity | **slack capacity** (giữ nguyên), nếu cần gloss: `(năng lực dự phòng)` | — | Jargon SRE (năng lực dự phòng/nhàn rỗi) |
 | product velocity | **product velocity** (giữ nguyên), nếu cần gloss: `(tốc độ sản phẩm)` | — | Jargon SRE |
 | continuum (risk) | **phổ (continuum)** | liên tục | Bị lệch ngay trong ch.3: dòng đầu dịch đúng "phổ", 1 dòng sau lại đổi thành "liên tục rủi ro" — soát cả trong-file, không chỉ cross-file |
+| forcing function | **yếu tố ép buộc (forcing function)** | hàm ép buộc | "hàm" = function (toán học), SAI cho "forcing function" (cơ chế/yếu tố buộc hành động). Calque điển hình — đã sửa ở ch.4 L167 |
+| loosely coupled (distributed systems) | **có liên kết lỏng lẻo** | liên kết lỏng lẻo (thiếu trợ từ "có") | Cụm SRE phổ biến (loose coupling). Cần trợ từ "có" cho đúng cú pháp VN — đã sửa ở ch.4 L50 |
+| user studies | **nghiên cứu về người dùng (user studies)** | — | Thuật ngữ UX, gloss lần đầu. Đã dùng ở ch.4 L96 |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -95,3 +98,14 @@ Quy tắc chọn dịch vs giữ nguyên cho thuật ngữ MỚI (chưa có tron
   lỗi chính tả. Giai đoạn 3 merge: +4 thuật ngữ (explicit, thoughtful, slack capacity, product velocity),
   1 xung đột đã xử (explicit/thoughtful bị dịch "chủ động" ở 2 dòng — chọn "rõ ràng"/"có suy xét"). Giai đoạn
   4 áp ngược: rà 14 thuật ngữ đã chốt trong file, không phát hiện biến thể SAI cần thay.
+- 2026-08-26: `part-2-principles/04-service-level-objectives.md` — chạy đủ Giai đoạn 5 (văn phong) +
+  Giai đoạn 6 (semantic). Giai đoạn 5 sửa 6 chỗ (L1: 3 — bị động "bởi"→chủ động "do", danh hóa "việc dịch
+  vụ chậm"→"chuyện dịch vụ chậm", đổi nhịp "X bằng Y"→"dùng X để quy định Y"; L2: 2 — đưa điều kiện lên đầu
+  câu L16, bị động "được chọn"→chủ động "do bạn chọn" L36; L3: 1 — calque "the service being slow"). Giai
+  đoạn 6 sửa 5 chỗ: 2 lỗi nghĩa thật (`đại diện (proxy)`→`chỉ số đại diện (proxy)` L28 — khớp glossary;
+  `forcing function (hàm ép buộc)`→`(yếu tố ép buộc)` L167 — "hàm"=function toán học, calque sai) + 3 chuẩn
+  hóa (`giữ lại`→`lưu giữ` L30, `liên kết lỏng lẻo`→`có liên kết lỏng lẻo` L50, thêm gloss `user studies`
+  L96). GĐ4 pre-flight sửa 1 SAI: client/server gloss "khách hàng"/"máy chủ" L28 (chỉ dùng khi định nghĩa
+  vai trò, chỗ này là dùng thông thường → giữ EN). Giai đoạn 3 merge: +3 thuật ngữ (forcing function,
+  loosely coupled, user studies), không có xung đột. Giai đoạn 4 áp ngược: rà 30 thuật ngữ đã chốt, chỉ còn
+  L28 (đã sửa ở pre-flight) — file sạch.
