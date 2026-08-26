@@ -10,7 +10,7 @@
 
 <a id="bang-a-1"></a>Bảng 1-1. Bảng độ khả dụng
 
-**Mức độ khả dụng** (Cửa sổ không khả dụng được phép) | **mỗi năm** | **mỗi quý** | **mỗi tháng** | **mỗi tuần** | **mỗi ngày** | **mỗi giờ**
+**Mức độ khả dụng** | (Cửa sổ không khả dụng được phép) | **mỗi năm** | **mỗi quý** | **mỗi tháng** | **mỗi tuần** | **mỗi ngày** | **mỗi giờ**
 --- | --- | --- | --- | --- | --- | --- | ---
 90% | | 36.5 ngày | 9 ngày | 3 ngày | 16.8 giờ | 2.4 giờ | 6 phút
 95% | | 18.25 ngày | 4.5 ngày | 1.5 ngày | 8.4 giờ | 1.2 giờ | 3 phút
