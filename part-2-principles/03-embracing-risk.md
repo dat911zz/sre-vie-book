@@ -31,7 +31,9 @@ Theo thông lệ tại Google, cách hữu hiệu nhất thường là xác đ�
 
 Đối với phần lớn các dịch vụ, cách trực tiếp nhất để thể hiện mức độ chấp nhận rủi ro là theo mức độ downtime không lên kế hoạch được chấp nhận. Mức *khả dụng dịch vụ* (service availability) mong muốn cho phép nắm bắt mức downtime không lên kế hoạch, thường được biểu đạt theo số lượng "nines" (số chín) mà chúng tôi muốn cung cấp: 99.9%, 99.99%, hoặc 99.999% khả dụng. Mỗi nine thêm vào tương ứng với một bậc cải thiện tiến đến khả dụng 100%. Với các hệ thống phục vụ (serving system), metrics này thường được tính theo tỷ lệ uptime của hệ thống (xem [Khả dụng theo thời gian](#kha-dung-theo-thoi-gian)).
 
-<a id="kha-dung-theo-thoi-gian"></a>### Khả dụng theo thời gian (Time-based availability)
+<a id="kha-dung-theo-thoi-gian"></a>
+
+### Khả dụng theo thời gian (Time-based availability)
 
 ![Công thức khả dụng theo thời gian](../assets/imgs/fig-3-1.png)
 
@@ -39,7 +41,9 @@ Sử dụng công thức này trên một khoảng thời gian một năm, chún
 
 Tuy nhiên, tại Google, metrics khả dụng theo thời gian thường không có ý nghĩa vì chúng tôi xem xét trên các dịch vụ phân tán toàn cầu. Cách tiếp cận cách ly lỗi (fault isolation) của chúng tôi khiến gần như chắc chắn rằng vào bất kỳ lúc nào, chúng tôi cũng đang phục vụ ít nhất một phần traffic của một dịch vụ ở đâu đó trên thế giới (tức là luôn "up" (hoạt động) ít nhất một phần). Vì vậy, thay vì dùng các metrics quanh uptime, chúng tôi định nghĩa khả dụng theo *request success rate* (tỷ lệ yêu cầu thành công). [Khả dụng tổng hợp](#kha-dung-tong-hop) cho thấy cách metrics dựa trên yield này được tính trên một cửa sổ trượt (tức là tỷ lệ các yêu cầu thành công trong một ngày).
 
-<a id="kha-dung-tong-hop"></a>### Khả dụng tổng hợp (Aggregate availability)
+<a id="kha-dung-tong-hop"></a>
+
+### Khả dụng tổng hợp (Aggregate availability)
 
 ![Công thức khả dụng tổng hợp](../assets/imgs/fig-3-2.png)
 

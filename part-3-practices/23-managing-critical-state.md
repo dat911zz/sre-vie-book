@@ -171,7 +171,9 @@ Hình 23-5. Hệ thống phân phối công việc hướng hàng đợi dùng m
 
 Các hệ thống hàng đợi và nhắn tin thường cần một thông lượng xuất sắc, nhưng không cần độ trễ (latency) cực thấp (do ít khi trực tiếp tiếp xúc người dùng). Tuy nhiên, các độ trễ rất cao trong một hệ thống như vừa mô tả, trong đó có nhiều worker nhận các tác vụ từ một hàng đợi, có thể trở thành vấn đề nếu thời gian xử lý cho mỗi tác vụ tăng đáng kể.
 
-<a id="hieu-nang-distributed-consensus"></a>## Hiệu Năng Distributed Consensus (Distributed Consensus Performance)
+<a id="hieu-nang-distributed-consensus"></a>
+
+## Hiệu Năng Distributed Consensus (Distributed Consensus Performance)
 
 Quan niệm thông thường cho rằng các thuật toán consensus là quá chậm và tốn kém để dùng cho nhiều hệ thống đòi hỏi thông lượng cao *và* độ trễ thấp [\[Bol11\]](https://sre.google/sre-book/bibliography#Bol11). Quan niệm này đơn giản là không đúng — trong khi các bản cài đặt có thể chậm, có một số thủ thuật có thể cải thiện hiệu năng. Các thuật toán distributed consensus nằm ở trung tâm của nhiều hệ thống quan trọng của Google, được mô tả trong [\[Ana13\]](https://sre.google/sre-book/bibliography#Ana13), [\[Bur06\]](https://sre.google/sre-book/bibliography#Bur06), [\[Cor12\]](https://sre.google/sre-book/bibliography#Cor12), và [\[Shu13\]](https://sre.google/sre-book/bibliography#Shu13), và chúng đã chứng tỏ cực kỳ hiệu quả trên thực tế. Quy mô của Google không phải là một lợi thế ở đây; thực tế, quy mô của chúng tôi là một bất lợi, vì nó kéo theo hai thách thức chính: các tập dữ liệu của chúng tôi thường lớn và các hệ thống của chúng tôi chạy trải rộng một khoảng cách địa lý lớn. Các tập dữ liệu lớn nhân lên bởi một vài bản sao đại diện cho chi phí tính toán đáng kể, và các khoảng cách địa lý lớn hơn làm tăng độ trễ giữa các bản sao, từ đó làm giảm hiệu năng.
 
@@ -196,7 +198,9 @@ Nhiều hệ thống consensus dùng một tiến trình leader đặc biệt v�
 
 Hình 23-6. Tác động của khoảng cách tới một tiến trình server lên độ trễ cảm nhận tại client
 
-<a id="multi-paxos-luon-tin-nhan-chi-tiet"></a>## Multi-Paxos: Luồng Tin Nhắn Chi Tiết (Multi-Paxos: Detailed Message Flow)
+<a id="multi-paxos-luon-tin-nhan-chi-tiet"></a>
+
+## Multi-Paxos: Luồng Tin Nhắn Chi Tiết (Multi-Paxos: Detailed Message Flow)
 
 Giao thức Multi-Paxos dùng một *strong leader process* (tiến trình leader mạnh): trừ khi một leader chưa được bầu hoặc một sự cố xảy ra, nó chỉ cần một vòng đi-về duy nhất từ proposer đến một quorum các acceptor để đạt được consensus. Việc dùng một tiến trình leader mạnh là tối ưu xét về số tin nhắn phải truyền, và là điển hình của nhiều giao thức consensus.
 
@@ -250,7 +254,9 @@ TCP/IP slow start có lẽ không phải là vấn đề cho các tiến trình 
 
 Hình 23-9. Dùng proxy để giảm nhu cầu các client mở kết nối TCP/IP xuyên qua các khu vực
 
-<a id="suy-luan-ve-hieu-nang-fast-paxos"></a>## Suy Luận Về Hiệu Năng: Fast Paxos (Reasoning About Performance: Fast Paxos)
+<a id="suy-luan-ve-hieu-nang-fast-paxos"></a>
+
+## Suy Luận Về Hiệu Năng: Fast Paxos (Reasoning About Performance: Fast Paxos)
 
 Fast Paxos [\[Lam06\]](https://sre.google/sre-book/bibliography#Lam06) là một phiên bản của thuật toán Paxos được thiết kế để cải thiện hiệu năng của nó trên các mạng diện rộng. Dùng Fast Paxos, mỗi client có thể gửi các tin nhắn `Propose` trực tiếp đến từng thành viên của một nhóm các acceptor, thay vì thông qua một leader, như trong Classic Paxos hoặc Multi-Paxos. Ý tưởng là thay thế một phép gửi tin nhắn song song duy nhất từ client đến tất cả các acceptor trong Fast Paxos cho hai phép gửi tin nhắn trong Classic Paxos:
 

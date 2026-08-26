@@ -45,7 +45,9 @@ Joseph Bironas, một SRE từng lãnh đạo các nỗ lực khởi động (tu
 
 "Nếu chúng tôi đang kỹ thuật hóa các quy trình và giải pháp không thể tự động hóa được, chúng tôi tiếp tục phải bố trí con người để duy trì hệ thống. Nếu chúng tôi phải bố trí con người để thực hiện công việc, chúng tôi đang cho các máy móc ăn bằng máu, mồ hôi và nước mắt của con người. Hãy nghĩ đến *The Matrix* (Ma trận) với ít hiệu ứng đặc biệt hơn và nhiều Hệ thống Quản trị viên (System Administrators) bực bội hơn."
 
-<a id="gia-tri-cho-google-sre"></a>## Giá trị cho Google SRE (The Value for Google SRE)
+<a id="gia-tri-cho-google-sre"></a>
+
+## Giá trị cho Google SRE (The Value for Google SRE)
 
 Tất cả những lợi ích và đánh đổi này áp dụng cho chúng tôi cũng như cho bất kỳ ai khác, và Google quả thực có một thiên hướng mạnh mẽ về tự động hóa. Một phần sở thích đó bắt nguồn từ các thách thức business cụ thể của chúng tôi: các sản phẩm và dịch vụ mà chúng tôi chăm sóc có quy mô trải khắp hành tinh, và chúng tôi thường không có thời gian để làm cùng loại việc "giữ tay" máy móc hoặc dịch vụ phổ biến trong các tổ chức khác.<sup>[4](#fn4)</sup> Với các dịch vụ thực sự lớn, các yếu tố nhất quán, tốc độ và đáng tin cậy chi phối phần lớn các cuộc thảo luận về đánh đổi khi triển khai tự động hóa.
 
@@ -275,7 +277,9 @@ Chúng tôi cũng đã trải nghiệm các tình huống tự động hóa ch�
 
 Bạn có thể đọc các ví dụ trong chương này và quyết định rằng cần phải ở quy mô Google trước khi có bất cứ điều gì để làm với tự động hóa. Điều này là sai, vì hai lý do: tự động hóa cung cấp nhiều hơn cả tiết kiệm thời gian, nên nó đáng để triển khai trong nhiều trường hợp hơn so với một phép tính đơn giản giữa thời gian chi trả và thời gian tiết kiệm có thể gợi ý. Nhưng cách tiếp cận có đòn bẩy cao nhất thực sự nằm trong giai đoạn thiết kế: việc vận chuyển và lặp lại nhanh có thể cho phép bạn triển khai chức năng nhanh hơn, nhưng hiếm khi tạo ra một hệ thống chống chịu. Việc vận hành tự trị khó để retrofit (cài đặt lại) một cách thuyết phục vào các hệ thống đủ lớn, nhưng các thực hành tốt chuẩn trong kỹ thuật phần mềm sẽ giúp đáng kể: có các hệ thống con được tách rời, giới thiệu các API, tối thiểu hóa các tác dụng phụ, v.v.
 
-<a id="tu-dong-hoa-cho-phe-that-bai-o-quy-mo"></a>### Tự động hóa: Cho phép Thất bại ở Quy mô (Automation: Enabling Failure at Scale)
+<a id="tu-dong-hoa-cho-phe-that-bai-o-quy-mo"></a>
+
+### Tự động hóa: Cho phép Thất bại ở Quy mô (Automation: Enabling Failure at Scale)
 
 Google vận hành hơn một chục datacenter lớn của chính mình, nhưng chúng tôi cũng phụ thuộc vào các machine trong nhiều cơ sở colocation (đặt cùng chỗ) bên thứ ba (gọi tắt là "colos"). Các machine của chúng tôi trong các colo này được dùng để terminate (kết thúc) hầu hết các kết nối đến, hoặc như một cache (bộ đệm) cho Content Delivery Network (Mạng Phân phối Nội dung) của chính chúng tôi, nhằm giảm độ trễ người dùng cuối. Vào bất kỳ thời điểm nào, một số rack đang được cài đặt hoặc decommission; cả hai quy trình này phần lớn được tự động hóa. Một bước trong quá trình decommission liên quan đến việc ghi đè toàn bộ nội dung disk của tất cả các machine trong rack, sau đó một hệ thống độc lập xác minh việc xóa thành công. Chúng tôi gọi quy trình này là "Diskerase" (Xóa Ổ đĩa).
 

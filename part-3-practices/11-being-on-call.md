@@ -39,7 +39,9 @@ Nhiều đội có cả vòng on-call chính (primary) và phụ (secondary). C�
 
 Có nhiều cách để tổ chức các vòng on-call; để có phân tích chi tiết, tham khảo chương "Oncall" của [[Lim14]](https://sre.google/sre-book/bibliography#Lim14).
 
-<a id="on-call-can-bang"></a>## On-Call Cân bằng (Balanced On-Call)
+<a id="on-call-can-bang"></a>
+
+## On-Call Cân bằng (Balanced On-Call)
 
 Các đội SRE có những ràng buộc cụ thể về số lượng và chất lượng của các ca on-call. Số lượng on-call có thể đo bằng phần trăm thời gian kỹ sư dành cho nhiệm vụ on-call. Chất lượng on-call có thể đo bằng số incident (sự cố) xảy ra trong một ca on-call.
 
@@ -101,7 +103,9 @@ Cuối cùng, khi một incident xảy ra, quan trọng là đánh giá điều 
 
 Như đã đề cập trong [On-Call Cân bằng](#on-call-can-bang), SRE dành tối đa 50% thời gian cho công việc vận hành. Điều gì xảy ra nếu công việc vận hành vượt quá giới hạn này?
 
-<a id="cho-qua-nhieu-cong-viec-van-hanh"></a>## Chở quá nhiều Công việc Vận hành (Operational Overload)
+<a id="cho-qua-nhieu-cong-viec-van-hanh"></a>
+
+## Chở quá nhiều Công việc Vận hành (Operational Overload)
 
 Đội SRE và ban lãnh đạo chịu trách nhiệm đưa các mục tiêu cụ thể vào kế hoạch công việc hàng quý để đảm bảo khối lượng công việc quay về mức bền vững. Cho "vay" tạm thời một SRE giàu kinh nghiệm cho một đội đang quá tải — như thảo luận trong [Cài đặt một SRE để Phục hồi từ Chở quá nhiều Công việc Vận hành](https://sre.google/sre-book/operational-overload/) — có thể tạo đủ khoảng trống để đội tiến triển trong việc giải quyết vấn đề.
 
@@ -117,7 +121,9 @@ Trong các trường hợp cực đoan, các đội SRE có thể có tùy chọ
 
 Khả năng đàm phán lại trách nhiệm on-call giữa các đội SRE và phát triển sản phẩm cho thấy sự cân bằng quyền lực giữa các đội.<sup>[2](#fn2)</sup> Mối quan hệ làm việc này cũng là ví dụ điển hình cho cách căng thẳng lành mạnh giữa hai đội — và các giá trị họ đại diện, độ tin cậy so với tốc độ tính năng — thường được giải quyết bằng cách mang lại lợi ích lớn cho dịch vụ và, qua đó, cho toàn bộ công ty.
 
-<a id="mot-ke-thu-hiem-nguy-cho-qua-it-cong-viec-van-hanh"></a>## Một kẻ thù hiểm nguy: Chở quá ít Công việc Vận hành (A Treacherous Enemy: Operational Underload)
+<a id="mot-ke-thu-hiem-nguy-cho-qua-it-cong-viec-van-hanh"></a>
+
+## Một kẻ thù hiểm nguy: Chở quá ít Công việc Vận hành (A Treacherous Enemy: Operational Underload)
 
 On-call cho một hệ thống yên tĩnh thì tuyệt vời, nhưng sẽ ra sao nếu hệ thống quá yên tĩnh, hoặc khi SRE không on-call đủ thường xuyên? Chở quá ít công việc vận hành (operational underload) là điều không mong muốn với một đội SRE. Mất liên lạc với production trong thời gian dài có thể gây ra vấn đề về sự tự tin — cả tự tin thái quá lẫn thiếu tự tin — trong khi các khoảng trống kiến thức chỉ bị lộ ra khi một incident xảy ra.
 

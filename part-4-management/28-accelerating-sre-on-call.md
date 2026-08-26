@@ -234,7 +234,9 @@ Như một lựa chọn thay thế cho sự phức tạp của việc yêu cầu
 
 Bài tập này, mà chúng tôi thực hiện hàng quý, loại bỏ các bug mới mà chúng tôi nhiệt tình sửa chữa, vì các hệ thống của chúng tôi không phải lúc nào cũng suy giảm một cách êm ả như chúng tôi mong đợi.
 
-<a id="bang-28-2"></a>## Tài liệu như Sự Học việc (Documentation as Apprenticeship)
+<a id="bang-28-2"></a>
+
+## Tài liệu như Sự Học việc (Documentation as Apprenticeship)
 
 Nhiều đội SRE duy trì một "on-call learning checklist", là danh sách đọc và hiểu được tổ chức của các công nghệ và khái niệm liên quan đến các hệ thống họ duy trì. Học viên phải nội hóa danh sách này trước khi đủ điều kiện làm on-caller shadow. Hãy dành một lát xem lại ví dụ về on-call learning checklist ở [Bảng 28-2](#bang-28-2). Danh sách kiểm tra học tập phục vụ các mục đích khác nhau cho những người khác nhau:
 

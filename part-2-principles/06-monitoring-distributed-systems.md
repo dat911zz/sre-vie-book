@@ -119,7 +119,9 @@ Khi thu thập dữ liệu đo lường (telemetry) để debug, giám sát whit
 
 Đối với paging (gọi trực), lợi ích chính của giám sát black-box là buộc kỷ luật chỉ quấy rầy một người khi một vấn đề vừa đang tiếp diễn vừa đang góp phần vào các triệu chứng thực. Mặt khác, đối với các vấn đề chưa xảy ra nhưng sắp xảy ra, giám sát black-box khá vô dụng.
 
-<a id="bon-tin-hieu-vang"></a>## Bốn Tín hiệu Vàng (The Four Golden Signals)
+<a id="bon-tin-hieu-vang"></a>
+
+## Bốn Tín hiệu Vàng (The Four Golden Signals)
 
 Bốn tín hiệu vàng của giám sát là độ trễ (latency), traffic, lỗi (error) và độ bão hòa (saturation). Nếu bạn chỉ có thể đo bốn metrics của hệ thống hướng người dùng, hãy tập trung vào bốn cái này.
 

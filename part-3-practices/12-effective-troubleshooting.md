@@ -96,7 +96,9 @@ Việc phơi bày (exposing) trạng thái hiện tại là mánh khóe thứ ba
 
 Cuối cùng, bạn có thể thậm chí cần đo lường (instrument) một client (khách hàng) để thí nghiệm, nhằm khám phá một thành phần đang trả về gì làm phản hồi cho các yêu cầu.
 
-<a id="debug-shakespeare"></a>### Debug Shakespeare (Debugging Shakespeare)
+<a id="debug-shakespeare"></a>
+
+### Debug Shakespeare (Debugging Shakespeare)
 
 Dùng liên kết đến các kết quả giám sát hộp đen trong bug, bạn phát hiện máy dò gửi một yêu cầu HTTP GET đến endpoint `/api/search`:
 
@@ -175,7 +177,9 @@ Có một số yếu tố cần cân nhắc khi thiết kế các kiểm thử (
 
 Ghi chú rõ ràng về các ý tưởng bạn đã có, những kiểm thử đã chạy và các kết quả đã thấy.<sup>[13](#fn13)</sup> Đặc biệt khi đối phó với các trường hợp phức tạp và kéo dài, tài liệu này có thể quyết định trong việc giúp bạn nhớ chính xác điều gì đã xảy ra và ngăn việc lặp lại những bước này.<sup>[14](#fn14)</sup> Nếu bạn đã thực hiện kiểm thử chủ động bằng cách thay đổi một hệ thống — ví dụ cho một tiến trình nhiều tài nguyên hơn — việc thực hiện các thay đổi một cách có hệ thống và được ghi lại sẽ giúp bạn đưa hệ thống về cấu hình trước kiểm thử, thay vì để nó chạy trong một cấu hình hodge-podge (hỗn tạp) không xác định.
 
-<a id="cac-ket-qua-am-la-ma-phuat"></a>## Các Kết quả Âm là Ma thuật (Negative Results Are Magic)
+<a id="cac-ket-qua-am-la-ma-phuat"></a>
+
+## Các Kết quả Âm là Ma thuật (Negative Results Are Magic)
 
 *Tác giả:* Randall Bosetti
 *Biên tập:* Joan Wendt

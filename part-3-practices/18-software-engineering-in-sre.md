@@ -265,7 +265,9 @@ Phần lớn các sản phẩm phần mềm phát triển trong SRE bắt đầu
 
 Tuy nhiên, trong bất kỳ kịch bản nào trong số này — và đây là một điểm đáng nhấn mạnh — các SRE tham gia vào nỗ lực phát triển phải tiếp tục làm việc như các SRE, thay vì trở thành các developer toàn thời gian gắn vào tổ chức SRE. Việc luôn đứng trong thế giới production mang lại cho các SRE làm công việc phát triển một góc nhìn vô giá, vì họ vừa là người sáng tạo vừa là khách hàng của bất kỳ sản phẩm nào.
 
-<a id="di-den-do"></a>## Đi đến đó (Getting There)
+<a id="di-den-do"></a>
+
+## Đi đến đó (Getting There)
 
 Nếu bạn thích ý tưởng về phát triển phần mềm có tổ chức trong SRE, bạn có thể đang tự hỏi làm thế nào để đưa một mô hình phát triển phần mềm vào một tổ chức SRE vốn tập trung vào hỗ trợ production.
 

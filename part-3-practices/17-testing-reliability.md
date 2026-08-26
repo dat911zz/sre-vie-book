@@ -169,7 +169,9 @@ Một kiểm thử unit nhỏ có thể có một danh sách ngắn các phụ t
 
 Ngược lại, một kiểm thử release có thể phụ thuộc vào nhiều phần đến mức có sự phụ thuộc truyền đạt (transitive dependency) vào mọi object trong kho code. Nếu kiểm thử phụ thuộc vào một bản sao sạch của môi trường production, về nguyên tắc, mọi bản vá (patch) nhỏ đòi hỏi một vòng lặp phục hồi thảm họa (disaster recovery) đầy đủ. Các môi trường kiểm thử thực tế cố chọn các điểm phân nhánh (branch point) giữa các phiên bản và các merge. Cách này giải quyết lượng lớn nhất sự không chắc chắn phụ thuộc với số vòng lặp tối thiểu. Tất nhiên, khi một vùng không chắc chắn được giải quyết thành một lỗi, bạn cần chọn thêm các điểm phân nhánh.
 
-<a id="kiem-thu-cac-cong-cu-scale-duoc"></a>## Kiểm thử Các Công cụ Scale được (Testing Scalable Tools)
+<a id="kiem-thu-cac-cong-cu-scale-duoc"></a>
+
+## Kiểm thử Các Công cụ Scale được (Testing Scalable Tools)
 
 Với tư cách là các mảnh phần mềm, công cụ SRE cũng cần kiểm thử.<sup>[10](#fn10)</sup> Công cụ do SRE phát triển có thể thực hiện các tác vụ như:
 

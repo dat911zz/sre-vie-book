@@ -29,7 +29,7 @@ Ngược lại, một SLO 99,99% byte tốt trong một artifact 2 GB sẽ làm 
 
 Từ góc nhìn của người dùng, mỗi dịch vụ có các yêu cầu độc lập về uptime và data integrity, ngay cả khi những yêu cầu này là ngầm hiểu. Thời điểm tồi tệ nhất để bất đồng với người dùng về những yêu cầu này là sau khi dữ liệu của họ đã bị tiêu diệt!
 
-        ![srle 26in01](../assets/imgs/fig-26-1.jpg)
+![srle 26in01](../assets/imgs/fig-26-1.jpg)
 
 Hình 26-1.
 
@@ -93,7 +93,7 @@ Truyền thống, các công ty "bảo vệ" dữ liệu khỏi việc mất má
 
 "Backup" của bạn có thực sự là một lưu trữ lưu, chứ không phải phù hợp để sử dụng trong khôi phục thảm họa?
 
-        ![srle 26in02](../assets/imgs/fig-26-2.jpg)
+![srle 26in02](../assets/imgs/fig-26-2.jpg)
 
 Hình 26-2.
 
@@ -310,7 +310,9 @@ Một cách khác mà chúng ta có thể giảm thời gian thực của các c
 
 Giữa việc phân phối tải theo chiều ngang và giới hạn công việc vào các lát dọc của dữ liệu được phân tách bằng thời gian, chúng ta có thể giảm tám thập kỷ thời gian thực đó đi vài bậc độ lớn, làm cho việc khôi phục của chúng ta trở nên có liên quan.
 
-<a id="tang-thu-ba-phat-hien-som"></a>### Tầng Thứ Ba: Phát Hiện Sớm (Third Layer: Early Detection)
+<a id="tang-thu-ba-phat-hien-som"></a>
+
+### Tầng Thứ Ba: Phát Hiện Sớm (Third Layer: Early Detection)
 
 Dữ liệu "xấu" không ngồi yên chờ đợi, nó lan truyền. Các tham chiếu đến dữ liệu bị thiếu hoặc bị hỏng được sao chép, các liên kết tỏa ra, và với mỗi lần cập nhật, chất lượng tổng thể của datastore của bạn giảm xuống. Các giao dịch phụ thuộc sau đó và những thay đổi định dạng dữ liệu tiềm năng làm cho việc khôi phục từ một backup nhất định trở nên khó khăn hơn theo thời gian trôi qua. Càng sớm bạn biết về một data loss, việc khôi phục của bạn càng dễ dàng và hoàn chỉnh hơn.
 

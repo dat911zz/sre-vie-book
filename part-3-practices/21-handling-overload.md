@@ -69,7 +69,9 @@ Số lượng các yêu cầu được backend chấp nhận
 
 Trong điều kiện bình thường, hai giá trị bằng nhau. Khi backend bắt đầu từ chối traffic, số `accepts` trở nên nhỏ hơn số `requests`. Các client có thể tiếp tục phát ra yêu cầu đến backend cho đến khi `requests` lớn gấp K lần `accepts`. Một khi chạm đến ngưỡng đó, client bắt đầu tự điều chỉnh và các yêu cầu mới bị từ chối cục bộ (tức là trong client) với xác suất được tính toán trong [Xác suất từ chối yêu cầu client](#xac-suat-tu-choi-yeu-cau-client).
 
-<a id="xac-suat-tu-choi-yeu-cau-client"></a>### Xác suất từ chối yêu cầu client (Client request rejection probability)
+<a id="xac-suat-tu-choi-yeu-cau-client"></a>
+
+### Xác suất từ chối yêu cầu client (Client request rejection probability)
 
 ```
 1 - (accepts / requests)

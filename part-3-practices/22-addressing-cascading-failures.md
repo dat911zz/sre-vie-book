@@ -29,7 +29,9 @@ Chúng tôi sẽ dùng dịch vụ tìm kiếm Shakespeare được thảo luậ
 
 Thiết kế hệ thống có tính toán kỹ lưỡng nên bao quát một số kịch bản điển hình giải thích cho phần lớn các sự thất bại lan truyền.
 
-<a id="server-qua-tai"></a>## Quá tải Server (Server Overload)
+<a id="server-qua-tai"></a>
+
+## Quá tải Server (Server Overload)
 
 Nguyên nhân phổ biến nhất của các sự thất bại lan truyền là quá tải. Phần lớn các sự thất bại lan truyền được mô tả ở đây hoặc do trực tiếp server quá tải, hoặc do các dạng mở rộng hay biến thể của kịch bản này.
 
@@ -137,7 +139,9 @@ Tương tự, các server có thể có vẻ không khỏe đối với tầng c
 
 Các chính sách cân bằng tải tránh các server đã phục vụ lỗi có thể làm trầm trọng thêm vấn đề — một vài backend phục vụ một số lỗi, vì vậy chúng không đóng góp vào sức chứa khả dụng cho dịch vụ. Điều này làm tăng tải trên các server còn lại, khởi đầu hiệu ứng tuyết lăn.
 
-<a id="phong-tranh-server-qua-tai"></a>## Phòng Tránh Server Quá Tải (Preventing Server Overload)
+<a id="phong-tranh-server-qua-tai"></a>
+
+## Phòng Tránh Server Quá Tải (Preventing Server Overload)
 
 Danh sách dưới đây trình bày các chiến lược cho [việc tránh server quá tải](https://sre.google/sre-book/handling-overload/) theo thứ tự ưu tiên xấp xỉ:
 
@@ -167,7 +171,9 @@ Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra mộ
 
 Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự thất bại lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự thất bại lan truyền. Khi bạn mất những phần lớn của hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự thất bại lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
 
-<a id="quan-ly-hang-doi"></a>## Quản lý Hàng đợi (Queue Management)
+<a id="quan-ly-hang-doi"></a>
+
+## Quản lý Hàng đợi (Queue Management)
 
 Hầu hết các server thread-per-request (một thread cho mỗi yêu cầu) sử dụng một hàng đợi trước một thread pool để xử lý các yêu cầu. Các yêu cầu đến, chúng ngồi trên hàng đợi, và sau đó các thread lấy yêu cầu ra khỏi hàng đợi để thực hiện công việc thực tế (bất kỳ hành động nào được yêu cầu bởi server). Thường, nếu hàng đợi đầy, server sẽ từ chối các yêu cầu mới.
 
@@ -177,7 +183,9 @@ Các yêu cầu xếp hàng tiêu tốn bộ nhớ và làm tăng độ trễ. V
 
 Đối với một hệ thống có traffic khá ổn định theo thời gian, thường tốt hơn là giữ chiều dài hàng đợi nhỏ so với kích thước thread pool (ví dụ, 50% hoặc ít hơn), để server có thể từ chối các yêu cầu sớm khi nó không thể duy trì tỷ lệ các yêu cầu đến. Ví dụ, Gmail thường dùng các server không có hàng đợi, thay vào đó dựa vào việc failover sang các server task khác khi các thread đầy. Ở đầu kia của phổ, các hệ thống với tải “bursty” (bùng phát) — nơi các mẫu traffic dao động mạnh — có thể hoạt động tốt hơn với một kích thước hàng đợi dựa trên số thread hiện tại đang được dùng, thời gian xử lý cho mỗi yêu cầu, và kích thước cùng tần suất của các đợt bùng phát.
 
-<a id="ganh-nhe-tai-va-suy-giam-nhe-nhan"></a>## Gánh nhẹ Tải và Suy giảm Nhẹ nhàng (Load Shedding and Graceful Degradation)
+<a id="ganh-nhe-tai-va-suy-giam-nhe-nhan"></a>
+
+## Gánh nhẹ Tải và Suy giảm Nhẹ nhàng (Load Shedding and Graceful Degradation)
 
 *Gánh nhẹ tải (Load shedding)* bỏ đi một phần tải bằng cách loại bỏ traffic khi server tiếp cận các điều kiện quá tải. Mục tiêu là giữ cho server không bị cạn RAM, thất bại các kiểm tra sức khỏe, phục vụ với độ trễ cực kỳ cao, hoặc bất kỳ triệu chứng nào khác liên quan đến quá tải, trong khi vẫn làm được nhiều công việc hữu ích nhất có thể.
 
@@ -268,7 +276,9 @@ Khi phát ra các retries tự động, hãy lưu ý các cân nhắc sau:
 
 Trong một tình huống khẩn cấp, có thể không rõ ràng rằng một outage là do hành vi retry tồi. Các biểu đồ về tỷ lệ retry có thể là một dấu hiệu của hành vi retry tồi, nhưng có thể bị nhầm lẫn như một triệu chứng thay vì một nguyên nhân cộng hưởng. Về mặt giảm nhẹ, đây là một trường hợp đặc biệt của vấn đề sức chứa không đủ, với lưu ý bổ sung rằng bạn phải hoặc sửa hành vi retry (thường đòi hỏi một code push), giảm tải đáng kể, hoặc cắt đứt các yêu cầu hoàn toàn.
 
-<a id="do-ley-va-deadline"></a>## Độ trễ và Deadline (Latency and Deadlines)
+<a id="do-ley-va-deadline"></a>
+
+## Độ trễ và Deadline (Latency and Deadlines)
 
 Khi một frontend gửi một RPC đến một server backend, frontend tiêu tốn tài nguyên để chờ một phản hồi. Các deadline RPC xác định một yêu cầu có thể chờ bao lâu trước khi frontend bỏ cuộc, qua đó giới hạn thời gian mà backend có thể tiêu tốn tài nguyên của frontend.
 
@@ -420,7 +430,9 @@ Một số hệ điều hành cluster cho phép overcommitment (cam kết vượ
 
 Việc phụ thuộc vào slack CPU này như lưới an toàn của bạn là nguy hiểm. Sự khả dụng của nó hoàn toàn phụ thuộc vào hành vi của các job (công việc) khác trong cluster, vì vậy nó có thể đột ngột mất đi bất kỳ lúc nào. Ví dụ, nếu một đội khởi chạy một MapReduce tiêu thụ nhiều CPU và được lên lịch trên nhiều máy, tổng lượng slack CPU có thể đột ngột giảm và kích hoạt các điều kiện thiếu CPU cho các job không liên quan. Khi thực hiện các kiểm thử tải, hãy chắc chắn rằng bạn vẫn nằm trong các giới hạn tài nguyên đã cam kết.
 
-<a id="kiem-thu-cho-cac-su-that-bai-lan-truyen"></a>## Kiểm thử cho các Sự thất bại Lan truyền (Testing for Cascading Failures)
+<a id="kiem-thu-cho-cac-su-that-bai-lan-truyen"></a>
+
+## Kiểm thử cho các Sự thất bại Lan truyền (Testing for Cascading Failures)
 
 Các cách cụ thể mà một dịch vụ sẽ thất bại có thể rất khó dự đoán từ các nguyên lý cơ bản. Phần này thảo luận các chiến lược kiểm thử có thể phát hiện xem các dịch vụ có dễ bị tổn thương trước các sự thất bại lan truyền hay không.
 

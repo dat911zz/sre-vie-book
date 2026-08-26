@@ -16,15 +16,35 @@
     .markdown-section {
       font-size: 18px;
       line-height: 1.75;
+      max-width: 700px;
+    }
+    /* vue.css ghi đè line-height về 1.6rem (25.6px, tỷ lệ 1.42) cho riêng p/ul/ol
+       — chật với dấu tiếng Việt, khiến rule 1.75 phía trên không có tác dụng thực. */
+    .markdown-section p, .markdown-section ul, .markdown-section ol {
+      line-height: 1.75;
     }
     .markdown-section h1 { font-size: 2.2em; }
     .markdown-section h2 { font-size: 1.75em; }
     .markdown-section h3 { font-size: 1.4em; }
     .sidebar { font-size: 15px; }
 
-    /* Figure image + caption: every image sits in its own <p>, immediately
-       followed by a caption <p> starting with a [Hinh/Bang X-Y.](#anchor) link.
-       Center both and de-emphasize the caption to read like a real figure caption. */
+    /* vue.css để code nhỏ hơn hẳn (0.8rem ≈ 12.8px) so với chữ thường 18px. */
+    .markdown-section code, .markdown-section pre > code {
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 600px) {
+      .markdown-section { max-width: none; padding: 24px 16px 40px; }
+      .markdown-section h1 { font-size: 1.7em; }
+      .markdown-section h2 { font-size: 1.4em; }
+      .markdown-section table { font-size: 15px; }
+      .markdown-section th, .markdown-section td { padding: 6px 10px; }
+    }
+
+    /* Figure image + caption: mỗi hình thật đều có <a id="hinh-..."> trong cùng
+       <p> với ảnh (do pipeline dịch chèn anchor cho mọi hình/bảng có chú thích).
+       2 hình công thức ở chương 3 không có anchor này — cố tình loại trừ để
+       đoạn văn thường theo sau không bị dính nhầm style caption (xám, canh giữa). */
     .markdown-section p:has(> img) {
       text-align: center;
       margin: 2.2em 0;
@@ -32,12 +52,12 @@
     .markdown-section p:has(> img) > img {
       max-width: 85%;
     }
-    .markdown-section p:has(> img) + p {
+    .markdown-section p:has(> a[id]):has(> img) + p {
       text-align: center;
       font-size: 0.9em;
       color: #555;
     }
-    .markdown-section p:has(> img) + p a {
+    .markdown-section p:has(> a[id]):has(> img) + p a {
       font-weight: 600;
       color: #444;
     }
@@ -53,6 +73,16 @@
       margin: 1.4em 0 0.3em;
       padding-bottom: 0;
       border-bottom: none;
+    }
+
+    /* Theme vue mặc định tô <em> màu xám đậm (#7f8c8d, tương phản thấp trên nền
+       trắng) thay vì chỉ in nghiêng — khiến những cụm in nghiêng dài khó đọc,
+       trông như tách khối riêng khỏi đoạn văn. Dùng opacity thay vì màu cố định
+       để vẫn hơi nhạt hơn chữ thường (còn cảm giác emphasis) nhưng đủ tương phản
+       để đọc, và tự thích ứng theo cả light/dark mode. */
+    .markdown-section em {
+      color: inherit;
+      opacity: 0.82;
     }
 
     /* Chapter epigraph: metadata blockquote is always #1 (Nguyen ban/Nguon/Ban dich),
@@ -77,63 +107,112 @@
       margin-top: 0.4em;
     }
 
-    /* Dark mode: this is a 300+ page book, realistically read at night. */
-    @media (prefers-color-scheme: dark) {
-      body { background: #1a1a1a; }
-      .content, .markdown-section { background: #1a1a1a; color: #d4d4d4; }
-      .markdown-section h1, .markdown-section h2, .markdown-section h3 {
-        color: #eaeaea;
-        border-bottom-color: #333;
-      }
-      .markdown-section h4 { color: #b8c4d0; }
-      .markdown-section strong { color: #f0f0f0; }
-      .markdown-section a { color: #6ea8ff; }
-      .markdown-section code {
-        background: #2a2a2a;
-        color: #e6c07b;
-      }
-      .markdown-section pre {
-        background: #202020 !important;
-      }
-      .markdown-section pre > code {
-        background: transparent;
-        color: #d4d4d4;
-      }
-      .markdown-section blockquote {
-        color: #aaa;
-        border-left-color: #444;
-      }
-      .markdown-section table tr {
-        background: #1a1a1a;
-        border-top-color: #333;
-      }
-      .markdown-section table tr:nth-child(2n) {
-        background: #222;
-      }
-      .markdown-section table td, .markdown-section table th {
-        border-color: #333;
-      }
-      .sidebar {
-        background: #1f1f1f;
-        border-color: #333;
-      }
-      .sidebar-nav a { color: #bbb; }
-      .sidebar-nav a.active { color: #6ea8ff; }
-      .sidebar-nav strong { color: #eee; }
-      .app-name-link, .app-name-link:hover { color: #eee; }
-      .search input {
-        background: #2a2a2a;
-        color: #eee;
-        border-color: #444;
-      }
-      .search .matching-post { border-bottom-color: #333; }
-      .search h2 { color: #eaeaea; }
-      .search .clear-button.show svg circle { fill: #555; }
-      .markdown-section p:has(> img) + p { color: #999; }
-      .markdown-section p:has(> img) + p a { color: #ccc; }
-      .markdown-section blockquote:nth-of-type(2) p:last-child:not(:first-child) { color: #999; }
+    /* Nút chuyển sáng/tối thủ công — góc trên phải, luôn nổi trên nội dung. */
+    #theme-toggle {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 30;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(128, 128, 128, .3);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
     }
+
+    /* Dark mode: sách 300+ trang, đọc ban đêm là chuyện thật. Áp qua class
+       html.dark (đặt bởi script phía dưới) thay vì @media, để có nút chuyển
+       thủ công — ưu tiên lựa chọn của người đọc hơn setting của OS.
+       Bảng màu: nền ngả xanh xám (#1e2124) thay vì đen tuyền, contrast chữ
+       thường ~10:1 (không quá 11-12:1 dễ chói/loá khi đọc lâu trên màn OLED). */
+    html.dark { color-scheme: dark; }
+    html:not(.dark) { color-scheme: light; }
+    html.dark body { background: #1e2124; }
+    html.dark .content, html.dark .markdown-section { background: #1e2124; color: #c9ced6; }
+    html.dark .markdown-section h1, html.dark .markdown-section h2, html.dark .markdown-section h3 {
+      color: #e6e9ed;
+      border-bottom-color: #34383d;
+    }
+    html.dark .markdown-section h4 { color: #b8c4d0; }
+    html.dark .markdown-section strong { color: #e6e9ed; }
+    html.dark .markdown-section a { color: #6ea8ff; }
+    html.dark .markdown-section code {
+      background: #2b2f33;
+      color: #e6c07b;
+    }
+    html.dark .markdown-section pre {
+      background: #232629 !important;
+    }
+    html.dark .markdown-section pre > code {
+      background: transparent;
+      color: #c9ced6;
+    }
+    html.dark .markdown-section blockquote {
+      color: #a8b0b9;
+      border-left-color: #3d4248;
+    }
+    html.dark .markdown-section table tr {
+      background: #1e2124;
+      border-top-color: #34383d;
+    }
+    html.dark .markdown-section table tr:nth-child(2n) {
+      background: #232629;
+    }
+    html.dark .markdown-section table td, html.dark .markdown-section table th {
+      border-color: #34383d;
+    }
+    html.dark .sidebar {
+      background: #1a1d20;
+      border-color: #34383d;
+    }
+    html.dark .sidebar-toggle { background: rgba(30, 33, 36, .85); }
+    html.dark .sidebar-nav a { color: #b3bac2; }
+    html.dark .sidebar-nav a.active { color: #6ea8ff; }
+    html.dark .sidebar-nav strong { color: #e6e9ed; }
+    html.dark .app-name-link, html.dark .app-name-link:hover { color: #e6e9ed; }
+    html.dark .search input {
+      background: #2b2f33;
+      color: #e6e9ed;
+      border-color: #3d4248;
+    }
+    html.dark .search .matching-post { border-bottom-color: #34383d; }
+    html.dark .search h2 { color: #e6e9ed; }
+    html.dark .search .clear-button.show svg circle { fill: #555; }
+    html.dark .docsify-pagination-container { border-top-color: #34383d; }
+    html.dark #theme-toggle {
+      background: rgba(43, 47, 51, .9);
+      border-color: #3d4248;
+    }
+    /* Ảnh nội dung (hình/biểu đồ, đa số nền PNG trong suốt + chữ đen) gần như
+       vô hình trên nền tối — lót nền trắng để vẫn đọc được. */
+    html.dark .markdown-section img { background: #fff; padding: 8px 10px; border-radius: 6px; }
+    html.dark .markdown-section p:has(> a[id]):has(> img) + p { color: #9aa2ad; }
+    html.dark .markdown-section p:has(> a[id]):has(> img) + p a { color: #c9ced6; }
+    html.dark .markdown-section blockquote:nth-of-type(2) p:first-child { color: #6ea8ff; }
+    html.dark .markdown-section blockquote:nth-of-type(2) p:last-child:not(:first-child) { color: #9aa2ad; }
   </style>
+  <!-- Chạy sync trước khi render body để tránh flash sai theme (FOUC).
+       Ưu tiên lựa chọn thủ công đã lưu trong localStorage; nếu chưa chọn thì theo OS. -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme'); // 'dark' | 'light' | null = theo OS
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      function apply(dark) { document.documentElement.classList.toggle('dark', dark); }
+      apply(saved ? saved === 'dark' : mq.matches);
+      mq.addEventListener('change', function (e) {
+        if (!localStorage.getItem('theme')) apply(e.matches);
+      });
+      window.__toggleTheme = function () {
+        var dark = !document.documentElement.classList.contains('dark');
+        apply(dark);
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        return dark;
+      };
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>
@@ -157,7 +236,23 @@
       pagination: {
         crossChapter: true,
         crossChapterText: true
-      }
+      },
+      plugins: [
+        function (hook) {
+          hook.mounted(function () {
+            if (document.getElementById('theme-toggle')) return;
+            var btn = document.createElement('button');
+            btn.id = 'theme-toggle';
+            btn.setAttribute('aria-label', 'Chuyển giao diện sáng/tối');
+            var setIcon = function () {
+              btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+            };
+            setIcon();
+            btn.onclick = function () { window.__toggleTheme(); setIcon(); };
+            document.body.appendChild(btn);
+          });
+        }
+      ]
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
