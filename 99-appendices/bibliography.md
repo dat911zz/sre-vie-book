@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Bibliography](https://sre.google/sre-book/bibliography/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

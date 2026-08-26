@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 22 - Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

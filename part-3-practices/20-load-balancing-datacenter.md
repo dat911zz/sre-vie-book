@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 20 - Load Balancing in the Datacenter](https://sre.google/sre-book/load-balancing-datacenter/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

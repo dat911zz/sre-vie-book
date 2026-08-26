@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Chapter 26 - Data Integrity: What You Read Is What You Wrote](https://sre.google/sre-book/data-integrity/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

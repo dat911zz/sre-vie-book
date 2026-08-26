@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 14 - Managing Incidents](https://sre.google/sre-book/managing-incidents/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

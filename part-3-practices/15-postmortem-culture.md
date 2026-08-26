@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 15 - Postmortem Culture: Learning from Failure](https://sre.google/sre-book/postmortem-culture/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

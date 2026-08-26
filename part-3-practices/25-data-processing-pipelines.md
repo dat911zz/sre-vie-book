@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Chapter 25 - Data Processing Pipelines](https://sre.google/sre-book/data-processing-pipelines/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

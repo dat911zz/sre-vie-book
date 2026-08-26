@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 5 - Eliminating Toil](https://sre.google/sre-book/eliminating-toil/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

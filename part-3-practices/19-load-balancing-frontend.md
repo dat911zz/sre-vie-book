@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 19 - Load Balancing at the Frontend](https://sre.google/sre-book/load-balancing-frontend/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

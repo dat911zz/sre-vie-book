@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 1 - Introduction](https://sre.google/sre-book/introduction/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

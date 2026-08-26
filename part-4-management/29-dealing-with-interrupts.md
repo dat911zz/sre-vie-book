@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 29 - Dealing with Interrupts](https://sre.google/sre-book/dealing-with-interrupts/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

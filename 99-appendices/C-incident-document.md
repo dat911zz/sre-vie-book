@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Appendix C. Example Incident State Document](https://sre.google/sre-book/incident-document/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

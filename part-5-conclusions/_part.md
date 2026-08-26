@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Part V - Conclusions](https://sre.google/sre-book/part-V-conclusions/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Part IV - Management](https://sre.google/sre-book/part-IV-management/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

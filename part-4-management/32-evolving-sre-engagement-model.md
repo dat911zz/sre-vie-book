@@ -2,7 +2,7 @@
 
 > **Nguyên bản:** [Chapter 32 - The Evolving SRE Engagement Model](https://sre.google/sre-book/evolving-sre-engagement-model/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 

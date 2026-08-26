@@ -1,6 +1,6 @@
 > **Nguyên bản:** [Appendix B. A Collection of Best Practices for Production Services](https://sre.google/sre-book/service-best-practices/)
 > **Nguồn:** Google SRE Book (O'Reilly)
-> **Bản dịch tiếng Việt** (Đội biên tập Softdreams RnD)
+> **Bản dịch tiếng Việt** (Thực hiện bởi Đội ngũ R&D Softdreams)
 
 ---
 
