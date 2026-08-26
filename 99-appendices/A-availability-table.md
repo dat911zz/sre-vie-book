@@ -10,16 +10,16 @@
 
 <a id="bang-a-1"></a>Bảng 1-1. Bảng độ khả dụng
 
-**Mức độ khả dụng** | (Cửa sổ không khả dụng được phép) | **mỗi năm** | **mỗi quý** | **mỗi tháng** | **mỗi tuần** | **mỗi ngày** | **mỗi giờ**
---- | --- | --- | --- | --- | --- | --- | ---
-90% | | 36.5 ngày | 9 ngày | 3 ngày | 16.8 giờ | 2.4 giờ | 6 phút
-95% | | 18.25 ngày | 4.5 ngày | 1.5 ngày | 8.4 giờ | 1.2 giờ | 3 phút
-99% | | 3.65 ngày | 21.6 giờ | 7.2 giờ | 1.68 giờ | 14.4 phút | 36 giây
-99.5% | | 1.83 ngày | 10.8 giờ | 3.6 giờ | 50.4 phút | 7.20 phút | 18 giây
-99.9% | | 8.76 giờ | 2.16 giờ | 43.2 phút | 10.1 phút | 1.44 phút | 3.6 giây
-99.95% | | 4.38 giờ | 1.08 giờ | 21.6 phút | 5.04 phút | 43.2 giây | 1.8 giây
-99.99% | | 52.6 phút | 12.96 phút | 4.32 phút | 60.5 giây | 8.64 giây | 0.36 giây
-99.999% | | 5.26 phút | 1.30 phút | 25.9 giây | 6.05 giây | 0.87 giây | 0.04 giây
+**Mức độ khả dụng** (Cửa sổ không khả dụng được phép) | **mỗi năm** | **mỗi quý** | **mỗi tháng** | **mỗi tuần** | **mỗi ngày** | **mỗi giờ**
+--- | --- | --- | --- | --- | --- | ---
+90% | 36.5 ngày | 9 ngày | 3 ngày | 16.8 giờ | 2.4 giờ | 6 phút
+95% | 18.25 ngày | 4.5 ngày | 1.5 ngày | 8.4 giờ | 1.2 giờ | 3 phút
+99% | 3.65 ngày | 21.6 giờ | 7.2 giờ | 1.68 giờ | 14.4 phút | 36 giây
+99.5% | 1.83 ngày | 10.8 giờ | 3.6 giờ | 50.4 phút | 7.20 phút | 18 giây
+99.9% | 8.76 giờ | 2.16 giờ | 43.2 phút | 10.1 phút | 1.44 phút | 3.6 giây
+99.95% | 4.38 giờ | 1.08 giờ | 21.6 phút | 5.04 phút | 43.2 giây | 1.8 giây
+99.99% | 52.6 phút | 12.96 phút | 4.32 phút | 60.5 giây | 8.64 giây | 0.36 giây
+99.999% | 5.26 phút | 1.30 phút | 25.9 giây | 6.05 giây | 0.87 giây | 0.04 giây
 
 Sử dụng một chỉ số không khả dụng tổng hợp (tức là "*X*% tổng số các thao tác đã thất bại") hữu dụng hơn so với việc chỉ tập trung vào độ dài của các sự cố, đối với những dịch vụ có thể chỉ khả dụng một phần — chẳng hạn, do có nhiều bản sao (replica) mà chỉ một số trong số chúng không khả dụng — và đối với những dịch vụ mà tải thay đổi trong suốt một ngày hoặc một tuần thay vì giữ nguyên không đổi.
 
