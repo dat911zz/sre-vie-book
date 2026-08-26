@@ -1,0 +1,171 @@
+<!-- Google SRE Book (bản dịch tiếng Việt) — Docsify viewer, không cần build -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Site Reliability Engineering (Bản dịch tiếng Việt)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="Google SRE Book - bản dịch tiếng Việt, đọc trực tuyến">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    :root { --theme-color: #4078c0; }
+    .markdown-section img { max-width: 100%; }
+    .app-name-link img { display: none; }
+
+    /* Cỡ chữ tổng thể lớn hơn mặc định của theme vue (15px) — đọc sách dài đỡ mỏi mắt. */
+    .markdown-section {
+      font-size: 18px;
+      line-height: 1.75;
+    }
+    .markdown-section h1 { font-size: 2.2em; }
+    .markdown-section h2 { font-size: 1.75em; }
+    .markdown-section h3 { font-size: 1.4em; }
+    .sidebar { font-size: 15px; }
+
+    /* Figure image + caption: every image sits in its own <p>, immediately
+       followed by a caption <p> starting with a [Hinh/Bang X-Y.](#anchor) link.
+       Center both and de-emphasize the caption to read like a real figure caption. */
+    .markdown-section p:has(> img) {
+      text-align: center;
+      margin: 2.2em 0;
+    }
+    .markdown-section p:has(> img) > img {
+      max-width: 85%;
+    }
+    .markdown-section p:has(> img) + p {
+      text-align: center;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .markdown-section p:has(> img) + p a {
+      font-weight: 600;
+      color: #444;
+    }
+
+    /* Glossary/definition-term headings (converted from the book's term-then-
+       description pattern, e.g. "Cảnh báo (Alerts)"). Deliberately NOT styled
+       like a real h3 section: smaller, non-theme color, tight to the paragraph
+       below it, so it reads as "this defines a term" not "new topic starts here". */
+    .markdown-section h4 {
+      font-size: 1.05em;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 1.4em 0 0.3em;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* Chapter epigraph: metadata blockquote is always #1 (Nguyen ban/Nguon/Ban dich),
+       the quote+attribution blockquote (when a chapter has one) is always #2. */
+    .markdown-section blockquote:nth-of-type(2) {
+      border-left: none;
+      text-align: center;
+      margin: 2em auto;
+      padding: 0.5em 2em;
+    }
+    .markdown-section blockquote:nth-of-type(2) p:first-child {
+      font-size: 1.3em;
+      font-style: italic;
+      color: var(--theme-color);
+    }
+    .markdown-section blockquote:nth-of-type(2) p:first-child::before { content: "\201C"; }
+    .markdown-section blockquote:nth-of-type(2) p:first-child::after { content: "\201D"; }
+    .markdown-section blockquote:nth-of-type(2) p:last-child:not(:first-child) {
+      font-size: 0.85em;
+      font-style: normal;
+      color: #888;
+      margin-top: 0.4em;
+    }
+
+    /* Dark mode: this is a 300+ page book, realistically read at night. */
+    @media (prefers-color-scheme: dark) {
+      body { background: #1a1a1a; }
+      .content, .markdown-section { background: #1a1a1a; color: #d4d4d4; }
+      .markdown-section h1, .markdown-section h2, .markdown-section h3 {
+        color: #eaeaea;
+        border-bottom-color: #333;
+      }
+      .markdown-section h4 { color: #b8c4d0; }
+      .markdown-section strong { color: #f0f0f0; }
+      .markdown-section a { color: #6ea8ff; }
+      .markdown-section code {
+        background: #2a2a2a;
+        color: #e6c07b;
+      }
+      .markdown-section pre {
+        background: #202020 !important;
+      }
+      .markdown-section pre > code {
+        background: transparent;
+        color: #d4d4d4;
+      }
+      .markdown-section blockquote {
+        color: #aaa;
+        border-left-color: #444;
+      }
+      .markdown-section table tr {
+        background: #1a1a1a;
+        border-top-color: #333;
+      }
+      .markdown-section table tr:nth-child(2n) {
+        background: #222;
+      }
+      .markdown-section table td, .markdown-section table th {
+        border-color: #333;
+      }
+      .sidebar {
+        background: #1f1f1f;
+        border-color: #333;
+      }
+      .sidebar-nav a { color: #bbb; }
+      .sidebar-nav a.active { color: #6ea8ff; }
+      .sidebar-nav strong { color: #eee; }
+      .app-name-link, .app-name-link:hover { color: #eee; }
+      .search input {
+        background: #2a2a2a;
+        color: #eee;
+        border-color: #444;
+      }
+      .search .matching-post { border-bottom-color: #333; }
+      .search h2 { color: #eaeaea; }
+      .search .clear-button.show svg circle { fill: #555; }
+      .markdown-section p:has(> img) + p { color: #999; }
+      .markdown-section p:has(> img) + p a { color: #ccc; }
+      .markdown-section blockquote:nth-of-type(2) p:last-child:not(:first-child) { color: #999; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'SRE Book (VI)',
+      homepage: 'toc.md',
+      loadSidebar: '_sidebar.md',
+      subMaxLevel: 0,
+      auto2top: true,
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Tìm trong sách...',
+        noData: 'Không tìm thấy kết quả.',
+        depth: 3
+      },
+      pagination: {
+        crossChapter: true,
+        crossChapterText: true
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- Locally patched copy of docsify's search plugin: upstream strips Vietnamese
+       diacritics for matching but then also uses the stripped text for display.
+       This patch keeps the accent-insensitive matching but shows the original
+       accented title/snippet. See assets/js/search-vi.js for the diff. -->
+  <script src="assets/js/search-vi.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+> **Nguyên bản:** [Bibliography](https://sre.google/sre-book/bibliography/)
+> **Nguồn:** Google SRE Book (O'Reilly)
+> **Bản dịch tiếng Việt** (do AI hỗ trợ)
+
+---
+
+## Thư mục tham khảo (Bibliography)
+
+- [Ada15] Bram Adams, Stephany Bellomo, Christian Bird, Tamara Marshall-Keim, Foutse Khomh, and Kim Moir, ["The Practice and Future of Release Engineering: A Roundtable with Three Release Engineers"](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=434819), *IEEE Software*, vol. 32, no. 2 (March/April 2015), pp. 42–49.
+- [Agu10] M. K. Aguilera, ["Stumbling over Consensus Research: Misunderstandings and Issues"](https://dl.acm.org/citation.cfm?id=2172342), in *Replication*, Lecture Notes in Computer Science 5959, 2010.
+- [All10] J. Allspaw and J. Robbins, *Web Operations: Keeping the Data on Time*: O’Reilly, 2010.
+- [All12] J. Allspaw, ["Blameless PostMortems and a Just Culture"](https://codeascraft.com/2012/05/22/blameless-postmortems/), blog post, 2012.
+- [All15] J. Allspaw, ["Trade-Offs Under Pressure: Heuristics and Observations of Teams Resolving Internet Service Outages"](https://lup.lub.lu.se/student-papers/record/8084520/file/8084521.pdf), MSc thesis, Lund University, 2015.
+- [Ana07] S. Anantharaju, ["Automating web application security testing"](https://googleonlinesecurity.blogspot.com/2007/07/automating-web-application-security.html), blog post, July 2007.
+- [Ana13] R. Ananatharayan et al., ["Photon: Fault-tolerant and Scalable Joining of Continuous Data Streams"](https://research.google.com/pubs/pub41318.html), in *SIGMOD '13*, 2013.
+- [And05] A. Andrieux, K. Czajkowski, A. Dan, et al., ["Web Services Agreement Specification (WS-Agreement)"](https://www.ogf.org/documents/GFD.107.pdf), September 2005.
+- [Bai13] P. Bailis and A. Ghodsi, ["Eventual Consistency Today: Limitations, Extensions, and Beyond"](https://dl.acm.org/citation.cfm?id=2462076), in *ACM Queue*, vol. 11, no. 3, 2013.
+- [Bai83] L. Bainbridge, ["Ironies of Automation"](https://dx.doi.org/10.1016/0005-1098(83)90046-8), in *Automatica*, vol. 19, no. 6, November 1983.
+- [Bak11] J. Baker et al., ["Megastore: Providing Scalable, Highly Available Storage for Interactive Services"](https://research.google.com/pubs/pub36971.html), in *Proceedings of the Conference on Innovative Data System Research*, 2011.
+- [Bar11] L. A. Barroso, ["Warehouse-Scale Computing: Entering the Teenage Decade"](https://dl.acm.org/citation.cfm?id=2019527), talk at 38th Annual Symposium on Computer Architecture, video available online, 2011.
+- [Bar13] L. A. Barroso, J. Clidaras, and U. Hölzle, [*The Datacenter as a Computer: An Introduction to the Design of Warehouse-Scale Machines, Second Edition*](https://research.google.com/pubs/pub41606.html), Morgan & Claypool, 2013.
+- [Ben12] C. Bennett and A. Tseitlin, ["Chaos Monkey Released Into The Wild"](https://techblog.netflix.com/2012/07/chaos-monkey-released-into-wild.html), blog post, July 2012.
+- [Bla14] M. Bland, ["Goto Fail, Heartbleed, and Unit Testing Culture"](https://martinfowler.com/articles/testing-culture.html), blog post, June 2014.
+- [Boc15] L. Bock, [*Work Rules!*](https://www.workrules.net), Twelve Books, 2015.
+- [Bol11] W. J. Bolosky, D. Bradshaw, R. B. Haagens, N. P. Kusters, and P. Li, ["Paxos Replicated State Machines as the Basis of a High-Performance Data Store"](https://www.usenix.org/legacy/event/nsdi11/tech/full_papers/Bolosky.pdf), in *Proc. NSDI 2011*, 2011.
+- [Boy13] P. G. Boysen, ["Just Culture: A Foundation for Balanced Accountability and Patient Safety"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3776518/), in *The Ochsner Journal*, Fall 2013.
+- [Bra15] VM Brasseur, ["Failure: Why it happens & How to benefit from it"](https://youtu.be/DLn4fZsZsKM?t=29m05s), YAPC 2015.
+- [Bre01] E. Brewer, ["Lessons From Giant-Scale Services"](https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=939450), in *IEEE Internet Computing*, vol. 5, no. 4, July / August 2001.
+- [Bre12] E. Brewer, ["CAP Twelve Years Later: How the "Rules" Have Changed"](https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6133253), in *Computer*, vol. 45, no. 2, February 2012.
+- [Bro15] M. Brooker, ["Exponential Backoff and Jitter"](https://www.awsarchitectureblog.com/2015/03/backoff.html), on *AWS Architecture Blog*, March 2015.
+- [Bro95] F. P. Brooks Jr., "No Silver Bullet—Essence and Accidents of Software Engineering", in *The Mythical Man-Month*, Boston: Addison-Wesley, 1995, pp. 180–186.
+- [Bru09] J. Brutlag, ["Speed Matters"](https://googleresearch.blogspot.com/2009/06/speed-matters.html), on *Google Research Blog*, June 2009.
+- [Bul80] G. M. Bull, *The Dartmouth Time-sharing System*: Ellis Horwood, 1980.
+- [Bur99] M. Burgess, *Principles of Network and System Administration*: Wiley, 1999.
+- [Bur06] M. Burrows, ["The Chubby Lock Service for Loosely-Coupled Distributed Systems"](https://research.google.com/archive/chubby.html), in *OSDI '06: Seventh Symposium on Operating System Design and Implementation*, November 2006.
+- [Bur16] B. Burns, B. Grant, D. Oppenheimer, E. Brewer, and J. Wilkes, ["Borg, Omega, and Kubernetes"](https://dl.acm.org/citation.cfm?id=2898444) in *ACM Queue*, vol. 14, no. 1, 2016.
+- [Cas99] M. Castro and B. Liskov, ["Practical Byzantine Fault Tolerance"](https://www.pmg.lcs.mit.edu/papers/osdi99.pdf), in *Proc. OSDI 1999*, 1999.
+- [Cha10] C. Chambers, A. Raniwala, F. Perry, S. Adams, R. Henry, R. Bradshaw, and N. Weizenbaum, ["FlumeJava: Easy, Efficient Data-Parallel Pipelines"](https://research.google.com/pubs/pub35650.html), in *ACM SIGPLAN Conference on Programming Language Design and Implementation*, 2010.
+- [Cha96] T. D. Chandra and S. Toueg, ["Unreliable Failure Detectors for Reliable Distributed Systems"](https://dl.acm.org/citation.cfm?id=226647), in *J. ACM*, 1996.
+- [Cha07] T. Chandra, R. Griesemer, and J. Redstone, ["Paxos Made Live—An Engineering Perspective"](https://research.google.com/archive/paxos_made_live.html), in *PODC '07: 26th ACM Symposium on Principles of Distributed Computing*, 2007.
+- [Cha06] F. Chang et al., ["Bigtable: A Distributed Storage System for Structured Data"](https://research.google.com/archive/bigtable.html), in *OSDI '06: Seventh Symposium on Operating System Design and Implementation*, November 2006.
+- [Chr09] G. P. Chrousous, ["Stress and Disorders of the Stress System"](https://www.ncbi.nlm.nih.gov/pubmed/19488073), in *Nature Reviews Endocrinology*, vol 5., no. 7, 2009.
+- [Clos53] C. Clos, ["A Study of Non-Blocking Switching Networks"](https://dx.doi.org/10.1002/j.1538-7305.1953.tb01433.x), in *Bell System Technical Journal*, vol. 32, no. 2, 1953.
+- [Con15] C. Contavalli, W. van der Gaast, D. Lawrence, and W. Kumari, ["Client Subnet in DNS Queries"](https://tools.ietf.org/html/draft-vandergaast-edns-client-subnet), *IETF Internet-Draft*, 2015.
+- [Con63] M. E. Conway, ["Design of a Separable Transition-Diagram Compiler"](https://dl.acm.org/citation.cfm?id=366704), in *Commun. ACM* 6, 7 (July 1963), 396–408.
+- [Con96] P. Conway, ["Preservation in the Digital World"](https://www.clir.org/pubs/reports/conway2/index.html), report published by the Council on Library and Information Resources, 1996.
+- [Coo00] R. I. Cook, ["How Complex Systems Fail"](https://web.mit.edu/2.75/resources/random/How%20Complex%20Systems%20Fail.pdf), in *Web Operations*: O’Reilly, 2010.
+- [Cor12] J. C. Corbett et al., ["Spanner: Google’s Globally-Distributed Database"](https://research.google.com/archive/spanner.html), in *OSDI '12: Tenth Symposium on Operating System Design and Implementation*, October 2012.
+- [Cra10] J. Cranmer, ["Visualizing code coverage"](https://quetzalcoatal.blogspot.com/2010/03/visualizing-code-coverage.html), blog post, March 2010.
+- [Dea13] J. Dean and L. A. Barroso, ["The Tail at Scale"](https://research.google.com/pubs/pub40801.html), in *Communications of the ACM*, vol. 56, 2013.
+- [Dea04] J. Dean and S. Ghemawat, ["MapReduce: Simplified Data Processing on Large Clusters"](https://research.google.com/archive/mapreduce.html), in *OSDI’04: Sixth Symposium on Operating System Design and Implementation*, December 2004.
+- [Dea07] J. Dean, ["Software Engineering Advice from Building Large-Scale Distributed Systems"](https://static.googleusercontent.com/media/research.google.com/en//people/jeff/stanford-295-talk.pdf), Stanford CS297 class lecture, Spring 2007.
+- [Dek02] S. Dekker, ["Reconstructing human contributions to accidents: the new view on error and performance"](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.411.4985&rep=rep1&type=pdf), in *Journal of Safety Research*, vol. 33, no. 3, 2002.
+- [Dek14] S. Dekker, *The Field Guide to Understanding "Human Error"*, 3rd edition: Ashgate, 2014.
+- [Dic14] C. Dickson, ["How Embracing Continuous Release Reduced Change Complexity"](https://usenix.org/conference/ures14west/summit-program/presentation/dickson), presentation at USENIX Release Engineering Summit West 2014, video available online.
+- [Dur05] J. Durmer and D. Dinges, ["Neurocognitive Consequences of Sleep Deprivation"](https://www.ncbi.nlm.nih.gov/pubmed/15798944), in *Seminars in Neurology*, vol. 25, no. 1, 2005.
+- [Eis16] D. E. Eisenbud et al., ["Maglev: A Fast and Reliable Software Network Load Balancer"](https://research.google.com/pubs/pub44824.html), in NSDI '16: 13th USENIX Symposium on Networked Systems Design and Implementation, March 2016.
+- [Ere03] J. R. Erenkrantz, ["Release Management Within Open Source Projects"](https://www.erenkrantz.com/Geeks/Research/Publications/ReleaseManagement.pdf), in *Proceedings of the 3rd Workshop on Open Source Software Engineering*, Portland, Oregon, May 2003.
+- [Fis85] M. J. Fischer, N. A. Lynch, and M. S. Paterson, ["Impossibility of Distributed Consensus with One Faulty Process"](https://dl.acm.org/citation.cfm?id=214121), *J. ACM*, 1985.
+- [Fit12] B. W. Fitzpatrick and B. Collins-Sussman, *Team Geek: A Software Developer’s Guide to Working Well with Others*: O’Reilly, 2012.
+- [Flo94] S. Floyd and V. Jacobson, ["The Synchronization of Periodic Routing Messages"](https://dl.acm.org/citation.cfm?id=187045), in IEEE/ACM Transactions on Networking, vol. 2, issue 2, April 1994, pp. 122–136.
+- [For10] D. Ford et al, ["Availability in Globally Distributed Storage Systems"](https://research.google.com/pubs/pub36737.html), in *Proceedings of the 9th USENIX Symposium on Operating Systems Design and Implementation*, 2010.
+- [Fox99] A. Fox and E. A. Brewer, ["Harvest, Yield, and Scalable Tolerant Systems"](https://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=798396), in *Proceedings of the 7th Workshop on Hot Topics in Operating Systems*, Rio Rico, Arizona, March 1999.
+- [Fow08] M. Fowler, ["GUI Architectures"](https://martinfowler.com/eaaDev/uiArchs.html), blog post, 2006.
+- [Gal78] J. Gall, *SYSTEMANTICS: How Systems Really Work and How They Fail*, 1st ed., Pocket, 1977.
+- [Gal03] J. Gall, *The Systems Bible: The Beginner’s Guide to Systems Large and Small*, 3rd ed., General Systemantics Press/Liberty, 2003.
+- [Gaw09] A. Gawande, *The Checklist Manifesto: How to Get Things Right*: Henry Holt and Company, 2009.
+- [Ghe03] S. Ghemawat, H. Gobioff, and S-T. Leung, ["The Google File System"](https://research.google.com/archive/gfs.html), in *19th ACM Symposium on Operating Systems Principles*, October 2003.
+- [Gil02] S. Gilbert and N. Lynch, ["Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services"](https://dl.acm.org/citation.cfm?id=564601), in *ACM SIGACT News*, vol. 33, no. 2, 2002.
+- [Gla02] R. Glass, *Facts and Fallacies of Software Engineering*, Addison-Wesley Professional, 2002.
+- [Gol14] W. Golab et al., ["Eventually Consistent: Not What You Were Expecting?"](https://dl.acm.org/citation.cfm?id=2582994), in *ACM Queue*, vol. 12, no. 1, 2014.
+- [Gra09] P. Graham, ["Maker’s Schedule, Manager’s Schedule"](https://paulgraham.com/makersschedule.html), blog post, July 2009.
+- [Gup15] A. Gupta and J. Shute, ["High-Availability at Massive Scale: Building Google’s Data Infrastructure for Ads"](https://research.google.com/pubs/pub44686.html), in *Workshop on Business Intelligence for the Real Time Enterprise*, 2015.
+- [Ham07] J. Hamilton, ["On Designing and Deploying Internet-Scale Services"](https://www.usenix.org/legacy/event/lisa07/tech/hamilton.html), in *Proceedings of the 21st Large Installation System Administration Conference*, November 2007.
+- [Han94] S. Hanks, T. Li, D. Farinacci, and P. Traina, ["Generic Routing Encapsulation over IPv4 networks"](https://tools.ietf.org/html/rfc1702), *IETF Informational RFC*, 1994.
+- [Hic11] M. Hickins, ["Tape Rescues Google in Lost Email Scare"](https://blogs.wsj.com/digits/2011/03/01/tape-rescues-google-in-lost-email-scare/), in *Digits*, *Wall Street Journal*, 1 March 2011.
+- [Hix15a] D. Hixson, ["Capacity Planning"](https://www.usenix.org/publications/login/feb15/capacity-planning), in *;login:*, vol. 40, no. 1, February 2015.
+- [Hix15b] D. Hixson, ["The Systems Engineering Side of Site Reliability Engineering"](https://www.usenix.org/publications/login/june15/hixson), in *;login:* vol. 40, no. 3, June 2015.
+- [Hod13] J. Hodges, ["Notes on Distributed Systems for Young Bloods"](https://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/), blog post, 14 January 2013.
+- [Hol14] L. Holmwood, ["Applying Cardiac Alarm Management Techniques to Your On-Call"](https://fractio.nl/2014/08/26/cardiac-alarms-and-ops/), blog post, 26 August 2014.
+- [Hum06] J. Humble, C. Read, D. North, "The Deployment Production Line", in *Proceedings of the IEEE Agile Conference*, July 2006.
+- [Hum10] J. Humble and D. Farley, *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*: Addison-Wesley, 2010.
+- [Hun10] P. Hunt, M. Konar, F. P. Junqueira, and B. Reed, ["ZooKeeper: Wait-free coordination for Internet-scale systems"](https://www.usenix.org/legacy/events/atc10/tech/full_papers/Hunt.pdf), in *USENIX ATC*, 2010.
+- [IAEA12] International Atomic Energy Agency, ["Safety of Nuclear Power Plants: Design, SSR-2/1"](https://www-pub.iaea.org/MTCD/publications/PDF/Pub1534_web.pdf), 2012.
+- [Jai13] S. Jain et al., ["B4: Experience with a Globally-Deployed Software Defined WAN"](https://doi.org/10.1145/2486001.2486019), in *SIGCOMM '13*.
+- [Jon15] C. Jones, T. Underwood, and S. Nukala, ["Hiring Site Reliability Engineers"](https://www.usenix.org/publications/login/june15/hiring-site-reliability-engineers), in *;login:*, vol. 40, no. 3, June 2015.
+- [Jun07] F. Junqueira, Y. Mao, and K. Marzullo, ["Classic Paxos vs. Fast Paxos: Caveat Emptor"](https://dl.acm.org/citation.cfm?id=1323158), in *Proc. HotDep '07*, 2007.
+- [Jun11] F. P. Junqueira, B. C. Reid, and M. Serafini, ["Zab: High-performance broadcast for primary-backup systems."](https://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5958223&tag=1), in *Dependable Systems & Networks (DSN), 2011 IEEE/IFIP 41st International Conference* on 27 Jun 2011: 245–256.
+- [Kah11] D. Kahneman, *Thinking, Fast and Slow*: Farrar, Straus and Giroux, 2011.
+- [Kar97] D. Karger et al., ["Consistent hashing and random trees: distributed caching protocols for relieving hot spots on the World Wide Web"](https://dl.acm.org/citation.cfm?id=258660), in *Proc. STOC '97*, 29th annual ACM symposium on theory of computing, 1997.
+- [Kem11] C. Kemper, ["Build in the Cloud: How the Build System Works"](https://google-engtools.blogspot.com/2011/08/build-in-cloud-how-build-system-works.html), *Google Engineering Tools* blog post, August 2011.
+- [Ken12] S. Kendrick, ["What Takes Us Down?"](https://usenix.org/publications/login/october-2012-volume-37-number-5/what-takes-us-down), in *;login:*, vol. 37, no. 5, October 2012
+- [Kinc09] Kincaid, Jason. "T-Mobile Sidekick Disaster: Danger’s Servers Crashed, And They Don’t Have A Backup." *Techcrunch*. n.p., 10 Oct. 2009. Web. 20 Jan. 2015, [*https://techcrunch.com/2009/10/10/t-mobile-sidekick-disaster-microsofts-servers-crashed-and-they-dont-have-a-backup*](https://techcrunch.com/2009/10/10/t-mobile-sidekick-disaster-microsofts-servers-crashed-and-they-dont-have-a-backup)
+- [Kin15] K. Kingsbury, ["The trouble with timestamps"](https://www.aphyr.com/posts/299-the-trouble-with-timestamps), blog post, 2013.
+- [Kir08] J. Kirsch and Y. Amir, ["Paxos for System Builders: An Overview"](https://dl.acm.org/citation.cfm?id=1529979), in *Proc. LADIS '08*, 2008.
+- [Kla12] R. Klau, ["How Google Sets Goals: OKRs"](https://library.gv.com/how-google-sets-goals-okrs-a1f69b0b72c7), blog post, October 2012.
+- [Kle06] D. V. Klein, ["A Forensic Analysis of a Distributed Two-Stage Web-Based Spam Attack"](https://www.usenix.org/legacy/event/lisa06/tech/klein/klein_html/index.html), in *Proceedings of the 20th Large Installation System Administration Conference*, December 2006.
+- [Kle14] D. V. Klein, D. M. Betser, and M. G. Monroe, ["Making *Push On Green* a Reality"](https://www.usenix.org/publications/login/october-2014-vol-39-no-5/making-push-green-reality), in *;login:*, vol. 39, no. 5, October 2014.
+- [Kra08] T. Krattenmaker, ["Make Every Meeting Matter"](https://hbr.org/2008/02/make-every-meeting-matter), in *Harvard Business Review*, February 27, 2008.
+- [Kre12] J. Kreps, ["Getting Real About Distributed System Reliability"](https://blog.empathybox.com/post/19574936361/getting-real-about-distributed-system-reliability), blog post, 19 March 2012.
+- [Kri12] K. Krishan, ["Weathering The Unexpected"](https://dl.acm.org/citation.cfm?id=2366332), in *Communications of the ACM*, vol. 55, no. 11, November 2012
+- [Kum15] A. Kumar et al., ["BwE: Flexible, Hierarchical Bandwidth Allocation for WAN Distributed Computing"](https://research.google.com/pubs/pub43838.html), in *SIGCOMM '15*.
+- [Lam98] L. Lamport, ["The Part-Time Parliament"](https://research.microsoft.com/en-us/um/people/lamport/pubs/lamport-paxos.pdf), in *ACM Transactions on Computer Systems 16, 2*, May 1998.
+- [Lam01] L. Lamport, ["Paxos Made Simple"](https://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf), in *ACM SIGACT News* 121, December 2001.
+- [Lam06] L. Lamport, ["Fast Paxos"](https://research.microsoft.com/pubs/64624/tr-2005-112.pdf), in *Distributed Computing* 19.2, October 2006.
+- [Lim14] T. A. Limoncelli, S. R. Chalup, and C. J. Hogan, *The Practice of Cloud System Administration: Designing and Operating Large Distributed Systems, Volume 2*: Addison-Wesley, 2014.
+- [Loo10] J. Loomis, "How to Make Failure Beautiful: The Art and Science of Postmortems", in *Web Operations*: O’Reilly, 2010.
+- [Lu15] H. Lu et al, ["Existential Consistency: Measuring and Understanding Consistency at Facebook"](https://sigops.org/sosp/sosp15/current/2015-Monterey/printable/240-lu.pdf), in *SOSP* '15, 2015.
+- [Mao08] Y. Mao, F. P. Junqueira, and K. Marzullo, ["Mencius: Building Efficient Replicated State Machines for WANs"](https://www.usenix.org/legacy/events/osdi08/tech/full_papers/mao/mao.pdf), in *OSDI '08*, 2008.
+- [Mas43] A. H. Maslow, "A Theory of Human Motivation", in *Psychological Review* 50(4), 1943.
+- [Mau15] B. Maurer, ["Fail at Scale"](https://dl.acm.org/citation.cfm?id=2839461), in *ACM Queue*, vol. 13, no. 12, 2015.
+- [May09] M. Mayer, ["*This site may harm your computer* on every search result?!?!"](https://googleblog.blogspot.com/2009/01/this-site-may-harm-your-computer-on.html), blog post, January 2009.
+- [McI86] M. D. McIlroy, ["A Research Unix Reader: Annotated Excerpts from the Programmer’s Manual, 1971–1986"](https://www.cs.dartmouth.edu/~doug/reader.pdf).
+- [McN13] D. McNutt, ["Maintaining Consistency in a Massively Parallel Environment"](https://www.usenix.org/conference/ucms13/summit-program/presentation/mcnutt), presentation at USENIX Configuration Management Summit 2013, video available online.
+- [McN14a] D. McNutt, ["Accelerating the Path from Dev to DevOps"](https://www.usenix.org/system/files/login/articles/05_mcnutt.pdf), in *;login:*, vol. 39, no. 2, April 2014.
+- [McN14b] D. McNutt, ["The 10 Commandments of Release Engineering"](https://www.youtube.com/watch?v=RNMjYV_UsQ8), presentation at 2nd International Workshop on Release Engineering 2014, April 2014.
+- [McN14c] D. McNutt, ["Distributing Software in a Massively Parallel Environment"](https://www.usenix.org/conference/lisa14/conference-program/presentation/mcnutt), presentation at USENIX LISA 2014, video available online.
+- [Mic03] Microsoft TechNet, "What is SNMP?", last modified March 28, 2003, [*https://technet.microsoft.com/en-us/library/cc776379%28v=ws.10%29.aspx*](https://technet.microsoft.com/en-us/library/cc776379%28v=ws.10%29.aspx).
+- [Mea08] D. Meadows, *Thinking in Systems*: Chelsea Green, 2008.
+- [Men07] P. Menage, ["Adding Generic Process Containers to the Linux Kernel"](https://www.kernel.org/doc/ols/2007/ols2007v2-pages-45-58.pdf), in *Proc. of Ottawa Linux Symposium*, 2007.
+- [Mer11] N. Merchant, ["Culture Trumps Strategy, Every Time"](https://hbr.org/2011/03/culture-trumps-strategy-every), in *Harvard Business Review*, March 22, 2011.
+- [Moc87] P. Mockapetris, ["Domain Names - Implementation and Specification"](https://tools.ietf.org/html/rfc1035), *IETF Internet Standard*, 1987.
+- [Mol86] C. Moler, "Matrix Computation on Distributed Memory Multiprocessors", in *Hypercube Multiprocessors 1986*, 1987.
+- [Mor12a] I. Moraru, D. G. Andersen, and M. Kaminsky, ["Egalitarian Paxos"](https://www.pdl.cmu.edu/PDL-FTP/associated/CMU-PDL-12-108.pdf), *Carnegie Mellon University Parallel Data Lab Technical Report CMU-PDL-12-108*, 2012.
+- [Mor14] I. Moraru, D. G. Andersen, and M. Kaminsky, ["Paxos Quorum Leases: Fast Reads Without Sacrificing Writes"](https://dl.acm.org/citation.cfm?id=2671001), in *Proc. SOCC '14*, 2014.
+- [Mor12b] J. D. Morgenthaler, M. Gridnev, R. Sauciuc, and S. Bhansali, ["Searching for Build Debt: Experiences Managing Technical Debt at Google"](https://research.google.com/pubs/pub37755.html), in *Proceedings of the 3rd Int’l Workshop on Managing Technical Debt*, 2012.
+- [Nar12] C. Narla and D. Salas, ["Hermetic Servers"](https://googletesting.blogspot.com/2012/10/hermetic-servers.html), blog post, 2012.
+- [Nel14] B. Nelson, ["The Data on Diversity"](https://dl.acm.org/citation.cfm?id=2684442.2597886), in *Communications of the ACM*, vol. 57, 2014.
+- [Nic12] K. Nichols and V. Jacobson, ["Controlling Queue Delay"](https://dl.acm.org/citation.cfm?id=2209336), in *ACM Queue*, vol. 10, no. 5, 2012.
+- [Oco12] P. O’Connor and A. Kleyner, *Practical Reliability Engineering*, 5th edition: Wiley, 2012.
+- [Ohn88] T. Ohno, *Toyota Production System: Beyond Large-Scale Production*: Productivity Press, 1988.
+- [Ong14] D. Ongaro and J. Ousterhout, ["In Search of an Understandable Consensus Algorithm (Extended Version)"](https://ramcloud.stanford.edu/raft.pdf).
+- [Pen10] D. Peng and F. Dabek, ["Large-scale Incremental Processing Using Distributed Transactions and Notifications"](https://research.google.com/pubs/pub36726.html), in *Proc. of the 9th USENIX Symposium on Operating System Design and Implementation*, November 2010.
+- [Per99] C. Perrow, *Normal Accidents: Living with High-Risk Technologies*, Princeton University Press, 1999.
+- [Per07] A. R. Perry, ["Engineering Reliability into Web Sites: Google SRE"](https://research.google.com/pubs/pub32583.html), in *Proc. of LinuxWorld 2007*, 2007.
+- [Pik05] R. Pike, S. Dorward, R. Griesemer, S. Quinlan, ["Interpreting the Data: Parallel Analysis with Sawzall"](https://research.google.com/archive/sawzall.html), in *Scientific Programming Journal* vol. 13, no. 4, 2005.
+- [Pot16] R. Potvin and J. Levenberg, ["The Motivation for a Monolithic Codebase: Why Google stores billions of lines of code in a single repository"](https://dl.acm.org/citation.cfm?id=2963119.2854146), in *Communications of the ACM*, vol. 59, no. 7, 2016. Video available on [YouTube](https://www.youtube.com/watch?v=W71BTkUbdqE).
+- [Roo04] J. J. Rooney and L. N. Vanden Heuvel, ["Root Cause Analysis for Beginners"](https://asq.org/quality-progress/2004/07/quality-tools/root-cause-analysis-for-beginners.html), in *Quality Progress*, July 2004.
+- [Sai39] A. de Saint Exupéry, *Terre des Hommes* (Paris: Le Livre de Poche, 1939, in translation by Lewis Galantière as *Wind, Sand and Stars*.
+- [Sam14] R. R. Sambasivan, R. Fonseca, I. Shafer, and G. R. Ganger, ["So, You Want To Trace Your Distributed System? Key Design Insights from Years of Practical Experience"](https://pdl.cmu.edu/PDL-FTP/SelfStar/CMU-PDL-14-102_abs.shtml), Carnegie Mellon University Parallel Data Lab Technical Report CMU-PDL-14-102, 2014.
+- [San11] N. Santos and A. Schiper, ["Tuning Paxos for High-Throughput with Batching and Pipelining"](https://rd.springer.com/chapter/10.1007%2F978-3-642-25959-3_11), in *13th Int’l Conf. on Distributed Computing and Networking*, 2012.
+- [Sar97] N. B. Sarter, D. D. Woods, and C. E. Billings, "Automation Surprises", in *Handbook of Human Factors & Ergonomics*, 2nd edition, G. Salvendy (ed.), Wiley, 1997.
+- [Sch14] E. Schmidt, J. Rosenberg, and A. Eagle, [*How Google Works*](https://www.howgoogleworks.net): Grand Central Publishing, 2014.
+- [Sch15] B. Schwartz, ["The Factors That Impact Availability, Visualized"](https://www.vividcortex.com/blog/the-factors-that-impact-availability-visualized), blog post, 21 December 2015.
+- [Sch90] F. B. Schneider, ["Implementing Fault-Tolerant Services Using the State Machine Approach: A Tutorial"](https://dl.acm.org/citation.cfm?id=98167), in *ACM Computing Surveys*, vol. 22, no. 4, 1990.
+- [Sec13] Securities and Exchange Commission, ["Order In the Matter of Knight Capital Americas LLC"](https://www.sec.gov/litigation/admin/2013/34-70694.pdf), file 3-15570, 2013.
+- [Sha00] G. Shao, F. Berman, and R. Wolski, ["Master/Slave Computing on the Grid"](https://www.cs.ucsb.edu/~rich/publications/shao-hcw.pdf), in *Heterogeneous Computing Workshop*, 2000.
+- [Shu13] J. Shute et al., ["F1: A Distributed SQL Database That Scales"](https://research.google.com/pubs/pub41344.html), in *Proc. VLDB 2013*, 2013.
+- [Sig10] B. H. Sigelman et al., ["Dapper, a Large-Scale Distributed Systems Tracing Infrastructure"](https://research.google.com/pubs/pub36356.html), Google Technical Report, 2010.
+- [Sin15] A. Singh et al., ["Jupiter Rising: A Decade of Clos Topologies and Centralized Control in Google’s Datacenter Network"](https://research.google.com/pubs/pub43837.html), in *SIGCOMM '15*.
+- [Skel13] M. Skelton, ["Operability can Improve if Developers Write a Draft Run Book"](https://blog.softwareoperability.com/2013/10/16/operability-can-improve-if-developers-write-a-draft-run-book/), blog post, 16 October 2013.
+- [Slo11] B. Treynor Sloss, ["Gmail back soon for everyone"](https://gmailblog.blogspot.com/2011/02/gmail-back-soon-for-everyone.html), blog post, 28 February 2011.
+- [Tat99] S. Tatham, ["How to Report Bugs Effectively"](https://www.chiark.greenend.org.uk/~sgtatham/bugs.html), 1999.
+- [Ver15] A. Verma, L. Pedrosa, M. R. Korupolu, D. Oppenheimer, E. Tune, and J. Wilkes, ["Large-scale cluster management at Google with Borg"](https://research.google.com/pubs/pub43438.html), in *Proceedings of the European Conference on Computer Systems*, 2015.
+- [Wal89] D. R. Wallace and R. U. Fujii, ["Software Verification and Validation: An Overview"](https://www-usr.inf.ufsm.br/~ceretta/papers/fujii89_software_vv.pdf), *IEEE Software*, vol. 6, no. 3 (May 1989), pp. 10, 17.
+- [War14] R. Ward and B. Beyer, ["BeyondCorp: A New Approach to Enterprise Security"](https://www.usenix.org/publications/login/dec14/ward), in *;login:*, vol. 39, no. 6, December 2014.
+- [Whi12] J. A. Whittaker, J. Arbon, and J. Carollo, *How Google Tests Software*: Addison-Wesley, 2012.
+- [Woo96] A. Wood, ["Predicting Software Reliability"](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=544240), in *Computer*, vol. 29, no. 11, 1996.
+- [Wri12a] H. K. Wright, ["Release Engineering Processes, Their Faults and Failures"](https://www.hyrumwright.org/papers/dissertation.pdf), (section 7.2.2.2) PhD Thesis, University of Texas at Austin, 2012.
+- [Wri12b] H. K. Wright and D. E. Perry, ["Release Engineering Practices and Pitfalls"](https://www.hyrumwright.org/papers/icse2012.pdf), in *Proceedings of the 34th International Conference on Software Engineering (ICSE '12)*. (IEEE, 2012), pp. 1281–1284.
+- [Wri13] H. K. Wright, D. Jasper, M. Klimek, C. Carruth, Z. Wan, ["Large-Scale Automated Refactoring Using ClangMR"](https://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41342.pdf), in *Proceedings of the 29th International Conference on Software Maintenance (ICSM '13)*, (IEEE, 2013), pp. 548–551.
+- [Yor11] N. York, ["Build in the Cloud: Accessing Source Code"](https://google-engtools.blogspot.com/2011/06/build-in-cloud-accessing-source-code.html), *Google Engineering Tools* blog post, June 2011.
+- [Zoo14] ZooKeeper Project (Apache Foundation), ["ZooKeeper Recipes and Solutions"]( https://zookeeper.apache.org/doc/current/recipes.html), in ZooKeeper 3.4 documentation, 2014.
+
+---
+
+Copyright © 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
