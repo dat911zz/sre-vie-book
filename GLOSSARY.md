@@ -55,6 +55,13 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | forcing function | **yếu tố ép buộc (forcing function)** | hàm ép buộc | "hàm" = function (toán học), SAI cho "forcing function" (cơ chế/yếu tố buộc hành động). Calque điển hình — đã sửa ở ch.4 L167 |
 | loosely coupled (distributed systems) | **có liên kết lỏng lẻo** | liên kết lỏng lẻo (thiếu trợ từ "có") | Cụm SRE phổ biến (loose coupling). Cần trợ từ "có" cho đúng cú pháp VN — đã sửa ở ch.4 L50 |
 | user studies | **nghiên cứu về người dùng (user studies)** | — | Thuật ngữ UX, gloss lần đầu. Đã dùng ở ch.4 L96 |
+| interrupt / interrupt-driven | **sự gián đoạn (interrupt)** / **xuất phát từ sự gián đoạn (interrupt-driven)** | — | Ch.29 "Dealing with Interrupts" sẽ dùng lại. "xuất phát từ" thay cho "được dẫn dắt bởi" (bị động kiểu Anh) |
+| firefighting | **chữa cháy (firefighting)** | — | Jargon SRE phổ biến, dùng ẩn dụ "chữa cháy" cho xử lý sự cố khẩn cấp |
+| grungy work | **công việc lặt vặt bẩn thỉu** | — | Đặc trưng ch.5, dùng nhất quán trong file |
+| overhead | **overhead (công việc phụ)** | — | Giữ EN + gloss, dùng nhất quán |
+| feature velocity | **feature velocity** (giữ nguyên), nếu cần gloss: `(tốc độ tính năng)` | Tốc độ tính năng | Ghép với product velocity (đã có). Giữ EN cho nhất quán — "velocity" là jargon agile |
+| sublinearly | **dưới tuyến tính (sublinearly)** | — | Ghép với "tuyến tính" (linear) |
+| throughput | **thông lượng (throughput)** | lưu lượng | "lưu lượng" đang dùng cho traffic — 1 từ Việt cho 2 khái niệm khác nhau gây va chạm. Phát hiện ở ch.4 (3 chỗ dùng "lưu lượng" cho throughput) — đã sửa |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -106,6 +113,26 @@ Quy tắc chọn dịch vs giữ nguyên cho thuật ngữ MỚI (chưa có tron
   `forcing function (hàm ép buộc)`→`(yếu tố ép buộc)` L167 — "hàm"=function toán học, calque sai) + 3 chuẩn
   hóa (`giữ lại`→`lưu giữ` L30, `liên kết lỏng lẻo`→`có liên kết lỏng lẻo` L50, thêm gloss `user studies`
   L96). GĐ4 pre-flight sửa 1 SAI: client/server gloss "khách hàng"/"máy chủ" L28 (chỉ dùng khi định nghĩa
-  vai trò, chỗ này là dùng thông thường → giữ EN). Giai đoạn 3 merge: +3 thuật ngữ (forcing function,
-  loosely coupled, user studies), không có xung đột. Giai đoạn 4 áp ngược: rà 30 thuật ngữ đã chốt, chỉ còn
-  L28 (đã sửa ở pre-flight) — file sạch.
+vai trò, chỗ này là dùng thông thường → giữ EN). Giai đoạn 3 merge: +3 thuật ngữ (forcing function,
+   loosely coupled, user studies), không có xung đột. Giai đoạn 4 áp ngược: rà 30 thuật ngữ đã chốt, chỉ còn
+   L28 (đã sửa ở pre-flight) — file sạch.
+- 2026-08-26: `part-2-principles/05-eliminating-toil.md` — chạy đủ Giai đoạn 5 (văn phong) + Giai đoạn 6
+   (semantic). Giai đoạn 5 sửa 10 chỗ (L1: 7 — bị động "được...bởi"→chủ động L38, L68, L130; calque "lý
+   tưởng"→"tốt" L46; "Nhất quán với"→"Đúng với" L62; xóa "một cách" L134; L2: 3 — "Sở thích về"→"Loại
+   công việc nào" L20, "2 trong mỗi 6 tuần"→"2 trên 6 tuần" L60, "được tiên phong bởi"→"do...tiên phong"
+   L130; L3: 0). Giai đoạn 6: 2 chỗ nghi vấn L50 ("công bố mục tiêu", "hiệu ứng thứ hai") — đối chiếu
+   source xác nhận ĐÚNG, revert lại. Không lỗi nghĩa, không lỗi chính tả. Giai đoạn 3 merge: +6 thuật ngữ
+   (interrupt/interrupt-driven, firefighting, grungy work, overhead, feature velocity, sublinearly),
+   không có xung đột. Giai đoạn 4 áp ngược: rà 30 thuật ngữ đã chốt trong file, không phát hiện biến thể
+   SAI cần thay.
+- 2026-08-26: QA thủ công (agent Fable, độc lập với pipeline) trên ch.4 + ch.5 trước khi push, vì Giai
+  đoạn 4/6 của Qwen tự báo "sạch"/"đã verify" nhưng thực tế còn sót lỗi — không nên tin self-report mà
+  cần spot-check tay. Phát hiện & sửa: (1) ch.4 L30 lỗi factual nghiêm trọng — "hai phẩy năm nines" cho
+  99.95% (đúng phải là "ba phẩy rưỡi nines", vì 99%=2 nines, 99.9%=3, 99.95%=3.5); (2) ch.5 L112 tự vi
+  phạm glossary vừa chốt (dịch "Tốc độ tính năng" dù entry feature velocity liệt kê đúng cụm này là biến
+  thể SAI); (3) ch.4 L38 gloss frontend ở câu dùng thông thường (vi phạm rule frontend/backend); (4) ch.4
+  L167 đảo ngược thứ tự gloss forcing function; (5) ch.4 L77 "per se (vốn dĩ)" sai nghĩa → "(tự thân nó)";
+  (6) ch.4 L81 "instrument (lắp thiết bị đo)" hiểu nhầm sang phần cứng → "(nhúng phép đo)"; (7) throughput
+  dịch "lưu lượng" ở ch.4 (3 chỗ) trùng từ với "traffic" — thêm entry throughput mới, đổi thành "thông
+  lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-order); (9) ch.5 L94, L120 calque nhẹ;
+  (10) ch.5 L44 heading dùng bold lệch format `####` so với các heading cùng cấp khác trong file.
