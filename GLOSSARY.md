@@ -62,6 +62,32 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | feature velocity | **feature velocity** (giữ nguyên), nếu cần gloss: `(tốc độ tính năng)` | Tốc độ tính năng | Ghép với product velocity (đã có). Giữ EN cho nhất quán — "velocity" là jargon agile |
 | sublinearly | **dưới tuyến tính (sublinearly)** | — | Ghép với "tuyến tính" (linear) |
 | throughput | **thông lượng (throughput)** | lưu lượng | "lưu lượng" đang dùng cho traffic — 1 từ Việt cho 2 khái niệm khác nhau gây va chạm. Phát hiện ở ch.4 (3 chỗ dùng "lưu lượng" cho throughput) — đã sửa |
+| hermetic (build) | **hermetic** (giữ nguyên) | hấp thụ | "hấp thụ" = absorb, SAI cho "hermetic build" (build tự chứa, không phụ thuộc môi trường). Calque điển hình — đã sửa ở ch.8 (4 chỗ) |
+| cherry pick (release) | **cherry pick** (giữ nguyên) | chốt quả | "chốt quả" = calque dịch nghĩa đen từng từ. Jargon git phổ biến — giữ EN. Đã sửa ở ch.8 L42 |
+| force multiplier | **bộ khuếch đại lực lượng** | — | Jargon quân sự dùng trong kỹ thuật. Đã dùng ở ch.7 L16 |
+| panacea | **panacea (thuốc chữa vạn năng)** | — | Từ Latinh, gloss lần đầu |
+| turnup / turndown | **khởi động (turnup)** / **tắt (turndown)** | — | Jargon SRE cho việc bật/tắt cluster. Dùng ~15 chỗ ở ch.7 |
+| bin-packing | **bin-packing** (giữ nguyên) | gói chặt | Jargon thuật toán. Giữ EN |
+| glue logic | **logic keo** | — | Jargon kỹ thuật cho code kết nối các phần |
+| bit rot | **bit rot (mục nát bit)** | mục nát dữ liệu | "mục nát bit" = bit rot (lỗi byte theo thời gian). Khác "mục nát dữ liệu" (data rot) |
+| proof of concept | **proof of concept** (giữ nguyên) | bằng chứng khái niệm | Jargon kỹ thuật. Giữ EN |
+| drain (traffic) | **rút traffic (draining)** | — | Jargon SRE cho việc rút dần traffic khỏi 1 service |
+| warehouse-scale computer | **máy tính quy mô kho** | — | Jargon Google (warehouse-scale) |
+| segfault | **segfault (lỗi phân đoạn bộ nhớ)** | lỗi trỏ; lỗi trỏ riêng | "segfault" = segmentation fault (lỗi truy cập vùng nhớ không hợp lệ), không phải "lỗi trỏ" (pointer error — khái niệm khác) |
+| audit trail | **vết kiểm toán (audit trail)** | vết kiểm toán đơn | Gloss nhất quán: VN + (EN) |
+| rate limiting | **rate limiting** (giữ nguyên) | hạn chế tỷ lệ | Jargon kỹ thuật. Giữ EN |
+| self-introspection | **tự nội phản (self-introspection)** | tự kiểm tra | "tự nội phản" = introspection (kiểm tra bên trong). Dùng ở ch.7 |
+| no-ops | **no-ops (thao tác không làm gì)** | — | Jargon kỹ thuật (no-operation) |
+| leaky abstraction | **trừu tượng rò rỉ (leaky abstraction)** | — | Jargon kỹ thuật |
+| hub-and-spoke | **hub-and-spoke (trục và nan hoa)** | — | Jargon kiến trúc |
+| codebase | **codebase (kho mã nguồn)** | kho code | Gloss nhất quán: EN + (VN) |
+| colocation (colo) | **colocation** (giữ nguyên), gloss: `(đặt cùng chỗ)` | đặt cùng chỗ (không có EN) | Jargon kỹ thuật. Giữ EN + gloss VN |
+| mainline | **mainline** (giữ nguyên) | — | Nhánh chính của cây mã nguồn (trunk), nơi các thay đổi được commit trực tiếp; các dự án production KHÔNG phát hành trực tiếp từ đây (release cắt nhánh riêng). Giữ EN vì "nhánh chính"/"main branch" dễ gây hiểu nhầm là nhánh release |
+| build target | **mục tiêu build** | — | Jargon build system |
+| build label / build ID | **build label / build ID** (giữ nguyên) | — | Jargon build system. Giữ EN |
+| canary deployment | **triển khai canary** | — | Jargon release engineering |
+| skew (config drift) | **sự lệch (skew)** | lệch (thiếu "sự") | Gloss nhất quán: VN + (EN) |
+| gated operations | **các thao tác cần phê duyệt** | các thao tác bị chặn | "gated" = cần phê duyệt (gate = cổng kiểm soát), không phải "bị chặn". Đã sửa ở ch.8 L46 |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -134,5 +160,55 @@ vai trò, chỗ này là dùng thông thường → giữ EN). Giai đoạn 3 me
   L167 đảo ngược thứ tự gloss forcing function; (5) ch.4 L77 "per se (vốn dĩ)" sai nghĩa → "(tự thân nó)";
   (6) ch.4 L81 "instrument (lắp thiết bị đo)" hiểu nhầm sang phần cứng → "(nhúng phép đo)"; (7) throughput
   dịch "lưu lượng" ở ch.4 (3 chỗ) trùng từ với "traffic" — thêm entry throughput mới, đổi thành "thông
-  lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-order); (9) ch.5 L94, L120 calque nhẹ;
-  (10) ch.5 L44 heading dùng bold lệch format `####` so với các heading cùng cấp khác trong file.
+lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-order); (9) ch.5 L94, L120 calque nhẹ;
+   (10) ch.5 L44 heading dùng bold lệch format `####` so với các heading cùng cấp khác trong file.
+- 2026-08-27: `part-2-principles/06-monitoring-distributed-systems.md` — fan out 1 agent. GĐ4: 1 sửa
+   (loosely coupled L188). GĐ5: ~25 sửa (bị động→chủ động, xóa "của nó", "một cách" thừa, "xử lý thế
+   nào"→"cách xử lý", tách câu dài, đưa điều kiện lên đầu, blind re-translation cho các câu calque).
+   GĐ6: 3 sửa (bỏ gloss thừa "backend (phía sau)" L130, bỏ gloss sai "stack (tòa)" L219, "bạn nên ưa"→
+   "bạn nên ưu tiên" L245 — "ưa"=like, "ưu tiên"=prioritize, khớp "favor" EN). Không thuật ngữ mới.
+- 2026-08-27: `part-2-principles/07-automation-at-google.md` — fan out 1 agent. GĐ4: 3 sửa (switch "bo
+   mạch chuyển mạch"→"bộ chuyển mạch", client (khách hàng)→khách, machine "máy"→"máy tính" L24). GĐ5:
+   ~33 sửa (xóa "một cách", bị động→chủ động, giảm danh hóa "sự", tách câu dài, đưa điều kiện lên đầu,
+   đổi khung câu song song, sửa lỗi trùng từ do edit). GĐ6: ~14 sửa, 1 lỗi nghĩa nghiêm trọng: sshd
+   "thư mục đăng nhập an toàn"→"daemon shell an toàn" (sshd = Secure Shell daemon). +18 thuật ngữ mới
+   (force multiplier, panacea, turnup/turndown, bin-packing, glue logic, bit rot, proof of concept,
+   drain, warehouse-scale computer, segfault, audit trail, rate limiting, self-introspection, no-ops,
+   leaky abstraction, hub-and-spoke, codebase, colocation).
+- 2026-08-27: `part-2-principles/08-release-engineering.md` — fan out 1 agent. GĐ4: 0 (file sạch). GĐ5:
+   9 sửa (bị động "bởi"→chủ động L20/L28/L109, "rằng"→mật điểm L36, "một cách"→"đến mức" L119, khung
+   song song L32, câu dài L73, trạng ngữ mồ côi "Phần lớn" L143, calque "scale"→"có khả năng mở rộng"
+   L59). GĐ6: 7 sửa, 4 lỗi nghĩa: `hấp thụ`→`hermetic` (4 chỗ — "hấp thụ"=absorb, SAI cho hermetic
+   build), `cherry picking (chốt quả)`→`cherry picking` (calque sai), `bị chặn`→`cần phê duyệt`
+   (L46 — "gated"=cần phê duyệt), `blueprints (bản thảo)`→`blueprints (bản thiết kế)` (L87 — "bản thảo"=
+   draft, SAI cho blueprint config file). +8 thuật ngữ mới (hermetic, cherry pick, blueprint, mainline,
+   build target, build label/ID, canary deployment, skew, gated operations).
+- 2026-08-27: `part-2-principles/09-simplicity.md` — fan out 1 agent. GĐ4: 2 sửa (loose coupling→liên
+   kết lỏng lẻo L53, 5 heading bỏ art "The/A/I/My"). GĐ5: 22 sửa (tách 3 câu "Nếu...thì..." L16, "Tôi
+   đã thường"→"Tôi thường" L20, xóa "của chúng" L20/L26, "được nhìn thấy bởi"→"bị người dùng nhìn thấy"
+   L20, gộp 2 câu song song L22, "Mang góc nhìn"→"Giữ góc nhìn" L43, "Trong khi"→bỏ L43/L55, "người
+   tiêu dùng"→"người dùng" L49 — "consumer" trong API = người dùng, "Đo lường và hiểu... dễ dàng hơn
+   nhiều" L63, "Thay vào đó"→", mà đang" L67, "Được tạo ra bởi"→"do...tạo ra" L71, blind re-translation
+   L20/L39/L53/L67). GĐ6: 0. Không thuật ngữ mới.
+- 2026-08-27: **Part 2 hoàn tất** (ch.3-9). Tổng cộng 4 chương fan out song song, ~115 sửa (GĐ4: 6, GĐ5:
+   ~89, GĐ6: ~24). Merge +26 thuật ngữ mới vào glossary (hermetic, cherry pick, force multiplier, panacea,
+   turnup/turndown, bin-packing, glue logic, bit rot, proof of concept, drain, warehouse-scale computer,
+   segfault, audit trail, rate limiting, self-introspection, no-ops, leaky abstraction, hub-and-spoke,
+   codebase, colocation, mainline, build target, build label/ID, canary deployment, skew, gated
+   operations). 2 xung đột đã xử: sshd (ch.7) — "daemon shell an toàn" đúng source; hermetic (ch.8) —
+   "hấp thụ" SAI, giữ EN. Glossary hiện có 52 thuật ngữ.
+- 2026-08-27: QA thủ công (agent Fable, độc lập với pipeline) trên ch.6-9 trước khi push — pipeline tự
+  báo GĐ4/6 "sạch"/"đã verify" 3 lỗi (sshd, hermetic, cherry picking) đều landed đúng, số liệu kỹ thuật
+  sạch, nhưng vẫn còn ~10 lỗi nghĩa/gloss bịa bị bỏ sót. Phát hiện & sửa: (1) ch.7 "Hệ thống Quản trị
+  viên" đảo ngược nghĩa (phải là "Quản trị viên Hệ thống"); (2) ch.7 backbone "(tủy sống)" — gloss giải
+  phẫu học bịa cho mạng, đổi thành "(mạng trục)"; (3) ch.7 "toàn bộ stack (tòa)" và Container "(hộp)" —
+  gloss thừa/sai, bỏ; (4) ch.6 key-value "(giá trị-chìa)" → "(khóa–giá trị)"; (5) ch.6 heading "Vạch về
+  Lâu dài" vô nghĩa → "Về Lâu dài"; (6) retrofit dịch 2 kiểu đều sai (ch.7 "cài đặt bổ sung", ch.8 "cài
+  đặt lại"=reinstall!) → thống nhất "trang bị bổ sung cho hệ thống sẵn có"; (7) "phép loại" thiếu chữ
+  "suy" ở ch.7 + ch.9 (2 chỗ) → "phép loại suy"; (8) ch.8 `bad_quarto`/`first_folio`/`much_ado` — đây là
+  tên vở kịch Shakespeare dùng làm flag name chơi chữ, KHÔNG phải nghĩa đen ("bản sao thứ tư tồi"/"bản
+  thảo đầu tiên"/"nhiều ồn ào" là dịch sai bản chất) → bỏ gloss, giữ nguyên tên; (9) ch.9 calque "giới
+  thiệu" cho introduce (bug/complexity) lặp ~7 chỗ → "gây ra"/"đưa vào"; (10) ch.6 heading trộn `####`
+  và bold không nhất quán — fix. Sửa 2 entry glossary sai định nghĩa: segfault "(lỗi trỏ)" → "(lỗi phân
+  đoạn bộ nhớ)" (tự mâu thuẫn với chính cột Ghi chú cũ); mainline note "là nhánh phát hành chính" SAI →
+  sửa thành mô tả đúng (nhánh chính/trunk, KHÔNG phải nhánh release).
