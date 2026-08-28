@@ -1,6 +1,6 @@
 # Báo cáo Rà soát & Tuỳ biến Chất lượng Bản dịch SRE Book
 
-**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10 Part 3)
+**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10, ch.11 Part 3)
 **Phạm vi:** Toàn bộ 49 file `.md` trong `docs/sre/`
 **Trạng thái:** Hoàn tất — ch.1-10 đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập)
 
@@ -57,7 +57,7 @@
 |------|-----------|---------|
 | `_part.md` | CHANGED | ~20 câu |
 | `10-practical-alerting.md` | **PIPELINE HOÀN TẤT** | Ch.10: GĐ1 +28 thuật ngữ, GĐ2 30 sửa (glossary + nghĩa), GĐ3 +5 thuật ngữ, GĐ4 sạch, GĐ5 22 sửa (văn phong), GĐ6 2 sửa (in lockstep mistranslation, omission "chúng"), GĐ7 QA độc lập (Claude Opus 5) 2 lỗi thật + 1 borderline, GĐ8 áp fix. Số liệu verify khớp 100%. |
-| `11-being-on-call.md` | CHANGED | ~30 câu |
+| `11-being-on-call.md` | **PIPELINE HOÀN TẤT** | Ch.11: GĐ4 sạch, GĐ5 7 sửa (văn phong), GĐ6 4 sửa (chase→follow the sun, embed≠cài đặt, omission), GĐ7 QA độc lập 2 sửa, QA thủ công thêm 7 lỗi (fix-sai-hướng L120, typo "mực trần", "đội đơn vị"→"một vị trí" x3, link hỏng, va chạm nghĩa). Số liệu verify khớp 100%. |
 | `12-effective-troubleshooting.md` | CHANGED | ~45 câu |
 | `13-emergency-response.md` | CHANGED | ~40 câu; sửa "não đóng" → "động não" |
 | `14-managing-incidents.md` | CHANGED | ~25 câu |

@@ -122,6 +122,7 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | single point of failure | **điểm thất bại duy nhất (single point of failure)** | — | Ch.10. Jargon kỹ thuật. Gloss VN lần đầu |
 | histogram | **histogram (đồ thị phân bố tần số)** | — | Ch.10. Giữ EN + gloss VN. Jargon thống kê/data viz |
 | homed (be homed in) | **được đặt (homed) trong** | — | Ch.10. "be homed in" = được đặt/có trụ ở (1 datacenter). Giữ EN + gloss VN lần đầu |
+| follow the sun | **follow the sun (theo mặt trời)** | chase the sun (đuổi theo mặt trời) | Ch.11. Thuật ngữ SRE cho mô hình on-call phân bố theo múi giờ để tránh ca đêm. EN gốc = "follow the sun" (KHÔNG phải "chase the sun") |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -280,3 +281,26 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   bắt buộc phải có". CHƯA CHẮC đã xác minh: `http://webserver:80/varz` (L49) khớp bản in O'Reilly 2017 gốc,
   trang web đổi sang `https` sau này — không phải lỗi dịch, giữ nguyên. Số liệu/factual + gloss bịa +
   terminology drift + entry glossary: SẠCH. Ch.10 hoàn tất (lần 2). Glossary vẫn 85 thuật ngữ (không thêm mới).
+- 2026-08-28: `part-3-practices/11-being-on-call.md` (Ch.11) — chạy đủ GĐ4→GĐ8 (file đã được dịch sẵn,
+  không cần GĐ1-3). GĐ4: 0 (file sạch, glossary đúng). GĐ5 (văn phong): 7 sửa (L1: 2 — xóa "một cách" L96/L98;
+  L2: 5 — bị động "bởi"→chủ động L34/L98, khung song song L134, "thì" L98, "Về lý tưởng" L112). GĐ6 (semantic,
+  2 lượt): 4 sửa — (1) L58 "chase the sun"→"follow the sun" (Mistranslation — EN gốc = "follow the sun");
+  (2) L67+L110 link ch.30 "Cài đặt một SRE"→"Đưa một SRE vào Đội" (Terminology drift — "embed"=đưa vào đội,
+  không phải "cài đặt"=install); (3) L120 "cảnh báo paging"→"các trang (paging) cảnh báo" (Mistranslation nhẹ);
+  (4) L134 thiếu chủ ngữ "Google's approach to on-call has enabled us"→bổ sung "cách tiếp cận on-call của
+  Google cho phép chúng tôi" (Omission). GĐ7 (QA độc lập): 2 sửa — (1) L86 "rất dễ rơi vào thiên kiến"→
+  "rất dễ bị cám dỗ thực hiện thiên kiến" (Mistranslation sắc thái — "extremely tempting"=cám dỗ, không phải
+  "dễ rơi vào"); (2) L71 "Mực trần bù đắp là giới hạn"→"thể hiện giới hạn" (Omission — EN "represents, in
+  practice, a limit"). 1 fix phụ: L98 "theo đuổi hợp lý"→bổ sung "thì việc...sẽ hữu ích". Tổng: 14 sửa.
+  +1 thuật ngữ mới (follow the sun). Glossary hiện có 86 thuật ngữ.
+- 2026-08-28: QA thủ công (agent Fable, độc lập) trên ch.11 trước khi push — 6 fix pipeline tự khai đều
+  landed đúng, số liệu sạch, nhưng phát hiện thêm 7 lỗi thật, đáng chú ý: (1) chính fix GĐ6 của pipeline
+  ở L120 ("cảnh báo paging"→"các trang (paging) cảnh báo") làm câu TỆ HƠN — "trang" là false-friend
+  (trang sách/web), và L114 (2 chỗ) vẫn còn "cảnh báo paging" y hệt cụm bị coi là sai — sửa thống nhất về
+  "page" giữ nguyên EN, khớp cách dùng L28/L32/L36/L65/L86; (2) L71 typo "Mực trần"→"Mức trần"; (3) L34
+  rơi nghĩa so sánh "ưu tiên gần như mọi tác vụ khác"→"ưu tiên HƠN gần như mọi tác vụ khác" (EN "priority
+  over"); (4) L130 từ garbled "định kích để"→"định biên sao cho"; (5) L54/L56/L61 "đội đơn vị"→"đội một
+  vị trí" (single-site) — "đơn vị"=unit, sai nghĩa và lệch với "hai vị trí"/"đa vị trí" ngay cạnh; (6) L88
+  va chạm nghĩa "thiếu cơ sở dữ liệu rõ ràng"→"không có dữ liệu rõ ràng làm cơ sở" (tránh đọc thành
+  "database"); (7) L90 link relative path hỏng (`../../sre-book/...`) → đổi URL đầy đủ, khớp toàn bộ link
+  khác trong file. Ch.11 hoàn tất.
