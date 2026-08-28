@@ -88,6 +88,40 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | canary deployment | **triển khai canary** | — | Jargon release engineering |
 | skew (config drift) | **sự lệch (skew)** | lệch (thiếu "sự") | Gloss nhất quán: VN + (EN) |
 | gated operations | **các thao tác cần phê duyệt** | các thao tác bị chặn | "gated" = cần phê duyệt (gate = cổng kiểm soát), không phải "bị chặn". Đã sửa ở ch.8 L46 |
+| white-box / black-box monitoring | **giám sát hộp trắng / giám sát hộp đen** | — | Ch.10. White-box = kiểm tra trạng thái nội bộ target; black-box = nhìn từ phía người dùng. Gloss nhất quán VN |
+| time-series arena | **vùng arena chuỗi thời gian** | arena thời gian (thiếu "chuỗi") | Ch.10. Khối bộ nhớ cố định lưu chuỗi thời gian. Giữ "arena" là thuật ngữ kỹ thuật (giữ EN) |
+| labelset | **labelset (tập nhãn)** | tập nhãn (thiếu EN) | Ch.10. Tập hợp label mô tả 1 chuỗi thời gian. Giữ EN + gloss VN |
+| vector (ch.10: lát cắt ma trận điểm dữ liệu) | **vector (giữ nguyên)** | dãy số; mảng giá trị | Ch.10. "vector" trong ngữ cảnh chuỗi thời gian = lát cắt/mặt cắt ngang của ma trận nhiều chiều. Giữ EN (jargon đại số tuyến tính + monitoring) |
+| horizon (tầm nhìn — lượng dữ liệu có thể truy vấn trong RAM) | **horizon (tầm nhìn)** | tầm nhìn (thiếu EN) | Ch.10. Khoảng thời gian giữa entry mới nhất và cũ nhất trong arena. Giữ EN + gloss VN |
+| counter / gauge (metrics) | **counter (bộ đếm) / gauge (thước đo)** | — | Ch.10. Counter = đơn điệu không giảm (chỉ tăng); gauge = mang bất kỳ giá trị nào. Gloss VN lần đầu |
+| in lockstep (đồng bộ nhịp với peers) | **chạy cùng nhịp (in lockstep)** | đồng bộ (thiếu "nhịp"); song song đều | Ch.10. "in lockstep" = in step together (cùng nhịp), KHÔNG phải "đồng bộ" chung chung. "Không in lockstep" = "không chạy cùng nhịp". Đã sửa ở ch.10 L74 (GĐ6) — "đồng bộ" imprecise, "cùng nhịp" chính xác hơn |
+| flap (alert toggling state nhanh) | **dao động (flap)** | nhấp nháy; rung lắc | Ch.10. Alert "flap" = chuyển trạng thái bật/tắt nhanh liên tục (false alert). "dao động" = oscilate (đúng nghĩa kỹ thuật) |
+| fire (alert) | **fire (kích hoạt cảnh báo)** | bắn; nổ | Ch.10. Alert "fire" = cảnh báo được kích hoạt (gửi ra). Không phải "bắn/nổ" nghĩa đen. Giữ EN "fire" là chuẩn SRE |
+| pending (alert state) | **pending (đang chờ)** | chờ duyệt | Ch.10. Alert "pending" = ở trạng thái chờ (chưa fire). Khác "pending approval" |
+| fan-in / fan-out | **fan-in (hội tụ) / fan-out (tán ra)** | — | Ch.10. Fan-in = nhiều nguồn về 1 điểm; fan-out = 1 điểm tỏa ra nhiều đích. Gloss VN |
+| Alertmanager | **Alertmanager** (giữ nguyên) | Quản lý Cảnh báo | Ch.10. Tên riêng của dịch vụ (giống Borgmon, TSDB). Giữ EN là tên riêng, không dịch |
+| Prober | **Prober** (giữ nguyên) | Máy dò | Ch.10. Tên riêng của công cụ. Giữ EN là tên riêng |
+| TSDB (Time-Series Database) | **TSDB (CSDL chuỗi thời gian)** | CSDL thời gian (thiếu "chuỗi") | Ch.10. CSDL lưu chuỗi thời gian. Giữ EN acronym + gloss VN |
+| in-memory database | **cơ sở dữ liệu trong bộ nhớ (in-memory database)** | CSDL RAM | Ch.10. Gloss nhất quán VN + (EN) |
+| checkpoint (disk) | **checkpoint (ghi điểm kiểm tra)** | lưu điểm kiểm tra; ghi điểm | Ch.10. "checkpoint" = ghi trạng thái ra disk định kỳ. Giữ EN + gloss VN |
+| garbage collector | **bộ thu gom rác (garbage collector)** | bộ dọn rác; bộ thu gom | Ch.10. GC = thu gom bộ nhớ. Giữ EN + gloss VN |
+| service discovery | **service discovery (khám phá dịch vụ)** | khám phá dịch vụ (thiếu EN) | Ch.10. Giữ EN + gloss VN. Jargon hạ tầng |
+| name resolution | **phân giải tên (name resolution)** | — | Ch.10. Gloss VN |
+| subprocess | **subprocess (tiến trình con)** | con tiến trình | "tiến trình con" là thứ tự chuẩn trong tiếng Việt (danh từ chính trước, tính từ bổ nghĩa sau — như "quy trình con", "hàm con"); "con tiến trình" bị đảo ngược, đọc lạ. Ch.10 — LẶP LẠI LẦN 2 (L41, L172) trong đợt rà soát 2026-08-28, đã sửa |
+| drill down (vào dữ liệu) | **đào sâu (drill down)** | đào xuống; đi sâu | Ch.10. "drill down" = xem chi tiết hơn 1 phần của dữ liệu. Jargon phân tích dữ liệu |
+| shared fate | **shared fate (số phận chung)** | chung số phận (thiếu EN) | Ch.10. Nhóm component có "shared fate" = hỏng cùng nhau. Giữ EN + gloss VN |
+| relabeling | **relabeling (dán nhãn lại)** | dán nhãn lại (thiếu EN) | Ch.10. Giữ EN + gloss VN |
+| magic number (con số ma thuật) | **con số ma thuật (magic number)** | — | Ch.10. Gloss VN lần đầu. "magic number" = hằng số chọn theo kinh nghiệm, không có công thức chính xác |
+| counter reset | **đặt lại counter (counter reset)** | — | Ch.10. Jargon monitoring. "counter reset" = counter bị đặt lại về 0 |
+| corner cases | **trường hợp khó (corner cases)** | trường hợp góc; trường hợp biên | Ch.10. Jargon kỹ thuật. "corner cases" = các trường hợp cực đoan/hiếm gặp |
+| untyped | **untyped (không có kiểu)** | không kiểu (thiếu EN) | Ch.10. Jargon kiểu dữ liệu. Giữ EN + gloss VN |
+| footprint (service) | **footprint (dấu chân) dịch vụ** | dấu chân dịch vụ (thiếu EN) | Ch.10. "footprint" = phạm vi/chiều phủ của 1 dịch vụ trên hạ tầng. Giữ EN + gloss VN |
+| Cambrian Explosion (giám sát) | **Sự bùng nổ Cambrian (Cambrian Explosion)** | bùng nổ Cambrian (thiếu "Sự") | Ch.10. Ẩn dụ sinh học (bùng nổ đa dạng sinh học kỷ Cambrian) dùng cho sự bùng nổ công cụ giám sát. Giữ EN + gloss VN |
+| threadpool | **threadpool (bể luồng)** | — | Ch.10. Giữ EN + gloss VN. Jargon hệ điều hành |
+| bottleneck | **nút thắt cổ chai (bottleneck)** | — | Ch.10. Jargon kỹ thuật. Gloss VN lần đầu |
+| single point of failure | **điểm thất bại duy nhất (single point of failure)** | — | Ch.10. Jargon kỹ thuật. Gloss VN lần đầu |
+| histogram | **histogram (đồ thị phân bố tần số)** | — | Ch.10. Giữ EN + gloss VN. Jargon thống kê/data viz |
+| homed (be homed in) | **được đặt (homed) trong** | — | Ch.10. "be homed in" = được đặt/có trụ ở (1 datacenter). Giữ EN + gloss VN lần đầu |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -210,5 +244,39 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   thảo đầu tiên"/"nhiều ồn ào" là dịch sai bản chất) → bỏ gloss, giữ nguyên tên; (9) ch.9 calque "giới
   thiệu" cho introduce (bug/complexity) lặp ~7 chỗ → "gây ra"/"đưa vào"; (10) ch.6 heading trộn `####`
   và bold không nhất quán — fix. Sửa 2 entry glossary sai định nghĩa: segfault "(lỗi trỏ)" → "(lỗi phân
-  đoạn bộ nhớ)" (tự mâu thuẫn với chính cột Ghi chú cũ); mainline note "là nhánh phát hành chính" SAI →
-  sửa thành mô tả đúng (nhánh chính/trunk, KHÔNG phải nhánh release).
+đoạn bộ nhớ)" (tự mâu thuẫn với chính cột Ghi chú cũ); mainline note "là nhánh phát hành chính" SAI →
+   sửa thành mô tả đúng (nhánh chính/trunk, KHÔNG phải nhánh release).
+- 2026-08-28: `part-3-practices/10-practical-alerting.md` (Ch.10) — chạy đủ GĐ1→GĐ8. GĐ1 seed +28
+    thuật ngữ ch.10 (white-box/black-box monitoring, time-series arena, labelset, vector, horizon,
+    counter/gauge, in lockstep, flap, fire, pending, fan-in/fan-out, Alertmanager, Prober, TSDB,
+    in-memory database, checkpoint, garbage collector, service discovery, name resolution, subprocess,
+    drill down, shared fate, relabeling, magic number, counter reset, corner cases, untyped, footprint,
+    Cambrian Explosion). GĐ2 (1 agent): 30 sửa (9 vi phạm glossary — bỏ gloss sai Alertmanager "Quản lý
+    Cảnh báo"/Prober "Máy dò"/frontend "mặt trước"/client "khách hàng", fire "bắn/nổ"→"kích hoạt cảnh
+    báo", chuẩn hóa thứ tự gloss TSDB/footprint/service discovery; 14 lỗi nghĩa/calque; 7 chuẩn hóa
+    gloss fire). GĐ3 merge: +5 thuật ngữ (threadpool, bottleneck, single point of failure, histogram,
+    homed) — tất cả nhãn 'Đã biết'/'Đã tra cứu', KHÔNG có 'CHƯA CHẮC', 0 xung đột. GĐ4: 0 (file sạch).
+    GĐ5 (văn phong, 1 agent): 22 sửa (L1: 7, L2: 6, L3: 9) — bị động "bởi"→chủ động, xóa "một cách",
+    "thực hiện việc"→"thu thập", xóa "của nó" thừa, blind re-translation. GĐ6 (semantic, 1 agent): 2 sửa
+    (L74 "đồng bộ (in lockstep)"→"chạy cùng nhịp (in lockstep)" — Mistranslation, "đồng bộ" imprecise;
+    L322 thiếu "chúng" — Omission). Sửa entry in lockstep trong glossary: "đồng bộ"→"chạy cùng nhịp".
+    GĐ7 QA độc lập (Claude Opus 5, model khác): 2 lỗi thật + 1 borderline — (L58 "biến map-valued như
+    ví dụ"→"biến map-valued, ví dụ dưới đây" — Mistranslation; L347 "mã hóa hóa"→"mã hóa" — typo thừa
+"hóa"; L37 "vốn là nền tảng"→"vốn nền tảng" — borderline, thừa "là"). GĐ7 verify tất cả số liệu
+     khớp, không gloss bịa, không terminology drift, không entry glossary định nghĩa sai. GĐ8: áp 3 fix
+     GĐ7. Ch.10 hoàn tất. Glossary hiện có 85 thuật ngữ.
+- 2026-08-28: Ch.10 — rà soát lại GĐ5-6-7 (1 lượt review mới). GĐ5 (văn phong): 0 sửa — không còn trigger
+  L1 (L345 "một cách" là false positive — cụm "a way" của tiếng Anh, không phải calque "một cách + adj";
+  các "của nó/chúng/họ" đều là sở hữu từ đúng, không phải calque thừa). GĐ6 (semantic): 1 sửa L23 —
+  "Yêu cầu duy trì gánh nặng bảo trì…ở mức hợp lý thấp cho các kỹ sư" → "Cần giữ gánh nặng bảo trì (maintenance
+  burden) trên các kỹ sư phụ trách hệ thống ở mức thấp hợp lý" (Mistranslation+Omission: nguồn gốc = "the need
+  to maintain a reasonably low maintenance burden **on the engineers**", bản cũ bỏ "on the engineers" và đọc
+  ngược thành "yêu cầu duy trì gánh nặng"). Verify toàn bộ số liệu khớp nguồn (24 byte, 1 triệu, 12 giờ,
+  17 GB, 0.01, 1/s, 0.15, "hai chu kỳ", "1 hoặc 10 giây", "1 phút"). GĐ7 (QA độc lập, agent khác): 2 sửa
+  thật — (1) L41 + L172 terminology drift: "con tiến trình (subprocess)" → "subprocess (tiến trình con)"
+  (vi phạm entry subprocess trong chính glossary — "con tiến trình" là biến thể SAI đã liệt kê, lặp lại lần 2
+  ở ch.10); (2) L170 Mistranslation sắc thái: "necessary evils" → "điều ác cần thiết" (sai — "necessary evils"
+  là idiom nghĩa TIÊU CỰC: phiền phức nhưng bắt buộc phải có, không phải biện minh) → "điều phiền phức nhưng
+  bắt buộc phải có". CHƯA CHẮC đã xác minh: `http://webserver:80/varz` (L49) khớp bản in O'Reilly 2017 gốc,
+  trang web đổi sang `https` sau này — không phải lỗi dịch, giữ nguyên. Số liệu/factual + gloss bịa +
+  terminology drift + entry glossary: SẠCH. Ch.10 hoàn tất (lần 2). Glossary vẫn 85 thuật ngữ (không thêm mới).
