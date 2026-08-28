@@ -61,7 +61,7 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | overhead | **overhead (công việc phụ)** | — | Giữ EN + gloss, dùng nhất quán |
 | feature velocity | **feature velocity** (giữ nguyên), nếu cần gloss: `(tốc độ tính năng)` | Tốc độ tính năng | Ghép với product velocity (đã có). Giữ EN cho nhất quán — "velocity" là jargon agile |
 | sublinearly | **dưới tuyến tính (sublinearly)** | — | Ghép với "tuyến tính" (linear) |
-| throughput | **thông lượng (throughput)** | lưu lượng | "lưu lượng" đang dùng cho traffic — 1 từ Việt cho 2 khái niệm khác nhau gây va chạm. Phát hiện ở ch.4 (3 chỗ dùng "lưu lượng" cho throughput) — đã sửa |
+| throughput | **thông lượng (throughput)** | lưu lượng, băng thông | "lưu lượng" đang dùng cho traffic — 1 từ Việt cho 2 khái niệm khác nhau gây va chạm. Phát hiện ở ch.4 (3 chỗ dùng "lưu lượng" cho throughput) — đã sửa. "băng thông" = bandwidth (khái niệm khác: dung lượng kênh truyền tối đa, không phải thông lượng thực đạt được) — phát hiện ở ch.19 (2 chỗ) — đã sửa |
 | hermetic (build) | **hermetic** (giữ nguyên) | hấp thụ | "hấp thụ" = absorb, SAI cho "hermetic build" (build tự chứa, không phụ thuộc môi trường). Calque điển hình — đã sửa ở ch.8 (4 chỗ) |
 | cherry pick (release) | **cherry pick** (giữ nguyên) | chốt quả | "chốt quả" = calque dịch nghĩa đen từng từ. Jargon git phổ biến — giữ EN. Đã sửa ở ch.8 L42 |
 | force multiplier | **bộ khuếch đại lực lượng** | — | Jargon quân sự dùng trong kỹ thuật. Đã dùng ở ch.7 L16 |
@@ -123,6 +123,22 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | histogram | **histogram (đồ thị phân bố tần số)** | — | Ch.10. Giữ EN + gloss VN. Jargon thống kê/data viz |
 | homed (be homed in) | **được đặt (homed) trong** | — | Ch.10. "be homed in" = được đặt/có trụ ở (1 datacenter). Giữ EN + gloss VN lần đầu |
 | follow the sun | **follow the sun (theo mặt trời)** | chase the sun (đuổi theo mặt trời) | Ch.11. Thuật ngữ SRE cho mô hình on-call phân bố theo múi giờ để tránh ca đêm. EN gốc = "follow the sun" (KHÔNG phải "chase the sun") |
+| regression | **lỗi hồi quy (regression)** | lỗi thoái hóa | Ch.13. Jargon QA. "hồi quy" = regression (lỗi quay lại), không phải "thoái hóa" (degradation) |
+| panic room | **phòng khẩn cấp (panic room)** | phòng an toàn | Ch.13. Phòng có đường truy cập dự phòng vào production khi network bị ngắt |
+| game out | **kịch bản hóa (game out)** | mô phỏng | Ch.14. Diễn tập/kịch bản hóa phản ứng trước khi incident xảy ra. "mô phỏng"=simulate, sai |
+| telemetry | **telemetry** (giữ nguyên) | truyền liệu | Ch.12. Dữ liệu đo xa/giám sát. "truyền liệu"=telemedicine, sai. CHƯA CHẮC gloss VN |
+| span (tracing) | **span** (giữ nguyên) | màn | Ch.12. Khoảng thời gian 1 operation trong distributed tracing. "màn"=calque sai |
+| profiling | **profiling (đo hiệu năng)** | đo hồ sơ | Ch.12. Đo hiệu năng hệ thống. "đo hồ sơ"=calque sai |
+| fire-and-forget | **bắn rồi quên (fire-and-forget)** | — | Ch.24. Idiom: gửi đi không cần phản hồi. Đã gloss trong file |
+| hot spare | **hot spare (bản sao dự phòng nóng)** | — | Ch.24. Máy dự phòng sẵn sàng nhận traffic ngay |
+| Moiré load pattern | **mẫu tải Moiré (Moiré load pattern)** | — | Ch.25._pattern tải chồng chéo khi nhiều pipeline chạy đồng thời |
+| sinkholing | **sinkholing (bắt bẫy)** | — | Ch.20-21. Task không khỏe mạnh bắt bẫy traffic thay vì trả lỗi |
+| mixed-integer program | **chương trình nguyên hỗn hợp (mixed-integer program)** | chương trình nguyên tố hỗn hợp | Ch.18. "integer"=nguyên (số nguyên), KHÔNG phải "nguyên tố" (element). Lặp 3 chỗ |
+| over-perform | **over-perform (vận hành vượt mức)** | quá tải | Ch.16. "over-performing"=chạy vượt mức cần (dư sức), KHÔNG phải "quá tải" (overload) |
+| MTBF | **MTBF (Mean Time Between Failures — thời gian trung bình giữa các lần hỏng)** | — | Ch.17. Jargon độ tin cậy |
+| break-glass | **break-glass (phá kính)** | — | Ch.17. Cơ chế vượt an toàn khẩn cấp. Giữ EN + gloss |
+| choke point | **choke point (điểm nghẽn)** | — | Ch.13. Điểm nghẽn trong hệ thống |
+| sister office | **sister office (văn phòng chị em)** | văn phòng bên | Ch.14. Văn phòng đối tác ở địa điểm khác |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -313,3 +329,59 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   phát hiện: thuật ngữ sai so glossary, số liệu/trích dẫn sai, anchor/heading gãy, terminology drift với
   tên chương ở các file `##-*.md` khác (tên chương trong preface chỉ là link label giữ nguyên EN, không
   phải prose dịch nên không có rủi ro drift).
+- 2026-08-28: Batch 1 ch.12-21, 24-25 (9 chương, 3 team parallel) — Bro làm trung tâm, 3 worker
+  parallel (Team A: ch.12-14, Team B: ch.15-18, Team C: ch.19-21+24-25). GĐ4: 8 sửa (crowdsourcing
+  "đám mây"→"đám đông", graceful degradation "êm ả"→"nhẹ nhàng"×2, agnostic "thờ ơ"→"trung lập
+  công nghệ"×3, failure domain "miền thất bại"→giữ EN, đồng thuận phân tán→nhất trí phân tán,
+  embarrassingly parallel "dễ chịu"→"hoàn toàn"). GĐ5: ~35 sửa (bị động "bởi"→chủ động, xóa "một cách",
+  calque "máy móc nặng"→"công cụ hạng nặng", "bắn (fire)"→"fire (kích hoạt)", "động não (brainstorm)"→
+  "tìm cách", "xối xả nghiền"→"nghiền", "mê mệt giấc ngủ"→"còn mơ ngủ", "đổ chuông"→"reo", "Trò chuyện
+  Trung chuyển Internet"→bỏ gloss IRC, "nhà phát triển trực"→"developer on-call", "nhìn thấy được bởi"→
+  "bị...nhìn thấy", "mô phỏng (game out)"→"kịch bản hóa", "ngỗng hoang"→"không đâu", "đo hồ sơ"→"đo
+  hiệu năng", "đo lường (instrument)"→"gắn phép đo", "Cổng xấu"→bỏ gloss HTTP 502, "Nền tảng Mây"→bỏ
+  gloss Cloud Platform, "hệ thống tệp cụm"→bỏ gloss, "không-production"→bỏ, "span (màn)"→bỏ "(màn)",
+  "ping (bật)"→bỏ "(bật)", "instance (hồi)"→bỏ "(hồi)", "data race (đua dữ liệu)"→bỏ gloss, "chạy thử
+  nghiệm (canary)"→"triển khai canary", "phòng an toàn (panic room)"→"phòng khẩn cấp", "bắn lặp"→"fire
+  (kích hoạt) lặp", "lỗi thoái hóa (regression)"→"lỗi hồi quy", "xối xả nghiền"→"nghiền", "tương tác
+  (interactive)"→"không tương tác (non-interactive)", "chuỗi phụ dependence"→"chuỗi phụ thuộc", "một
+  cách êm ả"→"êm ả"×2, "tạo thành metric"→"là metric", "xác suất có thể"→"khả năng cao", "bầy đàn giông"
+  →"hiệu ứng bầy đàn"×3, "thiếu tài nguyên"→"cạn tài nguyên", "nổi bật lên"→"chỉ ra", "giới thiệu giao
+  diện"→"thêm giao diện", "nhầm lẫn cho rằng"→"nhầm tưởng rằng", "mô phỏng"→"kịch bản hóa", "độ bám
+  dính CPU"→bỏ gloss, "mô-đun"→"module", "bot (robot)"→"bot", "đổ chuông"→"reo", "máy gọi trực"→"thiết
+  bị gọi trực"). GĐ6: ~25 sửa (ch.12: SRE "Trang web"→bỏ, telemetry "truyền liệu"→bỏ, wild goose chase
+  "ngỗng hoang"→"không đâu", debug "xử lý lỗi"→"gỡ lỗi", instrument "đo lường"→"gắn phép đo", HTTP 502
+  "Cổng xấu"→bỏ, non-production "không-production"→bỏ, Profiling "đo hồ sơ"→"đo hiệu năng", Cloud
+  Platform "Nền tảng Mây"→bỏ, instance "hồi"→bỏ, "máy móc nặng"→"công cụ hạng nặng", span "màn"→bỏ,
+  cluster filesystem "hệ thống tệp cụm"→bỏ, "phải phải" typo→"phải", "ít gì thay thế"→"không có gì
+  thay thế"; ch.13: "gọi (page)"→"page", "hoàn tác (roll back)"→"rollback", "động não (brainstorm)"→
+  "tìm cách", "phòng an toàn (panic room)"→"phòng khẩn cấp", "bắn lặp"→"fire (kích hoạt) lặp", "canary
+  (chạy thử nghiệm)"→"triển khai canary", "quy trình cài đặt lại"→"+thủ công", "xối xả nghiền"→"nghiền",
+  "lỗi thoái hóa"→"lỗi hồi quy"; ch.14: "mô phỏng (game out)"→"kịch bản hóa", "đổ chuông"→"reo",
+  "mô-đun"→"module", "hoàn tác (rollback)"→"rollback", "page"→"page bộ nhớ", "mê mệt giấc ngủ"→"còn mơ
+  ngủ", "độ bám dính CPU"→bỏ, "Trò chuyện Trung chuyển Internet"→bỏ, "bắn (fire)"→"fire (kích hoạt)",
+  "nhà phát triển trực"→"developer on-call", "nhìn thấy được bởi"→"bị...nhìn thấy", "bot (robot)"→"bot";
+  ch.16: "quá tải"→"over-perform"; ch.17: "gây thù địch"→"mang tính thù địch", "phiên bản"→"phiên bản
+  (patch)", "một cách tuyến tính"→"theo tuyến tính"; ch.18: "nguyên tố hỗn hợp"→"nguyên hỗn hợp"×3,
+  "một cách mạnh mẽ"→"một cách quyết liệt"; ch.25: "bầy đàn giông"→"hiệu ứng bầy đàn"×3, "thiếu tài
+  nguyên"→"cạn tài nguyên"). GĐ7: ~10 lỗi (ch.12: "ít gì"→"không có gì", "đang diễn ra"→"đang được
+  triển khai"; ch.13: "lớn"→"lớn hơn"; ch.14: "nhìn thấy được bởi"→"bị...nhìn thấy"; ch.19: "tương tác"
+  →"không tương tác" (bỏ mất "non-"); ch.20: "giới thiệu giao diện"→"thêm giao diện"; ch.21: "xác suất
+  có thể"→"khả năng cao"; ch.24: "nổi bật lên"→"chỉ ra"; ch.25: "bầy đàn giông"×2 xác nhận). Tổng:
+  ~70 sửa. +18 thuật ngữ mới (regression, panic room, game out, telemetry, span, profiling,
+  fire-and-forget, hot spare, Moiré load pattern, sinkholing, mixed-integer program, over-perform,
+  MTBF, break-glass, choke point, sister office, idiosyncrasy, confounding factor). Glossary hiện có
+  104 thuật ngữ.
+- 2026-08-28: QA độc lập lớp 2 batch 1 (ch.12-21, 24-25), 12 agent Sonnet 5 riêng biệt, không tin
+  self-report GĐ4-7. 7/12 chương có lỗi thật (ch.14, 17, 18, 20, 24 sạch). Sửa: ch.12 L47 idiom y khoa
+  "zebra" dịch nhầm "kỳ lân" (unicorn) → "ngựa vằn" (đổi hẳn logic ẩn dụ phổ biến-vs-hiếm thành
+  thật-vs-hư cấu); ch.13 L160 dấu phẩy thừa trước dấu hai chấm trong heading; ch.15 L40 từ bịa "vá
+  liềng" (vô nghĩa) → "vá víu", + gloss thừa "backend (phía sau)" vi phạm rule chỉ gloss khi định nghĩa
+  vai trò (tự mâu thuẫn với L44 cùng file không gloss) → bỏ gloss; ch.16 L78 idiom SF "on the gripping
+  hand" (nhại "on the one/other hand", ý ~"và quan trọng hơn cả") dịch đen "giữ chặt" → sửa nghĩa; ch.19
+  L26+L29 throughput dịch "băng thông" (=bandwidth, khái niệm khác) → "thông lượng" đúng glossary, +L51
+  "for all users" bị giảm nhẹ thành "phần lớn user" → "tất cả user"; ch.21 L76-78 công thức throttling
+  sai nghiêm trọng, thiếu hẳn hệ số K (`1 - accepts/requests` thay vì `max(0, (requests - K·accepts)/
+  (requests+1))`) khiến đoạn giải thích K ngay sau (L82-89) không khớp công thức; ch.25 L72 "bầy đàn
+  giông" sót lại 1/4 chỗ chưa áp glossary "hiệu ứng bầy đàn" (3 chỗ khác trong cùng file đã đúng). +1
+  lưu ý biến thể SAI mới cho throughput (băng thông). Xác nhận lại pattern: self-report pipeline luôn
+  sai — batch này tự báo "sạch" GĐ4 nhưng QA lớp 2 vẫn tìm thêm 9 lỗi thật ở 7/12 file.

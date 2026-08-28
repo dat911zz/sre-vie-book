@@ -37,7 +37,7 @@ Khi một outage thực sự xảy ra, postmortem không được viết như m�
 
 #### Chỉ trích (Pointing fingers)
 
-"Chúng tôi cần viết lại toàn bộ hệ thống backend (phía sau) phức tạp này! Nó đã hỏng hàng tuần trong ba quý qua và tôi chắc tất cả chúng ta đều chán ngán việc vá liềng từng chút một. Nói thật, nếu bị page (gọi trực) thêm một lần nữa tôi sẽ tự viết lại nó…"
+"Chúng tôi cần viết lại toàn bộ hệ thống backend phức tạp này! Nó đã hỏng hàng tuần trong ba quý qua và tôi chắc tất cả chúng ta đều chán ngán việc vá víu từng chút một. Nói thật, nếu bị page (gọi trực) thêm một lần nữa tôi sẽ tự viết lại nó…"
 
 #### Không đổ lỗi (Blameless)
 
@@ -59,7 +59,7 @@ Cho phép việc thu thập dữ liệu và ý tưởng nhanh chóng. Thiết y�
 
 #### Một hệ thống bình luận/ghi chú mở (An open commenting/annotation system)
 
-Làm cho việc crowdsourcing (huy động đám mây) các giải pháp dễ dàng và cải thiện phạm vi bao phủ.
+Làm cho việc crowdsourcing (huy động đám đông) các giải pháp dễ dàng và cải thiện phạm vi bao phủ.
 
 #### Thông báo email (Email notifications)
 
@@ -109,7 +109,7 @@ Một trong những thách thức lớn nhất khi đưa postmortem vào một t
 
 ### Thực hành Tốt nhất: Khen thưởng Con người một cách Hiển nhiên vì Làm điều Đúng (Visibly Reward People for Doing the Right Thing)
 
-Các nhà sáng lập của Google, Larry Page và Sergey Brin, chủ trì TGIF — một cuộc họp all-hands (toàn thể nhân viên) hàng tuần tổ chức trực tiếp tại trụ sở ở Mountain View, California và phát sóng đến các văn phòng Google trên khắp thế giới. Một kỳ TGIF năm 2014 tập trung vào "Nghệ thuật của Postmortem" (The Art of the Postmortem), với các cuộc thảo luận của SRE về các incident có tác động lớn. Một SRE chia sẻ về một release mà anh vừa push (đẩy); dù đã kiểm thử kỹ lưỡng, một tương tác bất ngờ đã vô tình làm sập một dịch vụ quan trọng trong bốn phút. Incident chỉ kéo dài bốn phút vì SRE có đủ bình tĩnh để hoàn tác thay đổi ngay lập tức, tránh một outage dài và lớn hơn rất nhiều. Kỹ sư này không chỉ nhận được hai peer bonus (thưởng đồng nghiệp)<sup>[3](#fn3)</sup> ngay sau đó để ghi nhận việc xử lý nhanh nhẹn, bình tĩnh, mà còn nhận được một tràng pháo tay lớn từ khán giả TGIF, gồm cả các nhà sáng lập và hàng nghìn Googler. Ngoài một diễn đàn rõ ràng như vậy, Google có nhiều mạng xã hội nội bộ thúc đẩy lời khen ngợi đồng nghiệp cho các [postmortem](https://sre.google/sre-book/managing-incidents/) được viết tốt và cách xử lý incident xuất sắc. Đây là một trong nhiều ví dụ mà sự công nhận cho những đóng góp này đến từ đồng nghiệp, từ các CEO và tất cả những người ở giữa.<sup>[4](#fn4)</sup>
+Các nhà sáng lập của Google, Larry Page và Sergey Brin, chủ trì TGIF — một cuộc họp all-hands (toàn thể nhân viên) hàng tuần tổ chức trực tiếp tại trụ sở ở Mountain View, California và phát sóng đến các văn phòng Google trên khắp thế giới. Một kỳ TGIF năm 2014 tập trung vào "Nghệ thuật của Postmortem" (The Art of the Postmortem), với các cuộc thảo luận của SRE về các incident có tác động lớn. Một SRE chia sẻ về một release mà anh vừa push (đẩy); dù đã kiểm thử kỹ lưỡng, một tương tác bất ngờ đã vô tình làm sập một dịch vụ quan trọng trong bốn phút. Incident chỉ kéo dài bốn phút vì SRE có đủ bình tĩnh để hoàn tác thay đổi ngay lập tức, tránh một outage dài và lớn hơn rất nhiều. Kỹ sư này không chỉ nhận được hai peer bonus (thưởng đồng nghiệp)<sup>[3](#fn3)</sup> ngay sau đó để ghi nhận cách xử lý incident nhanh nhẹn, bình tĩnh, mà còn nhận được một tràng pháo tay lớn từ khán giả TGIF, gồm cả các nhà sáng lập và hàng nghìn Googler. Ngoài một diễn đàn rõ ràng như vậy, Google có nhiều mạng xã hội nội bộ thúc đẩy lời khen ngợi đồng nghiệp cho các [postmortem](https://sre.google/sre-book/managing-incidents/) được viết tốt và cách xử lý incident xuất sắc. Đây là một trong nhiều ví dụ mà sự công nhận cho những đóng góp này đến từ đồng nghiệp, từ các CEO và tất cả những người ở giữa.<sup>[4](#fn4)</sup>
 
 ### Thực hành Tốt nhất: Yêu cầu Phản hồi về Hiệu quả Postmortem (Ask for Feedback on Postmortem Effectiveness)
 

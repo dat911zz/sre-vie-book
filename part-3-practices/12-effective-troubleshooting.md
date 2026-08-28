@@ -16,17 +16,17 @@
 >
 > John Allspaw
 
-Troubleshooting (xử lý lỗi) là một kỹ năng quan trọng cho bất kỳ ai vận hành các hệ thống tính toán phân tán — đặc biệt là các SRE (Site Reliability Engineering — Kỹ thuật Độ tin cậy Trang web) — nhưng nó thường bị coi là một kỹ năng bẩm sinh, có người có, có người không. Một lý do của định kiến này là, với những người xử lý lỗi thường xuyên, đó là một quy trình đã ăn sâu; việc giải thích *cách* xử lý lỗi thật khó, giống như giải thích cách đi xe đạp. Tuy nhiên, chúng tôi tin rằng troubleshooting *vừa* có thể học *vừa* có thể dạy.
+Troubleshooting (xử lý lỗi) là một kỹ năng quan trọng cho bất kỳ ai vận hành các hệ thống tính toán phân tán — đặc biệt là các SRE (Site Reliability Engineering — Kỹ thuật Độ tin cậy) — nhưng nó thường bị coi là một kỹ năng bẩm sinh, có người có, có người không. Một lý do của định kiến này là, với những người xử lý lỗi thường xuyên, đó là một quy trình đã ăn sâu; việc giải thích *cách* xử lý lỗi thật khó, giống như giải thích cách đi xe đạp. Tuy nhiên, chúng tôi tin rằng troubleshooting *vừa* có thể học *vừa* có thể dạy.
 
-Người mới thường vấp ngã khi troubleshooting vì bài toán lý tưởng phụ thuộc vào hai yếu tố: sự hiểu biết về cách xử lý lỗi một cách tổng quát (tức không cần kiến thức hệ thống cụ thể nào) và kiến thức vững chắc về chính hệ thống. Dù bạn có thể điều tra một vấn đề chỉ bằng quy trình tổng quát và suy luận từ các nguyên lý đầu tiên,<sup>[1](#fn1)</sup> chúng tôi thường thấy cách tiếp cận này kém hiệu quả và kém hiệu lực hơn so với việc hiểu các thứ được giả định hoạt động ra sao. Kiến thức về hệ thống thường giới hạn hiệu lực của một SRE mới với một hệ thống; ít gì thay thế được việc học cách hệ thống được thiết kế và xây dựng.
+Người mới thường vấp ngã khi troubleshooting vì bài toán lý tưởng phụ thuộc vào hai yếu tố: sự hiểu biết về cách xử lý lỗi một cách tổng quát (tức không cần kiến thức hệ thống cụ thể nào) và kiến thức vững chắc về chính hệ thống. Dù bạn có thể điều tra một vấn đề chỉ bằng quy trình tổng quát và suy luận từ các nguyên lý đầu tiên,<sup>[1](#fn1)</sup> chúng tôi thường thấy cách tiếp cận này kém hiệu quả và kém hiệu lực hơn so với việc hiểu các thứ được giả định hoạt động ra sao. Kiến thức về hệ thống thường giới hạn hiệu lực của một SRE mới với một hệ thống; không có gì thay thế được việc học cách hệ thống được thiết kế và xây dựng.
 
 Hãy xem xét một mô hình chung của quy trình troubleshooting. Những độc giả am hiểu troubleshooting có thể tranh luận với các định nghĩa và quy trình của chúng tôi; nếu phương pháp của bạn hiệu quả với bạn, không có lý do gì để không giữ nguyên nó.
 
 ## Lý thuyết (Theory)
 
-Một cách chính thức, chúng tôi có thể xem quy trình troubleshooting như một ứng dụng của phương pháp giả định-suy diễn (hypothetico-deductive method):<sup>[2](#fn2)</sup> được cho một tập các quan sát về một hệ thống và một nền tảng lý thuyết để hiểu hành vi của nó, chúng tôi lặp đi lặp lại giả thuyết (hypothesize) các nguyên nhân tiềm tàng cho sự cố và cố gắng kiểm thử những giả thuyết đó.
+Một cách chính thức, chúng tôi có thể xem quy trình troubleshooting như một ứng dụng của phương pháp giả định-suy diễn (hypothetico-deductive method):<sup>[2](#fn2)</sup> với một tập các quan sát về một hệ thống và một nền tảng lý thuyết để hiểu hành vi của nó, chúng tôi lặp đi lặp lại giả thuyết (hypothesize) các nguyên nhân tiềm tàng cho sự cố và cố gắng kiểm thử những giả thuyết đó.
 
-Trong một mô hình lý tưởng hóa như [Hình 12-1](#hinh-12-1), chúng tôi bắt đầu với một báo cáo vấn đề (problem report) cho biết có điều gì đó sai với hệ thống. Sau đó chúng tôi có thể nhìn vào telemetry (truyền liệu)<sup>[3](#fn3)</sup> và các log (nhật ký) của hệ thống để hiểu trạng thái hiện tại của nó. Thông tin này, kết hợp với kiến thức của chúng tôi về cách hệ thống được xây dựng, cách nó đáng lẽ phải vận hành, và các chế độ thất bại (failure mode) của nó, cho phép xác định một số nguyên nhân có thể.
+Trong một mô hình lý tưởng hóa như [Hình 12-1](#hinh-12-1), chúng tôi bắt đầu với một báo cáo vấn đề (problem report) cho biết có điều gì đó sai với hệ thống. Sau đó chúng tôi có thể nhìn vào telemetry<sup>[3](#fn3)</sup> và các log (nhật ký) của hệ thống để hiểu trạng thái hiện tại của nó. Thông tin này, kết hợp với kiến thức của chúng tôi về cách hệ thống được xây dựng, cách nó đáng lẽ phải vận hành, và các chế độ thất bại (failure mode) của nó, cho phép xác định một số nguyên nhân có thể.
 
 
 <a id="hinh-12-1"></a>![Hình 12-1](../assets/imgs/fig-12-1.jpg)
@@ -39,12 +39,12 @@ Sau đó chúng tôi có thể kiểm thử các giả thuyết của mình theo
 
 Các phiên troubleshooting kém hiệu quả thường mắc lỗi ở các bước Triage (phân loại), Examine (xét) và Diagnose (chẩn đoán), phần lớn do thiếu hiểu biết sâu về hệ thống. Dưới đây là các cạm bẫy chung cần tránh:
 
--   Nhìn vào các triệu chứng không liên quan hoặc hiểu sai ý nghĩa của các metrics (chỉ số) hệ thống. Những cuộc truy lùng ngỗng hoang (wild goose chase) thường là hậu quả.
+-   Nhìn vào các triệu chứng không liên quan hoặc hiểu sai ý nghĩa của các metrics (chỉ số) hệ thống. Những cuộc truy lùng không đâu (wild goose chase) thường là hậu quả.
 -   Hiểu sai cách thay đổi hệ thống, các input (đầu vào) của nó, hoặc môi trường của nó, để kiểm thử các giả thuyết một cách an toàn và hiệu quả.
 -   Đưa ra các lý thuyết hoàn toàn không có khả năng xảy ra về điều gì sai, hoặc bám vào nguyên nhân của các vấn đề trong quá khứ, lập luận rằng vì nó đã xảy ra một lần thì giờ chắc phải đang xảy ra lần nữa.
 -   Truy tìm các tương quan giả (spurious correlation) thực chất chỉ là trùng hợp hoặc có tương quan với các nguyên nhân chung.
 
-Cách sửa cạm bẫy chung thứ nhất và thứ hai là học hệ thống liên quan và trở nên rành rọt với các mẫu (pattern) thường dùng trong các hệ thống phân tán. Cạm bẫy thứ ba là một tập các sai lầm logic có thể tránh được bằng cách nhớ rằng không phải mọi sự cố đều có khả năng như nhau — như các bác sĩ được dạy, "khi nghe tiếng móng ngựa, hãy nghĩ đến ngựa chứ không phải kỳ lân."<sup>[4](#fn4)</sup> Hãy nhớ rằng, khi mọi thứ bằng nhau, chúng ta nên ưu tiên các giải thích đơn giản hơn.<sup>[5](#fn5)</sup>
+Cách sửa cạm bẫy chung thứ nhất và thứ hai là học hệ thống liên quan và trở nên rành rọt với các mẫu (pattern) thường dùng trong các hệ thống phân tán. Cạm bẫy thứ ba là một tập các sai lầm logic có thể tránh được bằng cách nhớ rằng không phải mọi sự cố đều có khả năng như nhau — như các bác sĩ được dạy, "khi nghe tiếng móng ngựa, hãy nghĩ đến ngựa chứ không phải ngựa vằn."<sup>[4](#fn4)</sup> Hãy nhớ rằng, khi mọi thứ bằng nhau, chúng ta nên ưu tiên các giải thích đơn giản hơn.<sup>[5](#fn5)</sup>
 
 Cuối cùng, chúng ta nên nhớ rằng tương quan không phải là nhân quả (correlation is not causation):<sup>[6](#fn6)</sup> một số sự kiện có tương quan vì chúng chia sẻ một nguyên nhân chung — chẳng hạn packet loss (mất gói tin) trong một cluster (cụm máy) và các ổ cứng hỏng trong cluster đều do một sự mất điện — dù rõ ràng sự cố mạng không gây ra hỏng ổ cứng và ngược lại. Tệ hơn, khi các hệ thống lớn hơn, phức tạp hơn và khi nhiều metrics hơn được giám sát, sẽ khó tránh có những sự kiện tình cờ tương quan tốt với các sự kiện khác, thuần túy do trùng hợp.<sup>[7](#fn7)</sup>
 
@@ -58,7 +58,7 @@ Trong thực tế, tất nhiên, troubleshooting không bao giờ suôn sẻ nh�
 
 Mọi vấn đề bắt đầu bằng một báo cáo vấn đề, có thể là một cảnh báo tự động hay một đồng nghiệp nói "Hệ thống chậm". Một báo cáo hiệu quả nên cho bạn biết hành vi *kỳ vọng*, hành vi *thực tế*, và, nếu có thể, cách tái hiện (reproduce) hành vi.<sup>[8](#fn8)</sup> Lý tưởng nhất, các báo cáo nên có một dạng nhất quán và được lưu ở một vị trí có thể tìm kiếm, như một hệ thống theo dõi bug (lỗi). Ở đây, các đội chúng tôi thường có các biểu mẫu (form) tùy chỉnh hoặc các ứng dụng web nhỏ, yêu cầu thông tin liên quan đến việc chẩn đoán các hệ thống cụ thể mà họ hỗ trợ, rồi tự động tạo và định tuyến một bug. Đây cũng là một điểm tốt để cung cấp công cụ cho những người báo cáo vấn đề khi họ cố tự chẩn đoán hoặc tự sửa các vấn đề chung của mình.
 
-Là một thực hành phổ biến tại Google, mở một bug cho mọi vấn đề, kể cả những cái nhận qua email hay nhắn tin tức thời. Làm vậy tạo ra một log các hoạt động điều tra và khắc phục, có thể tham chiếu trong tương lai. Nhiều đội không khuyến khích báo cáo vấn đề trực tiếp cho một người vì vài lý do: thực hành này thêm một bước phải ghi lại báo cáo vào bug, tạo ra các báo cáo chất lượng thấp hơn và không nhìn thấy được bởi các thành viên khác của đội, và có xu hướng dồn khối lượng giải quyết vấn đề lên một vài thành viên mà người báo cáo tình cờ biết, thay vì người đang trực hiện tại (xem thêm [Dealing with Interrupts](https://sre.google/sre-book/dealing-with-interrupts/)).
+Là một thực hành phổ biến tại Google, mở một bug cho mọi vấn đề, kể cả những cái nhận qua email hay nhắn tin tức thời. Làm vậy tạo ra một log các hoạt động điều tra và khắc phục, có thể tham chiếu trong tương lai. Nhiều đội không khuyến khích báo cáo vấn đề trực tiếp cho một người vì vài lý do: thực hành này thêm một bước phải ghi lại báo cáo vào bug, tạo ra các báo cáo chất lượng thấp hơn, lại không hiển thị cho các thành viên khác của đội, và có xu hướng dồn khối lượng giải quyết vấn đề lên một vài thành viên mà người báo cáo tình cờ biết, thay vì người đang trực hiện tại (xem thêm [Dealing with Interrupts](https://sre.google/sre-book/dealing-with-interrupts/)).
 
 ### Shakespeare Có một Vấn đề (Shakespeare Has a Problem)
 
@@ -86,7 +86,7 @@ Logging (ghi nhật ký) là một công cụ vô giá khác. Việc xuất ra (
 
 ### Logging (Ghi nhật ký)
 
-Các log văn bản rất hữu ích cho việc debug (xử lý lỗi) phản ứng theo thời gian thực, trong khi lưu log ở một định dạng binary (nhị phân) có cấu trúc cho phép xây dựng các công cụ để làm phân tích hồi cứu (retrospective analysis) với nhiều thông tin hơn.
+Các log văn bản rất hữu ích cho việc debug (gỡ lỗi) phản ứng theo thời gian thực, trong khi lưu log ở một định dạng binary (nhị phân) có cấu trúc cho phép xây dựng các công cụ để làm phân tích hồi cứu (retrospective analysis) với nhiều thông tin hơn.
 
 Thật hữu ích khi có nhiều mức độ chi tiết (verbosity level) khả dụng, kèm một cách để tăng các mức này lên tức thì (on-the-fly). Tính năng này cho phép xem xét bất kỳ hay tất cả các thao tác với chi tiết rất cao mà không cần khởi động lại tiến trình, đồng thời vẫn cho phép vặn nhỏ các mức chi tiết khi dịch vụ vận hành bình thường. Tùy vào lượng traffic mà dịch vụ nhận được, có thể tốt hơn là dùng lấy mẫu thống kê (statistical sampling); ví dụ, bạn có thể hiển thị một trong mỗi 1.000 thao tác.
 
@@ -94,7 +94,7 @@ Một bước tiếp theo là thêm một ngôn ngữ chọn lọc (selection la
 
 Việc phơi bày (exposing) trạng thái hiện tại là mánh khóe thứ ba trong hộp công cụ của chúng tôi. Ví dụ, các server Google có các endpoint (điểm cuối) hiển thị một mẫu các RPC đã gửi hoặc nhận gần đây, nên có thể hiểu bất kỳ server nào đang giao tiếp với server khác ra sao mà không cần tham chiếu một sơ đồ kiến trúc. Những endpoint này cũng hiển thị các histogram của các tốc độ lỗi và độ trễ cho mỗi loại RPC, để nhanh chóng nhận ra điều gì không ổn. Một số hệ thống có endpoint hiển thị cấu hình hiện tại hoặc cho phép xem xét dữ liệu của chúng; ví dụ các server Borgmon của Google ([Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)) có thể hiển thị các rule giám sát mà chúng đang dùng, và thậm chí cho phép theo dõi một phép tính cụ thể từng bước ngược về các metrics nguồn mà một giá trị được suy ra.
 
-Cuối cùng, bạn có thể thậm chí cần đo lường (instrument) một client (khách hàng) để thí nghiệm, nhằm khám phá một thành phần đang trả về gì làm phản hồi cho các yêu cầu.
+Cuối cùng, bạn có thể thậm chí cần gắn phép đo (instrument) một client để thí nghiệm, nhằm khám phá một thành phần đang trả về gì làm phản hồi cho các yêu cầu.
 
 <a id="debug-shakespeare"></a>
 
@@ -118,7 +118,7 @@ Nó kỳ vọng nhận được một phản hồi có mã phản hồi HTTP 200
 
 Hệ thống được cấu hình để gửi một probe (mồi) một lần mỗi phút; trong mười phút qua, khoảng một nửa các probe thành công, dù không có mẫu nào nhận dạng được. Thật không may, máy dò không hiển thị cho bạn *điều gì* đã được trả về khi nó thất bại; bạn ghi chú để sửa điều đó trong tương lai.
 
-Dùng `curl`, bạn thủ công gửi các yêu cầu đến endpoint tìm kiếm và nhận được một phản hồi thất bại với mã phản hồi HTTP 502 (Bad Gateway — Cổng xấu), không có payload. Nó có một HTTP header (tiêu đề), `X-Request-Trace`, liệt kê địa chỉ của các server backend (phía sau) chịu trách nhiệm trả lời cho yêu cầu đó. Với thông tin này, giờ bạn có thể xem xét những backend đó để kiểm tra chúng có đang phản hồi đúng không.
+Dùng `curl`, bạn thủ công gửi các yêu cầu đến endpoint tìm kiếm và nhận được một phản hồi thất bại với mã phản hồi HTTP 502 (Bad Gateway), không có payload. Nó có một HTTP header (tiêu đề), `X-Request-Trace`, liệt kê địa chỉ của các server backend (phía sau) chịu trách nhiệm trả lời cho yêu cầu đó. Với thông tin này, giờ bạn có thể xem xét những backend đó để kiểm tra chúng có đang phản hồi đúng không.
 
 ## Diagnose (Chẩn đoán) (Diagnose)
 
@@ -126,7 +126,7 @@ Một sự hiểu biết toàn diện về thiết kế hệ thống chắc ch�
 
 ### Đơn giản hóa và giảm (Simplify and reduce)
 
-Lý tưởng nhất, các thành phần trong một hệ thống có các giao diện (interface) được định nghĩa rõ ràng và thực hiện các phép biến đổi (transformation) đã biết từ input đến output (đầu ra) của chúng (trong ví dụ của chúng tôi, được cho một input văn bản tìm kiếm, một thành phần có thể trả về output chứa các khớp có thể). Khi đó có thể nhìn vào các kết nối *giữa* các thành phần — hoặc, tương đương, vào dữ liệu đang chảy giữa chúng — để xác định liệu một thành phần cụ thể có đang hoạt động đúng không. Việc tiêm (injecting) dữ liệu kiểm thử đã biết để kiểm tra rằng output kết quả đúng như kỳ vọng (một dạng kiểm thử hộp đen) ở mỗi bước có thể đặc biệt hiệu quả, cũng như việc tiêm dữ liệu có chủ đích để dò (probe) các nguyên nhân có thể của lỗi. Có một trường hợp kiểm thử tái hiện được vững chắc sẽ làm debug nhanh hơn nhiều, và có thể dùng trường hợp đó trong một môi trường non-production (không-production), nơi các kỹ thuật xâm lấn hơn hoặc rủi ro hơn khả dụng hơn so với trong production.
+Lý tưởng nhất, các thành phần trong một hệ thống có các giao diện (interface) được định nghĩa rõ ràng và thực hiện các phép biến đổi (transformation) đã biết từ input đến output (đầu ra) của chúng (trong ví dụ của chúng tôi, được cho một input văn bản tìm kiếm, một thành phần có thể trả về output chứa các khớp có thể). Khi đó có thể nhìn vào các kết nối *giữa* các thành phần — hoặc, tương đương, vào dữ liệu đang chảy giữa chúng — để xác định liệu một thành phần cụ thể có đang hoạt động đúng không. Việc tiêm (injecting) dữ liệu kiểm thử đã biết để kiểm tra rằng output kết quả đúng như kỳ vọng (một dạng kiểm thử hộp đen) ở mỗi bước có thể đặc biệt hiệu quả, cũng như việc tiêm dữ liệu có chủ đích để dò (probe) các nguyên nhân có thể của lỗi. Có một trường hợp kiểm thử tái hiện được vững chắc sẽ làm debug nhanh hơn nhiều, và có thể dùng trường hợp đó trong một môi trường non-production, nơi các kỹ thuật xâm lấn hơn hoặc rủi ro hơn khả dụng hơn so với trong production.
 
 Việc "chia để trị" (divide and conquer) là một kỹ thuật giải quyết vấn đề đa dụng, rất hữu ích. Trong một hệ thống nhiều tầng mà công việc diễn ra xuyên suốt một stack các thành phần, cách tốt nhất thường là bắt đầu có hệ thống từ một đầu của stack và làm việc đến đầu kia, xem xét từng thành phần một. Chiến lược này cũng phù hợp tốt với các đường ống xử lý dữ liệu (data processing pipeline). Trong các hệ thống rất lớn, việc tiến tuyến tính có thể quá chậm; một cách thay thế là *bisection* (chia đôi), chia hệ thống làm hai và xem xét các đường truyền thông giữa các thành phần ở một bên với bên kia. Sau khi xác định một nửa có vẻ đang hoạt động đúng hay không, lặp lại quy trình cho đến khi còn lại một thành phần khả nghi có lỗi.
 
@@ -140,7 +140,7 @@ Một hệ thống trục trặc thường vẫn đang cố làm *điều gì đ
 
 **Tại sao**? Các task Spanner server đang dùng hết thời gian CPU và không thể xử lý tiếp tất cả các yêu cầu mà client gửi.
 
-**Ở đâu** trong server thời gian CPU được dùng? Profiling (đo hồ sơ) server cho thấy nó đang sắp xếp các entry trong các log đã checkpoint (ghi điểm kiểm tra) ra disk (ổ đĩa).
+**Ở đâu** trong server thời gian CPU được dùng? Profiling (đo hiệu năng) server cho thấy nó đang sắp xếp các entry trong các log đã checkpoint (ghi điểm kiểm tra) ra disk (ổ đĩa).
 
 **Ở đâu** trong code sắp xếp log mà nó được dùng? Khi đánh giá một regular expression (biểu thức chính quy) trên các đường dẫn đến các tệp log.
 
@@ -165,7 +165,7 @@ Dù các công cụ tổng quát được mô tả trước đó hữu ích tron
 
 ## Kiểm thử và Trị (Test and Treat)
 
-Khi đã có một danh sách ngắn các nguyên nhân có thể, đã đến lúc cố tìm *yếu tố nào* là gốc rễ thực sự của vấn đề. Dùng phương pháp thực nghiệm, chúng tôi có thể cố loại vào (rule in) hoặc loại ra (rule out) các giả thuyết. Ví dụ, giả sử chúng tôi nghĩ một vấn đề do một sự cố mạng giữa một server logic ứng dụng và một server database (cơ sở dữ liệu), hoặc do database từ chối kết nối. Thử kết nối đến database với cùng thông tin xác thực (credentials) mà server logic ứng dụng dùng có thể bác bỏ giả thuyết thứ hai, trong khi ping (bật) server database có thể bác bỏ giả thuyết thứ nhất, tùy vào tô-pô mạng, các rule firewall (tường lửa) và các yếu tố khác. Việc theo dõi code và cố bắt chước luồng code, từng bước một, có thể chỉ ra chính xác điều gì đang sai.
+Khi đã có một danh sách ngắn các nguyên nhân có thể, đã đến lúc cố tìm *yếu tố nào* là gốc rễ thực sự của vấn đề. Dùng phương pháp thực nghiệm, chúng tôi có thể cố loại vào (rule in) hoặc loại ra (rule out) các giả thuyết. Ví dụ, giả sử chúng tôi nghĩ một vấn đề do một sự cố mạng giữa một server logic ứng dụng và một server database (cơ sở dữ liệu), hoặc do database từ chối kết nối. Thử kết nối đến database với cùng thông tin xác thực (credentials) mà server logic ứng dụng dùng có thể bác bỏ giả thuyết thứ hai, trong khi ping server database có thể bác bỏ giả thuyết thứ nhất, tùy vào tô-pô mạng, các rule firewall (tường lửa) và các yếu tố khác. Việc theo dõi code và cố bắt chước luồng code, từng bước một, có thể chỉ ra chính xác điều gì đang sai.
 
 Có một số yếu tố cần cân nhắc khi thiết kế các kiểm thử (có thể đơn giản như gửi một ping, hoặc phức tạp như loại bỏ traffic từ một cluster và tiêm các yêu cầu được tạo riêng để tìm một race condition (trạng thái đua)):
 
@@ -215,7 +215,7 @@ Khi đã tìm ra các yếu tố gây ra vấn đề, đã đến lúc viết gh
 
 ## Nghiên cứu Tình huống (Case Study)
 
-App Engine,<sup>[16](#fn16)</sup> một phần của Cloud Platform (Nền tảng Mây) của Google, là một sản phẩm platform-as-a-service (nền tảng-dịch-vụ) cho phép các developer (nhà phát triển) xây dựng dịch vụ trên hạ tầng của Google. Một trong những khách hàng nội bộ của chúng tôi đã đệ trình một báo cáo vấn đề cho biết họ gần đây thấy một sự tăng đáng kể về độ trễ, việc dùng CPU, và số lượng tiến trình đang chạy cần thiết để phục vụ traffic cho ứng dụng của họ — một hệ thống quản lý nội dung dùng để xây dựng tài liệu cho các developer.<sup>[17](#fn17)</sup> Khách hàng không tìm thấy bất kỳ thay đổi gần đây nào trong code của họ có tương quan với sự tăng tài nguyên, và cũng không có sự tăng traffic đến ứng dụng (xem [Hình 12-3](#hinh-12-3)), nên họ tự hỏi liệu một thay đổi trong dịch vụ App Engine có phải thủ phạm hay không.
+App Engine,<sup>[16](#fn16)</sup> một phần của Cloud Platform của Google, là một sản phẩm platform-as-a-service (nền tảng-dịch-vụ) cho phép các developer (nhà phát triển) xây dựng dịch vụ trên hạ tầng của Google. Một trong những khách hàng nội bộ của chúng tôi đã đệ trình một báo cáo vấn đề cho biết họ gần đây thấy một sự tăng đáng kể về độ trễ, việc dùng CPU, và số lượng tiến trình đang chạy cần thiết để phục vụ traffic cho ứng dụng của họ — một hệ thống quản lý nội dung dùng để xây dựng tài liệu cho các developer.<sup>[17](#fn17)</sup> Khách hàng không tìm thấy bất kỳ thay đổi gần đây nào trong code của họ có tương quan với sự tăng tài nguyên, và cũng không có sự tăng traffic đến ứng dụng (xem [Hình 12-3](#hinh-12-3)), nên họ tự hỏi liệu một thay đổi trong dịch vụ App Engine có phải thủ phạm hay không.
 
 Cuộc điều tra của chúng tôi phát hiện ra rằng độ trễ thực sự đã tăng gần một bậc độ lớn (như hiển thị trong [Hình 12-4](#hinh-12-4)). Cùng lúc, lượng thời gian CPU ([Hình 12-5](#hinh-12-5)) và số tiến trình phục vụ ([Hình 12-6](#hinh-12-6)) đã gần gấp bốn lần. Rõ ràng có điều gì đó sai. Đã đến lúc bắt đầu troubleshooting.
 
@@ -237,13 +237,13 @@ Cuộc điều tra của chúng tôi phát hiện ra rằng độ trễ thực s
 
 <a id="hinh-12-6"></a>![Hình 12-6](../assets/imgs/fig-12-6.jpg)
 
-[Hình 12-6.](#hinh-12-6) Số lượng các instance (hồi) cho ứng dụng.
+[Hình 12-6.](#hinh-12-6) Số lượng các instance cho ứng dụng.
 
-Thông thường, một sự tăng đột ngột về độ trễ và việc dùng tài nguyên chỉ hoặc là do một sự tăng traffic gửi đến hệ thống, hoặc do một thay đổi cấu hình hệ thống. Tuy nhiên, chúng tôi có thể dễ dàng loại trừ cả hai nguyên nhân có thể này: dù một đỉnh traffic đến ứng dụng quanh 20:45 có thể giải thích một sự gia tăng ngắn việc dùng tài nguyên, chúng tôi sẽ mong đợi traffic quay về cơ sở (baseline) khá sớm sau khi lượng yêu cầu bình thường hóa. Đỉnh này chắc chắn không nên kéo dài nhiều ngày, bắt đầu từ khi các developer ứng dụng đệ trình báo cáo và chúng tôi bắt đầu xem xét vấn đề. Thứ hai, sự thay đổi hiệu năng xảy ra vào thứ Bảy, lúc mà cả thay đổi ứng dụng lẫn môi trường production đều không đang diễn ra. Các lần push code gần nhất và các lần push cấu hình của dịch vụ đã hoàn thành từ nhiều ngày trước. Hơn nữa, nếu vấn đề bắt nguồn từ dịch vụ, chúng tôi sẽ mong đợi thấy các hiệu ứng tương tự trên các ứng dụng khác dùng chung hạ tầng. Tuy nhiên, không ứng dụng nào khác đang trải qua các hiệu ứng tương tự.
+Thông thường, một sự tăng đột ngột về độ trễ và việc dùng tài nguyên chỉ hoặc là do một sự tăng traffic gửi đến hệ thống, hoặc do một thay đổi cấu hình hệ thống. Tuy nhiên, chúng tôi có thể dễ dàng loại trừ cả hai nguyên nhân có thể này: dù một đỉnh traffic đến ứng dụng quanh 20:45 có thể giải thích một sự gia tăng ngắn việc dùng tài nguyên, chúng tôi sẽ mong đợi traffic quay về cơ sở (baseline) khá sớm sau khi lượng yêu cầu bình thường hóa. Đỉnh này chắc chắn không nên kéo dài nhiều ngày, bắt đầu từ khi các developer ứng dụng đệ trình báo cáo và chúng tôi bắt đầu xem xét vấn đề. Thứ hai, sự thay đổi hiệu năng xảy ra vào thứ Bảy, lúc mà cả thay đổi ứng dụng lẫn môi trường production đều không đang được triển khai. Các lần push code gần nhất và các lần push cấu hình của dịch vụ đã hoàn thành từ nhiều ngày trước. Hơn nữa, nếu vấn đề bắt nguồn từ dịch vụ, chúng tôi sẽ mong đợi thấy các hiệu ứng tương tự trên các ứng dụng khác dùng chung hạ tầng. Tuy nhiên, không ứng dụng nào khác đang trải qua các hiệu ứng tương tự.
 
 Chúng tôi đã chuyển báo cáo vấn đề cho các đối tác — các developer của App Engine — để điều tra xem liệu khách hàng có đang gặp phải đặc điểm riêng (idiosyncrasy) nào trong hạ tầng phục vụ không. Các developer cũng không tìm thấy điều gì kỳ lạ. Tuy nhiên, một developer nhận thấy một tương quan giữa sự tăng độ trễ và sự tăng của một lời gọi API lưu trữ dữ liệu cụ thể, `merge_join`, thường chỉ báo các index không tối ưu khi đọc từ datastore (kho dữ liệu). Việc thêm một composite index (chỉ mục ghép) trên các thuộc tính mà ứng dụng dùng để chọn các object (đối tượng) từ datastore sẽ làm nhanh các yêu cầu đó, và về mặt nguyên tắc, làm nhanh ứng dụng nói chung — nhưng chúng tôi cần tìm ra *thuộc tính nào* cần được index. Một cái nhìn nhanh vào code ứng dụng không tiết lộ nghi phạm nào hiển nhiên.
 
-Đã đến lúc rút các "máy móc nặng" trong hộp công cụ của chúng tôi: dùng Dapper [[Sig10]](https://sre.google/sre-book/bibliography#Sig10), chúng tôi đã theo dõi các bước mà các yêu cầu HTTP riêng lẻ thực hiện — từ lúc được nhận bởi một reverse proxy (bộ proxy ngược) frontend cho đến điểm code ứng dụng trả về phản hồi — và đã nhìn vào các RPC phát ra bởi mỗi server liên quan đến việc xử lý yêu cầu đó. Làm vậy cho phép chúng tôi thấy thuộc tính nào được chứa trong các yêu cầu đến datastore, rồi tạo các index phù hợp.
+Đã đến lúc rút các "máy móc nặng" trong hộp công cụ của chúng tôi: dùng Dapper [[Sig10]](https://sre.google/sre-book/bibliography#Sig10), chúng tôi đã theo dõi các bước mà các yêu cầu HTTP riêng lẻ thực hiện — từ lúc reverse proxy (bộ proxy ngược) frontend nhận cho đến điểm code ứng dụng trả phản hồi — và xem các RPC mỗi server phát ra liên quan đến việc xử lý yêu cầu đó. Làm vậy cho phép chúng tôi thấy thuộc tính nào được chứa trong các yêu cầu đến datastore, rồi tạo các index phù hợp.
 
 Trong khi điều tra, chúng tôi phát hiện ra rằng các yêu cầu cho nội dung tĩnh như hình ảnh, không được phục vụ từ datastore, cũng chậm hơn đáng kể so với kỳ vọng. Nhìn vào các đồ thị với độ hạt cấp tệp, chúng tôi thấy các phản hồi của chúng nhanh hơn nhiều chỉ vài ngày trước. Điều này ngụ ý rằng tương quan quan sát được giữa `merge_join` và sự tăng độ trễ là giả, và rằng lý thuyết index không tối ưu của chúng tôi sai lầm chí mạng.
 
@@ -264,7 +264,7 @@ Có nhiều cách để đơn giản hóa và tăng tốc troubleshooting. Có l
 -   Xây dựng khả năng quan sát được (observability) — với cả metrics hộp trắng lẫn log có cấu trúc — vào mỗi thành phần từ nền móng
 -   Thiết kế các hệ thống với các giao diện rõ ràng và có thể quan sát được giữa các thành phần.
 
-Đảm bảo rằng thông tin khả dụng theo cách nhất quán xuyên suốt một hệ thống — ví dụ dùng một định danh yêu cầu duy nhất xuyên suốt span (màn) của các RPC do các thành phần khác nhau tạo ra — giảm nhu cầu phải tìm entry log *nào* trên một thành phần upstream (phía trên) khớp với entry log trên một thành phần downstream (phía dưới), tăng tốc thời gian đến chẩn đoán và phục hồi.
+Đảm bảo rằng thông tin khả dụng theo cách nhất quán xuyên suốt một hệ thống — ví dụ dùng một định danh yêu cầu duy nhất xuyên suốt span của các RPC do các thành phần khác nhau tạo ra — giảm nhu cầu phải tìm entry log *nào* trên một thành phần upstream (phía trên) khớp với entry log trên một thành phần downstream (phía dưới), tăng tốc thời gian đến chẩn đoán và phục hồi.
 
 Các vấn đề trong việc biểu diễn đúng trạng thái thực tế của một thay đổi code hay một thay đổi môi trường thường dẫn đến nhu cầu phải troubleshooting. Việc đơn giản hóa, kiểm soát và ghi log những thay đổi như vậy có thể giảm nhu cầu phải troubleshooting, và làm cho nó dễ hơn khi nó xảy ra.
 
@@ -278,7 +278,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn3"></a>[3](#fn3) Ví dụ, các biến đã xuất ra như được mô tả trong [Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/).
 
-<a id="fn4"></a>[4](#fn4) Thuộc về Theodore Woodward, của Trường Y University of Maryland, vào những năm 1940. Xem [*https://en.wikipedia.org/wiki/Zebra\_(medicine)*](https://en.wikipedia.org/wiki/Zebra_\(medicine\)). Điều này hoạt động trong một số miền, nhưng trong một số hệ thống, cả các lớp sự thất bại có thể bị loại bỏ: ví dụ, sử dụng một cluster filesystem (hệ thống tệp cụm) được thiết kế tốt có nghĩa là một vấn đề độ trễ ít có khả năng là do một disk (ổ đĩa) chết đơn lẻ.
+<a id="fn4"></a>[4](#fn4) Thuộc về Theodore Woodward, của Trường Y University of Maryland, vào những năm 1940. Xem [*https://en.wikipedia.org/wiki/Zebra\_(medicine)*](https://en.wikipedia.org/wiki/Zebra_\(medicine\)). Điều này hoạt động trong một số miền, nhưng trong một số hệ thống, cả các lớp sự thất bại có thể bị loại bỏ: ví dụ, sử dụng một cluster filesystem được thiết kế tốt có nghĩa là một vấn đề độ trễ ít có khả năng là do một disk (ổ đĩa) chết đơn lẻ.
 
 <a id="fn5"></a>[5](#fn5) Dao cạo của Occam (Occam's Razor); xem [*https://en.wikipedia.org/wiki/Occam%27s\_razor*](https://en.wikipedia.org/wiki/Occam%27s_razor). Nhưng hãy nhớ rằng có thể vẫn là trường hợp rằng có nhiều vấn đề; đặc biệt, có thể nhiều khả năng hơn rằng một hệ thống có một số vấn đề chung mức thấp, khi xét chung lại, giải thích tất cả các triệu chứng thay vì một vấn đề hiếm gây ra tất cả chúng. So sánh [*https://en.wikipedia.org/wiki/Hickam%27s\_dictum*](https://en.wikipedia.org/wiki/Hickam%27s_dictum).
 
@@ -290,7 +290,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn9"></a>[9](#fn9) Nhưng hãy cảnh giác các tương quan giả có thể dẫn bạn xuống các con đường sai!
 
-<a id="fn10"></a>[10](#fn10) Về nhiều mặt, điều này tương tự như kỹ thuật "Năm Câu hỏi Tại sao" (Five Whys) [[Ohn88]](https://sre.google/sre-book/bibliography#Ohn88) được giới thiệu bởi Taiichi Ohno để hiểu các nguyên nhân gốc rễ của các lỗi sản xuất.
+<a id="fn10"></a>[10](#fn10) Về nhiều mặt, điều này tương tự như kỹ thuật "Năm Câu hỏi Tại sao" (Five Whys) [[Ohn88]](https://sre.google/sre-book/bibliography#Ohn88) được Taiichi Ohno giới thiệu để hiểu các nguyên nhân gốc rễ của các lỗi sản xuất.
 
 <a id="fn11"></a>[11](#fn11) Trái ngược với RE2, PCRE có thể đòi hỏi thời gian mũ để đánh giá một số regular expressions. RE2 khả dụng tại [*https://github.com/google/re2*](https://github.com/google/re2).
 
@@ -306,7 +306,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn17"></a>[17](#fn17) Chúng tôi đã nén và đơn giản hóa nghiên cứu tình huống này để hỗ trợ hiểu biết.
 
-<a id="fn18"></a>[18](#fn18) Mặc dù việc ra mắt với một bug không xác định không phải là lý tưởng, thường là không thực tế để loại bỏ tất cả các bug đã biết. Thay vào đó, đôi khi chúng tôi phải phải làm với các biện pháp thứ hai tốt nhất và giảm nhẹ rủi ro tốt nhất có thể, sử dụng phán đoán kỹ thuật tốt.
+<a id="fn18"></a>[18](#fn18) Mặc dù việc ra mắt với một bug không xác định không phải là lý tưởng, thường là không thực tế để loại bỏ tất cả các bug đã biết. Thay vào đó, đôi khi chúng tôi phải làm với phương án tốt thứ hai và giảm nhẹ rủi ro tốt nhất có thể, sử dụng phán đoán kỹ thuật tốt.
 
 <a id="fn19"></a>[19](#fn19) Việc tra cứu datastore có thể sử dụng một index để làm nhanh việc so sánh, nhưng một cài đặt trong bộ nhớ phổ biến là một vòng lặp `for` so sánh đơn giản xuyên suốt tất cả các object đã cache. Nếu chỉ có một vài object, sẽ không có vấn đề gì nếu nó mất thời gian tuyến tính — nhưng điều này có thể gây ra một sự tăng đáng kể trong độ trễ và việc sử dụng tài nguyên khi số lượng object đã cache tăng.
 

@@ -1,8 +1,8 @@
 # Báo cáo Rà soát & Tuỳ biến Chất lượng Bản dịch SRE Book
 
-**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10, ch.11 Part 3)
+**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10, ch.11, batch 1 ch.12-21+24-25 Part 3)
 **Phạm vi:** Toàn bộ 49 file `.md` trong `docs/sre/`
-**Trạng thái:** Hoàn tất — ch.1-10 đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập)
+**Trạng thái:** Hoàn tất — ch.1-21, 24-25 đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
 
 ---
 
@@ -58,20 +58,20 @@
 | `_part.md` | CHANGED | ~20 câu |
 | `10-practical-alerting.md` | **PIPELINE HOÀN TẤT** | Ch.10: GĐ1 +28 thuật ngữ, GĐ2 30 sửa (glossary + nghĩa), GĐ3 +5 thuật ngữ, GĐ4 sạch, GĐ5 22 sửa (văn phong), GĐ6 2 sửa (in lockstep mistranslation, omission "chúng"), GĐ7 QA độc lập (Claude Opus 5) 2 lỗi thật + 1 borderline, GĐ8 áp fix. Số liệu verify khớp 100%. |
 | `11-being-on-call.md` | **PIPELINE HOÀN TẤT** | Ch.11: GĐ4 sạch, GĐ5 7 sửa (văn phong), GĐ6 4 sửa (chase→follow the sun, embed≠cài đặt, omission), GĐ7 QA độc lập 2 sửa, QA thủ công thêm 7 lỗi (fix-sai-hướng L120, typo "mực trần", "đội đơn vị"→"một vị trí" x3, link hỏng, va chạm nghĩa). Số liệu verify khớp 100%. |
-| `12-effective-troubleshooting.md` | CHANGED | ~45 câu |
-| `13-emergency-response.md` | CHANGED | ~40 câu; sửa "não đóng" → "động não" |
-| `14-managing-incidents.md` | CHANGED | ~25 câu |
-| `15-postmortem-culture.md` | CHANGED | ~18 câu |
-| `16-tracking-outages.md` | CHANGED | ~15 câu |
-| `17-testing-reliability.md` | CHANGED | ~40 câu |
-| `18-software-engineering-in-sre.md` | CHANGED | ~35 câu; thêm footer bị thiếu |
-| `19-load-balancing-frontend.md` | CHANGED | ~30 câu |
-| `20-load-balancing-datacenter.md` | CHANGED | ~32 câu |
-| `21-handling-overload.md` | CHANGED | ~38 câu |
+| `12-effective-troubleshooting.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~45 câu ban đầu) + QA lớp 2 (Sonnet 5) tìm 1 lỗi: L47 idiom y khoa "zebra"→"kỳ lân" (SAI, đổi hẳn logic ẩn dụ) → sửa "ngựa vằn" |
+| `13-emergency-response.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~40 câu; "não đóng"→"động não") + QA lớp 2 tìm 1 lỗi format: L160 dấu phẩy thừa trong heading |
+| `14-managing-incidents.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~25 câu) + QA lớp 2: sạch, không lỗi thật |
+| `15-postmortem-culture.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~18 câu) + QA lớp 2 tìm 2 lỗi tại L40: từ bịa "vá liềng"→"vá víu", gloss thừa "backend (phía sau)" vi phạm rule |
+| `16-tracking-outages.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~15 câu) + QA lớp 2 tìm 1 lỗi: L78 idiom SF "on the gripping hand" dịch đen "giữ chặt"→"quan trọng hơn cả" |
+| `17-testing-reliability.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~40 câu) + QA lớp 2: sạch, không lỗi thật (17/17 footnote khớp) |
+| `18-software-engineering-in-sre.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~35 câu; thêm footer bị thiếu) + QA lớp 2: sạch, verify "mixed-integer program" đúng 3/3 chỗ |
+| `19-load-balancing-frontend.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~30 câu) + QA lớp 2 tìm 2 lỗi: L26+L29 throughput dịch "băng thông"(=bandwidth, sai)→"thông lượng", L51 "for all users"→"phần lớn user" giảm nhẹ nghĩa→"tất cả user" |
+| `20-load-balancing-datacenter.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~32 câu) + QA lớp 2: sạch, toàn bộ số liệu/công thức khớp gốc |
+| `21-handling-overload.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~38 câu) + QA lớp 2 tìm 1 lỗi nghiêm trọng: L76-78 công thức throttling thiếu hệ số K → sửa `max(0,(requests-K*accepts)/(requests+1))` |
 | `22-addressing-cascading-failures.md` | CHANGED | ~50 câu |
 | `23-managing-critical-state.md` | CHANGED | ~15 câu; bỏ annotation sai (crash, quorum, STONITH, gossip) |
-| `24-distributed-periodic-scheduling.md` | CHANGED | ~8 câu |
-| `25-data-processing-pipelines.md` | CHANGED | ~12 câu |
+| `24-distributed-periodic-scheduling.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~8 câu) + QA lớp 2: sạch (L188 crontab lặp "ngày trong tuần" là lỗi có sẵn trong nguyên tác, không phải lỗi dịch) |
+| `25-data-processing-pipelines.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~12 câu) + QA lớp 2 tìm 1 lỗi: L72 "bầy đàn giông" sót 1/4 chỗ chưa áp glossary→"hiệu ứng bầy đàn" |
 | `26-data-integrity.md` | CHANGED | ~20 câu; 5 H5→H3, 2 H4→H3 |
 | `27-reliable-product-launches.md` | CHANGED | ~18 câu; sửa "Tý danh này" → "Điều này" |
 

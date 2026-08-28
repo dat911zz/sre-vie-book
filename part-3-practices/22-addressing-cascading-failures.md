@@ -49,7 +49,7 @@ Nếu cluster B thất bại ([Hình 22-3](#hinh-22-3)), lượng yêu cầu đ�
 
 [Hình 22-3.](#hinh-22-3) Cluster B thất bại, gửi tất cả traffic đến cluster A.
 
-Sự giảm này trong tốc độ thực hiện công việc hữu ích có thể lan sang các miền thất bại (failure domains) khác, thậm chí lan truyền toàn cục. Ví dụ, quá tải cục bộ trong một cluster có thể khiến các server của nó sập; để đáp lại, bộ điều khiển cân bằng tải (load balancing controller) chuyển các yêu cầu sang các cluster khác, làm quá tải các server ở đó, dẫn đến một sự thất bại quá tải toàn dịch vụ. Những sự kiện này có thể diễn ra không mất lâu (ví dụ, chỉ trong vòng vài phút), vì [bộ cân bằng tải](https://sre.google/sre-book/handling-overload/) và các hệ thống lên lịch task (nhiệm vụ) liên quan có thể phản ứng rất nhanh.
+Sự giảm này trong tốc độ thực hiện công việc hữu ích có thể lan sang các failure domain khác, thậm chí lan truyền toàn cục. Ví dụ, quá tải cục bộ trong một cluster có thể khiến các server của nó sập; để đáp lại, bộ điều khiển cân bằng tải (load balancing controller) chuyển các yêu cầu sang các cluster khác, làm quá tải các server ở đó, dẫn đến một sự thất bại quá tải toàn dịch vụ. Những sự kiện này có thể diễn ra không mất lâu (ví dụ, chỉ trong vòng vài phút), vì [bộ cân bằng tải](https://sre.google/sre-book/handling-overload/) và các hệ thống lên lịch task (nhiệm vụ) liên quan có thể phản ứng rất nhanh.
 
 ## Hết Tài nguyên (Resource Exhaustion)
 

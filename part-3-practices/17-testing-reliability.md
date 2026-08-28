@@ -103,7 +103,7 @@ Kiểm thử cấu hình có thể rất đơn giản khi triển khai productio
 
 ### Kiểm thử Áp lực (Stress test)
 
-Để vận hành an toàn một hệ thống, SRE cần hiểu giới hạn của cả hệ thống lẫn các thành phần. Trong nhiều trường hợp, các thành phần riêng lẻ không suy giảm êm ả (gracefully degrade) khi vượt quá một điểm nhất định — thay vào đó, chúng thất bại thảm khốc (catastrophically fail). Kỹ sư dùng *stress test* (kiểm thử áp lực) để tìm các giới hạn của một dịch vụ web. Stress test trả lời các câu hỏi như:
+Để vận hành an toàn một hệ thống, SRE cần hiểu giới hạn của cả hệ thống lẫn các thành phần. Trong nhiều trường hợp, các thành phần riêng lẻ không suy giảm nhẹ nhàng (gracefully degrade) khi vượt quá một điểm nhất định — thay vào đó, chúng thất bại thảm khốc (catastrophically fail). Kỹ sư dùng *stress test* (kiểm thử áp lực) để tìm các giới hạn của một dịch vụ web. Stress test trả lời các câu hỏi như:
 
 -   Một database có thể đầy đến mức nào trước khi các ghi (writes) bắt đầu thất bại?
 -   Bao nhiêu truy vấn mỗi giây có thể gửi đến một ứng dụng server trước khi nó quá tải, khiến yêu cầu thất bại?
@@ -233,7 +233,7 @@ Các kỹ thuật thống kê, như Lemon [[Ana07]](https://sre.google/sre-book/
 
 ## Nhu cầu về Tốc độ (The Need for Speed)
 
-Với mỗi phiên bản trong kho code, mỗi kiểm thử được định nghĩa cho ra một chỉ thị vượt qua hoặc thất bại. Chỉ thị đó có thể thay đổi giữa các lần chạy lặp lại trông giống hệt nhau. Bạn có thể ước tính khả năng thực tế kiểm thử vượt qua hay thất bại bằng cách lấy trung bình trên các lần chạy đó và tính sự không chắc chắn thống kê của khả năng này. Tuy nhiên, thực hiện phép tính này cho mỗi kiểm thử ở mỗi điểm phiên bản là không thể về mặt tính toán.
+Với mỗi phiên bản (patch) trong kho code, mỗi kiểm thử được định nghĩa cho ra một chỉ thị vượt qua hoặc thất bại. Chỉ thị đó có thể thay đổi giữa các lần chạy lặp lại trông giống hệt nhau. Bạn có thể ước tính khả năng thực tế kiểm thử vượt qua hay thất bại bằng cách lấy trung bình trên các lần chạy đó và tính sự không chắc chắn thống kê của khả năng này. Tuy nhiên, thực hiện phép tính này cho mỗi kiểm thử ở mỗi điểm phiên bản là không thể về mặt tính toán.
 
 Thay vào đó, bạn phải hình thành các giả thuyết về nhiều kịch bản quan tâm và chạy số lượng lặp lại phù hợp cho mỗi kiểm thử và phiên bản để cho phép suy luận hợp lý. Một số kịch bản là vô hại (về mặt chất lượng code), trong khi những cái khác có thể hành động được. Các kịch bản này ảnh hưởng đến mọi nỗ lực kiểm thử ở các mức độ khác nhau và, vì chúng liên kết (coupled) với nhau, việc thu thập tin cậy và nhanh chóng một danh sách các giả thuyết có thể hành động (tức các thành phần thực sự bị hỏng) nghĩa là ước tính tất cả các kịch bản cùng một lúc.
 
@@ -279,7 +279,7 @@ Nếu bạn để người dùng thử nhiều phiên bản phần mềm hơn tr
 
 Nếu một SRE sửa đổi một tệp cấu hình hoặc điều chỉnh chiến lược của một công cụ tự động hóa (thay vì cài đặt một tính năng người dùng), công việc kỹ thuật khớp với cùng mô hình khái niệm. Khi định nghĩa nhịp độ release dựa trên độ tin cậy, thường có ý nghĩa để phân đoạn ngân sách độ tin cậy theo chức năng, hoặc (thuận tiện hơn) theo đội. Trong kịch bản đó, đội kỹ thuật tính năng nhắm đến việc đạt được một giới hạn không chắc chắn nhất định ảnh hưởng đến nhịp độ release mục tiêu. Đội SRE có ngân sách riêng với sự không chắc chắn liên quan riêng, và do đó một giới hạn trên cho tốc độ release của họ.
 
-Để tiếp tục đáng tin cậy và tránh scale số lượng SRE hỗ trợ một dịch vụ một cách tuyến tính, môi trường production phải chạy phần lớn không có người giám sát (unattended). Để duy trì được điều đó, môi trường phải chống chịu với các lỗi nhỏ. Khi một sự kiện lớn đòi hỏi can thiệp thủ công của SRE xảy ra, các công cụ SRE dùng phải được kiểm thử phù hợp. Nếu không, sự can thiệp đó làm giảm sự tin tưởng rằng dữ liệu lịch sử còn áp dụng được cho tương lai gần. Sự giảm tin tưởng buộc phải chờ phân tích dữ liệu giám sát để loại bỏ sự không chắc chắn phát sinh. Trong khi thảo luận trước đó trong [Kiểm thử Các Công cụ Scale được](#kiem-thu-cac-cong-cu-scale-duoc) tập trung vào cách tận dụng cơ hội bao phủ kiểm thử cho một công cụ SRE, ở đây bạn thấy kiểm thử xác định bao lâu thì phù hợp để dùng công cụ đó trên production.
+Để tiếp tục đáng tin cậy và tránh scale số lượng SRE hỗ trợ một dịch vụ theo tuyến tính, môi trường production phải chạy phần lớn không có người giám sát (unattended). Để duy trì được điều đó, môi trường phải chống chịu với các lỗi nhỏ. Khi một sự kiện lớn đòi hỏi can thiệp thủ công của SRE xảy ra, các công cụ SRE dùng phải được kiểm thử phù hợp. Nếu không, sự can thiệp đó làm giảm sự tin tưởng rằng dữ liệu lịch sử còn áp dụng được cho tương lai gần. Sự giảm tin tưởng buộc phải chờ phân tích dữ liệu giám sát để loại bỏ sự không chắc chắn phát sinh. Trong khi thảo luận trước đó trong [Kiểm thử Các Công cụ Scale được](#kiem-thu-cac-cong-cu-scale-duoc) tập trung vào cách tận dụng cơ hội bao phủ kiểm thử cho một công cụ SRE, ở đây bạn thấy kiểm thử xác định bao lâu thì phù hợp để dùng công cụ đó trên production.
 
 Tệp cấu hình nhìn chung tồn tại vì việc thay đổi cấu hình nhanh hơn dựng lại một công cụ. Độ trễ thấp này thường là một yếu tố giữ MTTR thấp. Tuy nhiên, những tệp đó cũng được thay đổi thường xuyên vì các lý do không cần độ trễ giảm. Khi nhìn từ quan điểm của độ tin cậy:
 
@@ -298,7 +298,7 @@ Bạn có thể cài đặt một cơ chế phá kính để vô hiệu hóa ki�
 
 ## Tích hợp (Integration)
 
-Ngoài việc kiểm thử unit một tệp cấu hình để giảm thiểu rủi ro của nó đối với độ tin cậy, cũng quan trọng là xem xét kiểm thử tích hợp các tệp cấu hình. Nội dung của tệp cấu hình là (cho mục đích kiểm thử) nội dung có thể gây thù địch (hostile) đối với trình giải thích (interpreter) đọc cấu hình. Các ngôn ngữ được giải thích như Python thường được dùng cho tệp cấu hình vì trình giải thích của chúng có thể được nhúng (embedded), và có một số sandboxing đơn giản khả dụng để bảo vệ chống lại các lỗi code không ác ý.
+Ngoài việc kiểm thử unit một tệp cấu hình để giảm thiểu rủi ro của nó đối với độ tin cậy, cũng quan trọng là xem xét kiểm thử tích hợp các tệp cấu hình. Nội dung của tệp cấu hình là (cho mục đích kiểm thử) nội dung có thể mang tính thù địch (hostile) đối với trình giải thích (interpreter) đọc cấu hình. Các ngôn ngữ được giải thích như Python thường được dùng cho tệp cấu hình vì trình giải thích của chúng có thể được nhúng (embedded), và có một số sandboxing đơn giản khả dụng để bảo vệ chống lại các lỗi code không ác ý.
 
 Việc viết các tệp cấu hình trong một ngôn ngữ được giải thích là rủi ro, vì cách tiếp cận này tràn ngập các thất bại tiềm ẩn khó xử lý một cách quyết định. Vì việc tải nội dung thực chất là thực thi một chương trình, không có giới hạn trên nội tại về mức độ kém hiệu quả mà việc tải có thể đạt đến. Ngoài bất kỳ kiểm thử nào khác, bạn nên kết hợp loại kiểm thử tích hợp này với việc kiểm tra hạn chót cẩn thận trên tất cả các phương pháp kiểm thử tích hợp, để dán nhãn các kiểm thử không chạy đến hoàn tất trong thời gian hợp lý là thất bại.
 
