@@ -304,3 +304,12 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   va chạm nghĩa "thiếu cơ sở dữ liệu rõ ràng"→"không có dữ liệu rõ ràng làm cơ sở" (tránh đọc thành
   "database"); (7) L90 link relative path hỏng (`../../sre-book/...`) → đổi URL đầy đủ, khớp toàn bộ link
   khác trong file. Ch.11 hoàn tất.
+- 2026-08-28: QA thủ công (agent độc lập) trên `00-front/foreword.md` + `00-front/preface.md` — 2 file
+  dịch từ đợt đầu (trước khi có pipeline glossary), chưa qua GĐ1-8. Kết quả: sạch hơn dự kiến, chỉ 2 lỗi.
+  (1) foreword.md L11: "hệ thống quản trị viên"→"quản trị viên hệ thống" — LẶP LẠI y hệt bug đã sửa ở
+  ch.7 (2026-08-27, "Hệ thống Quản trị viên" đảo ngược nghĩa System Administrator); (2) preface.md L206:
+  "manzana (phố)" → bỏ gloss "(phố)" — gloss bịa cho câu đùa cá nhân trong lời cảm tạ (manzana tiếng Tây
+  Ban Nha = "quả táo"/nghĩa bóng "khu phố", không phải "phố"/street; bản gốc EN không chú giải gì). Không
+  phát hiện: thuật ngữ sai so glossary, số liệu/trích dẫn sai, anchor/heading gãy, terminology drift với
+  tên chương ở các file `##-*.md` khác (tên chương trong preface chỉ là link label giữ nguyên EN, không
+  phải prose dịch nên không có rủi ro drift).

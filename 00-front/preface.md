@@ -203,7 +203,7 @@ Các biên tập viên cũng muốn cảm ơn cá nhân các người sau:
 
 Betsy Beyer: Cho bà ngoại (người hùng cá nhân của tôi), vì đã cung cấp vô số cuộc động viên qua điện thoại và bỏng ngô, và cho Riba, vì đã cung cấp cho tôi quần sweatpants cần thiết để cung cấp năng lượng cho nhiều đêm khuya. Những điều này, dĩ nhiên, ngoài dàn diễn viên all-stars của SRE thực sự là những cộng tác viên tuyệt vời.
 
-Chris Jones: Cho Michelle, vì đã cứu tôi khỏi một cuộc đời tội phạm trên biển cả và vì khả năng kỳ lạ của bà trong việc tìm thấy những manzana (phố) ở những nơi không ngờ tới, và cho những người đã dạy tôi về kỹ thuật trong những năm qua.
+Chris Jones: Cho Michelle, vì đã cứu tôi khỏi một cuộc đời tội phạm trên biển cả và vì khả năng kỳ lạ của bà trong việc tìm thấy những manzana ở những nơi không ngờ tới, và cho những người đã dạy tôi về kỹ thuật trong những năm qua.
 
 Jennifer Petoff: Cho chồng tôi Scott vì đã ủng hộ vô cùng trong suốt quy trình hai năm viết quyển sách này và vì đã giữ cho các biên tập viên được cung cấp đủ đường trên "Hòn đảo bánh tráng miệng" của chúng tôi.
 
