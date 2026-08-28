@@ -13,21 +13,21 @@ Các công ty Internet như Google có thể ra mắt (launch) các sản phẩm
 
 Nhóm này cũng biên soạn một "checklist ra mắt" gồm các câu hỏi phổ biến cần hỏi về một lần ra mắt, và các công thức (recipes) để giải quyết các vấn đề phổ biến. Checklist đã chứng minh là một công cụ hữu ích để đảm bảo các lần ra mắt đáng tin cậy có thể tái lập.
 
-Hãy xem xét một dịch vụ Google thông thường—ví dụ, Keyhole, thứ cung cấp ảnh vệ tinh cho Google Maps và Google Earth. Vào một ngày bình thường, Keyhole phục vụ đến vài nghìn ảnh vệ tinh mỗi giây. Nhưng vào đêm Giao Thừa 2011, nó nhận được lượng traffic cao gấp 25 lần đỉnh thông thường—lên đến một triệu request mỗi giây. Điều gì đã gây ra sự tăng vọt traffic khổng lồ này?
+Hãy xem xét một dịch vụ Google thông thường—ví dụ, Keyhole, thứ cung cấp ảnh vệ tinh cho Google Maps và Google Earth. Vào một ngày bình thường, Keyhole phục vụ đến vài nghìn ảnh vệ tinh mỗi giây. Nhưng vào đêm Giáng Sinh năm 2011, nó nhận được lượng traffic cao gấp 25 lần đỉnh thông thường—lên đến một triệu request mỗi giây. Điều gì đã gây ra sự tăng vọt traffic khổng lồ này?
 
 ## Ông già Noel đang đến. (Santa was coming.)
 
 Vài năm trước, Google đã hợp tác với NORAD (North American Aerospace Defense Command - Bộ Tư Lệnh Phòng Thủ Vũ Trụ và Không Gian Bắc Mỹ) để đăng tải một website mang chủ đề Giáng Sinh theo dõi hành trình của Ông già Noel quanh thế giới, cho phép người dùng xem ông phân phát quà theo thời gian thực. Một phần của trải nghiệm là một "bay qua ảo (virtual fly-over)", sử dụng ảnh vệ tinh để theo dõi hành trình của Ông già Noel trên một thế giới mô phỏng.
 
-Trong khi một dự án như NORAD Tracks Santa có thể có vẻ lãng mạn, nó có tất cả các đặc điểm xác định một lần ra mắt khó khăn và rủi ro: một hạn chát (hard deadline) (Google không thể xin Ông già Noel đến muộn một tuần nếu website chưa sẵn sàng), rất nhiều sự chú ý của công chúng, một khán giả hàng triệu người, và một sự tăng traffic rất dốc (mọi người sẽ cùng xem website vào đêm Giao Thừa). Đừng bao giờ đánh giá thấp sức mạnh của hàng triệu trẻ nhỏ nóng lòng chờ quà—dự án này có một khả năng rất thực sự để quật ngã các server của Google.
+Trong khi một dự án như NORAD Tracks Santa có thể có vẻ lãng mạn, nó có tất cả các đặc điểm xác định một lần ra mắt khó khăn và rủi ro: một hạn chót (hard deadline) (Google không thể xin Ông già Noel đến muộn một tuần nếu website chưa sẵn sàng), rất nhiều sự chú ý của công chúng, một khán giả hàng triệu người, và một sự tăng traffic rất dốc (mọi người sẽ cùng xem website vào đêm Giáng Sinh). Đừng bao giờ đánh giá thấp sức mạnh của hàng triệu trẻ nhỏ nóng lòng chờ quà—dự án này có một khả năng rất thực sự để quật ngã các server của Google.
 
 Nhóm Site Reliability Engineering của Google đã làm việc chăm chỉ để chuẩn bị hạ tầng của chúng tôi cho lần ra mắt này, đảm bảo rằng Ông già Noel có thể phân phát tất cả quà của ông đúng giờ dưới ánh mắt chăm chú của một khán giả đang mong chờ. Điều cuối cùng chúng tôi muốn là làm trẻ con khóc vì chúng không thể xem Ông già Noel phân phát quà. Thật vậy, chúng tôi đã đặt tên cho các kill switch khác nhau được xây dựng vào trong trải nghiệm để bảo vệ các dịch vụ của chúng tôi là các "công tắc khiến trẻ con khóc." Dự đoán nhiều cách khác nhau mà lần ra mắt này có thể đi sai và điều phối giữa các nhóm kỹ thuật khác nhau tham gia vào lần ra mắt là việc của một nhóm đặc biệt trong Site Reliability Engineering: các Kỹ sư Điều Phối Ra Mắt (LCE).
 
-Ra mắt một sản phẩm hoặc tính năng mới là khoảnh khắc quyết định cho mọi công ty—điểm mà tại đó hàng tháng hoặc hàng năm nỗ lực được trình bày ra trước thế giới. Các công ty truyền thống ra mắt các sản phẩm mới với một tỷ lệ khá thấp. Chu kỳ ra mắt ở các công ty Internet khác biệt rõ rệt. Các lần ra mắt và lặp lại nhanh dễ dàng hơn nhiều vì các tính năng mới có thể được triển khai ở phía server, thay vì đòi hỏi việc triển khai phần mềm trên các workstation cá nhân của từng khách hàng.
+Ra mắt một sản phẩm hoặc tính năng mới là khoảnh khắc quyết định cho mọi công ty—điểm mà tại đó hàng tháng hoặc hàng năm nỗ lực được trình bày ra trước thế giới. Các công ty truyền thống ra mắt các sản phẩm mới với một tỷ lệ khá thấp. Chu kỳ ra mắt ở các công ty Internet khác biệt rõ rệt. Các lần ra mắt và lặp lại nhanh dễ dàng hơn nhiều vì các tính năng mới có thể được triển khai ở phía server, thay vì đòi hỏi triển khai phần mềm trên các workstation cá nhân của từng khách hàng.
 
-Google định nghĩa một lần ra mắt là bất kỳ mã mới nào đưa đến một sự thay đổi nhìn thấy được từ bên ngoài của một ứng dụng. Tùy thuộc vào các đặc điểm của một lần ra mắt—sự tổ hợp các thuộc tính, thời điểm, số bước liên quan, và độ phức tạp—quy trình ra mắt có thể thay đổi rất nhiều. Theo định nghĩa này, Google đôi khi thực hiện lên đến 70 lần ra mắt mỗi tuần.
+Google định nghĩa một lần ra mắt là bất kỳ mã mới nào đưa đến thay đổi nhìn thấy được từ bên ngoài của một ứng dụng. Tùy thuộc vào các đặc điểm của một lần ra mắt—sự tổ hợp các thuộc tính, thời điểm, số bước liên quan, và độ phức tạp—quy trình ra mắt có thể thay đổi rất nhiều. Theo định nghĩa này, Google đôi khi thực hiện lên đến 70 lần ra mắt mỗi tuần.
 
-Tốc độ thay đổi nhanh này vừa cung cấp lý lẽ vừa tạo cơ hội cho việc tạo ra một quy trình ra mắt được tinh giản. Một công ty chỉ ra mắt một sản phẩm mỗi ba năm không cần một quy trình ra mắt chi tiết. Vào thời điểm một lần ra mắt mới diễn ra, hầu hết các thành phần của quy trình ra mắt đã phát triển trước đó sẽ lỗi thời. Các công ty truyền thống cũng không có cơ hội để thiết kế một quy trình ra mắt chi tiết, vì họ không tích lũy đủ kinh nghiệm thực hiện các lần ra mắt để tạo ra một quy trình vững chắc và trưởng thành.
+Tốc độ thay đổi nhanh này vừa cung cấp lý lẽ vừa tạo cơ hội cho việc tạo ra quy trình ra mắt được tinh giản. Một công ty chỉ ra mắt một sản phẩm mỗi ba năm không cần một quy trình ra mắt chi tiết. Vào thời điểm một lần ra mắt mới diễn ra, hầu hết các thành phần của quy trình ra mắt đã phát triển trước đó sẽ lỗi thời. Các công ty truyền thống cũng không có cơ hội để thiết kế một quy trình ra mắt chi tiết, vì họ không tích lũy đủ kinh nghiệm thực hiện các lần ra mắt để tạo ra một quy trình vững chắc và trưởng thành.
 
 ## Kỹ Thuật Điều Phối Ra Mắt (Launch Coordination Engineering)
 
@@ -95,7 +95,7 @@ Làm đúng những điều cơ bản. Đừng lên kế hoạch cho mọi sự 
 
 #### A high touch approach (Một cách tiếp cận chăm chút)
 
-Các kỹ sư giàu kinh nghiệm tùy biến quy trình cho phù hợp với từng lần ra mắt.
+Các kỹ sư giàu kinh nghiệm tùy chỉnh quy trình cho phù hợp với từng lần ra mắt.
 
 #### Fast common paths (Các đường chung nhanh)
 
@@ -117,7 +117,7 @@ Các checklist được sử dụng để giảm thất bại và đảm bảo t
     
     -   **Hành động cần thực hiện**: Triển khai rate limiting và quota (định mức). Sử dụng dịch vụ chia sẻ sau.
 
-Trên thực tế, có một số lượng gần như vô hạn các câu hỏi có thể hỏi về bất kỳ hệ thống nào, và thật dễ dàng để checklist tăng lên đến một kích thước không thể quản lý. Duy trì một gánh nặng có thể quản lý được cho các nhà phát triển đòi hỏi sự biên soạn cẩn thận của checklist. Trong nỗ lực kiềm chế sự tăng trưởng của nó, vào một thời điểm, việc thêm các câu hỏi mới vào checklist ra mắt của Google đòi hỏi sự phê duyệt từ một phó tổng giám đốc. LCE hiện sử dụng các hướng dẫn sau:
+Trên thực tế, có một số lượng gần như vô hạn các câu hỏi có thể hỏi về bất kỳ hệ thống nào, và thật dễ dàng để checklist tăng lên đến một kích thước không thể quản lý. Duy trì một gánh nặng có thể quản lý được cho các nhà phát triển đòi hỏi biên soạn checklist cẩn thận. Trong nỗ lực kiềm chế sự tăng trưởng của nó, vào một thời điểm, việc thêm các câu hỏi mới vào checklist ra mắt của Google đòi hỏi sự phê duyệt từ một phó chủ tịch (vice president). LCE hiện sử dụng các hướng dẫn sau:
 
 -   Sự quan trọng của mọi câu hỏi phải được chứng minh, lý tưởng là bằng một thảm họa ra mắt trước đó.
 -   Mọi chỉ dẫn phải cụ thể, thực tế, và hợp lý để các nhà phát triển hoàn thành.
@@ -126,7 +126,7 @@ Checklist cần sự chú ý liên tục để vẫn có liên quan và cập nh
 
 ### Thúc Đẩy Sự hội Tụ và Đơn Giản Hóa (Driving Convergence and Simplification)
 
-Trong một tổ chức lớn, các kỹ sư có thể không hay biết về hạ tầng khả dụng cho các tác vụ phổ biến (chẳng hạn như rate limiting). Thiếu sự hướng dẫn phù hợp, họ có khả năng lại triển khai các giải pháp hiện có. Việc hội tụ về một tập các thư viện hạ tầng chung tránh kịch bản này và mang lại những lợi ích hiển nhiên cho công ty: nó cắt giảm công việc trùng lặp, làm cho kiến thức dễ chuyển giao hơn giữa các dịch vụ, và dẫn đến một mức độ chất lượng kỹ thuật và dịch vụ cao hơn do sự chú ý được tập trung dành cho hạ tầng.
+Trong một tổ chức lớn, các kỹ sư có thể không hay biết về hạ tầng khả dụng cho các tác vụ phổ biến (chẳng hạn như rate limiting). Thiếu sự hướng dẫn phù hợp, họ có khả năng lại tự xây dựng các giải pháp đã tồn tại. Việc hội tụ về một tập các thư viện hạ tầng chung tránh kịch bản này và mang lại những lợi ích hiển nhiên cho công ty: nó cắt giảm công việc trùng lặp, làm cho kiến thức dễ chuyển giao hơn giữa các dịch vụ, và dẫn đến một mức độ chất lượng kỹ thuật và dịch vụ cao hơn do sự chú ý được tập trung dành cho hạ tầng.
 
 Gần như tất cả các nhóm ở Google tham gia vào một quy trình ra mắt chung, điều này làm cho checklist ra mắt trở thành một phương tiện để thúc đẩy sự hội tụ về hạ tầng chung. Thay vì triển khai một giải pháp tùy chỉnh, LCE có thể khuyến nghị hạ tầng hiện có như các khối xây dựng—hạ tầng đã được củng cố qua nhiều năm kinh nghiệm và có thể giúp giảm thiểu các rủi ro về năng lực, hiệu suất, hoặc khả năng mở rộng. Các ví dụ bao gồm hạ tầng chung cho rate limiting hoặc quota người dùng, đẩy dữ liệu mới đến các server, hoặc phát hành các phiên bản mới của một binary (file nhị phân). Loại chuẩn hóa này đã giúp đơn giản hóa đáng kể checklist ra mắt: ví dụ, các phần dài của checklist xử lý các yêu cầu về rate limiting có thể được thay thế bằng một dòng duy nhất ghi, "Triển khai rate limiting sử dụng hệ thống X."
 
@@ -180,7 +180,7 @@ Năng lực tương tác với sự dự phòng và khả năng hoạt động. 
 
 ### Các Chế Độ Lỗi (Failure Modes)
 
-Một cái nhìn có hệ thống vào các chế độ lỗi có thể của một dịch vụ mới đảm bảo độ tin cậy cao ngay từ đầu. Trong phần này của checklist, hãy xem xét mỗi thành phần và sự phụ thuộc và xác định tác động của sự hỏng hóc của chúng. Dịch vụ có thể xử lý được các sự hỏng hóc máy đơn lẻ không? Các sự cố datacenter? Các sự hỏng hóc mạng? Chúng ta xử lý dữ liệu đầu vào xấu như thế nào? Chúng ta có sẵn sàng cho khả năng của một cuộc tấn công from chối dịch vụ (denial-of-service - DoS) không? Dịch vụ có thể tiếp tục phục vụ ở chế độ suy giảm (degraded mode) nếu một trong các sự phụ thuộc của nó bị hỏng không? Chúng ta xử lý sự không khả dụng của một sự phụ thuộc vào lúc khởi động của dịch vụ như thế nào? Trong khi chạy (during runtime)?
+Một cái nhìn có hệ thống vào các chế độ lỗi có thể của một dịch vụ mới đảm bảo độ tin cậy cao ngay từ đầu. Trong phần này của checklist, hãy xem xét mỗi thành phần và sự phụ thuộc và xác định tác động của sự hỏng hóc của chúng. Dịch vụ có thể xử lý được các sự hỏng hóc máy đơn lẻ không? Các sự cố datacenter? Các sự hỏng hóc mạng? Chúng ta xử lý dữ liệu đầu vào xấu như thế nào? Chúng ta có sẵn sàng cho khả năng của một cuộc tấn công từ chối dịch vụ (denial-of-service - DoS) không? Dịch vụ có thể tiếp tục phục vụ ở chế độ suy giảm (degraded mode) nếu một trong các sự phụ thuộc của nó bị hỏng không? Chúng ta xử lý sự không khả dụng của một sự phụ thuộc vào lúc khởi động của dịch vụ như thế nào? Trong khi chạy (during runtime)?
 
 #### Các câu hỏi checklist ví dụ
 
@@ -196,7 +196,7 @@ Một cái nhìn có hệ thống vào các chế độ lỗi có thể của m�
 
 Trên một website truyền thống, hiếm khi có nhu cầu phải tính đến hành vi lạm dụng từ những người dùng hợp pháp. Khi mọi request được kích hoạt bởi một hành động của người dùng chẳng hạn như một cú click vào một liên kết, các tỷ lệ request bị giới hạn bởi tốc độ mà người dùng có thể click. Để tăng gấp đôi tải, số lượng người dùng phải tăng gấp đôi.
 
-Điều này không còn đúng khi chúng ta xét các client khởi tạo các hành động mà không có đầu vào của người dùng—ví dụ, một app điện thoại định kỳ đồng bộ hóa (sync) dữ liệu của nó lên cloud, hoặc một website định kỳ làm mới (refresh). Trong cả hai kịch bản này, hành vi client lạm dụng có thể rất dễ dàng đe dọa sự ổn định của một dịch vụ. (Còn có chủ đề bảo vệ một dịch vụ khỏi traffic lạm dụng chẳng hạn như các scraper (trình cào dữ liệu) và các cuộc tấn công from chối dịch vụ—điều này khác với việc thiết kế hành vi an toàn cho các client bên thứ nhất (first-party).)
+Điều này không còn đúng khi chúng ta xét các client khởi tạo các hành động mà không có đầu vào của người dùng—ví dụ, một app điện thoại định kỳ đồng bộ hóa (sync) dữ liệu của nó lên cloud, hoặc một website định kỳ làm mới (refresh). Trong cả hai kịch bản này, hành vi client lạm dụng có thể rất dễ dàng đe dọa sự ổn định của một dịch vụ. (Còn có chủ đề bảo vệ một dịch vụ khỏi traffic lạm dụng chẳng hạn như các scraper (trình cào dữ liệu) và các cuộc tấn công từ chối dịch vụ—điều này khác với việc thiết kế hành vi an toàn cho các client bên thứ nhất (first-party).)
 
 #### Câu hỏi checklist ví dụ
 
@@ -242,7 +242,7 @@ Google cũng sử dụng version control cho các mục đích khác, chẳng h�
 
 -   Mã, dữ liệu, dịch vụ, hoặc sự kiện bên thứ ba nào mà dịch vụ hoặc lần ra mắt phụ thuộc vào?
 -   Có đối tác nào phụ thuộc vào dịch vụ của bạn không? Nếu có, họ có cần được thông báo về lần ra mắt của bạn không?
--   Điều gì sẽ xảy ra nếu bạn hoặc nhà cung cấp không thể đáp ứng một hạn chát ra mắt cứng?
+-   Điều gì sẽ xảy ra nếu bạn hoặc nhà cung cấp không thể đáp ứng một hạn chót ra mắt cứng?
 
 ### Lập Kế Hoạch Triển Khai (Rollout Planning)
 
@@ -303,7 +303,7 @@ Các dịch vụ có trạng thái (stateful) có xu hướng giới hạn các 
 
 ### Đối Phó Với Hành Vi Client Lạm Dụng (Dealing with Abusive Client Behavior)
 
-Ví dụ đơn giản nhất của hành vi client lạm dụng là một sự đánh giá sai về các tỷ lệ cập nhật. Một client mới đồng bộ hóa mỗi 60 giây, thay vì mỗi 600 giây, gây ra gấp 10 lần tải lên dịch vụ. Hành vi retry có một số bẫy ảnh hưởng đến cả các request do người dùng khởi tạo, cũng như các request do client khởi tạo. Hãy lấy ví dụ về một dịch vụ đang bị quá tải và vì vậy đang thất bại một số request: nếu các client thử lại các request thất bại, chúng thêm tải vào một dịch vụ đã bị quá tải, dẫn đến nhiều lần thử lại hơn và thậm chí nhiều request hơn. Thay vào đó, các client cần giảm tần suất thử lại, thường bằng cách thêm một độ trễ tăng theo cấp số mũ giữa các lần thử lại, ngoài việc cẩn thận cân nhắc các loại lỗi xứng đáng để thử lại. Ví dụ, một lỗi mạng thường xứng đáng để thử lại, nhưng một lỗi HTTP 4xx (cho thấy một lỗi ở phía client) thường thì không.
+Ví dụ đơn giản nhất của hành vi client lạm dụng là một sự đánh giá sai về các tỷ lệ cập nhật. Một client mới đồng bộ hóa mỗi 60 giây, thay vì mỗi 600 giây, gây ra gấp 10 lần tải lên dịch vụ. Hành vi retry có một số bẫy ảnh hưởng đến cả các request do người dùng khởi tạo, cũng như các request do client khởi tạo. Hãy lấy ví dụ về một dịch vụ đang bị quá tải và vì vậy đang thất bại một số request: nếu các client thử lại các request thất bại, chúng thêm tải vào một dịch vụ đã bị quá tải, dẫn đến nhiều lần thử lại hơn và thậm chí nhiều request hơn. Thay vào đó, các client cần giảm tần suất thử lại, thường bằng cách thêm độ trễ tăng theo cấp số mũ giữa các lần thử lại, ngoài việc cẩn thận cân nhắc các loại lỗi xứng đáng để thử lại. Ví dụ, một lỗi mạng thường xứng đáng để thử lại, nhưng một lỗi HTTP 4xx (cho thấy một lỗi ở phía client) thường thì không.
 
 Sự đồng bộ hóa có chủ ý hoặc vô tình các request tự động trong một "hiệu ứng bầy đàn" (thundering herd, giống như những thứ được mô tả trong các chương [Định Kỳ Phân Tán với Cron](https://sre.google/sre-book/distributed-periodic-scheduling/) và [Pipeline Xử Lý Dữ Liệu](https://sre.google/sre-book/data-processing-pipelines/)) là một ví dụ phổ biến khác của hành vi client lạm dụng. Một nhà phát triển app điện thoại có thể quyết định rằng 2 giờ sáng là một thời điểm tốt để tải xuống các bản cập nhật, vì người dùng có khả năng đang ngủ và sẽ không bị phiền toái bởi việc tải xuống. Tuy nhiên, một thiết kế như vậy dẫn đến một loạt các request đến server tải xuống lúc 2 giờ sáng mỗi đêm, và gần như không có request vào bất kỳ thời điểm nào khác. Thay vào đó, mọi client nên chọn thời điểm cho loại request này một cách ngẫu nhiên.
 
@@ -311,7 +311,7 @@ Tính ngẫu nhiên cũng cần được tiêm vào các quy trình định kỳ
 
 Khả năng kiểm soát hành vi của một client từ phía server đã chứng minh là một công cụ quan trọng. Đối với một app trên một thiết bị, sự kiểm soát như vậy có thể có nghĩa là hướng dẫn client kiểm tra (check in) định kỳ với server và tải xuống một file cấu hình. File đó có thể bật hoặc tắt một số tính năng hoặc đặt các tham số, chẳng hạn như client đồng bộ hóa bao lâu một lần hoặc thử lại bao lâu một lần.
 
-Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không đang xử lý một mảnh tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, điều đó đòi hỏi phải duy trì một sự bùng nổ tổ hợp (combinatorial explosion) của các phiên bản khác nhau.
+Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không đang xử lý một mảnh tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, điều đó đòi hỏi phải duy trì bùng nổ tổ hợp (combinatorial explosion) của các phiên bản khác nhau.
 
 Việc có loại tính năng ngủ đông (dormant) này cũng làm cho việc hủy bỏ các lần ra mắt trở nên dễ dàng hơn khi các tác động bất lợi được phát hiện trong quá trình triển khai. Trong những trường hợp như vậy, chúng tôi đơn giản có thể chuyển tính năng sang tắt, lặp lại (iterate), và phát hành một phiên bản cập nhật của app. Nếu không có loại cấu hình client này, chúng tôi sẽ phải cung cấp một phiên bản app mới không có tính năng đó, và cập nhật app trên điện thoại của tất cả người dùng.
 
@@ -319,7 +319,7 @@ Việc có loại tính năng ngủ đông (dormant) này cũng làm cho việc 
 
 Các tình trạng quá tải là một chế độ lỗi đặc biệt phức tạp, và do đó xứng đáng được chú ý thêm. Sự thành công mất kiểm soát thường là nguyên nhân đáng được chào đón nhất của quá tải khi một dịch vụ mới ra mắt, nhưng có vô số các nguyên nhân khác, bao gồm các sự hỏng hóc cân bằng tải, các sự cố máy, hành vi client đồng bộ hóa, và các cuộc tấn công bên ngoài.
 
-Một mô hình ngây thơ giả định rằng mức sử dụng CPU trên một máy cung cấp một dịch vụ nhất định tăng tuyến tính theo tải (ví dụ, số request hoặc lượng dữ liệu được xử lý), và một khi CPU khả dụng bị cạn kiệt, việc xử lý đơn giản là trở nên chậm hơn. Thật không may, các dịch vụ hiếm khi hành xử theo cách lý tưởng này trong thế giới thực. Nhiều dịch vụ chậm hơn nhiều khi chúng không được tải, thường do tác động của các loại cache khác nhau chẳng hạn như CPU caches, JIT caches, và các cache dữ liệu đặc thù cho dịch vụ. Khi tải tăng lên, thường có một khoảng trong đó mức sử dụng CPU và tải trên dịch vụ tương ứng tuyến tính, và thời gian phản hồi giữ tương đối ổn định.
+Một mô hình ngây thơ giả định mức sử dụng CPU trên một máy cung cấp một dịch vụ nhất định tăng tuyến tính theo tải (ví dụ, số request hoặc lượng dữ liệu được xử lý), và một khi CPU khả dụng bị cạn kiệt, việc xử lý đơn giản là trở nên chậm hơn. Thật không may, các dịch vụ hiếm khi hành xử theo cách lý tưởng này trong thế giới thực. Nhiều dịch vụ chậm hơn nhiều khi chúng không được tải, thường do tác động của các loại cache khác nhau chẳng hạn như CPU caches, JIT caches, và các cache dữ liệu đặc thù cho dịch vụ. Khi tải tăng lên, thường có một khoảng trong đó mức sử dụng CPU và tải trên dịch vụ tương ứng tuyến tính, và thời gian phản hồi giữ tương đối ổn định.
 
 Ở một số điểm, nhiều dịch vụ đạt đến một điểm phi tuyến tính khi chúng tiến đến quá tải. Trong các trường hợp lành tính nhất, thời gian phản hồi đơn giản bắt đầu tăng lên, dẫn đến một trải nghiệm người dùng suy giảm nhưng không nhất thiết gây ra một sự cố (mặc dù một sự phụ thuộc chậm có thể gây ra các lỗi nhìn thấy được bởi người dùng lên trên stack, do vượt quá các deadline RPC). Trong các trường hợp gay gắt nhất, một dịch vụ bị khóa hoàn toàn (locks up) để phản ứng với quá tải.
 

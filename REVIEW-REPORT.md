@@ -1,8 +1,8 @@
 # Báo cáo Rà soát & Tuỳ biến Chất lượng Bản dịch SRE Book
 
-**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10, ch.11, batch 1 ch.12-21+24-25 Part 3)
+**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10-27 Part 3, batch 1+2)
 **Phạm vi:** Toàn bộ 49 file `.md` trong `docs/sre/`
-**Trạng thái:** Hoàn tất — ch.1-21, 24-25 đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
+**Trạng thái:** Hoàn tất — ch.1-27 (Part I-III trọn vẹn) đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
 
 ---
 
@@ -68,12 +68,12 @@
 | `19-load-balancing-frontend.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~30 câu) + QA lớp 2 tìm 2 lỗi: L26+L29 throughput dịch "băng thông"(=bandwidth, sai)→"thông lượng", L51 "for all users"→"phần lớn user" giảm nhẹ nghĩa→"tất cả user" |
 | `20-load-balancing-datacenter.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~32 câu) + QA lớp 2: sạch, toàn bộ số liệu/công thức khớp gốc |
 | `21-handling-overload.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~38 câu) + QA lớp 2 tìm 1 lỗi nghiêm trọng: L76-78 công thức throttling thiếu hệ số K → sửa `max(0,(requests-K*accepts)/(requests+1))` |
-| `22-addressing-cascading-failures.md` | CHANGED | ~50 câu |
-| `23-managing-critical-state.md` | CHANGED | ~15 câu; bỏ annotation sai (crash, quorum, STONITH, gossip) |
+| `22-addressing-cascading-failures.md` | **PIPELINE HOÀN TẤT** | Batch 2: GĐ4-7 (~50 câu, +retrofit "failure domain") + QA lớp 2 tìm 1 lỗi: L389 typo "hot standby (đ sẵn nóng)" thiếu chữ → "dự phòng nóng" |
+| `23-managing-critical-state.md` | **PIPELINE HOÀN TẤT** | Batch 2: GĐ4-7 (~15 câu; bỏ annotation sai crash/quorum/STONITH/gossip) + QA lớp 2: sạch, verify 4 thuật ngữ giữ EN đúng |
 | `24-distributed-periodic-scheduling.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~8 câu) + QA lớp 2: sạch (L188 crontab lặp "ngày trong tuần" là lỗi có sẵn trong nguyên tác, không phải lỗi dịch) |
 | `25-data-processing-pipelines.md` | **PIPELINE HOÀN TẤT** | Batch 1: GĐ4-7 (~12 câu) + QA lớp 2 tìm 1 lỗi: L72 "bầy đàn giông" sót 1/4 chỗ chưa áp glossary→"hiệu ứng bầy đàn" |
-| `26-data-integrity.md` | CHANGED | ~20 câu; 5 H5→H3, 2 H4→H3 |
-| `27-reliable-product-launches.md` | CHANGED | ~18 câu; sửa "Tý danh này" → "Điều này" |
+| `26-data-integrity.md` | **PIPELINE HOÀN TẤT** | Batch 2: GĐ4-7 (~20 câu; 5 H5→H3, 2 H4→H3) + QA lớp 2 tìm 1 lỗi: L540 chơi chữ "the system died" bị dịch phục hồi thành "bệnh nhân đã chết" → sửa "hệ thống đã chết" |
+| `27-reliable-product-launches.md` | **PIPELINE HOÀN TẤT** | Batch 2: GĐ4-7 (~18 câu; sửa "Tý danh này"→"Điều này", retrofit "hiệu ứng bầy đàn") + QA lớp 2 tìm 3 lỗi: L16/L22 "Christmas Eve"→"đêm Giao Thừa" sai ngày lễ → "đêm Giáng Sinh", "hạn chát"→"hạn chót" (2 chỗ), "from chối"→"từ chối" (2 chỗ) |
 
 ### Part IV — Management
 

@@ -16,7 +16,7 @@ Các nhóm tiến trình có thể muốn thống nhất một cách tin cậy v
 - Tiến trình nào là leader của một nhóm tiến trình?
 - Tập hợp các tiến trình trong một nhóm là gì?
 - Một tin nhắn đã được commit thành công vào một hàng đợi phân tán (distributed queue) chưa?
-- Một tiến trình đang giữ lease (thuê quyền thời hạn) hay không?
+- Một tiến trình đang giữ lease hay không?
 - Giá trị trong một datastore cho một key nhất định là gì?
 
 Chúng tôi nhận thấy distributed consensus là hiệu quả trong việc xây dựng những hệ thống tin cậy và có khả dụng cao, đòi hỏi một cái nhìn nhất quán về một phần nào đó của trạng thái hệ thống. Bài toán distributed consensus giải quyết việc đạt được sự đồng thuận giữa một nhóm các tiến trình được kết nối qua một mạng truyền thông không tin cậy. Ví dụ, một vài tiến trình trong một [hệ thống phân tán](https://sre.google/sre-book/monitoring-distributed-systems/) có thể cần tạo ra được một cái nhìn nhất quán về một phần cấu hình quan trọng, về việc một distributed lock có đang được giữ hay không, hay một tin nhắn trên hàng đợi đã được xử lý hay chưa. Đây là một trong những khái niệm nền tảng nhất của tính toán phân tán và là thứ mà chúng tôi dựa vào cho gần như mọi dịch vụ chúng tôi cung cấp. [Hình 23-1](#hinh-23-1) minh họa một mô hình đơn giản về cách một nhóm tiến trình có thể đạt được một cái nhìn nhất quán về trạng thái hệ thống thông qua distributed consensus.
@@ -25,7 +25,7 @@ Chúng tôi nhận thấy distributed consensus là hiệu quả trong việc x�
 
 Hình 23-1. Distributed consensus: sự đồng thuận giữa một nhóm các tiến trình
 
-Bất cứ khi nào bạn thấy leader election, trạng thái chia sẻ quan trọng, hay distributed locking, chúng tôi khuyên bạn nên dùng *các hệ thống distributed consensus đã được chứng minh chính thức và thử nghiệm kỹ lưỡng*. Những cách tiếp cận không chính thức để giải quyết bài toán này có thể dẫn đến các sự cố (outage), và, một cách tinh vi hơn, dẫn đến những vấn đề về tính nhất quán dữ liệu vi tế và khó sửa, có thể kéo dài sự cố trong hệ thống của bạn một cách không cần thiết.
+Bất cứ khi nào bạn thấy leader election, trạng thái chia sẻ quan trọng, hay distributed locking, chúng tôi khuyên bạn nên dùng *các hệ thống distributed consensus đã được chứng minh chính thức và thử nghiệm kỹ lưỡng*. Những cách tiếp cận không chính thức để giải quyết bài toán này có thể dẫn đến các sự cố (outage), và, tinh vi hơn, dẫn đến những vấn đề nhất quán dữ liệu vi tế, khó sửa, có thể kéo dài sự cố trong hệ thống của bạn mà không cần thiết.
 
 ## Định lý CAP (CAP Theorem)
 
@@ -65,7 +65,7 @@ Mỗi cặp file server có một leader và một follower. Các server theo d�
 
 Điều gì xảy ra nếu mạng trở nên chậm, hoặc bắt đầu làm rơi gói tin? Trong kịch bản này, các file server vượt quá timeout heartbeat của chúng và, theo thiết kế, gửi lệnh STONITH đến các node đối tác rồi tự nhận quyền mastership. Tuy nhiên, một số lệnh có thể không được chuyển đến do mạng đã bị suy giảm. Các cặp file server có thể rơi vào trạng thái mà cả hai node đều được kỳ vọng đang active cho cùng một tài nguyên, hoặc cả hai đều down vì cả hai đều đã phát và nhận lệnh STONITH. Điều này dẫn đến dữ liệu bị hư hỏng hoặc không khả dụng.
 
-Vấn đề ở đây là hệ thống đang cố giải quyết một bài toán leader election bằng các timeout đơn giản. Leader election là một cách phát biểu lại của bài toán nhất trí phân tán bất đồng bộ (asynchronous consensus), và không thể giải đúng bằng cách dùng heartbeat.
+Vấn đề ở đây là hệ thống đang cố giải quyết một bài toán leader election bằng các timeout đơn giản. Leader election là cách phát biểu lại bài toán nhất trí phân tán bất đồng bộ (asynchronous consensus), và không thể giải đúng bằng heartbeat.
 
 ## Nghiên Cứu Trường Hợp 2: Failover Yêu Cầu Can Thiệp Con Người (Case Study 2: Failover Requires Human Intervention)
 
@@ -79,7 +79,7 @@ Một hệ thống có một thành phần thực hiện các dịch vụ lập 
 
 Vấn đề xác định một cái nhìn nhất quán về thành viên nhóm (group membership) xuyên qua một nhóm tiến trình là một trường hợp khác của bài toán distributed consensus.
 
-Thực tế, nhiều vấn đề hệ thống phân tán hóa ra là những phiên bản khác nhau của distributed consensus, bao gồm bầu master, thành viên nhóm, đủ mọi loại khóa và thuê quyền phân tán (leasing), hàng đợi và nhắn tin phân tán tin cậy, và việc duy trì bất kỳ loại trạng thái chia sẻ quan trọng nào phải được nhìn một cách nhất quán xuyên qua một nhóm tiến trình. Tất cả những vấn đề này chỉ nên được giải bằng các thuật toán distributed consensus đã được chứng minh đúng đắn một cách chính thức, và các bản cài đặt của chúng đã được thử nghiệm rộng rãi. Các phương pháp tự phát (ad hoc) để giải các kiểu vấn đề này (như heartbeat và giao thức gossip) sẽ luôn có vấn đề về độ tin cậy trên thực tế.
+Thực tế, nhiều vấn đề hệ thống phân tán hóa ra là những phiên bản khác nhau của distributed consensus, bao gồm bầu master, thành viên nhóm, đủ mọi loại khóa và lease phân tán (leasing), hàng đợi và nhắn tin phân tán tin cậy, và việc duy trì bất kỳ loại trạng thái chia sẻ quan trọng nào phải được xem nhất quán xuyên qua một nhóm tiến trình. Tất cả những vấn đề này chỉ nên được giải bằng các thuật toán distributed consensus đã được chứng minh đúng đắn một cách chính thức, và các bản cài đặt của chúng đã được thử nghiệm rộng rãi. Các phương pháp tự phát (ad hoc) để giải các kiểu vấn đề này (như heartbeat và giao thức gossip) sẽ luôn có vấn đề về độ tin cậy trên thực tế.
 
 ## Cách Distributed Consensus Hoạt Động (How Distributed Consensus Works)
 
@@ -89,7 +89,7 @@ Các thuật toán distributed consensus có thể là *crash-fail* (giả đị
 
 Các thuật toán có thể xử lý các lỗi Byzantine hoặc phi-Byzantine. *Byzantine failure* xảy ra khi một tiến trình truyền đi những tin nhắn sai do bug hoặc hoạt động ác ý; nó tương đối tốn kém để xử lý và ít gặp hơn.
 
-Về mặt kỹ thuật, việc giải bài toán asynchronous distributed consensus trong thời gian có giới hạn là bất khả thi. Như đã được chứng minh bởi *kết quả bất khả thi FLP* đạt giải Dijkstra Prize [\[Fis85\]](https://sre.google/sre-book/bibliography#Fis85), không có thuật toán asynchronous distributed consensus nào có thể đảm bảo tiến triển trong sự hiện diện của một mạng không tin cậy.
+Về mặt kỹ thuật, việc giải bài toán asynchronous distributed consensus trong thời gian có giới hạn là bất khả thi. Như *kết quả bất khả thi FLP* đạt giải Dijkstra Prize [\[Fis85\]](https://sre.google/sre-book/bibliography#Fis85) đã chứng minh, không có thuật toán asynchronous distributed consensus nào có thể đảm bảo tiến triển trong sự hiện diện của một mạng không tin cậy.
 
 Trong thực tế, chúng ta tiến gần đến bài toán distributed consensus trong thời gian có giới hạn bằng cách đảm bảo rằng hệ thống có đủ các bản sao (replica) lành mạnh và kết nối mạng để tiến triển một cách tin cậy trong phần lớn thời gian. Ngoài ra, hệ thống nên có các backoff với độ trễ ngẫu nhiên. Cách thiết lập này vừa ngăn các lần thử lại gây ra các hiệu ứng dây chuyền, vừa tránh được vấn đề dueling proposers (các proposer đấu nhau) được mô tả sau trong chương này. Các giao thức đảm bảo an toàn (safety), và độ dự phòng đủ trong hệ thống khuyến khích hoạt động sống (liveness).
 
@@ -119,7 +119,7 @@ Một *replicated state machine* (máy trạng thái nhân bản, RSM) là một
 
 Các thao tác trên một RSM được định thứ tự toàn cầu thông qua một thuật toán consensus. Đây là một khái niệm mạnh mẽ: một số bài báo ([\[Agu10\]](https://sre.google/sre-book/bibliography#Agu10), [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), [\[Sch90\]](https://sre.google/sre-book/bibliography#Sch90)) chỉ ra rằng bất kỳ chương trình nào tất định (deterministic) đều có thể được cài đặt như một dịch vụ nhân bản khả dụng cao.
 
-Như được thể hiện trong [Hình 23-2](#hinh-23-2), các máy trạng thái nhân bản là một hệ thống được cài đặt ở một tầng logic phía trên thuật toán consensus. Thuật toán consensus lo việc đồng thuận về thứ tự các thao tác, và RSM thực thi các thao tác theo thứ tự đó. Bởi vì không phải mọi thành viên của nhóm consensus đều nhất thiết là thành viên của mỗi quorum consensus, nên các RSM có thể cần đồng bộ hóa trạng thái từ các tiến trình cùng cấp (peer). Như được mô tả bởi Kirsch và Amir [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), bạn có thể dùng một *giao thức cửa sổ trượt* để đối chiếu trạng thái giữa các tiến trình cùng cấp trong một RSM.
+Như được thể hiện trong [Hình 23-2](#hinh-23-2), các máy trạng thái nhân bản là một hệ thống được cài đặt ở một tầng logic phía trên thuật toán consensus. Thuật toán consensus lo việc đồng thuận về thứ tự các thao tác, và RSM thực thi các thao tác theo thứ tự đó. Bởi vì không phải mọi thành viên của nhóm consensus đều nhất thiết là thành viên của mỗi quorum consensus, nên các RSM có thể cần đồng bộ hóa trạng thái từ các tiến trình cùng cấp (peer). Theo Kirsch và Amir [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), bạn có thể dùng một *giao thức cửa sổ trượt* để đối chiếu trạng thái giữa các tiến trình cùng cấp trong một RSM.
 
 <a id="hinh-23-2"></a>        ![Mối quan hệ giữa các thuật toán consensus và các máy trạng thái nhân bản.](../assets/imgs/fig-23-2.jpg)
 
@@ -153,7 +153,7 @@ Hình 23-4. Các barrier để phối hợp tiến trình trong phép tính MapR
 
 Barrier có thể được cài đặt bằng một tiến trình điều phối (coordinator) đơn, nhưng bản cài đặt này thêm một điểm lỗi đơn lẻ (single point of failure) thường không thể chấp nhận được. Barrier cũng có thể được cài đặt như một RSM. Dịch vụ consensus ZooKeeper có thể cài đặt mẫu barrier: xem [\[Hun10\]](https://sre.google/sre-book/bibliography#Hun10) và [\[Zoo14\]](https://sre.google/sre-book/bibliography#Zoo14).
 
-*Lock* là một nguyên thủy phối hợp hữu ích khác có thể được cài đặt như một RSM. Hãy xét một hệ thống phân tán trong đó các tiến trình worker tiêu thụ một cách nguyên tử một số tệp đầu vào và ghi các kết quả. Các distributed lock có thể được dùng để ngăn nhiều worker xử lý cùng một tệp đầu vào. Trên thực tế, việc dùng các lease có thể làm mới kèm timeout thay vì các khóa vô hạn là điều thiết yếu, vì làm vậy ngăn các khóa bị giữ vô thời hạn bởi những tiến trình đã crash. Distributed locking nằm ngoài phạm vi của chương này, nhưng hãy lưu ý rằng distributed lock là một nguyên thủy hệ thống ở tầng thấp nên được dùng một cách cẩn thận. Hầu hết các ứng dụng nên dùng một hệ thống ở tầng cao hơn cung cấp các giao dịch phân tán.
+*Lock* là một nguyên thủy phối hợp hữu ích khác có thể được cài đặt như một RSM. Hãy xét một hệ thống phân tán trong đó các tiến trình worker tiêu thụ một cách nguyên tử một số tệp đầu vào và ghi các kết quả. Các distributed lock có thể được dùng để ngăn nhiều worker xử lý cùng một tệp đầu vào. Trên thực tế, việc dùng các lease có thể làm mới kèm timeout, thay vì khóa vô hạn, là điều thiết yếu, vì làm vậy ngăn các khóa bị giữ vô thời hạn bởi những tiến trình đã crash. Distributed locking nằm ngoài phạm vi của chương này, nhưng hãy lưu ý rằng distributed lock là một nguyên thủy hệ thống ở tầng thấp nên được dùng một cách cẩn thận. Hầu hết các ứng dụng nên dùng một hệ thống ở tầng cao hơn cung cấp các giao dịch phân tán.
 
 ## Hàng Đợi và Nhắn Tin Phân Tán Tin Cậy (Reliable Distributed Queuing and Messaging)
 
@@ -265,7 +265,7 @@ Fast Paxos [\[Lam06\]](https://sre.google/sre-book/bibliography#Lam06) là một
 
 Trực quan, dường như Fast Paxos luôn phải nhanh hơn Classic Paxos. Tuy nhiên, điều đó không đúng: nếu client trong hệ thống Fast Paxos có một RTT cao đến các acceptor, và các acceptor có các kết nối nhanh với nhau, thì chúng ta đã thay thế *N* tin nhắn song song xuyên qua các liên kết mạng chậm hơn (trong Fast Paxos) bằng một tin nhắn xuyên qua liên kết chậm hơn cộng với *N* tin nhắn song song xuyên qua các liên kết nhanh hơn (Classic Paxos). Do hiệu ứng đuôi độ trễ, phần lớn thời gian, một vòng đi-về đơn xuyên qua một liên kết chậm với một phân bố độ trễ sẽ nhanh hơn một quorum (như được thể hiện trong [\[Jun07\]](https://sre.google/sre-book/bibliography#Jun07)), và vì vậy, Fast Paxos chậm hơn Classic Paxos trong trường hợp này.
 
-Nhiều hệ thống gom nhóm (batch) nhiều thao tác vào một giao dịch duy nhất tại acceptor để tăng thông lượng. Việc để các client đóng vai trò proposer cũng khiến việc gom nhóm các proposal trở nên khó khăn hơn rất nhiều. Lý do là các proposal đến các acceptor một cách độc lập, nên bạn không thể gom nhóm chúng theo một cách nhất quán.
+Nhiều hệ thống gom nhóm (batch) nhiều thao tác vào một giao dịch duy nhất tại acceptor để tăng thông lượng. Việc để các client đóng vai trò proposer cũng khiến việc gom nhóm các proposal trở nên khó khăn hơn rất nhiều. Lý do là các proposal đến các acceptor một cách độc lập, nên bạn không thể gom nhóm chúng một cách nhất quán.
 
 ## Các Leader Ổn Định (Stable Leaders)
 

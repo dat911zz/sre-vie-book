@@ -113,7 +113,7 @@ Việc cạn các file descriptor có thể dẫn đến không thể khởi t�
 
 ### Các Sự phụ thuộc giữa các Tài nguyên (Dependencies among resources)
 
-Hãy lưu ý rằng nhiều kịch bản cạn tài nguyên này có thể nuôi dưỡng lẫn nhau — một [dịch vụ đang trải qua quá tải](https://sre.google/sre-book/handling-overload/) thường có một loạt các triệu chứng thứ cấp trông giống như nguyên nhân gốc rễ (root cause), khiến việc debug (xử lý lỗi) trở nên khó khăn.
+Hãy lưu ý rằng nhiều kịch bản cạn tài nguyên này có thể nuôi dưỡng lẫn nhau — một [dịch vụ đang trải qua quá tải](https://sre.google/sre-book/handling-overload/) thường có một loạt các triệu chứng thứ cấp trông giống như nguyên nhân gốc rễ (root cause), khiến việc debug (gỡ lỗi) trở nên khó khăn.
 
 Ví dụ, hãy hình dung kịch bản sau:
 
@@ -252,7 +252,7 @@ Hệ thống này có thể lan truyền theo cách sau:
 2.  Frontend gọi `MakeRequest` ở một tỷ lệ không đổi 10.100 QPS và làm backend quá tải 100 QPS, số lượng mà backend từ chối.
 3.  100 QPS thất bại đó được thử lại trong `MakeRequest` mỗi 1.000 mili-giây, và có lẽ thành công. Nhưng bản thân các lần thử lại lại đang cộng thêm vào các yêu cầu gửi đến backend, giờ nhận được 10.200 QPS — trong đó 200 QPS đang thất bại do quá tải.
 4.  Khối lượng thử lại tăng lên: 100 QPS thử lại trong giây đầu tiên dẫn đến 200 QPS, rồi 300 QPS, và cứ thế. Ngày càng ít yêu cầu có thể thành công ngay lần thử đầu tiên, vì vậy ít công việc hữu ích hơn được thực hiện theo tỷ lệ các yêu cầu đến backend.
-5.  Nếu task backend không thể xử lý sự tăng tải — điều đang tiêu tốn file descriptor, bộ nhớ, và thời gian CPU trên backend — nó có thể sụp và sập dưới khối lượng yêu cầu và thử lại thuần túy. Lần sập này sau đó phân phối lại các yêu cầu mà nó đang nhận sang các task backend còn lại, lần lượt làm các task đó quá tải hơn nữa.
+5.  Nếu task backend không thể xử lý sự tăng tải — điều đang tiêu tốn file descriptor, bộ nhớ, và thời gian CPU trên backend — nó có thể tan rã (melt down) và sập dưới khối lượng yêu cầu và thử lại thuần túy. Lần sập này sau đó phân phối lại các yêu cầu mà nó đang nhận sang các task backend còn lại, lần lượt làm các task đó quá tải hơn nữa.
 
 Một số giả định đơn giản hóa đã được đưa ra ở đây để minh họa kịch bản này,<sup>[4](#fn4)</sup> nhưng điểm mấu chốt vẫn là retries có thể gây mất ổn định một hệ thống. Hãy lưu ý rằng cả các đỉnh tải tạm thời lẫn các sự tăng chậm trong mức sử dụng đều có thể gây ra hiệu ứng này.
 
@@ -298,7 +298,7 @@ Nếu việc xử lý một yêu cầu được thực hiện qua nhiều giai �
 
 ### Lan truyền deadline (Deadline propagation)
 
-Thay vì bịa ra một deadline khi gửi RPC đến các backend, các server nên áp dụng lan truyền deadline.
+Thay vì tự đặt một deadline khi gửi RPC đến các backend, các server nên áp dụng lan truyền deadline.
 
 Với lan truyền deadline, một deadline được thiết lập ở cao trong stack (ví dụ, trong frontend). Cây các RPC phát ra từ một yêu cầu ban đầu sẽ đều có cùng một deadline tuyệt đối. Ví dụ, nếu server *A* chọn một deadline 30 giây, và xử lý yêu cầu trong 7 giây trước khi gửi một RPC đến server *B*, RPC từ *A* đến *B* sẽ có một deadline 23 giây. Nếu server *B* mất 4 giây để xử lý yêu cầu và gửi một RPC đến server *C*, RPC từ *B* đến *C* sẽ có một deadline 19 giây, và cứ thế. Lý tưởng nhất, mỗi server trong cây yêu cầu đều thực hiện lan truyền deadline.
 
@@ -386,7 +386,7 @@ Tuy nhiên, giả sử các backend liên lạc chéo giữa chúng với nhau. 
     
 -   Nếu sự liên lạc nội tầng tăng lên để đáp ứng một số kiểu thất bại hoặc điều kiện tải nặng (ví dụ, cân bằng tải lại tích cực hơn dưới tải cao), sự liên lạc nội tầng có thể nhanh chóng chuyển từ mức yêu cầu nội tầng thấp sang cao khi tải tăng đủ.
     
-    Ví dụ, giả sử một người dùng có một backend chính và một backend phụ hot standby (đ sẵn nóng) được xác định trước trong một cluster khác, có thể tiếp quản người dùng. Backend chính proxy các yêu cầu đến backend phụ do các lỗi từ tầng thấp hơn hoặc để ứng phó với tải nặng trên master. Nếu toàn bộ hệ thống quá tải, việc proxy từ chính sang phụ có khả năng tăng lên và thêm nhiều tải hơn nữa cho hệ thống, do chi phí bổ sung của việc phân tích và chờ yêu cầu đến phụ trên chính.
+    Ví dụ, giả sử một người dùng có một backend chính và một backend phụ hot standby (dự phòng nóng) được xác định trước trong một cluster khác, có thể tiếp quản người dùng. Backend chính proxy các yêu cầu đến backend phụ do các lỗi từ tầng thấp hơn hoặc để ứng phó với tải nặng trên master. Nếu toàn bộ hệ thống quá tải, việc proxy từ chính sang phụ có khả năng tăng lên và thêm nhiều tải hơn nữa cho hệ thống, do chi phí bổ sung của việc phân tích và chờ yêu cầu đến phụ trên chính.
     
 -   Tùy thuộc vào mức độ quan trọng của sự liên lạc giữa các tầng, việc khởi tạo (bootstrap) hệ thống có thể trở nên phức tạp hơn.
     
@@ -444,7 +444,7 @@ Việc hiểu hành vi của dịch vụ dưới tải nặng có lẽ là bư�
 
 Kiểm thử tải các thành phần cho đến khi chúng gãy. Khi tải tăng, một thành phần thường xử lý các yêu cầu thành công cho đến khi nó đạt đến một điểm mà nó không thể xử lý thêm. Ở điểm này, lý tưởng nhất là thành phần nên bắt đầu phục vụ các lỗi hoặc các kết quả suy giảm để đáp ứng tải bổ sung, nhưng không làm giảm đáng kể tỷ lệ yêu cầu xử lý thành công. Một thành phần rất dễ bị tổn thương trước một sự thất bại lan truyền sẽ bắt đầu sập hoặc phục vụ một tỷ lệ lỗi rất cao khi nó trở nên quá tải; một thành phần được thiết kế tốt hơn thay vào đó sẽ có thể từ chối một vài yêu cầu và sống sót.
 
-Kiểm thử tải cũng tiết lộ điểm gãy ở đâu, một kiến thức nền tảng cho quy trình lập kế hoạch sức chứa. Nó cho phép bạn kiểm thử các sự regression (thoái hóa), cấp tài nguyên cho các ngưỡng trường hợp xấu nhất, và đánh đổi giữa mức sử dụng (utilization) và các biên an toàn.
+Kiểm thử tải cũng tiết lộ điểm gãy ở đâu, một kiến thức nền tảng cho quy trình lập kế hoạch sức chứa. Nó cho phép bạn kiểm thử các lỗi hồi quy (regression), cấp tài nguyên cho các ngưỡng trường hợp xấu nhất, và đánh đổi giữa mức sử dụng (utilization) và các biên an toàn.
 
 Do các hiệu ứng cache, việc tăng tải từ từ có thể cho ra kết quả khác so với việc tăng ngay lập tức lên các mức tải được kỳ vọng. Do đó, hãy cân nhắc kiểm thử cả các mẫu tải tăng dần lẫn tải xung (impulse).
 
@@ -505,7 +505,7 @@ Nếu các server theo một cách nào đó bị kẹt (wedged) và không ti�
 -   Một số yêu cầu đang hoạt động không có deadline nhưng đang tiêu tốn tài nguyên, dẫn đến chúng chặn các thread
 -   Các server đang bị deadlock
 
-Hãy chắc chắn rằng bạn xác định nguồn của sự thất bại lan truyền trước khi khởi động lại các server. Hãy chắc chắn rằng hành động này sẽ không chỉ đơn giản là dịch chuyển tải đi nơi khác. Canary (thử nghiệm nhỏ trước) thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự thất bại lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
+Hãy chắc chắn rằng bạn xác định nguồn của sự thất bại lan truyền trước khi khởi động lại các server. Hãy chắc chắn rằng hành động này sẽ không chỉ đơn giản là dịch chuyển tải đi nơi khác. Triển khai canary thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự thất bại lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
 
 ## Bỏ Traffic (Drop Traffic)
 

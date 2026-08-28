@@ -49,11 +49,11 @@ Phần lớn các ứng dụng cloud computing tìm cách tối ưu hóa cho m�
 
 Uptime
 
-Còn được gọi là *availability*, tỷ lệ thời gian mà một dịch vụ có thể sử dụng được bởi người dùng của nó.
+Còn được gọi là *availability*, tỷ lệ thời gian mà một dịch vụ có khả dụng cho người dùng của nó.
 
 Latency
 
-Mức độ một dịch vụ phản hồi nhanh như thế nào đối với người dùng của nó.
+Mức độ một dịch vụ phản hồi nhanh như thế nào trong mắt người dùng của nó.
 
 Scale
 
@@ -89,7 +89,7 @@ Với sự xem xét đến những sự phụ thuộc và những điều phức
 
 ## Sao Lưu Đối Chọi Lưu Trữ Lưu (Backups Versus Archives)
 
-Truyền thống, các công ty "bảo vệ" dữ liệu khỏi việc mất mát bằng cách đầu tư vào các chiến lược backup. Tuy nhiên, trọng tâm thực sự của những nỗ lực backup như vậy nên là khôi phục dữ liệu, điều mà phân biệt các bản *backup thật* khỏi các lưu trữ lưu (archives). Như đôi khi được quan sát: Không ai thực sự *muốn* tạo backup; điều mà mọi người *thực sự* muốn là *khôi phục* (restore).
+Theo truyền thống, các công ty "bảo vệ" dữ liệu khỏi việc mất mát bằng cách đầu tư vào các chiến lược backup. Tuy nhiên, trọng tâm thực sự của những nỗ lực backup như vậy nên là khôi phục dữ liệu, điều mà phân biệt các bản *backup thật* khỏi các lưu trữ lưu (archives). Như đôi khi được quan sát: Không ai thực sự *muốn* tạo backup; điều mà mọi người *thực sự* muốn là *khôi phục* (restore).
 
 "Backup" của bạn có thực sự là một lưu trữ lưu, chứ không phải phù hợp để sử dụng trong khôi phục thảm họa?
 
@@ -209,7 +209,7 @@ Trong khi có khả năng là bạn hoặc khách hàng của bạn sẽ nhanh c
 
 ## Cách Google SRE Đối Mặt Với Các Thách Thúc của Data Integrity (How Google SRE Faces the Challenges of Data Integrity)
 
-Giống như giả định của chúng tôi rằng các hệ thống nền tảng của Google dễ xảy ra lỗi, chúng tôi giả định rằng bất kỳ cơ chế bảo vệ nào của chúng tôi cũng chịu các lực lượng tương tự và có thể hỏng theo những cách giống nhau và vào những thời điểm bất tiện nhất. Duy trì một bảo đảm về data integrity ở quy mô lớn, một thách thức còn được làm phức tạp thêm bởi tốc độ thay đổi cao của các hệ thống phần mềm liên quan, đòi hỏi một số thực hành bổ sung nhưng không liên kết, mỗi cái được chọn để cung cấp một mức độ bảo vệ cao một cách riêng lẻ.
+Giống như giả định của chúng tôi rằng các hệ thống nền tảng của Google dễ xảy ra lỗi, chúng tôi giả định rằng bất kỳ cơ chế bảo vệ nào của chúng tôi cũng chịu các lực lượng tương tự và có thể hỏng theo những cách giống nhau và vào những thời điểm bất tiện nhất. Duy trì một bảo đảm về data integrity ở quy mô lớn, một thách thức còn được làm phức tạp thêm bởi tốc độ thay đổi cao của các hệ thống phần mềm liên quan, đòi hỏi một số thực hành bổ sung nhưng độc lập, mỗi cái được chọn để đơn lẻ mang lại một mức độ bảo vệ cao.
 
 ### 24 Tổ Hợp của Các Chế Độ Lỗi Data Integrity (The 24 Combinations of Data Integrity Failure Modes)
 
@@ -348,7 +348,7 @@ Xác thực dữ liệu ngoài vòng là tinh tế để triển khai đúng cá
 
 Ví dụ, Google Drive định kỳ xác định rằng nội dung file khớp với danh sách trong các thư mục Drive. Nếu hai yếu tố này không khớp, một số file sẽ bị thiếu dữ liệu — một kết quả thảm khốc. Các nhà phát triển hạ tầng Drive đã tham gia sâu vào data integrity đến mức họ cũng nâng cao các bộ xác thực của mình để tự động sửa các sự bất nhất như vậy. Biện pháp bảo vệ này đã biến một tình trạng data loss khẩn cấp tiềm năng "tất cả mọi người vào việc — ôi trời — file đang biến mất!" năm 2013 thành một tình trạng hoạt động bình thường, "hãy về nhà và sửa nguyên nhân gốc vào thứ Hai." Bằng cách biến các tình trạng khẩn cấp thành hoạt động bình thường, các bộ xác thực cải thiện tinh thần kỹ thuật, chất lượng cuộc sống, và tính dự đoán được.
 
-Các bộ xác thực ngoài vòng có thể đắt đỏ ở quy mô lớn. Một phần đáng kể dấu chân tài nguyên tính toán của Gmail hỗ trợ một tập hợp các bộ xác thực hàng ngày. Để cộng thêm chi phí này, các bộ xác thực này cũng làm giảm tỷ lệ cache hit phía server, làm giảm độ phản hồi phía server mà người dùng trải nghiệm. Để giảm nhẹ sự đánh đòn này vào độ phản hồi, Gmail cung cấp một loạt các núm chỉnh để giới hạn tỷ lệ các bộ xác thực của nó và định kỳ refactor lại các bộ xác thực để giảm tranh chấp ổ đĩa. Trong một nỗ lực refactor như vậy, chúng tôi đã cắt giảm tranh chấp cho các đầu đĩa đi 60% mà không giảm đáng kể phạm vi các bất biến mà chúng bao phủ. Trong khi phần lớn các bộ xác thực của Gmail chạy hàng ngày, khối lượng công việc của bộ xác thực lớn nhất được chia thành 10–14 shard, với một shard được xác thực mỗi ngày vì lý do quy mô.
+Các bộ xác thực ngoài vòng có thể đắt đỏ ở quy mô lớn. Một phần đáng kể dấu chân tài nguyên tính toán của Gmail hỗ trợ một tập hợp các bộ xác thực hàng ngày. Để cộng thêm chi phí này, các bộ xác thực này cũng làm giảm tỷ lệ cache hit phía server, làm giảm độ phản hồi phía server mà người dùng trải nghiệm. Để giảm nhẹ tác động này lên độ phản hồi, Gmail cung cấp một loạt các núm chỉnh để giới hạn tỷ lệ các bộ xác thực của nó và định kỳ refactor lại các bộ xác thực để giảm tranh chấp ổ đĩa. Trong một nỗ lực refactor như vậy, chúng tôi đã cắt giảm tranh chấp cho các đầu đĩa đi 60% mà không giảm đáng kể phạm vi các bất biến mà chúng bao phủ. Trong khi phần lớn các bộ xác thực của Gmail chạy hàng ngày, khối lượng công việc của bộ xác thực lớn nhất được chia thành 10–14 shard, với một shard được xác thực mỗi ngày vì lý do quy mô.
 
 Google Compute Storage là một ví dụ khác của những thách thức mà quy mô đưa đến cho xác thực dữ liệu. Khi các bộ xác thực ngoài vòng của nó không còn có thể hoàn thành trong vòng một ngày, các kỹ sư Compute Storage đã phải tìm ra một cách hiệu quả hơn để xác minh metadata của nó thay vì chỉ sử dụng brute force. Tương tự như ứng dụng của nó trong khôi phục dữ liệu, một chiến lược theo tầng cũng có thể hữu ích trong xác thực dữ liệu ngoài vòng. Khi một dịch vụ mở rộng scale, hãy hy sinh sự chặt chẽ trong các bộ xác thực hàng ngày. Đảm bảo rằng các bộ xác thực hàng ngày tiếp tục bắt được các kịch bản thảm hại nhất trong vòng 24 giờ, nhưng tiếp tục với xác thực chặt chẽ hơn ở tần suất thấp hơn để kiểm soát chi phí và latency.
 
@@ -537,7 +537,7 @@ Bây giờ một tính năng mới cho phép người dùng tạo các chú thí
 
 ## Kết Luận (Conclusion)
 
-Data availability phải là mối quan tâm hàng đầu của bất kỳ hệ thống lấy dữ liệu làm trung tâm. Thay vì tập trung vào phương tiện dẫn đến mục đích, Google SRE thấy hữu ích khi học một trang từ phát triển hướng kiểm thử (test-driven development) bằng cách chứng minh rằng các hệ thống của chúng tôi có thể duy trì data availability với một thời gian ngừng tối đa được dự đoán. Các phương tiện và cơ chế mà chúng tôi sử dụng để đạt được mục tiêu cuối cùng này là những điều ác cần thiết. Bằng cách giữ đôi mắt trên mục tiêu, chúng tôi tránh rơi vào cái bẫy mà "Ca phẫu thuật thành công, nhưng bệnh nhân đã chết."
+Data availability phải là mối quan tâm hàng đầu của bất kỳ hệ thống lấy dữ liệu làm trung tâm. Thay vì tập trung vào phương tiện dẫn đến mục đích, Google SRE thấy hữu ích khi học một trang từ phát triển hướng kiểm thử (test-driven development) bằng cách chứng minh rằng các hệ thống của chúng tôi có thể duy trì data availability với một thời gian ngừng tối đa được dự đoán. Các phương tiện và cơ chế mà chúng tôi sử dụng để đạt được mục tiêu cuối cùng này là những điều ác cần thiết. Bằng cách giữ đôi mắt trên mục tiêu, chúng tôi tránh rơi vào cái bẫy mà "Ca phẫu thuật thành công, nhưng hệ thống đã chết."
 
 Nhận ra rằng không chỉ *bất cứ thứ gì* có thể sai, mà là *mọi thứ* sẽ sai là một bước đáng kể hướng tới sự chuẩn bị cho bất kỳ tình trạng khẩn cấp thực sự nào. Một ma trận của tất cả các tổ hợp thảm họa có thể với các kế hoạch để giải quyết mỗi thảm họa trong số này cho phép bạn ngủ ngon ít nhất một đêm; giữ các kế hoạch khôi phục của bạn cập nhật và được tập luyện cho phép bạn ngủ 364 đêm còn lại trong năm.
 

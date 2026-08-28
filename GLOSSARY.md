@@ -24,7 +24,7 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 |---|---|---|---|
 | graceful degradation | **suy giảm nhẹ nhàng** | suy giảm tinh tế; suy giảm êm ả; suy giảm từ từ | Chốt theo bản đã dùng làm tên mục lớn ở ch.22 |
 | graceful load shedding | **gánh nhẹ tải một cách nhẹ nhàng** | loại bỏ tải một cách tinh tế | Đồng bộ tính từ "nhẹ nhàng" với graceful degradation |
-| thundering herd | **hiệu ứng bầy đàn** | bầy đàn giông; "bầy thú đang gầm gừ" | |
+| thundering herd | **hiệu ứng bầy đàn (thundering herd)** | bầy đàn giông; "bầy thú đang gầm gừ" | Ch.22, 25, 27. Nhiều client đồng thời thực hiện cùng hành động |
 | distributed consensus | **nhất trí phân tán** | đồng thuận phân tán | Không dùng "đồng thuận" — dành riêng cho "consensus" thường (không phân tán) nếu cần phân biệt |
 | failure domain | **failure domain** (giữ nguyên) | domain lỗi; miền thất bại; miền lỗi | Jargon phổ biến, không dịch |
 | churn | **churn** (giữ nguyên) | sự thay đổi; sự churn | |
@@ -133,12 +133,19 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | hot spare | **hot spare (bản sao dự phòng nóng)** | — | Ch.24. Máy dự phòng sẵn sàng nhận traffic ngay |
 | Moiré load pattern | **mẫu tải Moiré (Moiré load pattern)** | — | Ch.25._pattern tải chồng chéo khi nhiều pipeline chạy đồng thời |
 | sinkholing | **sinkholing (bắt bẫy)** | — | Ch.20-21. Task không khỏe mạnh bắt bẫy traffic thay vì trả lỗi |
+| debug | **debug (gỡ lỗi)** | xử lý lỗi | Ch.12, 22. "debug" = gỡ lỗi, KHÔNG phải "xử lý lỗi" (error handling) |
 | mixed-integer program | **chương trình nguyên hỗn hợp (mixed-integer program)** | chương trình nguyên tố hỗn hợp | Ch.18. "integer"=nguyên (số nguyên), KHÔNG phải "nguyên tố" (element). Lặp 3 chỗ |
 | over-perform | **over-perform (vận hành vượt mức)** | quá tải | Ch.16. "over-performing"=chạy vượt mức cần (dư sức), KHÔNG phải "quá tải" (overload) |
 | MTBF | **MTBF (Mean Time Between Failures — thời gian trung bình giữa các lần hỏng)** | — | Ch.17. Jargon độ tin cậy |
 | break-glass | **break-glass (phá kính)** | — | Ch.17. Cơ chế vượt an toàn khẩn cấp. Giữ EN + gloss |
 | choke point | **choke point (điểm nghẽn)** | — | Ch.13. Điểm nghẽn trong hệ thống |
 | sister office | **sister office (văn phòng chị em)** | văn phòng bên | Ch.14. Văn phòng đối tác ở địa điểm khác |
+| melt down | **tan rã (melt down)** | sụp | Ch.22. "melt down" = tan rã/đổ vỡ do quá tải, khác "crash" (sập) |
+| vice president (VP) | **phó chủ tịch (vice president)** | phó tổng giám đốc | Ch.27. "VP" = Vice President, không phải "phó tổng giám đốc" (deputy director) |
+| soft deletion | **xóa mềm (soft deletion)** | — | Ch.26. Dữ liệu bị xóa đánh dấu chứ không xóa thực. Dùng nhất quán 20+ chỗ |
+| silver bullet | **giải pháp vạn năng (silver bullet)** | — | Ch.26. Idiom: giải pháp kỳ diệu/all-in-one. "giải pháp vạn năng" là dịch đúng |
+| combinatorial explosion | **bùng nổ tổ hợp (combinatorial explosion)** | — | Ch.27. Số tổ hợp tăng theo cấp số nhân khi thêm tính năng |
+| hot standby | **hot standby (dự phòng nóng)** | đ sẵn nóng (typo) | Ch.22. Hệ thống sẵn sàng nhận traffic ngay, giống hot spare |
 
 ## Nguyên tắc giữ nguyên tiếng Anh (không ép dịch)
 
@@ -385,3 +392,30 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   giông" sót lại 1/4 chỗ chưa áp glossary "hiệu ứng bầy đàn" (3 chỗ khác trong cùng file đã đúng). +1
   lưu ý biến thể SAI mới cho throughput (băng thông). Xác nhận lại pattern: self-report pipeline luôn
   sai — batch này tự báo "sạch" GĐ4 nhưng QA lớp 2 vẫn tìm thêm 9 lỗi thật ở 7/12 file.
+- 2026-08-28: Batch 2 Part III (ch.22, 23, 26, 27 — 4 chương nặng nhất, 1989 dòng), GĐ4 áp glossary
+  ngược retrofit "failure domain"/"hiệu ứng bầy đàn" vào ch.22+ch.27 (từ batch 1). QA độc lập lớp 2
+  (4 agent Sonnet 5) tìm 3/4 chương có lỗi thật (ch.23 sạch): ch.22 L389 typo "hot standby (đ sẵn nóng)"
+  thiếu chữ → "dự phòng nóng"; ch.26 L540 chơi chữ có chủ đích của nguyên tác "the operation was a
+  success but the system died" (biến tấu idiom y khoa "the patient died" thành "the system died" cho
+  hợp ngữ cảnh kỹ thuật) bị dịch phục hồi lại "bệnh nhân đã chết" → sửa "hệ thống đã chết"; ch.27 L16+L22
+  "Christmas Eve" (đêm Giáng Sinh) dịch nhầm "đêm Giao Thừa" (New Year's Eve, sai ngày lễ, lệch bối cảnh
+  câu chuyện NORAD Tracks Santa) → sửa "đêm Giáng Sinh", + lỗi chính tả lặp "hạn chát"→"hạn chót" (2 chỗ:
+  L22, L245), "from chối dịch vụ"→"từ chối dịch vụ" (2 chỗ: L183, L199). Batch 2 hoàn tất — Part III (ch.12-27) xong toàn bộ pipeline + QA lớp 2, tổng 27/34
+  chương đã hoàn tất (Part I-III).
+- 2026-08-28: Batch 2 ch.22, 23, 26, 27 (4 chương, sequential) — GĐ4: 2 sửa (ch.22 "miền thất bại"→giữ
+   EN "failure domain"; ch.27 "bầy thú đang gầm gừ"→"hiệu ứng bầy đàn"). Ch.22 GĐ5+6+7: 5 sửa (debug
+   "xử lý lỗi"→"gỡ lỗi" L116; "sụp và sập"→"tan rã (melt down) và sập" L255; "bịa ra"→"tự đặt" L301;
+   regression "thoái hóa"→"lỗi hồi quy" L447; canary "thử nghiệm nhỏ trước"→"triển khai canary" L508).
+   Ch.23 GĐ5+6+7: 10 sửa (lease "thuê quyền thời hạn"→bỏ gloss×2 L19+L82; renewable leases "làm mới"→
+   "có thể làm mới" L156; "một cách tinh vi hơn"→"tinh vi hơn" L28; "một cách không cần thiết"→"mà
+   không cần thiết" L28; "một cách phát biểu lại của"→"cách phát biểu lại" L68; "bằng cách dùng
+   heartbeat"→"bằng heartbeat" L68; "đã được chứng minh bởi"→"đã chứng minh" L92; "một cách nhất
+   quán"→"nhất quán" L82; "Như được mô tả bởi"→"Theo" L122; "theo một cách nhất quán"→"một cách nhất
+   quán" L268). Ch.26 GĐ5+6+7: 5 sửa ("Truyền thống,"→"Theo truyền thống," L92; "sử dụng được bởi"→
+   "khả dụng cho" L52; "đối với"→"trong mắt" L56; "không liên kết...một cách riêng lẻ"→"độc lập...đơn
+   lẻ" L212; "sự đánh đòn"→"tác động" L351). Ch.27 GĐ5+6+7: 10 sửa (xóa "việc/sự" thừa L26/L28/L30/
+   L120/L306/L314/L322; "tùy biến"→"tùy chỉnh" L98; "triển khai các giải pháp hiện có"→"tự xây dựng
+   các giải pháp đã tồn tại" L129; "phó tổng giám đốc"→"phó chủ tịch (vice president)" L120; "sự bùng
+   nổ tổ hợp"→"bùng nổ tổ hợp" L314). Tổng: 32 sửa. +6 thuật ngữ mới (melt down, vice president, soft
+   deletion, silver bullet, combinatorial explosion, hot standby). +1 entry cập nhật (thundering herd
+   thêm biến thể "bầy thú đang gầm gừ"). +1 entry mới (debug). Glossary hiện có 111 thuật ngữ.
