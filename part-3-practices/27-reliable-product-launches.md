@@ -331,7 +331,7 @@ Thật không may, rất khó để dự đoán từ các nguyên lý bậc nh�
 
 Trong những năm đầu hình thành của Google, kích thước của nhóm kỹ thuật tăng gấp đôi mỗi năm trong nhiều năm liền, phân mảnh phòng ban kỹ thuật thành nhiều nhóm nhỏ làm việc trên nhiều sản phẩm và tính năng mới thử nghiệm. Trong một bầu không khí như vậy, các kỹ sư non trẻ có nguy cơ lặp lại những sai lầm của những người đi trước, đặc biệt là khi nói đến việc ra mắt thành công các tính năng và sản phẩm mới.
 
-Để giảm thiểu việc lặp lại những sai lầm như vậy bằng cách ghi lại những bài học học được từ các lần ra mắt trước đó, một nhóm nhỏ các kỹ sư giàu kinh nghiệm, được gọi là các "Launch Engineer (Kỹ sư Ra mắt)," đã tình nguyện đóng vai trò một nhóm tư vấn. Các Launch Engineer đã phát triển các checklist cho các lần ra mắt sản phẩm mới, bao phủ các chủ đề như:
+Để giảm thiểu việc lặp lại những sai lầm như vậy bằng cách ghi lại những bài học rút ra từ các lần ra mắt trước đó, một nhóm nhỏ các kỹ sư giàu kinh nghiệm, được gọi là các "Launch Engineer (Kỹ sư Ra mắt)," đã tình nguyện đóng vai trò một nhóm tư vấn. Các Launch Engineer đã phát triển các checklist cho các lần ra mắt sản phẩm mới, bao phủ các chủ đề như:
 
 -   Khi nào nên tham vấn phòng ban pháp lý
 -   Cách chọn các tên miền

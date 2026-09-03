@@ -58,7 +58,7 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | forcing function | **yếu tố ép buộc (forcing function)** | hàm ép buộc | "hàm" = function (toán học), SAI cho "forcing function" (cơ chế/yếu tố buộc hành động). Calque điển hình — đã sửa ở ch.4 L167 |
 | loosely coupled (distributed systems) | **có liên kết lỏng lẻo** | liên kết lỏng lẻo (thiếu trợ từ "có") | Cụm SRE phổ biến (loose coupling). Cần trợ từ "có" cho đúng cú pháp VN — đã sửa ở ch.4 L50 |
 | user studies | **nghiên cứu về người dùng (user studies)** | — | Thuật ngữ UX, gloss lần đầu. Đã dùng ở ch.4 L96 |
-| interrupt / interrupt-driven | **sự gián đoạn (interrupt)** / **xuất phát từ sự gián đoạn (interrupt-driven)** | — | Ch.29 "Dealing with Interrupts" sẽ dùng lại. "xuất phát từ" thay cho "được dẫn dắt bởi" (bị động kiểu Anh) |
+| interrupt / interrupt-driven | **gián đoạn (interrupt)** / **xuất phát từ gián đoạn (interrupt-driven)** | interrupt (giữ EN trần); ngắt | Gloss `(interrupt)` chỉ ở lần đầu mỗi file. Dùng "các gián đoạn" (đếm được), "sự gián đoạn" (trừu tượng), "lớp gián đoạn", "ở trong các gián đoạn" (be on interrupts — bắt buộc có "ở"). Ch.29 retrofit 2026-09-03 (~40 chỗ); tên chương "Đối phó với Gián đoạn". KHÔNG dùng "ngắt" (nghĩa phần cứng) |
 | firefighting | **chữa cháy (firefighting)** | — | Jargon SRE phổ biến, dùng ẩn dụ "chữa cháy" cho xử lý sự cố khẩn cấp |
 | grungy work | **công việc lặt vặt bẩn thỉu** | — | Đặc trưng ch.5, dùng nhất quán trong file |
 | overhead | **overhead (công việc phụ)** | — | Giữ EN + gloss, dùng nhất quán |
@@ -478,3 +478,26 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   các chỗ "thất bại" còn lại đều đúng (động từ/thuật ngữ cố định như "single point of failure", "failure
   mode", "assertion failure", "fail-fast"). Bài học: đợt retrofit thuật ngữ hàng loạt cần luôn có 1 lượt
   QA thứ 2 đọc-theo-ngữ-cảnh riêng, vì tìm-thay-thế máy móc không bắt được các câu chỉ-lại (anaphora).
+- 2026-09-03: QA lớp 2 Part IV-V (ch.28-34 + 2 file `_part.md`), 7 agent Sonnet 5 song song, rà 3 lớp (MQM sai
+  nghĩa / thuật ngữ theo glossary / văn phong), đối chiếu nguyên bản qua WebFetch (fetch được toàn văn ch.29,
+  từng đoạn ch.32/34; các chương còn lại chỉ verify được số liệu/tên riêng/trích dẫn theo đoạn). Các chương này
+  dịch TRƯỚC khi chốt 3 quy ước gần đây nên vi phạm hàng loạt: (1) page/pager để EN trần ~30 chỗ (ch.28 ×5,
+  ch.29 ×15, ch.31 ×9 kể cả tiêu đề mục "Các sự kiện Page (lỗi)" gloss sai nghĩa, ch.32 ×2) → gọi trực/máy gọi
+  trực; (2) "sự thất bại" ~12 chỗ (ch.28/30/33/34) → sự cố; (3) ch.29 để "interrupt" EN trần ~40 chỗ dù glossary
+  đã chốt riêng cho chương này → retrofit "gián đoạn", đổi tên chương (toc ghi "Các Ngắt", file ghi "Interrupt"
+  — lệch nhau). Lỗi sai nghĩa thật đáng chú ý (~35 chỗ): ch.28 L169 "developers behind the failing system are
+  nowhere to be found" dịch thành "nhà phát triển đang thất bại ở đâu đó không thể thấy", L235 "shakes out bugs"
+  →"loại bỏ bug" (ngược nghĩa, mâu thuẫn với "sửa chữa" ngay sau); ch.29 "languishing"→"lười biếng", "needy
+  customers"→"khách hàng có nhu cầu"; ch.30 "scalability"→"tính khả dụng mở rộng" ×2, "loaded questions"→"câu
+  hỏi gán nợ", "tech lead (quyền kỹ thuật)"; ch.31 "performance envelope"→"phong bì hiệu năng", "in the flesh"
+  →"bằng xác thịt", "catch-all"→"cái bắt tất cả" ×2, "literature"→"văn học", "ignorance"→"ngu dốt", "index file"
+  →"bảng mục lục"; ch.32 "short-circuit"→"ngắn mạch", "orders of magnitude"→"bậc đại số", "progressive"→"tiến
+  bộ"; ch.33 "religiously"→"thành tâm", URL footnote hỏng vì em-dash tự chuyển, "defense in depth"→"bảo vệ nhiều
+  lớp" ×5 (biến thể SAI đã liệt kê); ch.34 "cockpit"→"cabin" ×5 (sai đối tượng, dễ nhầm khoang hành khách). Văn
+  phong: ~45 sửa, mẫu lặp "các người" (sai ngữ pháp, ×10 ở ch.28/31/32 → "những người"), thiếu "ở" trong "ở trong
+  các gián đoạn" ×4. Từ chối 1 đề xuất SAI (ch.30 L66: nguyên bản "passes in the short term" — bản dịch đúng) và
+  các đề xuất "nghi ngờ" thuần sở thích. Đổi tên ch.33 "Bài học Học được"→"Bài học Rút ra" (lặp âm "học học"),
+  đồng bộ toc/sidebar/_part/ch.18/27/31/32. Bổ sung quy ước: "interrupt"→"gián đoạn" (cập nhật hàng trong bảng).
+  Fix agent tự grep verify sau khi sửa; 2 fix agent báo đúng các chỗ sót ngoài danh sách (ch.31 L60 "đã nên
+  page", "các người" ×5, ch.34 L24 "sự thất bại") → sửa tay bổ sung. Toàn bộ 34 chương + 5 file `_part.md` đã
+  qua QA lớp 2.

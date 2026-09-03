@@ -172,7 +172,7 @@ Với tư cách một sản phẩm, Auxon cung cấp các phương tiện để 
 
 *Kế hoạch Cấp phát* (Allocation Plan) là đầu ra của Auxon Solver. Nó quy định tài nguyên nào nên được cấp phát cho dịch vụ nào ở vị trí nào. Nó là các chi tiết cài đặt được tính toán từ định nghĩa dựa trên ý định của các yêu cầu trong vấn đề lập kế hoạch năng lực. Kế hoạch Cấp phát cũng bao gồm thông tin về bất kỳ yêu cầu nào không thể được đáp ứng — ví dụ, khi một yêu cầu không thể đáp ứng do thiếu tài nguyên, hoặc các yêu cầu cạnh tranh quá nghiêm khắc.
 
-## Các Yêu cầu và Cài đặt: Những Thành công và Bài học Học được (Requirements and Implementation: Successes and Lessons Learned)
+## Các Yêu cầu và Cài đặt: Những Thành công và Bài học Rút ra (Requirements and Implementation: Successes and Lessons Learned)
 
 Auxon lần đầu tiên được hình dung bởi một SRE và một technical program manager, người đã riêng biệt được các đội tương ứng của họ giao nhiệm vụ lập kế hoạch năng lực cho các phần lớn hạ tầng của Google. Từng thực hiện lập kế hoạch năng lực thủ công trong các bảng tính, họ ở vị trí tốt để hiểu những điểm kém hiệu quả và các cơ hội cải thiện thông qua tự động hóa, cũng như các tính năng mà một công cụ như vậy có thể đòi hỏi.
 

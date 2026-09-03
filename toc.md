@@ -51,7 +51,7 @@
 
 - [Phần IV (Management)](part-4-management/_part.md)
 - [28. Tăng tốc SRE đến On-Call và xa hơn (Accelerating SREs to On-Call and Beyond)](part-4-management/28-accelerating-sre-on-call.md)
-- [29. Đối phó với Các Ngắt (Interrupts) (Dealing with Interrupts)](part-4-management/29-dealing-with-interrupts.md)
+- [29. Đối phó với Gián đoạn (Dealing with Interrupts)](part-4-management/29-dealing-with-interrupts.md)
 - [30. Đưa SRE vào để Khôi phục từ Quá tải Vận hành (Embedding an SRE to Recover from Operational Overload)](part-4-management/30-embedding-sre-operational-overload.md)
 - [31. Giao tiếp và Hợp tác trong SRE (Communication and Collaboration in SRE)](part-4-management/31-communication-and-collaboration.md)
 - [32. Mô hình Tham gia SRE đang Phát triển (The Evolving SRE Engagement Model)](part-4-management/32-evolving-sre-engagement-model.md)
@@ -59,7 +59,7 @@
 ## Phần V. Kết luận (Part V - Conclusions)
 
 - [Phần V (Conclusions)](part-5-conclusions/_part.md)
-- [33. Bài học Học được từ Các ngành khác (Lessons Learned from Other Industries)](part-5-conclusions/33-lessons-learned.md)
+- [33. Bài học Rút ra từ Các ngành khác (Lessons Learned from Other Industries)](part-5-conclusions/33-lessons-learned.md)
 - [34. Kết luận (Conclusion)](part-5-conclusions/34-conclusion.md)
 
 ## Phụ lục (Appendices)

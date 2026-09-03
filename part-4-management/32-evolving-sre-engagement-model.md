@@ -11,19 +11,19 @@
 
 ## Tham gia SRE: Cái gì, Như thế nào, và Tại sao (SRE Engagement: What, How, and Why)
 
-Chúng tôi đã thảo luận trong phần lớn cuốn sách này điều gì xảy ra khi SRE *đã* phụ trách một dịch vụ. Ít dịch vụ nào bắt đầu vòng đời của chúng mà được tận hưởng hỗ trợ SRE, nên cần một quy trình để đánh giá một dịch vụ, đảm bảo rằng nó xứng đáng với hỗ trợ SRE, thương lượng cách cải thiện bất kỳ khiếm khuyết nào ngăn cản hỗ trợ SRE, và thực sự thiết lập hỗ trợ SRE. Chúng tôi gọi quy trình này là *onboarding* (đưa vào). Nếu bạn ở trong một môi trường bị bao quanh bởi nhiều dịch vụ hiện có ở các trạng thái hoàn hảo khác nhau, đội SRE của bạn có lẽ sẽ chạy qua một hàng đợi onboarding được ưu tiên hóa trong một thời gian khá dài, cho đến khi đội hoàn thành việc tiếp nhận các mục tiêu giá trị cao nhất.
+Chúng tôi đã thảo luận trong phần lớn cuốn sách này điều gì xảy ra khi SRE *đã* phụ trách một dịch vụ. Ít dịch vụ nào ngay từ đầu vòng đời đã được tận hưởng sự hỗ trợ của SRE, nên cần một quy trình để đánh giá một dịch vụ, đảm bảo rằng nó xứng đáng với hỗ trợ SRE, thương lượng cách cải thiện bất kỳ khiếm khuyết nào ngăn cản hỗ trợ SRE, và thực sự thiết lập hỗ trợ SRE. Chúng tôi gọi quy trình này là *onboarding* (đưa vào). Nếu bạn ở trong một môi trường bị bao quanh bởi nhiều dịch vụ hiện có ở các trạng thái hoàn hảo khác nhau, đội SRE của bạn có lẽ sẽ chạy qua một hàng đợi onboarding được ưu tiên hóa trong một thời gian khá dài, cho đến khi đội hoàn thành việc tiếp nhận các mục tiêu giá trị cao nhất.
 
 Mặc dù điều này rất phổ biến, và là một cách xử lý hoàn toàn hợp lý với một môi trường *đã thành sự thực* (fait accompli), nhưng thực ra có ít nhất hai cách tốt hơn để mang sự khôn ngoan của production, và hỗ trợ SRE, đến các dịch vụ cũ và mới như nhau.
 
 Trong trường hợp đầu tiên, giống như trong kỹ thuật phần mềm — nơi càng sớm phát hiện bug thì càng rẻ để sửa — càng sớm một cuộc tham vấn của đội SRE xảy ra thì dịch vụ sẽ càng tốt và càng nhanh cảm nhận được lợi ích. Khi SRE tham gia trong các giai đoạn sớm nhất của *thiết kế*, thời gian để onboarding được giảm và dịch vụ đáng tin cậy hơn "ngay từ cửa xuất phát", thường là vì chúng tôi không phải dành thời gian tháo gỡ một thiết kế hoặc triển khai kém tối ưu.
 
-Một cách khác, có lẽ tốt nhất, là ngắn mạch quy trình mà theo đó các hệ thống được tạo ra đặc biệt với nhiều biến thể cá nhân cuối cùng "đến" trước cửa SRE. Hãy cung cấp cho phát triển sản phẩm một *nền tảng* (platform) hạ tầng được SRE xác thực, mà trên đó họ có thể xây dựng các hệ thống của mình. Nền tảng này có lợi ích kép là vừa đáng tin cậy vừa có khả năng mở rộng (scalable). Điều này tránh hoàn toàn một số lớp các vấn đề tải nhận thức, và bằng cách giải quyết các thực hành hạ tầng chung, cho phép các đội phát triển sản phẩm tập trung vào đổi mới ở tầng ứng dụng, nơi mà nó chủ yếu thuộc về.
+Một cách khác, có lẽ tốt nhất, là đi tắt quy trình mà theo đó các hệ thống được tạo ra đặc biệt với nhiều biến thể cá nhân cuối cùng "đến" trước cửa SRE. Hãy cung cấp cho phát triển sản phẩm một *nền tảng* (platform) hạ tầng được SRE xác thực, mà trên đó họ có thể xây dựng các hệ thống của mình. Nền tảng này có lợi ích kép là vừa đáng tin cậy vừa có khả năng mở rộng (scalable). Điều này tránh hoàn toàn một số lớp các vấn đề tải nhận thức, và bằng cách giải quyết các thực hành hạ tầng chung, cho phép các đội phát triển sản phẩm tập trung vào đổi mới ở tầng ứng dụng, nơi mà nó chủ yếu thuộc về.
 
-Trong các mục tiếp theo, chúng tôi sẽ dành một ít thời gian xem xét từng mô hình trong số này lần lượt, bắt đầu với cái "kinh điển," mô hình do PRR (Production Readiness Review — Đánh giá Sẵn sàng Production) dẫn dắt.
+Trong các mục tiếp theo, chúng tôi sẽ dành một ít thời gian xem xét từng mô hình trong số này lần lượt, bắt đầu với cái "kinh điển," mô hình do PRR dẫn dắt.
 
 ## Mô hình PRR (The PRR Model)
 
-Bước khởi đầu điển hình nhất của [sự tham gia SRE](https://sre.google/sre-book/communication-and-collaboration/) là Production Readiness Review (PRR — Đánh giá Sẵn sàng Production), một quy trình xác định các nhu cầu độ tin cậy của một dịch vụ dựa trên các chi tiết cụ thể của nó. Thông qua một PRR, các SRE tìm cách áp dụng những gì họ đã học và trải nghiệm để đảm bảo độ tin cậy của một dịch vụ vận hành trong production. Một PRR được coi là tiên quyết cho một đội SRE chấp nhận trách nhiệm về [việc quản lý các khía cạnh production của một dịch vụ.](https://sre.google/sre-book/service-best-practices/)
+Bước khởi đầu điển hình nhất của [sự tham gia SRE](https://sre.google/sre-book/communication-and-collaboration/) là Production Readiness Review (PRR — Đánh giá Sẵn sàng Production), một quy trình xác định các nhu cầu độ tin cậy của một dịch vụ dựa trên các chi tiết cụ thể của nó. Thông qua một PRR, các SRE tìm cách áp dụng những gì họ đã học và trải nghiệm để đảm bảo độ tin cậy của một dịch vụ vận hành trong production. Một PRR được coi là điều kiện tiên quyết để một đội SRE chấp nhận trách nhiệm về [việc quản lý các khía cạnh production của một dịch vụ.](https://sre.google/sre-book/service-best-practices/)
 
 [Hình 32-1](#hinh-32-1) minh họa vòng đời của một dịch vụ điển hình. Production Readiness Review có thể được bắt đầu ở bất kỳ điểm nào của vòng đời dịch vụ, nhưng các giai đoạn mà sự tham gia SRE được áp dụng đã mở rộng theo thời gian. Chương này mô tả Mô hình PRR Đơn giản, sau đó thảo luận làm thế nào việc biến đổi nó thành Mô hình Tham gia Mở rộng và cấu trúc Frameworks và Nền tảng SRE cho phép SRE mở rộng quy trình tham gia và tác động của họ.
 
@@ -65,7 +65,7 @@ Khi một dịch vụ mới hoặc một tính năng mới đã được triển
 
 Các phiên tham vấn bắt buộc phải rộng về phạm vi vì không thể đạt được sự hiểu biết sâu sắc về một hệ thống nhất định trong thời gian hạn chế có sẵn. Đối với một số đội phát triển, tham vấn là không đủ:
 
--   Các dịch vụ đã tăng lên hàng bậc đại số kể từ khi chúng ra mắt, giờ đòi hỏi nhiều thời gian hơn để hiểu hơn là khả thi thông qua tài liệu và tham vấn.
+-   Các dịch vụ đã tăng lên nhiều bậc độ lớn kể từ khi chúng ra mắt, giờ đòi hỏi nhiều thời gian hơn để hiểu hơn là khả thi thông qua tài liệu và tham vấn.
 -   Các dịch vụ mà nhiều dịch vụ khác sau đó đã dựa vào, giờ phục vụ đáng kể nhiều traffic (lưu lượng) hơn từ nhiều client khác nhau.
 
 Những loại dịch vụ này có thể đã tăng đến mức bắt đầu gặp các khó khăn đáng kể trong production trong khi đồng thời trở nên quan trọng đối với người dùng. Trong những trường hợp như vậy, sự tham gia SRE dài hạn trở nên cần thiết để đảm bảo rằng chúng được duy trì đúng đắn trong production khi chúng tăng.
@@ -97,7 +97,7 @@ Mục tiêu là đạt được một sự đồng ý chung về quy trình, cá
 
 ## Phân tích (Analysis)
 
-Phân tích là phân đoạn công việc lớn đầu tiên. Trong giai đoạn này, các người review SRE tìm hiểu về dịch vụ và bắt đầu phân tích nó để tìm các khiếm khuyết production. Họ nhắm đến việc đo lường sự trưởng thành của dịch vụ dọc theo các trục quan tâm khác nhau đối với SRE. Họ cũng xem xét thiết kế và triển khai của dịch vụ để kiểm tra xem nó có tuân theo các thực hành tốt nhất production hay không. Thường thì, đội SRE thiết lập và duy trì một checklist PRR rõ ràng riêng cho giai đoạn Phân tích. Checklist cụ thể cho dịch vụ và thường dựa trên chuyên môn lĩnh vực, kinh nghiệm với các hệ thống liên quan hoặc tương tự, và các thực hành tốt nhất từ Production Guide. Đội SRE cũng có thể tham vấn các đội khác có nhiều kinh nghiệm hơn với một số thành phần hoặc phụ thuộc nhất định của dịch vụ.
+Phân tích là phân đoạn công việc lớn đầu tiên. Trong giai đoạn này, những người review SRE tìm hiểu về dịch vụ và bắt đầu phân tích nó để tìm các khiếm khuyết production. Họ nhắm đến việc đo lường sự trưởng thành của dịch vụ dọc theo các trục quan tâm khác nhau đối với SRE. Họ cũng xem xét thiết kế và triển khai của dịch vụ để kiểm tra xem nó có tuân theo các thực hành tốt nhất production hay không. Thường thì, đội SRE thiết lập và duy trì một checklist PRR rõ ràng riêng cho giai đoạn Phân tích. Checklist cụ thể cho dịch vụ và thường dựa trên chuyên môn lĩnh vực, kinh nghiệm với các hệ thống liên quan hoặc tương tự, và các thực hành tốt nhất từ Production Guide. Đội SRE cũng có thể tham vấn các đội khác có nhiều kinh nghiệm hơn với một số thành phần hoặc phụ thuộc nhất định của dịch vụ.
 
 Một vài ví dụ về các mục checklist bao gồm:
 
@@ -117,11 +117,11 @@ Giai đoạn Phân tích dẫn đến việc xác định các cải tiến đư
 2.  Các ưu tiên được thảo luận và thương lượng với đội phát triển, và một kế hoạch thực thi được đồng ý.
 3.  Cả hai đội SRE và phát triển sản phẩm đều tham gia và hỗ trợ nhau trong việc refactor các phần của dịch vụ hoặc triển khai các tính năng bổ sung.
 
-Giai đoạn này thường thay đổi nhất về thời lượng và lượng nỗ lực. Bao nhiêu thời gian và nỗ lực mà giai đoạn này sẽ liên quan phụ thuộc vào sự khả dụng của thời gian kỹ thuật để refactor, sự trưởng thành và độ phức tạp của dịch vụ ở thời điểm bắt đầu review, và vô số các yếu tố khác.
+Giai đoạn này thường thay đổi nhất về thời lượng và lượng nỗ lực. Thời gian và nỗ lực mà giai đoạn này đòi hỏi phụ thuộc vào sự khả dụng của thời gian kỹ thuật để refactor, sự trưởng thành và độ phức tạp của dịch vụ ở thời điểm bắt đầu review, và vô số các yếu tố khác.
 
 ## Đào tạo (Training)
 
-Trách nhiệm quản lý một dịch vụ trong production thường được tiếp nhận bởi toàn bộ một đội SRE. Để đảm bảo rằng đội đã sẵn sàng, các người review SRE đã dẫn dắt PRR tiếp nhận trách nhiệm đào tạo đội, bao gồm tài liệu cần thiết để hỗ trợ dịch vụ. Thường thì với sự giúp đỡ và tham gia của đội phát triển, các kỹ sư này tổ chức một loạt các phiên và bài tập đào tạo. Hướng dẫn có thể bao gồm:
+Trách nhiệm quản lý một dịch vụ trong production thường được tiếp nhận bởi toàn bộ một đội SRE. Để đảm bảo rằng đội đã sẵn sàng, những người review SRE đã dẫn dắt PRR tiếp nhận trách nhiệm đào tạo đội, bao gồm tài liệu cần thiết để hỗ trợ dịch vụ. Thường thì với sự giúp đỡ và tham gia của đội phát triển, các kỹ sư này tổ chức một loạt các phiên và bài tập đào tạo. Hướng dẫn có thể bao gồm:
 
 -   Các tổng quan thiết kế
 -   Các đào sâu vào các luồng yêu cầu khác nhau trong hệ thống
@@ -132,7 +132,7 @@ Khi đào tạo kết thúc, đội SRE nên đã sẵn sàng để quản lý d
 
 ## Onboarding (Đưa vào)
 
-Giai đoạn Đào tạo mở khóa việc onboarding dịch vụ bởi đội SRE. Nó bao gồm một sự chuyển giao trách nhiệm và sở hữu tiến bộ của các khía cạnh production khác nhau của dịch vụ, bao gồm các phần của vận hành, quy trình quản lý thay đổi, các quyền truy cập, và vân vân. Đội SRE tiếp tục tập trung vào các khu vực production khác nhau được đề cập trước đó. Để hoàn tất sự chuyển đổi, đội phát triển phải có sẵn để dự phòng và cố vấn cho đội SRE trong một khoảng thời gian khi nó ổn định trong việc quản lý production cho dịch vụ. Mối quan hệ này trở thành nền tảng cho công việc liên tục giữa các đội.
+Giai đoạn Đào tạo mở khóa việc onboarding dịch vụ bởi đội SRE. Nó bao gồm việc chuyển giao dần dần trách nhiệm và quyền sở hữu đối với các khía cạnh production khác nhau của dịch vụ, bao gồm các phần của vận hành, quy trình quản lý thay đổi, các quyền truy cập, và vân vân. Đội SRE tiếp tục tập trung vào các khu vực production khác nhau được đề cập trước đó. Để hoàn tất sự chuyển đổi, đội phát triển phải có sẵn để dự phòng và cố vấn cho đội SRE trong một khoảng thời gian khi nó ổn định trong việc quản lý production cho dịch vụ. Mối quan hệ này trở thành nền tảng cho công việc liên tục giữa các đội.
 
 ## Cải tiến Liên tục (Continuous Improvement)
 
@@ -140,15 +140,15 @@ Các dịch vụ hoạt động thay đổi liên tục để đáp ứng các �
 
 ### Tham gia với Shakespeare (Engaging with Shakespeare)
 
-Ban đầu, các nhà phát triển của dịch vụ Shakespeare chịu trách nhiệm cho sản phẩm, bao gồm việc mang pager cho phản ứng khẩn cấp. Tuy nhiên, với việc sử dụng dịch vụ tăng lên và sự tăng trưởng của doanh thu đến từ dịch vụ, hỗ trợ SRE trở nên mong muốn. Sản phẩm đã được ra mắt, nên SRE đã tiến hành một Production Readiness Review. Một trong những điều họ phát hiện là các dashboard không hoàn toàn bao phủ một số metrics được định nghĩa trong SLO, nên điều đó cần phải được sửa. Sau khi tất cả các vấn đề đã được khai báo được sửa, SRE tiếp nhận pager cho dịch vụ, mặc dù hai nhà phát triển cũng trong vòng on-call. Các nhà phát triển đang tham gia vào cuộc họp on-call hàng tuần thảo luận các vấn đề của tuần trước và cách xử lý các hoạt động bảo trì quy mô lớn hoặc turndown (giảm cấu hình) cluster sắp tới. Ngoài ra, các kế hoạch tương lai cho dịch vụ giờ được thảo luận với các SRE để đảm bảo rằng các ra mắt mới sẽ diễn ra hoàn hảo (mặc dù định luật Murphy luôn luôn tìm kiếm các cơ hội để phá hỏng điều đó).
+Ban đầu, các nhà phát triển của dịch vụ Shakespeare chịu trách nhiệm cho sản phẩm, bao gồm việc mang máy gọi trực (pager) cho phản ứng khẩn cấp. Tuy nhiên, với việc sử dụng dịch vụ tăng lên và sự tăng trưởng của doanh thu đến từ dịch vụ, hỗ trợ SRE trở nên mong muốn. Sản phẩm đã được ra mắt, nên SRE đã tiến hành một Production Readiness Review. Một trong những điều họ phát hiện là các dashboard không hoàn toàn bao phủ một số metrics được định nghĩa trong SLO, nên điều đó cần phải được sửa. Sau khi tất cả các vấn đề đã được khai báo được sửa, SRE tiếp nhận máy gọi trực cho dịch vụ, mặc dù hai nhà phát triển cũng trong vòng on-call. Các nhà phát triển đang tham gia vào cuộc họp on-call hàng tuần thảo luận các vấn đề của tuần trước và cách xử lý các hoạt động bảo trì quy mô lớn hoặc tắt (turndown) cluster sắp tới. Ngoài ra, các kế hoạch tương lai cho dịch vụ giờ được thảo luận với các SRE để đảm bảo rằng các ra mắt mới sẽ diễn ra hoàn hảo (mặc dù định luật Murphy luôn luôn tìm kiếm các cơ hội để phá hỏng điều đó).
 
 ## Tiến hóa Mô hình PRR Đơn giản: Tham gia Sớm (Evolving the Simple PRR Model: Early Engagement)
 
 Cho đến nay, chúng tôi đã thảo luận Production Readiness Review theo cách nó được sử dụng trong Mô hình PRR Đơn giản, bị giới hạn ở các dịch vụ đã vào giai đoạn Launch (Ra mắt). Có một số giới hạn và chi phí liên quan đến mô hình này. Ví dụ:
 
--   Giao tiếp bổ sung giữa các đội có thể làm tăng một số chi phí phát sinh quy trình cho đội phát triển, và gánh nặng nhận thức cho các người review SRE.
--   Các người review SRE đúng phải có sẵn, và có khả năng quản lý thời gian và ưu tiên của họ đối với các sự tham gia hiện có của họ.
--   Công việc do các SRE thực hiện phải có tầm nhìn cao và được review đủ bởi đội phát triển để đảm bảo chia sẻ kiến thức hiệu quả. Các SRE về cơ bản nên làm việc như một phần của đội phát triển, chứ không phải một đơn vị bên ngoài.
+-   Giao tiếp bổ sung giữa các đội có thể làm tăng một số chi phí phát sinh quy trình cho đội phát triển, và gánh nặng nhận thức cho những người review SRE.
+-   Những người review SRE phù hợp phải sẵn sàng, và có khả năng quản lý thời gian và ưu tiên của họ đối với các sự tham gia hiện có của họ.
+-   Công việc do các SRE thực hiện phải có độ minh bạch cao và được đội phát triển review đầy đủ để đảm bảo chia sẻ kiến thức hiệu quả. Các SRE về cơ bản nên làm việc như một phần của đội phát triển, chứ không phải một đơn vị bên ngoài.
 
 Tuy nhiên, các giới hạn chính của Mô hình PRR bắt nguồn từ việc dịch vụ đã được ra mắt và đang phục vụ ở quy mô, và sự tham gia SRE bắt đầu rất muộn trong vòng đời phát triển. Nếu PRR xảy ra sớm hơn trong vòng đời dịch vụ, cơ hội của SRE để khắc phục các vấn đề tiềm năng trong dịch vụ sẽ tăng lên đáng kể. Kết quả là, thành công của sự tham gia SRE và thành công tương lai của chính dịch vụ có lẽ sẽ cải thiện. Các tác động kéo theo có thể đặt ra một thách thức đáng kể đối với thành công của sự tham gia SRE và thành công tương lai của chính dịch vụ.
 
@@ -160,7 +160,7 @@ Mô hình Tham gia Sớm giới thiệu SRE sớm hơn trong vòng đời phát 
 -   Dịch vụ là một bản viết lại hoặc lựa chọn thay thế đáng kể cho một hệ thống hiện có, nhắm đến cùng các trường hợp sử dụng.
 -   Đội phát triển đã tìm kiếm lời khuyên SRE hoặc tiếp cận SRE để tiếp nhận khi ra mắt.
 
-Mô hình Tham gia Sớm về cơ bản đắm các SRE vào quy trình phát triển. Sự tập trung của SRE vẫn giữ như cũ, mặc dù các phương tiện để đạt được một dịch vụ production tốt hơn là khác nhau. SRE tham gia trong Thiết kế và các giai đoạn sau, cuối cùng tiếp nhận dịch vụ bất kỳ lúc nào trong hoặc sau giai đoạn Build (Xây dựng). Mô hình này dựa trên sự hợp tác chủ động giữa các đội phát triển và SRE.
+Mô hình Tham gia Sớm về cơ bản đắm chìm các SRE vào quy trình phát triển. Sự tập trung của SRE vẫn giữ như cũ, mặc dù các phương tiện để đạt được một dịch vụ production tốt hơn là khác nhau. SRE tham gia trong Thiết kế và các giai đoạn sau, cuối cùng tiếp nhận dịch vụ bất kỳ lúc nào trong hoặc sau giai đoạn Build (Xây dựng). Mô hình này dựa trên sự hợp tác chủ động giữa các đội phát triển và SRE.
 
 ## Các Lợi ích của Mô hình Tham gia Sớm (Benefits of the Early Engagement Model)
 
@@ -178,7 +178,7 @@ Giai đoạn Build giải quyết các khía cạnh production như đo lường
 
 ### Ra mắt (Launch)
 
-SRE cũng có thể giúp triển khai các mẫu và biện pháp kiểm soát ra mắt được sử dụng rộng rãi. Ví dụ, SRE có thể giúp triển khai một thiết lập "dark launch" (ra mắt tối), trong đó một phần traffic từ các người dùng hiện có được gửi đến dịch vụ mới, bên cạnh việc được gửi đến dịch vụ production trực. Các phản hồi từ dịch vụ mới là "tối" vì chúng bị vứt bỏ và không thực sự hiển thị cho người dùng. Các thực hành như ra mắt tối cho phép đội đạt được hiểu biết vận hành, giải quyết các vấn đề mà không ảnh hưởng đến các người dùng hiện có, và giảm rủi ro gặp các vấn đề sau ra mắt. Một ra mắt suôn sẻ vô cùng hữu ích trong việc giữ gánh nặng vận hành thấp và duy trì động lực phát triển sau ra mắt. Các gián đoạn xung quanh ra mắt dễ dàng dẫn đến các thay đổi khẩn cấp đối với code nguồn và production, và làm gián đoạn công việc của đội phát triển trên các tính năng tương lai.
+SRE cũng có thể giúp triển khai các mẫu và biện pháp kiểm soát ra mắt được sử dụng rộng rãi. Ví dụ, SRE có thể giúp triển khai một thiết lập "dark launch" (ra mắt tối), trong đó một phần traffic từ những người dùng hiện có được gửi đến dịch vụ mới, bên cạnh việc được gửi đến dịch vụ production trực. Các phản hồi từ dịch vụ mới là "tối" vì chúng bị vứt bỏ và không thực sự hiển thị cho người dùng. Các thực hành như ra mắt tối cho phép đội đạt được hiểu biết vận hành, giải quyết các vấn đề mà không ảnh hưởng đến những người dùng hiện có, và giảm rủi ro gặp các vấn đề sau ra mắt. Một ra mắt suôn sẻ vô cùng hữu ích trong việc giữ gánh nặng vận hành thấp và duy trì động lực phát triển sau ra mắt. Các gián đoạn xung quanh ra mắt dễ dàng dẫn đến các thay đổi khẩn cấp đối với code nguồn và production, và làm gián đoạn công việc của đội phát triển trên các tính năng tương lai.
 
 ### Sau ra mắt (Post-launch)
 
@@ -188,15 +188,15 @@ Với sự tham gia mở rộng, đội SRE có thể sẵn sàng tiếp nhận 
 
 ### Rút khỏi một dịch vụ (Disengaging from a service)
 
-Đôi khi một dịch vụ không xứng đáng với quản lý đầy đủ của một đội SRE — sự xác định này có thể được thực hiện sau ra mắt, hoặc SRE có thể tham gia với một dịch vụ nhưng không bao giờ chính thức tiếp nhận nó. Đây là một kết quả tích cực, vì dịch vụ đã được kỹ thuật để đáng tin cậy và bảo trì thấp, và do đó có thể tiếp tục ở lại với đội phát triển.
+Đôi khi một dịch vụ không xứng đáng với quản lý đầy đủ của một đội SRE — sự xác định này có thể được thực hiện sau ra mắt, hoặc SRE có thể tham gia với một dịch vụ nhưng không bao giờ chính thức tiếp nhận nó. Đây là một kết quả tích cực, vì dịch vụ đã được xây dựng để đáng tin cậy và có mức bảo trì thấp, và do đó có thể tiếp tục ở lại với đội phát triển.
 
-Cũng có thể SRE tham gia sớm với một dịch vụ mà thất bại đạt đến các mức sử dụng được dự báo. Trong những trường hợp như vậy, nỗ lực SRE được dành ra đơn thuần là một phần của rủi ro kinh doanh tổng thể đi cùng với các dự án mới, và một chi phí nhỏ so với thành công của các dự án đạt đến quy mô được kỳ vọng. Đội SRE có thể được phân công lại, và các bài học học được có thể được tích hợp vào quy trình tham gia.
+Cũng có thể SRE tham gia sớm với một dịch vụ mà thất bại trong việc đạt đến các mức sử dụng được dự báo. Trong những trường hợp như vậy, nỗ lực SRE được dành ra đơn thuần là một phần của rủi ro kinh doanh tổng thể đi cùng với các dự án mới, và một chi phí nhỏ so với thành công của các dự án đạt đến quy mô được kỳ vọng. Đội SRE có thể được phân công lại, và các bài học rút ra có thể được tích hợp vào quy trình tham gia.
 
 ## Tiến hóa Phát triển Dịch vụ: Frameworks và Nền tảng SRE (Evolving Services Development: Frameworks and SRE Platform)
 
 Mô hình Tham gia Sớm đã đạt được bước tiến trong việc tiến hóa sự tham gia SRE vượt ra ngoài Mô hình PRR Đơn giản, cái mà chỉ áp dụng cho các dịch vụ đã được ra mắt. Tuy nhiên, vẫn còn tiến bộ phải được thực hiện trong việc mở rộng sự tham gia SRE lên cấp độ tiếp theo bằng cách thiết kế cho độ tin cậy.
 
-## Các Bài học Học được (Lessons Learned)
+## Các Bài học Rút ra (Lessons Learned)
 
 Theo thời gian, mô hình tham gia SRE được mô tả cho đến nay đã tạo ra một số mẫu riêng biệt:
 
@@ -235,7 +235,7 @@ Tự động hóa dễ dàng hơn và các hệ thống thông minh hơn
 
 Một bề mặt điều khiển chung cho phép tự động hóa và các hệ thống thông minh ở một cấp độ mà trước đây không thể. Ví dụ, các SRE có thể dễ dàng nhận được một góc nhìn duy nhất về thông tin liên quan cho một outage, thay vì thu thập và phân tích thủ công chủ yếu dữ liệu thô từ các nguồn khác nhau (log, dữ liệu giám sát, và vân vân).
 
-Dựa trên các nguyên tắc này, một tập hợp các framework nền tảng và dịch vụ được SRE hỗ trợ đã được tạo ra, một cái cho mỗi môi trường mà chúng tôi hỗ trợ (Java, C++, Go). Các dịch vụ được xây dựng sử dụng các framework này chia sẻ các triển khai được thiết kế để hoạt động với nền tảng được SRE hỗ trợ, và được duy trì bởi cả các đội SRE và phát triển. Sự chuyển dịch chính được mang lại bởi các framework là cho phép các đội phát triển sản phẩm thiết kế các ứng dụng sử dụng giải pháp framework được xây dựng và được SRE chấp thuận, thay vì hoặc lắp ráp ứng dụng theo các quy định SRE sau này, hoặc lắp ráp nhiều SRE hơn để hỗ trợ một dịch vụ khác biệt đáng kể so với các dịch vụ Google khác.
+Dựa trên các nguyên tắc này, một tập hợp các framework nền tảng và dịch vụ được SRE hỗ trợ đã được tạo ra, một cái cho mỗi môi trường mà chúng tôi hỗ trợ (Java, C++, Go). Các dịch vụ được xây dựng sử dụng các framework này chia sẻ các triển khai được thiết kế để hoạt động với nền tảng được SRE hỗ trợ, và được duy trì bởi cả các đội SRE và phát triển. Sự chuyển dịch chính được mang lại bởi các framework là cho phép các đội phát triển sản phẩm thiết kế các ứng dụng sử dụng giải pháp framework được xây dựng và được SRE chấp thuận, thay vì hoặc lắp ráp ứng dụng theo các quy định SRE sau này, hoặc tập hợp thêm nhiều SRE hơn để hỗ trợ một dịch vụ khác biệt đáng kể so với các dịch vụ Google khác.
 
 Một ứng dụng thường bao gồm một số logic kinh doanh, mà đến lượt nó phụ thuộc vào các thành phần hạ tầng khác nhau. Các mối quan tâm production SRE chủ yếu tập trung vào các phần liên quan hạ tầng của một dịch vụ. Các framework dịch vụ triển khai code hạ tầng theo cách chuẩn hóa và giải quyết các mối quan tâm production khác nhau. Mỗi mối quan tâm được đóng gói trong một hoặc nhiều module framework, mỗi cái cung cấp một giải pháp nhất quán cho một lĩnh vực vấn đề hoặc phụ thuộc hạ tầng. Các module framework giải quyết các mối quan tâm SRE khác nhau được liệt kê trước đó, chẳng hạn như:
 
@@ -304,7 +304,7 @@ Cả ba mô hình tham gia được mô tả đều vẫn được thực hành 
 
 <a id="fn2"></a>[2](#fn2) Đôi khi, có các sự tham gia tham vấn bởi các đội SRE với một số dịch vụ chưa được onboarding, nhưng các tham vấn là một cách tiếp cận cố gắng hết sức và bị giới hạn về số lượng và phạm vi.
 
-<a id="fn3"></a>[3](#fn3) Mô hình mới của quản lý dịch vụ thay đổi mô hình nhân sự SRE theo hai cách: (1) vì nhiều công nghệ dịch vụ là chung, nó giảm số lượng SRE yêu cầu cho mỗi dịch vụ; (2) nó cho phép việc tạo ra các nền tảng production với sự tách biệt mối quan tâm giữa hỗ trợ nền tảng production (do các SRE thực hiện) và hỗ trợ logic kinh doanh cụ thể cho dịch vụ, cái mà tiếp tục ở lại với đội phát triển. Những nền tảng này được nhân sự dựa trên nhu cầu duy trì nền tảng chứ không phải trên số lượng dịch vụ, và có thể được chia sẻ xuyên qua các sản phẩm.
+<a id="fn3"></a>[3](#fn3) Mô hình mới của quản lý dịch vụ thay đổi mô hình nhân sự SRE theo hai cách: (1) vì nhiều công nghệ dịch vụ là chung, nó giảm số lượng SRE yêu cầu cho mỗi dịch vụ; (2) nó cho phép việc tạo ra các nền tảng production với sự tách biệt mối quan tâm giữa hỗ trợ nền tảng production (do các SRE thực hiện) và hỗ trợ logic kinh doanh cụ thể cho dịch vụ, cái mà tiếp tục ở lại với đội phát triển. Những nền tảng này được bố trí nhân sự dựa trên nhu cầu duy trì nền tảng chứ không phải trên số lượng dịch vụ, và có thể được chia sẻ xuyên qua các sản phẩm.
 
 ---
 

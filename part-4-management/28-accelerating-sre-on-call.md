@@ -25,7 +25,7 @@ Các học viên có phạm vi sở thích học tập rất rộng. Vì bạn s
 
 <a id="bang-28-1"></a>**Bảng 28-1. Các thực hành giáo dục SRE**
 
-| **Mơ-típ được đề xuất** | **Anti-patterns** |
+| **Mô-típ được đề xuất** | **Anti-patterns** |
 |---|---|
 | Thiết kế các trải nghiệm học tập cụ thể, tuần tự để học viên theo dõi | Trút cho học viên nhiều công việc vặt (ví dụ, triage alert/ticket) để đào tạo họ; "thử thách bằng lửa" |
 | Khuyến khích reverse engineering, tư duy thống kê và làm việc từ các nguyên lý cơ bản | Đào tạo thuần túy qua các quy trình vận hành, checklist và playbook |
@@ -51,7 +51,7 @@ Hình minh họa có hai trục:
 
 Mẹo để diễn giải hình minh họa này:
 
--   *Đi on-call* là một mốc trong sự nghiệp của một SRE mới, sau đó điểm này việc học trở nên mơ hồ, không xác định và tự định hướng hơn rất nhiều — do đó là các đường đứt đứt bao quanh các hoạt động xảy ra tại hoặc sau khi SRE đi on-call.
+-   *Đi on-call* là một mốc trong sự nghiệp của một SRE mới, sau mốc này việc học trở nên mơ hồ, không xác định và tự định hướng hơn rất nhiều — do đó là các đường đứt nét bao quanh các hoạt động xảy ra tại hoặc sau khi SRE đi on-call.
 -   Hình dạng tam giác của *công việc dự án & sở hữu* cho thấy rằng công việc dự án bắt đầu nhỏ và xây dựng theo thời gian, trở nên phức tạp hơn và nhiều khả năng tiếp tục rất lâu sau khi đi on-call.
 -   Một số hoạt động và thực hành này rất trừu tượng/bị động, và một số rất áp dụng/chủ động. Một vài hoạt động là sự pha trộn của cả hai. Tốt là có một sự đa dạng các phương thức học tập để phù hợp với các phong cách học tập khác nhau.
 -   Để đạt hiệu quả tối đa, các hoạt động và thực hành đào tạo nên được nhịp độ phù hợp: một số phù hợp để thực hiện ngay, một số nên xảy ra ngay trước khi một SRE chính thức đi on-call, và một số nên liên tục và kéo dài ngay cả với các SRE kỳ cựu. *Các trải nghiệm học tập cụ thể* nên diễn ra trong toàn bộ thời gian dẫn đến [SRE đi on-call](https://sre.google/sre-book/being-on-call/).
@@ -62,7 +62,7 @@ Như đã thảo luận ở nơi khác trong cuốn sách này, các đội SRE 
 
 > John là thành viên mới nhất của đội SRE FooServer. Các SRE cấp cao trong đội này được giao rất nhiều công việc chân tay, như phản hồi các ticket (yêu cầu), đối phó với các alert (cảnh báo), và thực hiện các lần rollout (phát hành) binary tẻ nhạt. Vào ngày làm việc đầu tiên của John, anh ấy được gán tất cả các ticket đến mới. Anh ấy được nói rằng anh ấy có thể hỏi bất kỳ thành viên nào của đội SRE giúp anh ấy thu thập nền tảng cần thiết để giải mã một ticket. "Chắc chắn sẽ có rất nhiều việc học ban đầu mà bạn sẽ phải làm," quản lý của John nói. "Nhưng cuối cùng bạn sẽ nhanh hơn nhiều với những ticket này. Một ngày nào đó, nó sẽ *click* và bạn sẽ biết rất nhiều về tất cả các công cụ chúng tôi sử dụng, các quy trình chúng tôi tuân theo, và các hệ thống chúng tôi duy trì." Một thành viên cấp cao của đội bình luận, "Chúng tôi đang ném bạn vào đầu sâu của bể bơi đây."
 
-Phương pháp "thử thách bằng lửa" này để định hướng người mới thường sinh ra từ môi trường hiện tại của đội; các đội SRE do ops điều hành, phản ứng, "đào tạo" thành viên mới bằng cách bắt họ…chà, phản ứng! Lặp đi lặp lại. Nếu may mắn, những kỹ sư đã giỏi điều hướng sự mơ hồ sẽ bò ra khỏi cái hố bạn đã đặt họ vào. Nhưng nhiều khả năng, chiến lược này đã xa cách hóa một số kỹ sư có năng lực. Cách tiếp cận như vậy có thể cuối cùng tạo ra các nhân viên vận hành giỏi, nhưng kết quả sẽ không đạt chuẩn. Phương pháp thử thách bằng lửa cũng giả định rằng nhiều hoặc phần lớn khía cạnh của một đội có thể dạy thuần túy bằng việc làm, chứ không phải bằng suy luận. Nếu tập hợp công việc trong một hàng đợi ticket đã đủ đào tạo cho công việc đó, thì đây không phải là vị trí SRE.
+Phương pháp "thử thách bằng lửa" này để định hướng người mới thường sinh ra từ môi trường hiện tại của đội; các đội SRE do ops điều hành, phản ứng, "đào tạo" thành viên mới bằng cách bắt họ…chà, phản ứng! Lặp đi lặp lại. Nếu may mắn, những kỹ sư đã giỏi điều hướng sự mơ hồ sẽ bò ra khỏi cái hố bạn đã đặt họ vào. Nhưng nhiều khả năng, chiến lược này đã làm xa lánh một số kỹ sư có năng lực. Cách tiếp cận như vậy có thể cuối cùng tạo ra các nhân viên vận hành giỏi, nhưng kết quả sẽ không đạt chuẩn. Phương pháp thử thách bằng lửa cũng giả định rằng nhiều hoặc phần lớn khía cạnh của một đội có thể dạy thuần túy bằng việc làm, chứ không phải bằng suy luận. Nếu tập hợp công việc trong một hàng đợi ticket đã đủ đào tạo cho công việc đó, thì đây không phải là vị trí SRE.
 
 Các học viên SRE sẽ có những câu hỏi như:
 
@@ -70,7 +70,7 @@ Các học viên SRE sẽ có những câu hỏi như:
 -   Tôi đã đạt được bao nhiêu tiến bộ?
 -   Khi nào những hoạt động này tích lũy đủ kinh nghiệm để tôi đi on-call?
 
-Việc nhảy từ một công ty hoặc trường đại học trước đó, trong khi đổi vai trò (từ kỹ sư phần mềm hoặc quản trị viên hệ thống truyền thống) sang vai trò *Site Reliability Engineer* mơ hồ này, thường đủ để đánh gục sự tự tin của học viên. Đối với những người tính cách nội tâm hơn (đặc biệt về câu hỏi #2 và #3), sự bất định do các câu trả lời mơ hồ gây ra có thể dẫn đến phát triển chậm hơn hoặc các vấn đề về giữ chân. Thay vào đó, hãy xem xét các cách tiếp cận được phác thảo trong các mục tiếp theo. Những gợi ý này cụ thể như bất kỳ ticket hoặc alert nào, nhưng cũng tuần tự, và do đó phần thưởng hơn nhiều.
+Việc nhảy từ một công ty hoặc trường đại học trước đó, trong khi đổi vai trò (từ kỹ sư phần mềm hoặc quản trị viên hệ thống truyền thống) sang vai trò *Site Reliability Engineer* mơ hồ này, thường đủ để đánh gục sự tự tin của học viên. Đối với những người tính cách nội tâm hơn (đặc biệt về câu hỏi #2 và #3), sự bất định do các câu trả lời mơ hồ gây ra có thể dẫn đến phát triển chậm hơn hoặc các vấn đề về giữ chân. Thay vào đó, hãy xem xét các cách tiếp cận được phác thảo trong các mục tiếp theo. Những gợi ý này cụ thể như bất kỳ ticket hoặc alert nào, nhưng cũng tuần tự, và do đó bổ ích hơn nhiều.
 
 ## Các Lối đi Học Tập Tích lũy và Có Trật tự (Learning Paths That Are Cumulative and Orderly)
 
@@ -86,7 +86,7 @@ Cơ sở hạ tầng mạng và datacenter (trung tâm dữ liệu), load balanc
 
 Các frontend ứng dụng, query logging (ghi log truy vấn), SLO (mục tiêu mức dịch vụ) của trải nghiệm người dùng, v.v.
 
-#### 3) Dịch vụ mid-tier (tầng trung gian)
+3) Dịch vụ mid-tier (tầng trung gian)
 
 Caches (bộ nhớ đệm), load balancing backend (phía sau)
 
@@ -143,7 +143,7 @@ Tùy thuộc vào cách quyền truy cập được cấu hình cho dịch vụ,
 SRE là những người giải quyết vấn đề, nên hãy cho họ một vấn đề đàng hoàng để giải quyết! Khi mới bắt đầu, ngay cả một cảm giác sở hữu nhỏ đối với dịch vụ của đội cũng có thể làm những điều kỳ diệu cho việc học. Sự sở hữu như vậy còn tạo bước đột phá lớn cho việc xây dựng niềm tin giữa các đồng nghiệp cấp cao, vì họ sẽ tìm đến đồng nghiệp cấp thấp hơn để hiểu về các thành phần hoặc quy trình mới. Các cơ hội sở hữu ban đầu là tiêu chuẩn trên toàn Google: mọi kỹ sư đều được giao một dự án khởi đầu cung cấp một tour tham quan hạ tầng đủ để họ sớm đưa ra một đóng góp nhỏ nhưng hữu ích. Việc để SRE mới chia thời gian giữa việc học *và* công việc dự án cũng cho họ cảm giác mục đích và năng suất, điều sẽ không có nếu họ chỉ học *hoặc* chỉ làm dự án. Một số mô hình dự án khởi đầu có vẻ hiệu quả bao gồm:
 
 -   Thực hiện một thay đổi tính năng hiển thị cho người dùng tầm thường trong một stack phục vụ, rồi đưa tính năng đó release qua đến production. Hiểu cả toolchain phát triển và quy trình release binary khuyến khích sự đồng cảm với các nhà phát triển.
--   Thêm monitoring vào dịch vụ ở những nơi hiện đang là điểm mù. Người mới sẽ phải suy luận với logic monitoring, trong khi đối chiếu hiểu biết của họ về hệ thống với cách nó thực sự (sai) hoạt động.
+-   Thêm monitoring vào dịch vụ ở những nơi hiện đang là điểm mù. Người mới sẽ phải suy luận với logic monitoring, trong khi đối chiếu hiểu biết của họ về hệ thống với cách nó thực sự hoạt động (đôi khi sai lệch).
 -   Tự động hóa một điểm đau chưa đủ đau để đã được tự động hóa, cho SRE mới thấy được giá trị mà các SRE đặt vào việc loại bỏ toil (việc chân tay) khỏi các hoạt động hàng ngày.
 
 ## Tạo ra các Lập trình viên Phân tích Ngược và Nhà tư duy Tạm ứng Xuất sắc (Creating Stellar Reverse Engineers and Improvisational Thinkers)
@@ -166,17 +166,17 @@ Bạn có thể nghĩ cách tiếp cận của SRE đối với phản ứng inc
 
 ## Nghệ sĩ Tạm ứng: Khi Điều Bất Ngờ Xảy Ra (Improv Artists: When the Unexpected Happens)
 
-Bạn thử một sửa chữa cho sự hỏng hóc, nhưng nó không hoạt động. Các nhà phát triển đằng sau hệ thống đang thất bại ở đâu đó không thể thấy được. Bây giờ bạn làm gì? Bạn tạm ứng! Việc học nhiều công cụ có thể giải quyết các phần của vấn đề của bạn cho phép bạn thực hành phòng thủ nhiều lớp trong các hành vi giải quyết vấn đề của chính bạn. Việc quá thủ tục trước một outage, do đó quên đi các kỹ năng phân tích của bạn, có thể là sự khác biệt giữa việc bị mắc kẹt và việc tìm ra nguyên nhân gốc rễ. Một trường hợp troubleshooting bị lầy lội có thể bị thêm vào khi một SRE mang quá nhiều giả định chưa được kiểm tra về nguyên nhân của một outage vào quyết định của họ. Việc chứng minh rằng có nhiều bẫy phân tích mà các SRE có thể rơi vào, đòi hỏi "zoom out" (co nhỏ) và tiếp cận theo một cách khác đối với giải pháp, là một bài học có giá trị để các SRE học sớm.
+Bạn thử một sửa chữa cho sự hỏng hóc, nhưng nó không hoạt động. Các nhà phát triển đứng sau hệ thống đang gặp sự cố thì không tìm thấy đâu cả. Bây giờ bạn làm gì? Bạn tạm ứng! Việc học nhiều công cụ có thể giải quyết các phần của vấn đề của bạn cho phép bạn thực hành phòng thủ nhiều lớp trong các hành vi giải quyết vấn đề của chính bạn. Việc quá thủ tục trước một outage, do đó quên đi các kỹ năng phân tích của bạn, có thể là sự khác biệt giữa việc bị mắc kẹt và việc tìm ra nguyên nhân gốc rễ. Một trường hợp troubleshooting bị lầy lội có thể bị thêm vào khi một SRE mang quá nhiều giả định chưa được kiểm tra về nguyên nhân của một outage vào quyết định của họ. Việc chứng minh rằng có nhiều bẫy phân tích mà các SRE có thể rơi vào, đòi hỏi "zoom out" (co nhỏ) và tiếp cận theo một cách khác đối với giải pháp, là một bài học có giá trị để các SRE học sớm.
 
 Với ba thuộc tính tham vọng này của các SRE hiệu suất cao, những khóa học và trải nghiệm nào chúng ta có thể cung cấp cho các SRE mới để đưa họ đi theo một con đường đúng hướng? Bạn cần phải tự nghĩ ra nội dung khóa học của mình thể hiện những thuộc tính này, ngoài các thuộc tính khác cụ thể cho văn hóa SRE của bạn. Hãy xem xét một lớp mà chúng tôi tin rằng chạm đến tất cả các điểm nói trên.
 
 ## Kết nối Tất cả lại: Reverse Engineering một Dịch vụ Production (Tying This Together: Reverse Engineering a Production Service)
 
-> Khi đến lúc phải học [một phần của stack Google Maps], [một SRE mới] hỏi rằng, thay vì thụ động để ai đó giải thích dịch vụ, cô ấy có thể tự làm điều này không — học mọi thứ thông qua các kỹ thuật lớp reverse engineering, và để phần còn lại của chúng tôi sửa cô ấy/điền vào những khoảng trống cho bất kỳ thứ gì cô ấy bỏ lỡ hoặc sai. Kết quả? Có lẽ nó chính xác và hữu ích hơn so với nếu *tôi* đã tự thuyết trình, và tôi đã on-call cho hệ thống này hơn 5 năm rồi!
+> Khi đến lúc phải học [một phần của stack Google Maps], [một SRE mới] hỏi rằng, thay vì thụ động để ai đó giải thích dịch vụ, cô ấy có thể tự làm điều này không — học mọi thứ thông qua các kỹ thuật lớp reverse engineering, và để phần còn lại của chúng tôi sửa cho cô ấy hoặc điền vào những khoảng trống cho bất kỳ thứ gì cô ấy bỏ lỡ hoặc sai. Kết quả? Có lẽ nó chính xác và hữu ích hơn so với nếu *tôi* đã tự thuyết trình, và tôi đã on-call cho hệ thống này hơn 5 năm rồi!
 > 
 > Paul Cowan, Google Site Reliability Engineer
 
-Một lớp phổ biến chúng tôi cung cấp tại Google mang tên "Reverse Engineering a Production Service (without help from its owners)". Kịch bản vấn đề trình bày có vẻ đơn giản ban đầu. Toàn bộ Đội Google News — SRE, Kỹ sư Phần mềm, Quản lý Sản phẩm, v.v. — đã đi một chuyến công ty: một chuyến du thuyền quanh Tam giác Bermuda. Chúng tôi mất tin đội trong 30 ngày, nên các học viên của chúng tôi là Đội SRE Google News vừa được bổ nhiệm. Họ cần tìm ra cách stack phục vụ hoạt động từ đầu đến cuối để nắm quyền điều hành và giữ cho nó chạy.
+Một lớp phổ biến chúng tôi cung cấp tại Google mang tên "Reverse Engineering a Production Service (without help from its owners)". Kịch bản vấn đề trình bày có vẻ đơn giản ban đầu. Toàn bộ Đội Google News — SRE, Kỹ sư Phần mềm, Quản lý Sản phẩm, v.v. — đã đi một chuyến công ty: một chuyến du thuyền quanh Tam giác Bermuda. Chúng tôi mất tin tức từ đội suốt 30 ngày, nên các học viên của chúng tôi là Đội SRE Google News vừa được bổ nhiệm. Họ cần tìm ra cách stack phục vụ hoạt động từ đầu đến cuối để nắm quyền điều hành và giữ cho nó chạy.
 
 Sau khi nhận kịch bản, học viên được dẫn qua các bài tập tương tác, có mục đích, trong đó họ theo dõi đường đi của query từ trình duyệt web của họ xuyên qua hạ tầng Google. Ở mỗi giai đoạn, chúng tôi nhấn mạnh việc quan trọng là phải học nhiều cách khám phá tính kết nối giữa các server production, để không bỏ sót kết nối nào. Giữa lớp, chúng tôi thách thức học viên tìm một endpoint khác cho traffic đến, chứng minh rằng giả định ban đầu của chúng tôi có phạm vi quá hẹp. Rồi chúng tôi thách thức học viên tìm các lối vào stack khác. Chúng tôi khai thác bản chất được đo lường cao của các binary production, những thứ tự báo cáo tính kết nối RPC, cũng như giám sát hộp trắng và hộp đen (black-box monitoring) có sẵn, để xác định query của người dùng đi theo đường nào.<sup>[5](#fn5)</sup> Trên đường đi, chúng tôi xây dựng sơ đồ hệ thống và thảo luận về các thành phần hạ tầng dùng chung mà học viên có khả năng sẽ gặp lại.
 
@@ -194,7 +194,7 @@ On-call không phải là mục đích quan trọng duy nhất của bất kỳ 
 
 Postmortem (xem [Văn hóa Postmortem: Học hỏi từ Thất bại](https://sre.google/sre-book/postmortem-culture/)) là một phần quan trọng của cải tiến liên tục. Chúng là cách không đổ lỗi để đi đến nhiều nguyên nhân gốc rễ của một outage đáng kể hoặc có thể nhìn thấy. Khi viết postmortem, hãy nhớ rằng khán giả trân trọng nó nhất có thể là một kỹ sư chưa được thuê. Không cần chỉnh sửa triệt để; những thay đổi tinh tế có thể biến các postmortem tốt nhất của chúng tôi thành các postmortem "có thể dạy được".
 
-Ngay cả các postmortem tốt nhất cũng không hữu ích nếu chúng nằm bẹp ở đáy một tủ hồ sơ ảo. Suy ra, đội của bạn nên thu thập và tuyển chọn các postmortem có giá trị làm [nguồn tài liệu giáo dục](https://sre.google/resources/) cho những người mới sau này. Một số postmortem mang tính lặp lại, nhưng các "postmortem có thể dạy được", cung cấp hiểu biết sâu sắc vào các sự thất bại cấu trúc hoặc mới mẻ của hệ thống quy mô lớn, là quý như vàng cho học viên.
+Ngay cả các postmortem tốt nhất cũng không hữu ích nếu chúng nằm bẹp ở đáy một tủ hồ sơ ảo. Suy ra, đội của bạn nên thu thập và tuyển chọn các postmortem có giá trị làm [nguồn tài liệu giáo dục](https://sre.google/resources/) cho những người mới sau này. Một số postmortem mang tính lặp lại, nhưng các "postmortem có thể dạy được", cung cấp hiểu biết sâu sắc vào các sự cố cấu trúc hoặc mới mẻ của hệ thống quy mô lớn, là quý như vàng cho học viên.
 
 Sự sở hữu các postmortem không chỉ giới hạn ở việc viết. Với nhiều đội, được sống sót và ghi tài liệu về các outage lớn nhất là một điểm tự hào. Hãy thu thập các postmortem tốt nhất của bạn và đặt chúng ở nơi dễ thấy để những người mới — cùng các bên liên quan từ các đội liên quan và/hoặc tích hợp — có thể đọc. Yêu cầu các đội liên quan xuất bản các postmortem tốt nhất của họ ở nơi bạn có thể truy cập.
 
@@ -204,13 +204,13 @@ Việc đọc hoặc trình bày định kỳ về các outage, bao gồm điề
 
 ## Đóng vai Thảm họa (Disaster Role Playing)
 
-> Mỗi tuần một lần chúng tôi có một cuộc họp trong đó một nạn nhân được chọn để bị đặt vào tình thế khó xử trước nhóm, và một kịch bản — thường là một kịch bản thật được lấy từ các biên niên sử của lịch sử Google — được ném vào anh hoặc cô ấy. Nạn nhân, người mà tôi nghĩ như một người chơi show trò chơi, nói với người dẫn chương trình show trò chơi rằng họ sẽ làm gì hoặc truy vấn gì để hiểu hoặc giải quyết vấn đề, và người dẫn chương trình nói cho nạn nhân điều gì xảy ra với mỗi hành động hoặc quan sát. Nó giống như *SRE Zork*. Bạn trong một mê cung của các console giám sát ngoằn ngoèo, tất cả giống hệt nhau. Bạn phải cứu các người dùng vô tội khỏi việc trượt vào Hẻm vực Độ trễ Truy vấn Quá mức, cứu các datacenter khỏi Sự Cháy nổ Gần như Chắc chắn, và tha cho tất cả chúng ta sự xấu hổ của Việc Hiển thị Doodle Google Sai lầm.
+> Mỗi tuần một lần chúng tôi có một cuộc họp trong đó một nạn nhân được chọn để bị đặt vào tình thế khó xử trước nhóm, và một kịch bản — thường là một kịch bản thật được lấy từ các biên niên sử của lịch sử Google — được ném vào anh hoặc cô ấy. Nạn nhân, người mà tôi nghĩ như một người chơi show trò chơi, nói với người dẫn chương trình show trò chơi rằng họ sẽ làm gì hoặc truy vấn gì để hiểu hoặc giải quyết vấn đề, và người dẫn chương trình nói cho nạn nhân điều gì xảy ra với mỗi hành động hoặc quan sát. Nó giống như *SRE Zork*. Bạn trong một mê cung của các console giám sát ngoằn ngoèo, tất cả giống hệt nhau. Bạn phải cứu những người dùng vô tội khỏi việc trượt vào Hẻm vực Độ trễ Truy vấn Quá mức, cứu các datacenter khỏi Sự Cháy nổ Gần như Chắc chắn, và tha cho tất cả chúng ta sự xấu hổ của Việc Hiển thị Doodle Google Sai lầm.
 > 
 > Robert Kennedy, cựu Site Reliability Engineer cho Google Search và healthcare.gov<sup>[6](#fn6)</sup>
 
 Khi có một nhóm SRE với mức độ kinh nghiệm khác nhau rất rộng, bạn làm gì để đưa tất cả họ lại với nhau và cho phép họ học từ nhau? Bạn truyền đạt văn hóa SRE và bản chất giải quyết vấn đề của đội cho một người mới như thế nào, trong khi vẫn giữ cho các kỳ cựu được cập nhật về các thay đổi và tính năng mới trong stack? Các đội SRE Google đối phó với những thách thức này qua một truyền thống được tôn vinh: đóng vai thảm họa thường xuyên. Ngoài nhiều tên gọi khác, bài tập này thường được gọi là "Wheel of Misfortune" hoặc "Walk the Plank". Cảm giác nguy hiểm hài hước mà những tên gọi như vậy mang lại làm bài tập đỡ đáng sợ hơn với các SRE mới tuyển.
 
-Ở mức tốt nhất, những bài tập này thành một nghi lễ hàng tuần mà mọi thành viên nhóm học được điều gì đó. Công thức trực tiếp và có nét tương đồng với một tabletop RPG (trò chơi nhập vai): "game master" (GM) chọn hai thành viên đội làm on-call chính và thứ cấp; hai SRE này cùng GM đứng ở phía trước phòng. Một page được thông báo, và đội on-call phản ứng với những gì họ sẽ làm để giảm nhẹ và điều tra outage.
+Ở mức tốt nhất, những bài tập này thành một nghi lễ hàng tuần mà mọi thành viên nhóm học được điều gì đó. Công thức trực tiếp và có nét tương đồng với một tabletop RPG (trò chơi nhập vai): "game master" (GM) chọn hai thành viên đội làm on-call chính và thứ cấp; hai SRE này cùng GM đứng ở phía trước phòng. Một lượt gọi trực (page) được thông báo, và đội on-call phản ứng với những gì họ sẽ làm để giảm nhẹ và điều tra outage.
 
 GM đã chuẩn bị cẩn thận một kịch bản sắp được mở ra. Kịch bản này có thể dựa trên một outage trước đó mà các thành viên đội mới hơn không có mặt hoặc mà các thành viên đội cũ hơn đã quên. Hoặc có lẽ kịch bản là một cuộc thám hiểm vào một sự hỏng hóc giả định của một tính năng mới hoặc sắp ra mắt trong stack, làm cho tất cả các thành viên trong phòng đều ở trạng thái chưa chuẩn bị đồng đều để đối phó với tình huống. Tốt hơn nữa, một đồng nghiệp có thể tìm thấy một sự hỏng hóc mới và mới mẻ trong production, và kịch bản hôm nay mở rộng từ mối đe dọa mới này.
 
@@ -222,17 +222,17 @@ Khi RPG thảm họa của bạn thành công, mọi người sẽ học đượ
 
 Một người mới có thể học nhiều về SRE bằng cách đọc tài liệu, postmortem và tham gia các đào tạo. Đóng vai thảm họa giúp đưa tâm trí người mới vào cuộc chơi. Tuy nhiên, kinh nghiệm từ việc thực sự phá vỡ và/hoặc sửa chữa các hệ thống production *thật* còn tốt hơn. Sẽ có đủ thời gian cho kinh nghiệm thực hành khi người mới đã đi on-call, nhưng việc học như vậy nên xảy ra *trước* khi SRE mới đến điểm đó. Vì vậy, hãy cung cấp những trải nghiệm thực hành này sớm hơn nhiều, để phát triển phản xạ phản ứng của học viên khi dùng các công cụ và monitoring của công ty để tiếp cận một outage đang phát triển.
 
-Tính chân thực là tối thượng trong những tương tác này. Lý tưởng nhất, đội bạn có một stack được multihomed và provision theo cách mà bạn có ít nhất một instance có thể chuyển hướng khỏi traffic trực và cho vay tạm thời cho một bài tập học tập. Ngược lại, bạn có thể có một instance staging hoặc QA nhỏ hơn nhưng vẫn đầy đủ tính năng của stack, có thể mượn trong một thời gian ngắn. Nếu có thể, chủ động đưa stack chạy dưới tải tổng hợp (synthetic load) xấp xỉ traffic người dùng/client thực, cùng với mức tiêu thụ tài nguồn.
+Tính chân thực là tối thượng trong những tương tác này. Lý tưởng nhất, đội bạn có một stack được multihomed và provision theo cách mà bạn có ít nhất một instance có thể chuyển hướng khỏi traffic trực tiếp và cho vay tạm thời cho một bài tập học tập. Ngược lại, bạn có thể có một instance staging hoặc QA nhỏ hơn nhưng vẫn đầy đủ tính năng của stack, có thể mượn trong một thời gian ngắn. Nếu có thể, chủ động đưa stack chạy dưới tải tổng hợp (synthetic load) xấp xỉ traffic người dùng/client thực, cùng với mức tiêu thụ tài nguyên.
 
 Cơ hội học hỏi từ một hệ thống production thực dưới tải tổng hợp là dồi dào. Các SRE cấp cao đã trải qua đủ loại rắc rối: cấu hình sai, rò rỉ bộ nhớ, suy giảm hiệu năng, truy vấn sập, nút thắt cổ chai lưu trữ, và nhiều hơn. Trong môi trường thực tế nhưng tương đối không rủi ro này, người giám sát (proctor) có thể thao tác tập hợp job theo cách thay đổi hành vi của stack, buộc SRE mới tìm ra các khác biệt, xác định các yếu tố đóng góp, và cuối cùng sửa chữa hệ thống để khôi phục hành vi phù hợp.
 
 Như một lựa chọn thay thế cho sự phức tạp của việc yêu cầu một SRE cấp cao cẩn thận lên kế hoạch một loại sự hỏng hóc cụ thể mà các SRE mới phải sửa chữa, bạn cũng có thể làm việc theo hướng ngược lại với một bài tập có thể cũng làm tăng sự tham gia từ toàn bộ đội: làm việc từ một cấu hình đã biết tốt và từ từ làm suy yếu stack tại các nút thắt cổ chai được chọn, quan sát các nỗ lực phía trước và phía sau thông qua monitoring của bạn. Bài tập này được đánh giá cao bởi đội Google Search SRE, phiên bản của bài tập này được gọi là "Let's burn a search cluster to the ground!" (Hãy đốt cháy một cụm tìm kiếm đến đống tro!). Bài tập được thực hiện như sau:
 
 1.  Như một nhóm, chúng tôi thảo luận về những đặc tính hiệu năng quan sát được nào có thể thay đổi khi chúng tôi làm tê liệt stack.
-2.  Trước khi gây ra hư hại đã lên kế hoạch, chúng tôi thăm dò các người tham gia về những phỏng đoán và suy luận của họ về các dự đoán của họ về cách hệ thống sẽ phản ứng.
+2.  Trước khi gây ra hư hại đã lên kế hoạch, chúng tôi thăm dò những người tham gia về những phỏng đoán và suy luận của họ về các dự đoán của họ về cách hệ thống sẽ phản ứng.
 3.  Chúng tôi xác thực các giả định và biện minh cho suy luận đằng sau các hành vi mà chúng tôi thấy.
 
-Bài tập này, mà chúng tôi thực hiện hàng quý, loại bỏ các bug mới mà chúng tôi nhiệt tình sửa chữa, vì các hệ thống của chúng tôi không phải lúc nào cũng suy giảm một cách êm ả như chúng tôi mong đợi.
+Bài tập này, mà chúng tôi thực hiện hàng quý, phơi bày các bug mới mà chúng tôi nhiệt tình sửa chữa, vì các hệ thống của chúng tôi không phải lúc nào cũng suy giảm một cách nhẹ nhàng như chúng tôi mong đợi.
 
 <a id="bang-28-2"></a>
 
@@ -244,7 +244,7 @@ Nhiều đội SRE duy trì một "on-call learning checklist", là danh sách �
     
     -   Tài liệu này giúp thiết lập các ranh giới của hệ thống mà đội của họ hỗ trợ.
     -   Bằng cách nghiên cứu danh sách này, học viên đạt được một cảm giác về hệ thống nào quan trọng nhất và tại sao. Khi họ hiểu thông tin ở đó, họ có thể chuyển sang các chủ đề khác mà họ cần học, thay vì sa vào việc học các chi tiết bí ẩn có thể học được theo thời gian.
--   **Đối với các người cố vấn và quản lý**: Tiến độ của học viên qua danh sách kiểm tra học tập có thể được quan sát. Danh sách kiểm tra trả lời các câu hỏi như:
+-   **Đối với những người cố vấn và quản lý**: Tiến độ của học viên qua danh sách kiểm tra học tập có thể được quan sát. Danh sách kiểm tra trả lời các câu hỏi như:
     
     -   Bạn đang làm việc trên phần nào hôm nay?
     -   Những phần nào gây bối rối nhất?
@@ -257,15 +257,15 @@ Trong Search SRE, chúng tôi chuẩn bị đón các thành viên đội mới 
 
 ## Shadow On-Call Sớm và Thường xuyên (Shadow On-Call Early and Often)
 
-Cuối cùng, không có lượng bài tập thảm họa giả định hay cơ chế đào tạo nào khác có thể chuẩn bị hoàn toàn cho một SRE đi on-call. Vào cuối ngày, đối phó với các outage thật luôn có lợi hơn về mặt học tập so với việc tham gia vào các giả định. Nhưng không công bằng khi bắt người mới đợi đến khi có page thật đầu tiên mới có cơ hội học và giữ kiến thức.
+Cuối cùng, không có lượng bài tập thảm họa giả định hay cơ chế đào tạo nào khác có thể chuẩn bị hoàn toàn cho một SRE đi on-call. Vào cuối ngày, đối phó với các outage thật luôn có lợi hơn về mặt học tập so với việc tham gia vào các giả định. Nhưng không công bằng khi bắt người mới đợi đến khi có lượt gọi trực thật đầu tiên mới có cơ hội học và giữ kiến thức.
 
-Sau khi học viên đã làm quen với các nền tảng hệ thống (bằng cách hoàn thành, ví dụ, một on-call learning checklist), hãy cân nhắc cấu hình hệ thống cảnh báo để sao chép các page đến cho người mới, ban đầu chỉ trong giờ làm việc. Hãy dựa vào sự tò mò của họ để dẫn đường. Những ca on-call "shadow" này là cách tuyệt vời để người cố vấn thấy được tiến độ của học viên, và để học viên thấy được các trách nhiệm của on-call. Bằng cách sắp xếp cho người mới shadow nhiều thành viên đội, đội sẽ ngày càng thoải mái với ý nghĩ người này sẽ vào [vòng on-call.](https://sre.google/sre-book/being-on-call/) Việc gieo niềm tin theo cách này là một phương pháp hiệu quả xây dựng tin tưởng, cho phép các thành viên cấp cao hơn tách ra khi không on-call, do đó giúp tránh sự kiệt sức của đội.
+Sau khi học viên đã làm quen với các nền tảng hệ thống (bằng cách hoàn thành, ví dụ, một on-call learning checklist), hãy cân nhắc cấu hình hệ thống cảnh báo để sao chép các lượt gọi trực đến cho người mới, ban đầu chỉ trong giờ làm việc. Hãy dựa vào sự tò mò của họ để dẫn đường. Những ca on-call "shadow" này là cách tuyệt vời để người cố vấn thấy được tiến độ của học viên, và để học viên thấy được các trách nhiệm của on-call. Bằng cách sắp xếp cho người mới shadow nhiều thành viên đội, đội sẽ ngày càng thoải mái với ý nghĩ người này sẽ vào [vòng on-call.](https://sre.google/sre-book/being-on-call/) Việc gieo niềm tin theo cách này là một phương pháp hiệu quả xây dựng tin tưởng, cho phép các thành viên cấp cao hơn tách ra khi không on-call, do đó giúp tránh sự kiệt sức của đội.
 
-Khi một page đến, SRE mới không phải on-caller được chỉ định, một điều kiện loại bỏ mọi áp lực thời gian với học viên. Giờ họ có vị trí hàng ghế đầu để xem outage khi nó mở ra, thay vì sau khi vấn đề được giải quyết. Có thể học viên và on-caller chính chia sẻ một phiên terminal, hoặc ngồi gần nhau để dễ so sánh ghi chú. Vào một thời điểm tiện lợi cho cả hai sau khi outage kết thúc, on-caller có thể xem lại các suy luận và quy trình đã được tuân theo vì lợi ích của học viên. Bài tập này làm tăng mức độ giữ lại của on-caller shadow về những gì thực sự đã xảy ra.
+Khi một lượt gọi trực đến, SRE mới không phải on-caller được chỉ định, một điều kiện loại bỏ mọi áp lực thời gian với học viên. Giờ họ có vị trí hàng ghế đầu để xem outage khi nó mở ra, thay vì sau khi vấn đề được giải quyết. Có thể học viên và on-caller chính chia sẻ một phiên terminal, hoặc ngồi gần nhau để dễ so sánh ghi chú. Vào một thời điểm tiện lợi cho cả hai sau khi outage kết thúc, on-caller có thể xem lại các suy luận và quy trình đã được tuân theo vì lợi ích của học viên. Bài tập này làm tăng mức độ giữ lại của on-caller shadow về những gì thực sự đã xảy ra.
 
 ### Mẹo (Tip)
 
-Nếu một outage xảy ra mà việc viết một postmortem là có lợi, on-caller nên bao gồm người mới như một đồng tác giả. *Đừng trút toàn bộ bài viết lên học viên, vì điều đó có thể bị học sai rằng postmortem là một loại công việc chân tay cần được chuyển cho những người trẻ nhất. Sẽ là một sai lầm nếu tạo ra ấn tượng như vậy.*
+Nếu một outage xảy ra mà việc viết một postmortem là có lợi, on-caller nên bao gồm người mới như một đồng tác giả. *Đừng trút toàn bộ bài viết lên học viên, vì điều đó có thể khiến người khác hiểu sai rằng postmortem là một loại công việc chân tay cần được chuyển cho những người trẻ nhất. Sẽ là một sai lầm nếu tạo ra ấn tượng như vậy.*
 
 Một số đội cũng có thêm một bước cuối: để on-caller có kinh nghiệm "reverse shadow" học viên. Người mới trở thành on-call chính và nhận tất cả các leo thang đến, nhưng on-caller có kinh nghiệm ẩn trong bóng tối, độc lập chẩn đoán tình huống mà không thay đổi bất kỳ trạng thái nào. SRE có kinh nghiệm luôn sẵn sàng để hỗ trợ chủ động, giúp đỡ, xác thực và gợi ý khi cần.
 
@@ -295,7 +295,7 @@ Khoản đầu tư ban đầu vào đào tạo SRE chắc chắn đáng giá, c�
 
 <a id="fn6"></a>[6](#fn6) Xem ["Life in the Trenches of healthcare.gov"](https://www.thedotpost.com/2014/05/robert-kennedy-life-in-the-trenches-of-healthcare-gov) (Sự sống trong Trenches của healthcare.gov).
 
-<a id="fn7"></a>[7](#fn7) Ví dụ: "Bạn đang bị page bởi một đội khác mang đến cho bạn nhiều thông tin hơn. Đây là điều họ nói…"
+<a id="fn7"></a>[7](#fn7) Ví dụ: "Bạn đang bị gọi trực bởi một đội khác mang đến cho bạn nhiều thông tin hơn. Đây là điều họ nói…"
 
 <a id="fn8"></a>[8](#fn8) Ví dụ: "Chúng tôi đang mất tiền nhanh! Làm thế nào bạn có thể chặn sự chảy máu trong ngắn hạn?"
 

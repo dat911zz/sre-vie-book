@@ -4,7 +4,7 @@
 
 ---
 
-## Chương 33. Bài Học Học Được Từ Các Ngành Khác (Lessons Learned from Other Industries)
+## Chương 33. Bài Học Rút Ra Từ Các Ngành Khác (Lessons Learned from Other Industries)
 
 Tác giả: Jennifer Petoff  
 Biên tập: Betsy Beyer
@@ -30,7 +30,7 @@ Chương này giới thiệu các ngành mà chúng tôi đã nghiên cứu và 
 
 ## Làm Quen Với Các Chuyên Gia Lâu Năm Trong Ngành (Meet Our Industry Veterans)
 
-**Peter Dahl** là một Principal Engineer tại Google. Trước đó, ông làm việc cho nhà thầu quốc phòng trong một số hệ thống độ tin cậy cao, bao gồm nhiều hệ thống dẫn đường GPS và quán tính (inertial guidance) trên máy bay và xe bánh. Hậu quả của một sự suy giảm độ tin cậy trong những hệ thống như vậy bao gồm sự trục trặc hoặc mất phương tiện, cùng với những hậu quả tài chính đi kèm.
+**Peter Dahl** là một Principal Engineer tại Google. Trước đó, ông làm việc cho nhà thầu quốc phòng trong một số hệ thống độ tin cậy cao, bao gồm nhiều hệ thống dẫn đường GPS và quán tính (inertial guidance) trên máy bay và các phương tiện có bánh. Hậu quả của một sự suy giảm độ tin cậy trong những hệ thống như vậy bao gồm sự trục trặc hoặc mất phương tiện, cùng với những hậu quả tài chính đi kèm.
 
 **Mike Doherty** là một Site Reliability Engineer tại Google. Ông đã làm việc mười năm với tư cách là cứu hộ viên (lifeguard) và huấn luyện viên cứu hộ viên tại Canada. Bản chất của lĩnh vực này đòi hỏi độ tin cậy tuyệt đối, vì mỗi ngày sự sống đều được đặt lên bàn cân.
 
@@ -46,11 +46,11 @@ Chương này giới thiệu các ngành mà chúng tôi đã nghiên cứu và 
 
 **John Li** hiện là một Site Reliability Engineer tại Google. John trước đó đã làm việc với tư cách là quản trị viên hệ thống và nhà phát triển phần mềm tại một công ty môi giới giao dịch (proprietary trading) trong ngành tài chính. Các vấn đề độ tin cậy trong khu vực tài chính được xem xét hết sức nghiêm túc vì chúng có thể dẫn đến những hậu quả tài chính nghiêm trọng.
 
-**Dan Sheridan** là một Site Reliability Engineer tại Google. Trước khi gia nhập công ty, ông đã làm việc với tư cách là một cố vấn an toàn trong ngành công nghiệp hạt nhân dân sự tại Anh. Độ tin cậy là quan trọng trong ngành hạt nhân vì một sự cố có thể có những tác động nghiêm trọng: các sự cố ngừng hoạt động có thể gây ra mất doanh thu hàng triệu đô la mỗi ngày, trong khi rủi ro cho người lao động và những người trong cộng đồng còn nghiêm trọng hơn, đòi hỏi mức độ không dung lỗi nào cho sự thất bại. Hạ tầng hạt nhân được thiết kế với một loạt các cơ chế dự phòng (failsafe) sẽ dừng hoạt động trước khi một sự cố đạt đến quy mô nghiêm trọng như vậy.
+**Dan Sheridan** là một Site Reliability Engineer tại Google. Trước khi gia nhập công ty, ông đã làm việc với tư cách là một cố vấn an toàn trong ngành công nghiệp hạt nhân dân sự tại Anh. Độ tin cậy là quan trọng trong ngành hạt nhân vì một sự cố có thể có những tác động nghiêm trọng: các sự cố ngừng hoạt động có thể gây ra mất doanh thu hàng triệu đô la mỗi ngày, trong khi rủi ro cho người lao động và những người trong cộng đồng còn nghiêm trọng hơn, đòi hỏi mức độ không dung lỗi nào cho sự cố. Hạ tầng hạt nhân được thiết kế với một loạt các cơ chế dự phòng (failsafe) sẽ dừng hoạt động trước khi một sự cố đạt đến quy mô nghiêm trọng như vậy.
 
 **Jeff Stevenson** hiện là một hardware operations manager tại Google. Ông có kinh nghiệm trước đây với tư cách là một kỹ sư hạt nhân trong Hải quân Hoa Kỳ trên một con tàu ngầm. Mức độ rủi ro về độ tin cậy trong Hải quân hạt nhân là rất cao — những vấn đề phát sinh khi có sự cố có thể trải dài từ thiết bị bị hư hại, đến tác động môi trường kéo dài, cho đến khả năng mất mạng sống.
 
-**Matthew Toia** là một Site Reliability Manager tập trung vào các hệ thống lưu trữ. Trước khi đến Google, ông đã làm việc về phát triển và triển khai phần mềm của các hệ thống kiểm soát không lưu (air traffic control). Tác động từ các sự cố trong ngành này trải dài từ sự bất tiện cho hành khách và các hãng hàng không (ví dụ, chuyến bay bị hoãn, máy bay phải đổi hướng) cho đến khả năng mất mạng sống nếu xảy ra một vụ tai nạn. Bảo vệ nhiều lớp (defense in depth) là một chiến lược then chốt để tránh các sự thất bại thảm khốc.
+**Matthew Toia** là một Site Reliability Manager tập trung vào các hệ thống lưu trữ. Trước khi đến Google, ông đã làm việc về phát triển và triển khai phần mềm của các hệ thống kiểm soát không lưu (air traffic control). Tác động từ các sự cố trong ngành này trải dài từ sự bất tiện cho hành khách và các hãng hàng không (ví dụ, chuyến bay bị hoãn, máy bay phải đổi hướng) cho đến khả năng mất mạng sống nếu xảy ra một vụ tai nạn. Phòng thủ nhiều lớp (defense in depth) là một chiến lược then chốt để tránh các sự cố thảm khốc.
 
 Giờ đây, khi bạn đã được gặp các chuyên gia của chúng tôi và có được một sự hiểu biết tổng quan về lý do độ tin cậy quan trọng trong từng lĩnh vực trước đây của họ, chúng ta sẽ đi sâu vào bốn chủ đề chính về độ tin cậy.
 
@@ -70,15 +70,15 @@ Một số chiến lược để kiểm tra khả năng sẵn sàng ứng phó t
 -   Mô phỏng và diễn tập thực tế (Simulations and live drills)
 -   Đào tạo và chứng nhận
 -   Sự tập trung ám ảnh vào việc thu thập yêu cầu chi tiết và thiết kế
--   Bảo vệ nhiều lớp và đa chiều (Defense in depth and breadth)
+-   Phòng thủ nhiều lớp và đa chiều (Defense in depth and breadth)
 
 ## Sự Tập Trung Không Khoan Nhượng của Tổ Chức vào Sự An Toàn (Relentless Organizational Focus on Safety)
 
-Nguyên lý này đặc biệt quan trọng trong bối cảnh kỹ thuật công nghiệp. Theo Eddie Kennedy, người đã làm việc trên một sàn sản xuất nơi người lao động đối mặt với các mối nguy hiểm về an toàn, "mọi cuộc họp quản lý đều bắt đầu bằng một cuộc thảo luận về sự an toàn." Ngành công nghiệp sản xuất chuẩn bị cho những điều bất ngờ bằng cách thiết lập các quy trình được định nghĩa rõ ràng cao và được tuân thủ nghiêm ngặt ở mọi cấp độ của tổ chức. Điều hết sức quan trọng là tất cả nhân viên đều coi sự an toàn là nghiêm túc, và người lao động cảm thấy được trao quyền để lên tiếng khi bất cứ điều gì có vẻ không ổn. Trong các ngành năng lượng hạt nhân, máy bay quân sự và tín hiệu đường sắt, các tiêu chuẩn an toàn cho phần mềm được mô tả rất chi tiết (ví dụ, UK Defence Standard 00-56, IEC 61508, IEC513, US DO-178B/C, và DO-254) và các mức độ tin cậy của những hệ thống như vậy được xác định rõ ràng (ví dụ, Safety Integrity Level (SIL) 1–4),<sup>[3](#fn3)</sup> với mục tiêu là xác định các cách tiếp cận có thể chấp nhận được để cung cấp một sản phẩm.
+Nguyên lý này đặc biệt quan trọng trong bối cảnh kỹ thuật công nghiệp. Theo Eddie Kennedy, người đã làm việc trên một sàn sản xuất nơi người lao động đối mặt với các mối nguy hiểm về an toàn, "mọi cuộc họp quản lý đều bắt đầu bằng một cuộc thảo luận về sự an toàn." Ngành công nghiệp sản xuất chuẩn bị cho những điều bất ngờ bằng cách thiết lập các quy trình được định nghĩa rất rõ ràng và được tuân thủ nghiêm ngặt ở mọi cấp độ của tổ chức. Điều hết sức quan trọng là tất cả nhân viên đều coi sự an toàn là nghiêm túc, và người lao động cảm thấy được trao quyền để lên tiếng khi bất cứ điều gì có vẻ không ổn. Trong các ngành năng lượng hạt nhân, máy bay quân sự và tín hiệu đường sắt, các tiêu chuẩn an toàn cho phần mềm được mô tả rất chi tiết (ví dụ, UK Defence Standard 00-56, IEC 61508, IEC513, US DO-178B/C, và DO-254) và các mức độ tin cậy của những hệ thống như vậy được xác định rõ ràng (ví dụ, Safety Integrity Level (SIL) 1–4),<sup>[3](#fn3)</sup> với mục tiêu là xác định các cách tiếp cận có thể chấp nhận được để cung cấp một sản phẩm.
 
 ## Sự Chú Ý Đến Từng Chi Tiết (Attention to Detail)
 
-Từ thời gian ở trong Hải quân Hoa Kỳ, Jeff Stevenson nhớ lại sự nhạy bén cấp thiết về cách sự thiếu tận tụy trong các nhiệm vụ nhỏ (ví dụ, bảo trì dầu bôi trơn) có thể dẫn đến sự thất bại lớn của tàu ngầm. Một sai sót hoặc sai lầm rất nhỏ có thể có tác động lớn. Các hệ thống được liên kết chặt chẽ với nhau, nên một tai nạn ở một khu vực có thể ảnh hưởng đến nhiều thành phần liên quan. Hải quân hạt nhân tập trung vào bảo trì thường xuyên để đảm bảo các vấn đề nhỏ không bị leo thang.
+Từ thời gian ở trong Hải quân Hoa Kỳ, Jeff Stevenson nhớ lại sự nhạy bén cấp thiết về cách sự thiếu tận tụy trong các nhiệm vụ nhỏ (ví dụ, bảo trì dầu bôi trơn) có thể dẫn đến sự cố lớn của tàu ngầm. Một sai sót hoặc sai lầm rất nhỏ có thể có tác động lớn. Các hệ thống được liên kết chặt chẽ với nhau, nên một tai nạn ở một khu vực có thể ảnh hưởng đến nhiều thành phần liên quan. Hải quân hạt nhân tập trung vào bảo trì thường xuyên để đảm bảo các vấn đề nhỏ không bị leo thang.
 
 ## Năng Lực Dự Phòng (Swing Capacity)
 
@@ -88,7 +88,7 @@ Tỷ lệ sử dụng hệ thống trong ngành viễn thông có thể rất kh
 
 Các bài kiểm thử Khôi phục Thảm họa (Disaster Recovery) của Google có rất nhiều điểm chung với các mô phỏng và diễn tập thực tế — trọng tâm chính của nhiều ngành công nghiệp lâu đời mà chúng tôi đã nghiên cứu. Hậu quả tiềm tàng của một sự cố ngừng hoạt động hệ thống quyết định việc dùng mô phỏng hay diễn tập thực tế là phù hợp. Ví dụ, Matthew Toia chỉ ra rằng ngành hàng không không thể thực hiện một bài kiểm thử thực tế "trong production" mà không khiến thiết bị và hành khách rơi vào nguy hiểm. Thay vào đó, họ sử dụng các máy mô phỏng cực kỳ chân thực với các luồng dữ liệu trực tiếp, trong đó các phòng điều khiển và thiết bị được mô hình hóa đến những chi tiết nhỏ nhất, đảm bảo trải nghiệm chân thực mà không đặt con người thật vào nguy hiểm. Gus Hartmann cho biết ngành viễn thông thường tập trung vào các diễn tập thực tế xoay quanh việc sống sót qua các cơn bão và các tình trạng thời tiết khẩn cấp khác. Việc mô hình hóa như vậy đã dẫn đến các cơ sở chống chịu thời tiết với máy phát điện trong tòa nhà có khả năng vận hành qua một cơn bão.
 
-Hải quân hạt nhân Hoa Kỳ sử dụng sự pha trộn giữa các bài tập tư duy "nếu... thì sao" và các diễn tập thực tế. Theo Jeff Stevenson, các diễn tập thực tế liên quan đến "việc thực sự phá hủy những thứ thật nhưng với các tham số kiểm soát. Các diễn tập thực tế được thực hiện một cách thành tâm, mỗi tuần, hai đến ba ngày một tuần." Đối với Hải quân hạt nhân, các bài tập tư duy thì hữu ích, nhưng không đủ để chuẩn bị cho các sự cố thực sự. Các phản ứng phải được luyện tập để không bị quên đi.
+Hải quân hạt nhân Hoa Kỳ sử dụng sự pha trộn giữa các bài tập tư duy "nếu... thì sao" và các diễn tập thực tế. Theo Jeff Stevenson, các diễn tập thực tế liên quan đến "việc thực sự phá hủy những thứ thật nhưng với các tham số kiểm soát. Các diễn tập thực tế được thực hiện một cách đều đặn không sai lệch, mỗi tuần, hai đến ba ngày một tuần." Đối với Hải quân hạt nhân, các bài tập tư duy thì hữu ích, nhưng không đủ để chuẩn bị cho các sự cố thực sự. Các phản ứng phải được luyện tập để không bị quên đi.
 
 Theo Mike Doherty, các cứu hộ viên đối mặt với những bài kiểm thử thảm họa mang tính chất giống trải nghiệm "khách hàng bí ẩn" (mystery shopper) hơn. Thông thường, một quản lý cơ sở làm việc với một đứa trẻ hoặc một cứu hộ viên huấn luyện đang ẩn danh để dàn dựng một vụ đuối nước giả định. Các kịch bản này được thực hiện càng chân thực càng tốt để các cứu hộ viên không thể phân biệt giữa tình huống khẩn cấp thật và dàn dựng.
 
@@ -102,9 +102,9 @@ Một số kỹ sư mà chúng tôi phỏng vấn đã thảo luận về tầm 
 
 Ví dụ, theo Erik Gross, các máy phẫu thuật mắt bằng laser được thiết kế để chống sai lầm (foolproof) nhất có thể. Do đó, việc tham vấn các bác sĩ phẫu thuật thực sự sử dụng những máy này và các kỹ thuật viên chịu trách nhiệm bảo trì chúng là đặc biệt quan trọng. Trong một ví dụ khác, cựu nhà thầu quốc phòng Peter Dahl đã mô tả một nền văn hóa thiết kế rất chi tiết, trong đó việc tạo ra một hệ thống quốc phòng mới thường đòi hỏi cả một năm thiết kế, rồi chỉ ba tuần viết mã để hiện thực hóa thiết kế đó. Cả hai ví dụ này đều khác xa so với nền văn hóa ra mắt và lặp đi lặp lại (launch and iterate) của Google, thúc đẩy tốc độ thay đổi nhanh hơn nhiều ở một mức rủi ro đã được tính toán. Các ngành khác (ví dụ, ngành y tế và quân đội, như đã thảo luận trước đó) có những áp lực, khẩu vị rủi ro và yêu cầu rất khác nhau, và các quy trình của họ được định hình rất nhiều bởi những hoàn cảnh này.
 
-## Bảo Vệ Nhiều Lớp và Đa Chiều (Defense in Depth and Breadth)
+## Phòng Thủ Nhiều Lớp và Đa Chiều (Defense in Depth and Breadth)
 
-Trong ngành công nghiệp năng lượng hạt nhân, bảo vệ nhiều lớp là một yếu tố then chốt của sự chuẩn bị [[IAEA12]](https://sre.google/sre-book/bibliography#IAEA12). Các lò phản ứng hạt nhân có tính dự phòng (redundancy) trên mọi hệ thống và áp dụng một phương pháp luận thiết kế đòi hỏi các hệ thống dự phòng (fallback) nằm phía sau các hệ thống chính trong trường hợp xảy ra sự cố. Hệ thống được thiết kế với nhiều lớp bảo vệ, bao gồm cả một rào cản vật lý cuối cùng chống lại sự phát tán chất phóng xạ bao quanh chính nhà máy. Bảo vệ nhiều lớp đặc biệt quan trọng trong ngành hạt nhân do mức độ không dung lỗi cho các sự thất bại và sự cố.
+Trong ngành công nghiệp năng lượng hạt nhân, phòng thủ nhiều lớp là một yếu tố then chốt của sự chuẩn bị [[IAEA12]](https://sre.google/sre-book/bibliography#IAEA12). Các lò phản ứng hạt nhân có tính dự phòng (redundancy) trên mọi hệ thống và áp dụng một phương pháp luận thiết kế đòi hỏi các hệ thống dự phòng (fallback) nằm phía sau các hệ thống chính trong trường hợp xảy ra sự cố. Hệ thống được thiết kế với nhiều lớp bảo vệ, bao gồm cả một rào cản vật lý cuối cùng chống lại sự phát tán chất phóng xạ bao quanh chính nhà máy. Phòng thủ nhiều lớp đặc biệt quan trọng trong ngành hạt nhân do mức độ không dung lỗi cho các sự cố và tai nạn.
 
 ## Văn Hóa Postmortem (Postmortem Culture)
 
@@ -119,7 +119,7 @@ Bài tập này được thực hiện mà không chỉ trích bất kỳ cá nh
 
 Các cuộc phỏng vấn của chúng tôi cho thấy nhiều ngành thực hiện một phiên bản của postmortem (mặc dù nhiều ngành không sử dụng danh xưng cụ thể này, vì những lý do hiển nhiên). *Động lực* đằng sau những bài tập này dường như là yếu tố khác biệt chính giữa các thực hành của các ngành.
 
-Nhiều ngành bị kiểm soát chặt chẽ và phải chịu trách nhiệm trước các cơ quan chính phủ cụ thể khi có điều gì đó sai. Sự kiểm soát như vậy đặc biệt ăn sâu khi mức độ rủi ro của sự thất bại là cao (ví dụ, sự sống bị đe dọa). Các cơ quan chính phủ liên quan bao gồm FCC (viễn thông), FAA (hàng không), OSHA (các ngành công nghiệp sản xuất và hóa chất), FDA (thiết bị y tế), và các National Competent Authorities khác nhau trong EU.<sup>[5](#fn5)</sup> Các ngành công nghiệp năng lượng hạt nhân và giao thông vận tải cũng bị kiểm soát chặt chẽ.
+Nhiều ngành bị kiểm soát chặt chẽ và phải chịu trách nhiệm trước các cơ quan chính phủ cụ thể khi có điều gì đó sai. Sự kiểm soát như vậy đặc biệt ăn sâu khi mức độ rủi ro của sự cố là cao (ví dụ, sự sống bị đe dọa). Các cơ quan chính phủ liên quan bao gồm FCC (viễn thông), FAA (hàng không), OSHA (các ngành công nghiệp sản xuất và hóa chất), FDA (thiết bị y tế), và các National Competent Authorities khác nhau trong EU.<sup>[5](#fn5)</sup> Các ngành công nghiệp năng lượng hạt nhân và giao thông vận tải cũng bị kiểm soát chặt chẽ.
 
 Các cân nhắc về an toàn là một yếu tố động lực khác đằng sau các postmortem. Trong các ngành công nghiệp sản xuất và hóa chất, rủi ro bị thương hoặc tử vong luôn hiện hữu do bản chất của các điều kiện được yêu cầu để tạo ra sản phẩm cuối cùng (nhiệt độ cao, áp suất, tính độc hại, và tính ăn mòn, để nêu tên một vài cái). Ví dụ, Alcoa có một nền văn hóa an toàn đáng chú ý. Cựu CEO Paul O'Neill đã yêu cầu nhân viên thông báo cho ông trong vòng 24 giờ bất kỳ chấn thương nào khiến một công nhân mất ngày công. Ông thậm chí còn phân phát số điện thoại nhà của mình cho người lao động trên sàn nhà máy để họ có thể cá nhân thông báo cho ông về các mối lo ngại an toàn.<sup>[6](#fn6)</sup>
 
@@ -171,7 +171,7 @@ Cuối cùng, một số ngành, như môi giới giao dịch, chia nhỏ việc
 
 Nhiều nguyên lý cốt lõi của Site Reliability Engineering tại Google được thể hiện rõ ràng trên phạm vi rộng các ngành. Những bài học đã được các ngành công nghiệp lâu đời tích lũy có lẽ đã truyền cảm hứng cho một số thực hành đang được sử dụng tại Google ngày nay.
 
-Một điểm chính thu được từ cuộc khảo sát liên ngành của chúng tôi là trong nhiều mảng doanh nghiệp phần mềm, Google có khẩu vị cao hơn cho tốc độ (velocity) so với các nhà chơi trong hầu hết các ngành khác. Khả năng di chuyển hoặc thay đổi nhanh chóng phải được cân nhắc với những hệ quả khác nhau của một sự thất bại. Trong ngành công nghiệp hạt nhân, hàng không, hoặc y tế, ví dụ, con người có thể bị thương hoặc thậm chí tử vong trong trường hợp xảy ra một sự cố ngừng hoạt động. Khi mức độ rủi ro là cao, một cách tiếp cận thận trọng để đạt được độ tin cậy cao là xứng đáng.
+Một điểm chính thu được từ cuộc khảo sát liên ngành của chúng tôi là trong nhiều mảng doanh nghiệp phần mềm, Google có khẩu vị cao hơn cho tốc độ (velocity) so với các nhà chơi trong hầu hết các ngành khác. Khả năng di chuyển hoặc thay đổi nhanh chóng phải được cân nhắc với những hệ quả khác nhau của một sự cố. Trong ngành công nghiệp hạt nhân, hàng không, hoặc y tế, ví dụ, con người có thể bị thương hoặc thậm chí tử vong trong trường hợp xảy ra một sự cố ngừng hoạt động. Khi mức độ rủi ro là cao, một cách tiếp cận thận trọng để đạt được độ tin cậy cao là xứng đáng.
 
 Tại Google, chúng tôi liên tục đi trên một sợi dây căng giữa kỳ vọng của người dùng về độ tin cậy cao và sự tập trung sắc bén như laser vào tốc độ thay đổi và đổi mới nhanh chóng. Mặc dù Google rất nghiêm túc về độ tin cậy, chúng tôi phải thích ứng các cách tiếp cận của mình với tốc độ thay đổi cao. Như đã thảo luận trong các chương trước, nhiều doanh nghiệp phần mềm của chúng tôi như Search đưa ra những quyết định có ý thức về việc "đáng tin cậy đủ" thực sự là bao nhiêu.
 
@@ -184,7 +184,7 @@ Google có sự linh hoạt đó trong hầu hết các sản phẩm và dịch 
 <a id="fn5"></a>[5](#fn5) [*https://en.wikipedia.org/wiki/Competent_authority*](https://en.wikipedia.org/wiki/Competent_authority)
 <a id="fn6"></a>[6](#fn6) [*https://ehstoday.com/safety/nsc-2013-oneill-exemplifies-safety-leadership*](https://ehstoday.com/safety/nsc-2013-oneill-exemplifies-safety-leadership).
 <a id="fn7"></a>[7](#fn7) Xem "FACTS, Section B" để thảo luận về phần mềm của Knight và Power Peg trong [[Sec13]](https://sre.google/sre-book/bibliography#Sec13).
-<a id="fn8"></a>[8](#fn8) "Regulators blame computer algorithm for stock market 'flash crash'," Computerworld, [*https://www.computerworld.com/article/2516076/financial-it/regulators-blame-computer-algorithm-for-stock-market—flash-crash-.html*](https://www.computerworld.com/article/2516076/financial-it/regulators-blame-computer-algorithm-for-stock-market—flash-crash-.html).
+<a id="fn8"></a>[8](#fn8) "Regulators blame computer algorithm for stock market 'flash crash'," Computerworld, [*https://www.computerworld.com/article/2516076/financial-it/regulators-blame-computer-algorithm-for-stock-market-flash-crash-.html*](https://www.computerworld.com/article/2516076/financial-it/regulators-blame-computer-algorithm-for-stock-market-flash-crash-.html).
 
 ---
 

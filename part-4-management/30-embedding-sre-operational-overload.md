@@ -9,9 +9,9 @@
 *Tác giả:* Randall Bosetti
 *Biên tập:* Diane Bates
 
-Đây là chính sách tiêu chuẩn cho các đội SRE của Google để chia đều thời gian của họ giữa các dự án và công việc vận hành phản ứng (reactive ops). Trong thực tế, sự cân bằng này có thể bị phá vỡ trong nhiều tháng do sự gia tăng số lượng ticket hàng ngày. Một lượng công việc vận hành nặng nề đặc biệt nguy hiểm vì đội SRE có thể kiệt sức hoặc không thể đạt được tiến bộ trong công việc dự án. Khi một đội phải phân bổ một phần thời gian không cân đối để giải quyết các ticket với cái giá là dành thời gian cải thiện dịch vụ, tính khả dụng mở rộng (scalability) và độ tin cậy bị ảnh hưởng.
+Đây là chính sách tiêu chuẩn cho các đội SRE của Google để chia đều thời gian của họ giữa các dự án và công việc vận hành phản ứng (reactive ops). Trong thực tế, sự cân bằng này có thể bị phá vỡ trong nhiều tháng do sự gia tăng số lượng ticket hàng ngày. Một lượng công việc vận hành nặng nề đặc biệt nguy hiểm vì đội SRE có thể kiệt sức hoặc không thể đạt được tiến bộ trong công việc dự án. Khi một đội phải phân bổ một phần thời gian không cân đối để giải quyết các ticket với cái giá là dành thời gian cải thiện dịch vụ, khả năng mở rộng (scalability) và độ tin cậy bị ảnh hưởng.
 
-Một cách để giảm nhẹ gánh nặng này là chuyển một SRE sang đội bị quá tải trong một thời gian tạm thời. Khi được embed vào một đội, SRE tập trung vào việc cải thiện các thực hành của đội thay vì đơn thuần giúp đội làm trống hàng đợi ticket. SRE quan sát thói quen hàng ngày của đội và đưa ra các khuyến nghị để cải thiện các thực hành của họ. Sự tham vấn này mang cho đội một góc nhìn mới mẻ về các thói quen của nó, điều mà các thành viên đội không thể tự cung cấp.
+Một cách để giảm nhẹ gánh nặng này là chuyển một SRE sang đội bị quá tải trong một thời gian tạm thời. Khi được embed vào một đội, SRE tập trung vào việc cải thiện các thực hành của đội thay vì đơn thuần giúp đội làm trống hàng đợi ticket. SRE quan sát thói quen hàng ngày của đội và đưa ra các khuyến nghị để cải thiện các thực hành của họ. Sự tham vấn này mang lại cho đội một góc nhìn mới mẻ về các thói quen của nó, điều mà các thành viên đội không thể tự cung cấp.
 
 Khi bạn đang sử dụng cách tiếp cận này, không cần thiết phải chuyển nhiều hơn một kỹ sư. Hai SRE không nhất thiết tạo ra kết quả tốt hơn và trên thực tế có thể gây ra các vấn đề nếu đội phản ứng một cách phòng thủ.
 
@@ -21,7 +21,7 @@ Các mục tiếp theo cung cấp sự hướng dẫn cho SRE sẽ được đ�
 
 ## Giai đoạn 1: Học Dịch vụ và Lấy Ngữ cảnh (Phase 1: Learn the Service and Get Context)
 
-Công việc của bạn trong khi được đặt vào với đội là diễn đạt tại sao các quy trình và thói quen đóng góp vào, hoặc làm suy giảm, tính khả dụng mở rộng của dịch vụ. Nhắc đội rằng nhiều ticket hơn không nên đòi hỏi nhiều SRE hơn: mục tiêu của mô hình SRE là chỉ giới thiệu thêm con người khi thêm nhiều độ phức tạp được thêm vào hệ thống. Thay vào đó, hãy cố gắng thu hút sự chú ý vào cách các thói quen làm việc lành mạnh giảm thời gian dành cho các ticket. Việc làm như vậy quan trọng như việc chỉ ra các cơ hội bị bỏ lỡ cho việc tự động hóa hoặc đơn giản hóa dịch vụ.
+Công việc của bạn trong khi được đặt vào với đội là diễn đạt tại sao các quy trình và thói quen đóng góp vào, hoặc làm suy giảm, khả năng mở rộng của dịch vụ. Nhắc đội rằng nhiều ticket hơn không nên đòi hỏi nhiều SRE hơn: mục tiêu của mô hình SRE là chỉ bổ sung thêm người khi độ phức tạp của hệ thống tăng lên. Thay vào đó, hãy cố gắng thu hút sự chú ý vào cách các thói quen làm việc lành mạnh giảm thời gian dành cho các ticket. Việc làm như vậy quan trọng như việc chỉ ra các cơ hội bị bỏ lỡ cho việc tự động hóa hoặc đơn giản hóa dịch vụ.
 
 ### Ops Mode Versus Nonlinear Scaling (Chế độ Ops So với mở rộng phi tuyến tính)
 
@@ -43,7 +43,7 @@ Một khi bạn [xác định các vấn đề lớn nhất hiện có của m�
 
 Các khoảng trống kiến thức
 
-Trong các đội lớn, mọi người có thể chuyên môn hóa quá mức mà không có hệ quả ngay lập tức. Khi một người chuyên môn hóa, họ chịu rủi ro hoặc không có kiến thức rộng mà họ cần để thực hiện hỗ trợ on-call hoặc cho phép các thành viên đội bỏ qua các phần quan trọng của hệ thống mà họ sở hữu.
+Trong các đội lớn, mọi người có thể chuyên môn hóa quá mức mà không có hệ quả ngay lập tức. Khi một người chuyên môn hóa, họ có nguy cơ thiếu kiến thức rộng cần để thực hiện hỗ trợ on-call, hoặc khiến các thành viên khác trong đội bỏ qua các phần quan trọng của hệ thống mà họ sở hữu.
 
 Các dịch vụ do SRE phát triển đang âm thầm tăng lên tầm quan trọng
 
@@ -63,7 +63,7 @@ Xem [Service Level Objectives](https://sre.google/sre-book/service-level-objecti
 
 Bất kỳ dịch vụ nào có một kế hoạch năng lực thực chất là "Thêm các server: các server của chúng tôi tối qua sắp hết bộ nhớ (memory)"
 
-Các kế hoạch năng lực nên đủ nhìn về phía trước. Nếu mô hình hệ thống của bạn dự đoán rằng các server cần 2 GB, một loadtest (kiểm thử tải) vượt qua trong ngắn hạn (cho thấy 1.99 GB trong lần chạy cuối) không nhất thiết có nghĩa là năng lực hệ thống của bạn ở trạng thái đủ tốt.
+Các kế hoạch năng lực nên nhìn đủ xa về phía trước. Nếu mô hình hệ thống của bạn dự đoán rằng các server cần 2 GB, một loadtest (kiểm thử tải) vượt qua trong ngắn hạn (cho thấy 1.99 GB trong lần chạy cuối) không nhất thiết có nghĩa là năng lực hệ thống của bạn ở trạng thái đủ tốt.
 
 Các postmortem chỉ có các action item để rollback các thay đổi cụ thể đã gây ra một outage
 
@@ -71,7 +71,7 @@ Ví dụ, "Đổi timeout (thời gian chờ) streaming (luồng) trở lại th
 
 Bất kỳ thành phần phục vụ quan trọng nào mà các SRE hiện có phản hồi các câu hỏi bằng cách nói, "Chúng tôi không biết gì về điều đó; các dev sở hữu nó"
 
-Để cung cấp hỗ trợ on-call (trực sự kiện) chấp nhận được cho một thành phần, bạn nên ít nhất biết được các hậu quả khi nó hỏng và mức độ khẩn cấp cần thiết để sửa các vấn đề.
+Để cung cấp hỗ trợ on-call (trực sự cố) chấp nhận được cho một thành phần, bạn nên ít nhất biết được các hậu quả khi nó hỏng và mức độ khẩn cấp cần thiết để sửa các vấn đề.
 
 ## Giai đoạn 2: Chia sẻ Ngữ cảnh (Phase 2: Sharing Context)
 
@@ -79,7 +79,7 @@ Sau khi xác định phạm vi các động lực và các điểm đau của đ
 
 ## Viết một Postmortem tốt cho Đội (Write a Good Postmortem for the Team)
 
-Postmortem cung cấp nhiều hiểu biết sâu sắc vào sự suy luận tập thể của một đội. Các postmortem do các đội không lành mạnh thực hiện thường kém hiệu quả. Một số thành viên đội có thể coi postmortem là hình phạt, hoặc thậm chí vô dụng. Mặc dù bạn có thể bị cám dỗ xem xét các kho lưu trữ postmortem và để lại các bình luận để cải thiện, việc làm như vậy không giúp đội. Thay vào đó, bài tập này có thể đặt đội vào thế phòng thủ.
+Postmortem cung cấp nhiều hiểu biết sâu sắc về sự suy luận tập thể của một đội. Các postmortem do các đội không lành mạnh thực hiện thường kém hiệu quả. Một số thành viên đội có thể coi postmortem là hình phạt, hoặc thậm chí vô dụng. Mặc dù bạn có thể bị cám dỗ xem xét các kho lưu trữ postmortem và để lại các bình luận để cải thiện, việc làm như vậy không giúp đội. Thay vào đó, bài tập này có thể đặt đội vào thế phòng thủ.
 
 Thay vì cố gắng sửa chữa các sai lầm trước đó, hãy tiếp nhận trách nhiệm cho postmortem tiếp theo. *Sẽ* có một outage trong khi bạn được đặt vào. Nếu bạn không phải là người on-call, hãy kết hợp với SRE on-call để viết một postmortem tuyệt vời, không đổ lỗi. Tài liệu này là một cơ hội để chứng minh làm thế nào một sự chuyển dịch sang mô hình SRE mang lại lợi ích cho đội bằng cách làm cho các sửa lỗi (bug fix) vĩnh viễn hơn. Các sửa lỗi vĩnh viễn hơn giảm tác động của các outage đối với thời gian của các thành viên đội.
 
@@ -94,7 +94,7 @@ Trong mô hình được đơn giản hóa cho tiện lợi này, có hai loại
 
 Trong cả hai trường hợp, đội cần xây dựng các công cụ để kiểm soát việc đốt.
 
-Sắp xếp các cháy của đội thành toil và không-toil. Khi bạn hoàn thành, hãy trình bày danh sách cho đội và giải thích rõ ràng tại sao mỗi cháy là công việc nên được tự động hóa hoặc chi phí phụ chấp nhận được để vận hành dịch vụ.
+Sắp xếp các cháy của đội thành toil và không-toil. Khi bạn hoàn thành, hãy trình bày danh sách cho đội và giải thích rõ ràng tại sao mỗi cháy là công việc nên được tự động hóa hoặc overhead (công việc phụ) chấp nhận được để vận hành dịch vụ.
 
 ## Giai đoạn 3: Thúc đẩy Thay đổi (Phase 3: Driving Change)
 
@@ -106,15 +106,15 @@ Con người khá giỏi trong việc giữ cân bằng nội môi (homeostasis)
 
 ## Bắt đầu với Cơ bản (Start with the Basics)
 
-Các đội đang vật lộn với sự khác biệt giữa mô hình SRE và mô hình ops truyền thống thường không thể diễn đạt *tại sao* một số khía cạnh nhất định của code, quy trình, hoặc văn hóa của đội làm phiền họ. Thay vì cố gắng giải quyết từng vấn đề trong số này một điểm một, hãy tiến lên từ các nguyên lý được phác thảo trong các chương [Giới thiệu](https://sre.google/sre-book/introduction/) và [Giám sát Các hệ thống Phân tán](https://sre.google/sre-book/monitoring-distributed-systems/).
+Các đội đang vật lộn với sự khác biệt giữa mô hình SRE và mô hình ops truyền thống thường không thể diễn đạt *tại sao* một số khía cạnh nhất định của code, quy trình, hoặc văn hóa của đội làm phiền họ. Thay vì cố gắng giải quyết riêng lẻ từng vấn đề một trong số này, hãy tiến lên từ các nguyên lý được phác thảo trong các chương [Giới thiệu](https://sre.google/sre-book/introduction/) và [Giám sát Các hệ thống Phân tán](https://sre.google/sre-book/monitoring-distributed-systems/).
 
-Mục tiêu đầu tiên của bạn cho đội nên là viết một service level objective (SLO — mục tiêu mức dịch vụ), nếu một SLO chưa tồn tại. SLO quan trọng vì nó cung cấp một phép đo định lượng về tác động của các outage, ngoài việc một thay đổi quy trình có thể quan trọng như thế nào. Một SLO có lẽ là đòn bẩy quan trọng duy nhất để chuyển một đội từ công việc vận hành phản ứng sang một sự tập trung SRE lành mạnh, dài hạn. Nếu sự thỏa thuận này thiếu, không lời khuyên khác trong chương này sẽ hữu ích. *Nếu bạn thấy mình trong một đội không có SLO, trước tiên hãy đọc [Service Level Objectives](https://sre.google/sre-book/service-level-objectives/), sau đó đưa các tech lead (quyền kỹ thuật) và quản lý vào một phòng và bắt đầu phân xử.*
+Mục tiêu đầu tiên của bạn cho đội nên là viết một service level objective (SLO — mục tiêu mức dịch vụ), nếu một SLO chưa tồn tại. SLO quan trọng vì nó cung cấp một phép đo định lượng về tác động của các outage, ngoài việc một thay đổi quy trình có thể quan trọng như thế nào. Một SLO có lẽ là đòn bẩy quan trọng duy nhất để chuyển một đội từ công việc vận hành phản ứng sang một sự tập trung SRE lành mạnh, dài hạn. Nếu sự thỏa thuận này thiếu, không lời khuyên khác trong chương này sẽ hữu ích. *Nếu bạn thấy mình trong một đội không có SLO, trước tiên hãy đọc [Service Level Objectives](https://sre.google/sre-book/service-level-objectives/), sau đó đưa các tech lead (trưởng nhóm kỹ thuật) và quản lý vào một phòng và bắt đầu phân xử.*
 
-## Có sự Giúp đỡ dọn Dọn các Mồi lửa (Get Help Clearing Kindling)
+## Nhờ Giúp đỡ Dọn các Mồi lửa (Get Help Clearing Kindling)
 
 Bạn có thể có thôi thúc mạnh mẽ để đơn thuần sửa các vấn đề mà bạn xác định. Hãy kiềm chế thôi thúc tự sửa những vấn đề này, vì việc làm như vậy củng cố ý tưởng rằng "việc thực hiện các thay đổi là dành cho những người khác." Thay vào đó, hãy thực hiện các bước sau:
 
-1.  Tìm một công việc hữu ích mà có thể hoàn thành bởi một thành viên đội.
+1.  Tìm một công việc hữu ích mà một thành viên đội có thể hoàn thành.
 2.  Giải thích rõ ràng làm thế nào công việc này giải quyết một vấn đề từ postmortem *theo cách vĩnh viễn*. Ngay cả các đội lành mạnh khác cũng có thể tạo ra các action item kém tầm nhìn.
 3.  Đóng vai trò là người review (xem xét) cho các thay đổi code và các sửa đổi tài liệu.
 4.  Lặp lại cho hai hoặc ba vấn đề.
@@ -123,7 +123,7 @@ Khi bạn xác định một vấn đề bổ sung, hãy đặt nó vào một b
 
 ## Giải thích Suy luận của Bạn (Explain Your Reasoning)
 
-Khi đội phục hồi đà và nắm bắt các cơ bản của các thay đổi bạn đề xuất, hãy chuyển sang đối phó với các quyết định thường nhật vốn đã dẫn đến [quá tải vận hành.](https://sre.google/sre-book/dealing-with-interrupts/) Hãy chuẩn bị cho việc thực hiện này bị thách thức. Nếu may mắn, sự thách thức sẽ theo đường nét "Giải thích tại sao. Ngay bây giờ. Giữa cuộc họp production hàng tuần."
+Khi đội phục hồi đà và nắm bắt các cơ bản của các thay đổi bạn đề xuất, hãy chuyển sang đối phó với các quyết định thường nhật vốn đã dẫn đến [quá tải vận hành.](https://sre.google/sre-book/dealing-with-interrupts/) Hãy chuẩn bị cho việc thực hiện này bị thách thức. Nếu may mắn, sự thách thức sẽ đại loại như "Giải thích tại sao. Ngay bây giờ. Giữa cuộc họp production hàng tuần."
 
 Nếu bạn không may mắn, không ai đòi hỏi một lời giải thích. Lách hoàn toàn vấn đề này bằng cách đơn thuần giải thích tất cả các quyết định của bạn, bất kể ai đó có yêu cầu hay không. Hãy tham chiếu đến các cơ bản củng cố các đề xuất của bạn. Việc làm như vậy giúp xây dựng mô hình tâm trí của đội. *Sau khi bạn rời đi, đội nên có thể dự đoán bình luận của bạn về một thiết kế hoặc changelist sẽ ra sao.* Nếu bạn không giải thích suy luận của mình, hoặc giải thích kém, có rủi ro đội sẽ đơn thuần bắt chước hành vi cẩu thả đó, nên hãy rõ ràng.
 
@@ -136,7 +136,7 @@ Các ví dụ về một lời giải thích không đầy đủ cho quyết đ�
 
 -   "Tôi không nghĩ việc mỗi server tạo config định tuyến của nó là an toàn, vì chúng tôi không thể thấy nó."
 
-Quyết định này có lẽ là đúng, nhưng suy luận thì kém (hoặc được giải thích kém). Đội không thể đọc tâm trí của bạn, nên họ rất có thể sẽ bắt chước suy luận kém được quan sát. Thay vào đó, hãy thử "\[…] không an toàn vì một bug trong code đó có thể gây ra một sự thất bại liên quan trên toàn dịch vụ, và code bổ sung là một nguồn bug có thể làm chậm rollback."
+Quyết định này có lẽ là đúng, nhưng suy luận thì kém (hoặc được giải thích kém). Đội không thể đọc tâm trí của bạn, nên họ rất có thể sẽ bắt chước suy luận kém được quan sát. Thay vào đó, hãy thử "\[…] không an toàn vì một bug trong code đó có thể gây ra một sự cố liên quan trên toàn dịch vụ, và code bổ sung là một nguồn bug có thể làm chậm rollback."
 
 -   "Tự động hóa nên từ bỏ nếu nó gặp một deployment (triển khai) xung đột."
 
@@ -144,12 +144,12 @@ Giống như ví dụ trước, lời giải thích này có lẽ đúng, nhưng
 
 ## Đặt các Câu hỏi Dẫn dắt (Ask Leading Questions)
 
-Các câu hỏi dẫn dắt không phải là các câu hỏi gán nợ (loaded questions). Khi nói chuyện với đội SRE, hãy cố gắng đặt các câu hỏi theo cách khuyến khích mọi người suy nghĩ về các nguyên lý cơ bản. Điều này đặc biệt có giá trị cho *bạn* để mô hình hóa hành vi này, vì theo định nghĩa, một đội ở ops mode bác bỏ loại suy luận này từ chính các thành viên của nó. Một khi bạn đã dành một ít thời gian giải thích suy luận của mình cho các câu hỏi chính sách khác nhau, thực hành này củng cố sự hiểu biết của đội về triết lý SRE.
+Các câu hỏi dẫn dắt không phải là các câu hỏi cài bẫy (loaded questions). Khi nói chuyện với đội SRE, hãy cố gắng đặt các câu hỏi theo cách khuyến khích mọi người suy nghĩ về các nguyên lý cơ bản. Điều này đặc biệt có giá trị cho *bạn* để mô hình hóa hành vi này, vì theo định nghĩa, một đội ở ops mode bác bỏ loại suy luận này từ chính các thành viên của nó. Một khi bạn đã dành một ít thời gian giải thích suy luận của mình cho các câu hỏi chính sách khác nhau, thực hành này củng cố sự hiểu biết của đội về triết lý SRE.
 
 Các ví dụ về các câu hỏi dẫn dắt:
 
--   "Tôi thấy rằng cảnh báo TaskFailures (các Thất bại Task) fire (bắn) thường xuyên, nhưng các kỹ sư on-call thường không làm gì để phản hồi cảnh báo. Điều này ảnh hưởng đến SLO như thế nào?"
--   "Quy trình turnup (khởi tạo) này trông khá phức tạp. Bạn có biết tại sao có nhiều file config (cấu hình) đến thế cần cập nhật khi tạo một instance (bản chạy) mới của dịch vụ không?"
+-   "Tôi thấy rằng cảnh báo TaskFailures (các Thất bại Task) fire (kích hoạt) thường xuyên, nhưng các kỹ sư on-call thường không làm gì để phản hồi cảnh báo. Điều này ảnh hưởng đến SLO như thế nào?"
+-   "Quy trình turnup (khởi động) này trông khá phức tạp. Bạn có biết tại sao có nhiều file config (cấu hình) đến thế cần cập nhật khi tạo một instance (bản chạy) mới của dịch vụ không?"
 
 Các ví dụ phản đề về các câu hỏi dẫn dắt:
 

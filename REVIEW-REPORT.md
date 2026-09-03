@@ -1,8 +1,8 @@
 # Báo cáo Rà soát & Tuỳ biến Chất lượng Bản dịch SRE Book
 
-**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10-27 Part 3, batch 1+2)
+**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10-27 Part 3, batch 1+2) / 2026-09-03 (ch.28-34 Part IV-V, QA lớp 2)
 **Phạm vi:** Toàn bộ 49 file `.md` trong `docs/sre/`
-**Trạng thái:** Hoàn tất — ch.1-27 (Part I-III trọn vẹn) đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
+**Trạng thái:** Hoàn tất — ch.1-34 (toàn bộ Part I-V) đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
 
 ---
 
@@ -79,20 +79,20 @@
 
 | File | Trạng thái | Ghi chú |
 |------|-----------|---------|
-| `_part.md` | CHANGED | ~3 câu; sửa "ĐỐI phó" → "Đối phó" |
-| `28-accelerating-sre-on-call.md` | CHANGED | ~35 câu |
-| `29-dealing-with-interrupts.md` | CHANGED | ~20 câu |
-| `30-embedding-sre-operational-overload.md` | CHANGED | ~15 câu; H5→H3, H6→H4 |
-| `31-communication-and-collaboration.md` | CHANGED | ~25 câu |
-| `32-evolving-sre-engagement-model.md` | CHANGED | ~12 câu; sửa typo "chuẩn hóa hóa" → "chuẩn hóa" |
+| `_part.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 1 sửa gloss "interrupt (gián đoạn)"→"sự gián đoạn (interrupt)" |
+| `28-accelerating-sre-on-call.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03, Sonnet 5): 7 sai nghĩa (L169 chủ thể "developers behind the failing system", L235 "shakes out bugs"→"phơi bày", typo mơ-típ/đứt đứt/tài nguồn, H4 lạc), 7 thuật ngữ (5 "page"→gọi trực, "êm ả"→nhẹ nhàng, sự cố), 7 văn phong |
+| `29-dealing-with-interrupts.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): retrofit HÀNG LOẠT ~40 "interrupt"→"gián đoạn" + ~15 page/pager→gọi trực/máy gọi trực (file bỏ qua quy ước glossary đã chốt), đổi tên chương "Đối phó với Gián đoạn" (toc ghi "Các Ngắt" lệch với file); 4 sai nghĩa (languishing→"mòn mỏi", needy customers, thừa từ), 9 văn phong (4× thiếu "ở" trong "ở trong các gián đoạn") |
+| `30-embedding-sre-operational-overload.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 6 sai nghĩa (scalability→"tính khả dụng mở rộng" ×2, tech lead "(quyền kỹ thuật)", loaded questions→"gán nợ", "along the lines of"→"theo đường nét"), 5 thuật ngữ (on-call gloss, overhead, sự cố, fire (bắn), turnup), 7 văn phong; từ chối 1 đề xuất SAI của agent (L66 "passes in the short term" dịch đúng) |
+| `31-communication-and-collaboration.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 12 sai nghĩa (performance envelope→"phong bì", in the flesh→"xác thịt", catch-all→"cái bắt tất cả" ×2, literature→"văn học", ignorance→"ngu dốt", index file→"bảng mục lục", cụt chữ "chuyển đổi trực"/"khá động"), 8 thuật ngữ (mục "Các sự kiện Page (lỗi)" + 8 "page" trần→gọi trực, pager), 10 văn phong |
+| `32-evolving-sre-engagement-model.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 4 sai nghĩa (short-circuit→"ngắn mạch", orders of magnitude→"bậc đại số", progressive→"tiến bộ", visible→"tầm nhìn"), 3 thuật ngữ (pager, turndown "giảm cấu hình"→tắt, gloss PRR lặp), 10 văn phong ("các người" ×4→"những người") |
 
 ### Part V — Conclusions
 
 | File | Trạng thái | Ghi chú |
 |------|-----------|---------|
-| `_part.md` | CHANGED | ~3 câu |
-| `33-lessons-learned.md` | CHANGED | ~30 câu; giảm 13 chú thích |
-| `34-conclusion.md` | CHANGED | ~10 câu |
+| `_part.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): sạch; 1 sửa "Bài học học được"→"Bài học rút ra" (đồng bộ tên ch.33) |
+| `33-lessons-learned.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 12 tên chuyên gia + toàn bộ số liệu verify khớp; 2 sai nghĩa (religiously→"thành tâm", URL footnote 8 hỏng vì em-dash), 9 thuật ngữ ("bảo vệ nhiều lớp" ×5→"phòng thủ nhiều lớp", sự thất bại ×6→sự cố), 2 văn phong; đổi tên chương "Bài học Rút ra" (bỏ lặp âm "học học", đồng bộ toc/sidebar/ch.18/27/31/32) |
+| `34-conclusion.md` | **PIPELINE HOÀN TẤT** | QA lớp 2 (2026-09-03): 4 sai nghĩa (cockpit→"cabin" ×5 lặp hệ thống→"buồng lái", pleasure→"đặc quyền"), 3 thuật ngữ (sự cố), 1 văn phong |
 
 ### Appendices
 
