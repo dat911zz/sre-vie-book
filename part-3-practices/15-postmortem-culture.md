@@ -19,7 +19,7 @@ Khái niệm postmortem đã được biết đến rộng rãi trong ngành cô
 
 ## Triết lý Postmortem của Google (Google's Postmortem Philosophy)
 
-Mục tiêu chính của [việc viết postmortem](https://sre.google/sre-book/example-postmortem/) là đảm bảo incident được ghi lại, rằng tất cả các nguyên nhân gốc rễ đóng góp đều được hiểu rõ, và đặc biệt là các hành động phòng ngừa hiệu quả được đặt vào đúng chỗ để giảm khả năng và/hoặc tác động của sự tái phát. Một khảo sát chi tiết về các kỹ thuật phân tích nguyên nhân gốc rễ nằm ngoài phạm vi chương này (xem [[Roo04]](https://sre.google/sre-book/bibliography#Roo04) thay thế); tuy nhiên, các bài viết, thực hành tốt nhất và công cụ đều phong phú trong lĩnh vực chất lượng hệ thống. Các đội chúng tôi dùng nhiều kỹ thuật cho phân tích nguyên nhân gốc rễ và chọn kỹ thuật phù hợp nhất với dịch vụ của mình. Postmortem được kỳ vọng sau bất kỳ sự kiện bất lợi đáng kể nào. Việc viết postmortem không phải là hình phạt — nó là một cơ hội học tập cho toàn công ty. Quy trình postmortem có một chi phí vốn có về thời gian và nỗ lực, nên chúng tôi cân nhắc kỹ khi nào viết. Các đội có một mức linh hoạt nội bộ nhất định, nhưng các [triggers (tác nhân kích hoạt) postmortem](https://sre.google/workbook/postmortem-analysis/) phổ biến bao gồm:
+Mục tiêu chính của [việc viết postmortem](https://sre.google/sre-book/example-postmortem/) là đảm bảo incident được ghi lại, rằng tất cả các nguyên nhân gốc rễ đóng góp đều được hiểu rõ, và đặc biệt là các hành động phòng ngừa hiệu quả được đặt vào đúng chỗ để giảm khả năng và/hoặc tác động của sự tái phát. Một khảo sát chi tiết về các kỹ thuật phân tích nguyên nhân gốc rễ nằm ngoài phạm vi chương này (xem [[Roo04]](https://sre.google/sre-book/bibliography#Roo04) thay thế); tuy nhiên, các bài viết, thực hành tốt nhất và công cụ đều phong phú trong lĩnh vực chất lượng hệ thống. Các đội chúng tôi dùng nhiều kỹ thuật cho phân tích nguyên nhân gốc rễ và chọn kỹ thuật phù hợp nhất với dịch vụ của mình. Chúng tôi kỳ vọng sẽ có postmortem sau bất kỳ sự kiện bất lợi đáng kể nào. Việc viết postmortem không phải là hình phạt — nó là một cơ hội học tập cho toàn công ty. Quy trình postmortem có một chi phí vốn có về thời gian và nỗ lực, nên chúng tôi cân nhắc kỹ khi nào viết. Các đội có một mức linh hoạt nội bộ nhất định, nhưng các [triggers (tác nhân kích hoạt) postmortem](https://sre.google/workbook/postmortem-analysis/) phổ biến bao gồm:
 
 -   Downtime (ngừng dịch vụ) hoặc suy giảm nhìn thấy được bởi người dùng vượt quá một ngưỡng nhất định
 -   Mất dữ liệu (data loss) bất kỳ loại nào
@@ -45,7 +45,7 @@ Khi một outage thực sự xảy ra, postmortem không được viết như m�
 
 ### Thực hành Tốt nhất: Tránh Đổ lỗi và Giữ nó Xây dựng (Avoid Blame and Keep It Constructive)
 
-Postmortem không đổ lỗi có thể khó viết, vì định dạng postmortem chỉ rõ các hành động đã dẫn đến incident. Gỡ bỏ sự đổ lỗi khỏi postmortem giúp con người tự tin leo thang (escalate) vấn đề mà không sợ hãi. Cũng quan trọng là không kỳ thị việc một người hay đội thường xuyên viết postmortem. Một bầu không khí đổ lỗi có nguy cơ tạo ra văn hóa nơi các incident và vấn đề bị che giấu, dẫn đến rủi ro lớn hơn cho tổ chức [[Boy13]](https://sre.google/sre-book/bibliography#Boy13).
+Postmortem không đổ lỗi có thể khó viết, vì định dạng postmortem chỉ rõ các hành động đã dẫn đến incident. Loại bỏ sự đổ lỗi khỏi postmortem giúp mọi người tự tin leo thang (escalate) vấn đề mà không lo sợ. Cũng quan trọng là không kỳ thị việc một người hay đội thường xuyên viết postmortem. Một bầu không khí đổ lỗi có nguy cơ tạo ra văn hóa nơi các incident và vấn đề bị che giấu, dẫn đến rủi ro lớn hơn cho tổ chức [[Boy13]](https://sre.google/sre-book/bibliography#Boy13).
 
 ## Hợp tác và Chia sẻ Kiến thức (Collaborate and Share Knowledge)
 
@@ -65,7 +65,7 @@ Làm cho việc crowdsourcing (huy động đám đông) các giải pháp dễ 
 
 Có thể được chỉ định đến các cộng tác viên trong tài liệu hoặc được sử dụng để kéo người khác vào vòng để cung cấp input (đầu vào).
 
-Viết postmortem cũng liên quan đến việc xem xét và phát hành chính thức. Trong thực tế, các đội chia sẻ bản thảo postmortem đầu tiên nội bộ và nhờ một nhóm kỹ sư cấp cao đánh giá mức độ đầy đủ của bản thảo. Các tiêu chí xem xét có thể bao gồm:
+Viết postmortem cũng liên quan đến việc xem xét và phát hành chính thức. Trong thực tế, các đội chia sẻ bản thảo postmortem trong nội bộ trước và nhờ một nhóm kỹ sư cấp cao đánh giá mức độ đầy đủ của bản thảo. Các tiêu chí xem xét có thể bao gồm:
 
 -   Dữ liệu incident chính có được thu thập cho tính lưu trữ không?
 -   Các đánh giá tác động có đầy đủ không?

@@ -24,7 +24,7 @@ Giám sát một hệ thống rất lớn là một thách thức vì vài lý d
 
 Các [hệ thống giám sát](https://sre.google/sre-book/monitoring-distributed-systems/) của Google không chỉ đo các metrics (chỉ số) đơn giản, chẳng hạn thời gian phản hồi trung bình của một web server châu Âu; chúng tôi còn cần hiểu phân bố của các thời gian phản hồi đó trên toàn bộ web server trong vùng. Kiến thức này cho phép xác định các yếu tố đóng góp vào đuôi độ trễ (latency tail).
 
-Ở quy mô mà hệ thống của chúng tôi vận hành, việc bị cảnh báo (alert) cho sự hỏng của một máy (machine) đơn lẻ là không thể chấp nhận, vì dữ liệu như vậy quá nhiễu (noisy) để hành động. Thay vào đó, chúng tôi cố gắng xây dựng hệ thống chống chịu (robust) trước các sự cố ở những hệ thống mà chúng phụ thuộc. Thay vì đòi hỏi quản lý nhiều thành phần riêng lẻ, một hệ thống lớn nên được thiết kế để tổng hợp các tín hiệu và cắt bỏ các ngoại lai (outlier). Chúng tôi cần các hệ thống giám sát cho phép cảnh báo ở các mục tiêu dịch vụ cấp cao, nhưng vẫn giữ độ hạt (granularity) để kiểm tra các thành phần riêng lẻ khi cần.
+Ở quy mô mà hệ thống của chúng tôi vận hành, việc cảnh báo mỗi khi một máy đơn lẻ hỏng là không thể chấp nhận được, vì dữ liệu như vậy quá nhiễu (noisy) để hành động. Thay vào đó, chúng tôi cố gắng xây dựng hệ thống chống chịu (robust) trước các sự cố ở những hệ thống mà chúng phụ thuộc. Thay vì đòi hỏi quản lý nhiều thành phần riêng lẻ, một hệ thống lớn nên được thiết kế để tổng hợp các tín hiệu và cắt bỏ các ngoại lai (outlier). Chúng tôi cần các hệ thống giám sát cho phép cảnh báo ở các mục tiêu dịch vụ cấp cao, nhưng vẫn giữ độ hạt (granularity) để kiểm tra các thành phần riêng lẻ khi cần.
 
 Các hệ thống giám sát của Google đã tiến hóa trong 10 năm, từ mô hình truyền thống của các script (lệnh) tùy chỉnh kiểm tra phản hồi và cảnh báo — tách biệt hoàn toàn khỏi hiển thị trực quan các xu hướng — sang một hệ hình (paradigm) mới. Mô hình mới này đặt việc thu thập chuỗi thời gian (time-series) vào vị trí trung tâm của hệ thống giám sát, và thay thế những script kiểm tra đó bằng một ngôn ngữ phong phú để thao tác các chuỗi thời gian thành biểu đồ (chart) và cảnh báo.
 
@@ -71,7 +71,7 @@ Gốc rễ của Google gắn chặt với web: mỗi ngôn ngữ chính đượ
 
 Để tìm các target của mình, một instance Borgmon được cấu hình bằng một danh sách target, sử dụng một trong nhiều phương pháp phân giải tên (name resolution).<sup>[6](#fn6)</sup> Danh sách target thường là động, nên dùng service discovery (khám phá dịch vụ) giúp giảm chi phí bảo trì của nó và cho phép giám sát mở rộng (scale).
 
-Ở các khoảng thời gian định nghĩa trước, Borgmon lấy (fetch) URI `/varz` trên mỗi target, giải mã kết quả và lưu các giá trị vào bộ nhớ (memory). Borgmon còn trải đều việc thu thập từ mỗi instance trong danh sách target trên toàn bộ khoảng thời gian, để việc thu thập từ mỗi target không chạy cùng nhịp (in lockstep) với các phần tử ngang hàng.
+Ở các khoảng thời gian định nghĩa trước, Borgmon lấy (fetch) URI `/varz` trên mỗi target, giải mã kết quả và lưu các giá trị vào bộ nhớ (memory). Borgmon còn trải đều việc thu thập dữ liệu từ mỗi instance trong danh sách target ra toàn bộ khoảng thời gian, để các lần thu thập không chạy cùng nhịp (in lockstep) với nhau.
 
 Borgmon cũng ghi lại các biến "tổng hợp" (synthetic) cho mỗi target để xác định:
 
@@ -97,7 +97,7 @@ Như trình bày trong [Hình 10-1](#hinh-10-1), một chuỗi thời gian về 
 
 [Hình 10-1.](#hinh-10-1) Một chuỗi thời gian cho các lỗi, được dán nhãn theo host gốc nơi mỗi lỗi được thu thập.
 
-Trong thực tế, cấu trúc là một khối bộ nhớ kích thước cố định, gọi là *vùng arena chuỗi thời gian* (time-series arena), với một bộ thu gom rác (garbage collector) làm hết hạn các entry (bản ghi) cũ nhất khi arena đầy. Khoảng thời gian giữa entry mới nhất và cũ nhất trong arena là *horizon* (tầm nhìn), cho biết lượng dữ liệu có thể truy vấn lưu được trong RAM. Thông thường, các Borgmon datacenter và toàn cầu được định kích thước để lưu khoảng 12 giờ dữ liệu<sup>[8](#fn8)</sup> cho việc hiển thị console (bảng điều khiển), và ít hơn nhiều nếu chúng là các shard bộ thu thập cấp thấp nhất. Yêu cầu bộ nhớ cho một điểm dữ liệu đơn lẻ là khoảng 24 byte, nên chúng tôi chứa được 1 triệu chuỗi thời gian độc nhất trong 12 giờ ở khoảng cách 1 phút với dưới 17 GB RAM.
+Trong thực tế, cấu trúc là một khối bộ nhớ kích thước cố định, gọi là *vùng arena chuỗi thời gian* (time-series arena), với một bộ thu gom rác (garbage collector) xóa bỏ các bản ghi cũ nhất khi arena đầy. Khoảng thời gian giữa entry mới nhất và cũ nhất trong arena là *horizon* (tầm nhìn), cho biết lượng dữ liệu có thể truy vấn lưu được trong RAM. Thông thường, các Borgmon datacenter và toàn cầu được định kích thước để lưu khoảng 12 giờ dữ liệu<sup>[8](#fn8)</sup> cho việc hiển thị console (bảng điều khiển), và ít hơn nhiều nếu chúng là các shard bộ thu thập cấp thấp nhất. Yêu cầu bộ nhớ cho một điểm dữ liệu đơn lẻ là khoảng 24 byte, nên chúng tôi chứa được 1 triệu chuỗi thời gian độc nhất trong 12 giờ ở khoảng cách 1 phút với dưới 17 GB RAM.
 
 Định kỳ, trạng thái trong bộ nhớ được lưu vào một hệ thống bên ngoài gọi là TSDB (CSDL chuỗi thời gian — Time-Series Database). Borgmon có thể truy vấn TSDB để lấy dữ liệu cũ hơn; và dù chậm hơn, TSDB rẻ hơn và lớn hơn RAM của một Borgmon.
 
@@ -223,7 +223,7 @@ vì rule thứ hai dùng rule thứ nhất làm input.
 
 Trong các ví dụ này, chúng tôi dùng một cửa sổ thời gian vì đang xử lý các điểm rời rạc trong chuỗi thời gian, trái ngược với các hàm liên tục. Làm vậy khiến việc tính tốc độ dễ hơn so với việc làm giải tích (calculus), nhưng có nghĩa là để tính một tốc độ, chúng tôi cần chọn đủ một số điểm dữ liệu. Chúng tôi cũng phải đối phó với khả năng một số lần thu thập gần đây đã thất bại. Hãy nhớ rằng ký hiệu biểu thức biến lịch sử dùng phạm vi `[10m]` để tránh các điểm dữ liệu thiếu do lỗi thu thập.
 
-Ví dụ cũng dùng một quy ước của Google giúp tên biến dễ đọc. Mỗi tên biến được tính toán chứa một bộ ba phân tách bằng dấu hai chấm, chỉ ra cấp độ tổng hợp, tên biến, và phép toán đã tạo ra tên đó. Trong ví dụ này, các biến bên trái là "tốc độ 10 phút HTTP requests của task" và "tốc độ 10 phút HTTP requests của datacenter".
+Ví dụ cũng dùng một quy ước của Google giúp tên biến dễ đọc. Mỗi tên biến được tính toán chứa một bộ ba phân tách bằng dấu hai chấm, chỉ ra cấp độ tổng hợp, tên biến, và phép toán đã tạo ra tên đó. Trong ví dụ này, các biến bên trái là "tốc độ HTTP requests trong 10 phút của task" và "tốc độ HTTP requests trong 10 phút của datacenter".
 
 Bây giờ khi biết cách tạo một tốc độ truy vấn, chúng tôi có thể dựa trên đó để tính cả một tốc độ lỗi, rồi tính tỷ lệ phản hồi trên số yêu cầu để hiểu dịch vụ đang làm bao nhiêu việc hữu ích. Chúng tôi có thể so sánh tỷ lệ tốc độ lỗi với mục tiêu mức dịch vụ (service level objective) của mình (xem [Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)) và cảnh báo nếu mục tiêu này bị lỡ hoặc có nguy cơ bị lỡ:
 
@@ -348,7 +348,7 @@ Trong thư viện khổng lồ các template chung đã được tạo ra, hai l
 
 Lớp thư viện thứ hai nổi lên khi chúng tôi xây dựng các template để quản lý việc tổng hợp dữ liệu từ một task server đơn lẻ đến footprint (dấu chân) dịch vụ toàn cầu. Những thư viện này chứa các rule tổng hợp tổng quát cho các biến xuất ra, để kỹ sư có thể mô hình hóa tô-pô dịch vụ của mình.
 
-Ví dụ, một dịch vụ có thể cung cấp một API toàn cầu đơn lẻ, nhưng được đặt (homed) trong nhiều datacenter. Trong mỗi datacenter, dịch vụ được tạo thành từ một số shard, và mỗi shard được tạo thành từ một số job với các số lượng task khác nhau. Một kỹ sư có thể mô hình hóa sự phân tách này bằng các rule Borgmon, để khi debug, các thành phần con có thể được cô lập khỏi phần còn lại của hệ thống. Các nhóm này thường theo "số phận chung" (shared fate) của các thành phần; ví dụ các task riêng lẻ chung số phận do các tệp cấu hình, các job trong một shard chung số phận vì chúng được đặt trong cùng một datacenter, và các vị trí vật lý chung số phận do mạng.
+Ví dụ, một dịch vụ có thể cung cấp một API toàn cầu đơn lẻ, nhưng được đặt (homed) trong nhiều datacenter. Trong mỗi datacenter, dịch vụ được tạo thành từ một số shard, và mỗi shard được tạo thành từ một số job với các số lượng task khác nhau. Một kỹ sư có thể mô hình hóa sự phân tách này bằng các rule Borgmon, để khi debug, các thành phần con có thể được cô lập khỏi phần còn lại của hệ thống. Các nhóm này thường theo "số phận chung" (shared fate) của các thành phần; ví dụ các task riêng lẻ chung số phận vì cùng dùng một tệp cấu hình, các job trong một shard chung số phận vì được đặt trong cùng một datacenter, còn các vị trí vật lý chung số phận vì phụ thuộc cùng hạ tầng mạng.
 
 Các quy ước dán nhãn cho phép sự phân chia như vậy: một Borgmon thêm các label chỉ ra tên instance của target cùng shard và datacenter mà target chiếm, dùng để nhóm và tổng hợp các chuỗi thời gian đó lại với nhau.
 

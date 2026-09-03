@@ -445,3 +445,16 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   riêng "Larry Page" ×2), ch.17 (0 — chỉ có memory page, không đụng), ch.22 (1), ch.26 (2). Verify cuối
   bằng Grep toàn bộ 9 file: chỉ còn sót các trường hợp CỐ Ý giữ nguyên (gloss lần đầu, memory page, code
   literal, tên riêng) — không còn "page"/"pager" on-call tiếng Anh trần nào sót.
+- 2026-09-03: Rà soát văn phong "lủng củng" toàn bộ ch.06-27 (22 chương, ~1.1MB), theo yêu cầu người
+  dùng sau đợt sửa page/pager. 14 agent Sonnet 5 độc lập rà tìm câu dịch cứng/calque theo cấu trúc tiếng
+  Anh (không xét sai nghĩa — MQM đã làm ở lớp khác), tổng ~230 điểm được đề xuất. Sau khi lọc bỏ các đề
+  xuất chỉ mang tính sở thích cá nhân và 1 đề xuất SAI (gợi ý đổi lại ch.26 L540 "hệ thống đã chết"→"bệnh
+  nhân đã chết" — bị từ chối vì đây là bản dịch ĐÚNG đã xác nhận trước đó, nguyên tác cố tình chơi chữ
+  "system died"), đã áp dụng ~99 fix qua 14 agent fix song song trên 22 file: câu dài quá nhiều mệnh đề
+  được tách/nối lại, bị động calque chuyển chủ động, thiếu từ nối được bổ sung, trật tự từ Anh-hóa được
+  đảo lại tự nhiên. Phát hiện thêm 2 lỗi thật ngoài phạm vi văn phong thuần túy: ch.07 L87 "tự động hóa
+  bên ngoài hóa" (lỗi ghép từ vô nghĩa, đã sửa "tự động hóa bên ngoài"), ch.26 L552 "hạn chát" (lỗi gõ
+  lặp lại của lỗi đã biết ở ch.27, đã sửa "hạn chót"); ch.17 L205/L311 và ch.23 L182 có lỗi ngữ pháp/thiếu
+  từ thật (đã sửa). Ch.22 phát hiện thêm 1 vấn đề thuật ngữ toàn cục CHƯA quyết định: "sự thất bại" (dịch
+  "failure") lặp hàng chục lần trong file, nghe nặng nề hơn "sự cố" — CHƯA áp dụng, cần người dùng chốt
+  trước khi đổi hàng loạt.

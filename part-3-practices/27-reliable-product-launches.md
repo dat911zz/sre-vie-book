@@ -33,7 +33,7 @@ Tốc độ thay đổi nhanh này vừa cung cấp lý lẽ vừa tạo cơ h�
 
 Các kỹ sư phần mềm giỏi có rất nhiều chuyên môn trong việc viết mã và thiết kế, và hiểu rất tốt công nghệ của chính sản phẩm của họ. Tuy nhiên, chính những kỹ sư đó có thể không quen thuộc với những thách thức và bẫy của việc ra mắt một sản phẩm đến hàng triệu người dùng trong khi đồng thời giảm thiểu các sự cố và tối đa hóa hiệu suất.
 
-Google tiếp cận những thách thức vốn có của việc ra mắt bằng cách tạo ra một nhóm tư vấn chuyên trách trong SRE chịu trách nhiệm về mặt kỹ thuật của việc ra mắt một sản phẩm hoặc tính năng mới. Được bố trí bởi các kỹ sư phần mềm và kỹ sư hệ thống—một số có kinh nghiệm trong các nhóm SRE khác—nhóm này chuyên hướng dẫn các nhà phát triển xây dựng các sản phẩm đáng tin cậy và nhanh đáp ứng các tiêu chuẩn của Google về sự vững chắc, khả năng mở rộng, và độ tin cậy. Nhóm tư vấn này, Launch Coordination Engineering (LCE), tạo thuận lợi cho một quy trình ra mắt suôn sẻ theo một vài cách:
+Google tiếp cận những thách thức vốn có của việc ra mắt bằng cách tạo ra một nhóm tư vấn chuyên trách trong SRE chịu trách nhiệm về mặt kỹ thuật của việc ra mắt một sản phẩm hoặc tính năng mới. Nhóm này gồm các kỹ sư phần mềm và kỹ sư hệ thống—một số từng có kinh nghiệm trong các nhóm SRE khác—chuyên hướng dẫn các nhà phát triển xây dựng các sản phẩm đáng tin cậy và nhanh đáp ứng các tiêu chuẩn của Google về sự vững chắc, khả năng mở rộng, và độ tin cậy. Nhóm tư vấn này, Launch Coordination Engineering (LCE), tạo thuận lợi cho một quy trình ra mắt suôn sẻ theo một vài cách:
 
 -   Thăm dò (audit) các sản phẩm và dịch vụ về sự tuân thủ [các tiêu chuẩn độ tin cậy của Google](https://sre.google/resources/practices-and-processes/product-focused-reliability-for-sre/) và các thực hành tốt nhất, đồng thời cung cấp các hành động cụ thể để cải thiện độ tin cậy
 -   Đóng vai trò cầu nối giữa các nhóm khác nhau tham gia vào một lần ra mắt
@@ -61,7 +61,7 @@ Các LCE có một góc nhìn toàn diện về lần ra mắt, điều cho phé
 
 Với tư cách là một cố vấn không thiên vị, một LCE đóng vai trò cân bằng và dàn xếp giữa các bên liên quan bao gồm SRE, nhà phát triển sản phẩm, quản lý sản phẩm, và tiếp thị.
 
-Vì Launch Coordination Engineer là một vai trò SRE, các LCE được tạo động lực để ưu tiên độ tin cậy trên các mối quan tâm khác. Một công ty không chia sẻ các mục tiêu độ tin cậy của Google, nhưng chia sẻ tốc độ thay đổi nhanh của Google, có thể chọn một cấu trúc động lực khác.
+Vì Launch Coordination Engineer là một vai trò SRE, các LCE luôn có động lực ưu tiên độ tin cậy hơn các mối quan tâm khác. Một công ty không chia sẻ các mục tiêu độ tin cậy của Google, nhưng chia sẻ tốc độ thay đổi nhanh của Google, có thể chọn một cấu trúc động lực khác.
 
 ## Thiết Lập Một Quy Trình Ra Mắt (Setting Up a Launch Process)
 
@@ -117,7 +117,7 @@ Các checklist được sử dụng để giảm thất bại và đảm bảo t
     
     -   **Hành động cần thực hiện**: Triển khai rate limiting và quota (định mức). Sử dụng dịch vụ chia sẻ sau.
 
-Trên thực tế, có một số lượng gần như vô hạn các câu hỏi có thể hỏi về bất kỳ hệ thống nào, và thật dễ dàng để checklist tăng lên đến một kích thước không thể quản lý. Duy trì một gánh nặng có thể quản lý được cho các nhà phát triển đòi hỏi biên soạn checklist cẩn thận. Trong nỗ lực kiềm chế sự tăng trưởng của nó, vào một thời điểm, việc thêm các câu hỏi mới vào checklist ra mắt của Google đòi hỏi sự phê duyệt từ một phó chủ tịch (vice president). LCE hiện sử dụng các hướng dẫn sau:
+Trên thực tế, có một số lượng gần như vô hạn các câu hỏi có thể hỏi về bất kỳ hệ thống nào, và thật dễ dàng để checklist tăng lên đến một kích thước không thể quản lý. Duy trì một gánh nặng có thể quản lý được cho các nhà phát triển đòi hỏi biên soạn checklist cẩn thận. Để kiềm chế đà tăng trưởng đó, có một thời điểm việc thêm câu hỏi mới vào checklist ra mắt của Google đòi hỏi phải được một phó chủ tịch (vice president) phê duyệt. LCE hiện sử dụng các hướng dẫn sau:
 
 -   Sự quan trọng của mọi câu hỏi phải được chứng minh, lý tưởng là bằng một thảm họa ra mắt trước đó.
 -   Mọi chỉ dẫn phải cụ thể, thực tế, và hợp lý để các nhà phát triển hoàn thành.
@@ -136,7 +136,7 @@ Do chiều rộng kinh nghiệm của họ trên tất cả các sản phẩm c�
 
 Khi một dự án bước vào một không gian hoặc ngành dọc sản phẩm mới, một LCE có thể cần tạo một checklist phù hợp từ đầu. Việc làm này thường liên quan đến việc tổng hợp kinh nghiệm từ các chuyên gia trong các lĩnh vực liên quan. Khi phác thảo một checklist mới, có thể hữu ích khi cấu trúc checklist quanh các chủ đề rộng như độ tin cậy, các chế độ lỗi, và các quy trình.
 
-Ví dụ, trước khi ra mắt Android, Google hiếm khi xử lý các thiết bị tiêu dùng hàng loạt có logic phía client mà chúng tôi không trực tiếp kiểm soát. Trong khi chúng tôi có thể khá dễ dàng sửa một bug trong Gmail trong vòng vài giờ hoặc vài ngày bằng cách đẩy các phiên bản mới của JavaScript đến các trình duyệt, những bản sửa như vậy không phải là một tùy chọn với các thiết bị di động. Do đó, các LCE làm việc trên các lần ra mắt di động đã thu hút các chuyên gia trong lĩnh vực di động để xác định những phần của các checklist hiện có áp dụng hoặc không áp dụng, và ở đâu các câu hỏi checklist mới cần thiết. Trong những cuộc trò chuyện như vậy, điều quan trọng là giữ trong tâm trí *ý định* của mỗi câu hỏi để tránh áp dụng một cách máy móc một câu hỏi hoặc hành động cụ thể không liên quan đến thiết kế của sản phẩm độc đáo đang ra mắt. Một LCE đối mặt với một lần ra mắt bất thường phải quay lại các nguyên lý trừu tượng bậc nhất về cách thực hiện một lần ra mắt an toàn, sau đó tái chuyên biệt hóa để làm cho checklist cụ thể và hữu ích cho các nhà phát triển.
+Ví dụ, trước khi ra mắt Android, Google hiếm khi xử lý các thiết bị tiêu dùng hàng loạt có logic phía client mà chúng tôi không trực tiếp kiểm soát. Trong khi chúng tôi có thể khá dễ dàng sửa một bug trong Gmail trong vòng vài giờ hoặc vài ngày bằng cách đẩy các phiên bản mới của JavaScript đến các trình duyệt, những bản sửa như vậy không phải là một tùy chọn với các thiết bị di động. Do đó, các LCE làm việc trên các lần ra mắt di động đã thu hút các chuyên gia trong lĩnh vực di động để xác định những phần của các checklist hiện có áp dụng hoặc không áp dụng, và ở đâu các câu hỏi checklist mới cần thiết. Trong những cuộc trò chuyện như vậy, điều quan trọng là giữ trong tâm trí *ý định* của mỗi câu hỏi để tránh áp dụng một cách máy móc một câu hỏi hoặc hành động cụ thể không liên quan đến thiết kế của sản phẩm độc đáo đang ra mắt. Một LCE đối mặt với một lần ra mắt bất thường phải quay về các nguyên lý cơ bản (first principles) về cách thực hiện một lần ra mắt an toàn, rồi từ đó cụ thể hóa lại để làm cho checklist cụ thể và hữu ích cho các nhà phát triển.
 
 ## Phát Triển Một Checklist Ra Mắt (Developing a Launch Checklist)
 
@@ -170,7 +170,7 @@ Nhiều dịch vụ của các công ty chạy trong một hệ sinh thái nội
 
 Các tính năng mới có thể thể hiện một sự tăng sử dụng tạm thời vào lúc ra mắt mà lắng xuống trong vòng vài ngày. Loại workload hoặc sự pha trộn traffic từ một lần tăng đột biến ra mắt có thể khác biệt đáng kể so với trạng thái ổn định, làm lệch kết quả kiểm thử tải. Sự quan tâm của công chúng nổi tiếng là khó dự đoán, và một số sản phẩm của Google đã phải ứng phó với các lần tăng đột biến ra mắt cao gấp 15 lần so với ước tính ban đầu. Ra mắt ban đầu ở một khu vực hoặc một quốc gia mỗi lần giúp xây dựng niềm tin để xử lý các lần ra mắt lớn hơn.
 
-Năng lực tương tác với sự dự phòng và khả năng hoạt động. Ví dụ, nếu bạn cần ba triển khai được nhân bản để phục vụ 100% traffic của bạn vào lúc đỉnh, bạn cần duy trì bốn hoặc năm triển khai, một hoặc hai cái trong số đó là dự phòng, để che chở người dùng khỏi việc bảo trì và các sự cố bất ngờ. Các tài nguyên datacenter và mạng thường có một thời gian lead dài và cần được yêu cầu đủ sớm để công ty bạn có thể đạt được chúng.
+Năng lực có mối liên hệ chặt chẽ với mức dự phòng và khả năng vận hành liên tục. Ví dụ, nếu bạn cần ba triển khai được nhân bản để phục vụ 100% traffic của bạn vào lúc đỉnh, bạn cần duy trì bốn hoặc năm triển khai, một hoặc hai cái trong số đó là dự phòng, để che chở người dùng khỏi việc bảo trì và các sự cố bất ngờ. Các tài nguyên datacenter và mạng thường có một thời gian lead dài và cần được yêu cầu đủ sớm để công ty bạn có thể đạt được chúng.
 
 #### Các câu hỏi checklist ví dụ
 
@@ -246,7 +246,7 @@ Google cũng sử dụng version control cho các mục đích khác, chẳng h�
 
 ### Lập Kế Hoạch Triển Khai (Rollout Planning)
 
-Trong các hệ thống phân tán lớn, ít sự kiện nào xảy ra tức thời. Vì lý do độ tin cậy, sự tức thời như vậy thường không lý tưởng dù sao. Một lần ra mắt phức tạp có thể yêu cầu kích hoạt các tính năng cá nhân trên một số hệ thống phụ khác nhau, và mỗi thay đổi cấu hình đó có thể mất hàng giờ để hoàn thành. Có một cấu hình hoạt động trong một instance thử nghiệm không đảm bảo rằng cùng cấu hình đó có thể được triển khai đến instance trực tiếp. Đôi khi một vũ điệu phức tạp hoặc tính năng đặc biệt được yêu cầu để làm cho tất cả các thành phần ra mắt sạch sẽ và theo đúng thứ tự.
+Trong các hệ thống phân tán lớn, ít sự kiện nào xảy ra tức thời. Vì lý do độ tin cậy, sự tức thời như vậy thường không lý tưởng dù sao. Một lần ra mắt phức tạp có thể yêu cầu kích hoạt các tính năng cá nhân trên một số hệ thống phụ khác nhau, và mỗi thay đổi cấu hình đó có thể mất hàng giờ để hoàn thành. Một cấu hình chạy tốt trên instance thử nghiệm không có nghĩa là cùng cấu hình đó có thể được triển khai đến instance trực tiếp. Đôi khi một vũ điệu phức tạp hoặc tính năng đặc biệt được yêu cầu để làm cho tất cả các thành phần ra mắt sạch sẽ và theo đúng thứ tự.
 
 Các yêu cầu bên ngoài từ các nhóm như tiếp thị và PR (quan hệ công chúng) có thể thêm các rắc rối khác. Ví dụ, một nhóm có thể cần một tính năng khả dụng kịp thời cho bài thuyết trình chính (keynote) tại một hội nghị, nhưng cần giữ tính năng ẩn cho đến trước bài keynote.
 
@@ -311,7 +311,7 @@ Tính ngẫu nhiên cũng cần được tiêm vào các quy trình định kỳ
 
 Khả năng kiểm soát hành vi của một client từ phía server đã chứng minh là một công cụ quan trọng. Đối với một app trên một thiết bị, sự kiểm soát như vậy có thể có nghĩa là hướng dẫn client kiểm tra (check in) định kỳ với server và tải xuống một file cấu hình. File đó có thể bật hoặc tắt một số tính năng hoặc đặt các tham số, chẳng hạn như client đồng bộ hóa bao lâu một lần hoặc thử lại bao lâu một lần.
 
-Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không đang xử lý một mảnh tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, điều đó đòi hỏi phải duy trì bùng nổ tổ hợp (combinatorial explosion) của các phiên bản khác nhau.
+Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không đang xử lý một mảnh tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, khi đó số phiên bản cần duy trì sẽ tăng theo cấp số nhân (combinatorial explosion).
 
 Việc có loại tính năng ngủ đông (dormant) này cũng làm cho việc hủy bỏ các lần ra mắt trở nên dễ dàng hơn khi các tác động bất lợi được phát hiện trong quá trình triển khai. Trong những trường hợp như vậy, chúng tôi đơn giản có thể chuyển tính năng sang tắt, lặp lại (iterate), và phát hành một phiên bản cập nhật của app. Nếu không có loại cấu hình client này, chúng tôi sẽ phải cung cấp một phiên bản app mới không có tính năng đó, và cập nhật app trên điện thoại của tất cả người dùng.
 

@@ -8,7 +8,7 @@
 
 *Tác giả:* Mike Ulrich
 
-> Nếu lần đầu tiên bạn không thành công, hãy rút lui theo hàm mũ (exponentially).
+> Nếu lần đầu tiên bạn không thành công, hãy lùi lại theo cấp số nhân.
 >
 > Dan Sandler, Google Software Engineer (Kỹ sư Phần mềm Google)
 
@@ -97,7 +97,7 @@ Ví dụ, một task có thể bị trục xuất (evicted) bởi trình quản 
 
 **Tăng tốc độ thu gom rác (garbage collection, GC) trong Java, dẫn đến tăng việc sử dụng CPU**
 
-Một vòng lặp ác tính (vicious cycle) có thể xảy ra trong kịch bản này: ít CPU khả dụng hơn, dẫn đến các yêu cầu chậm hơn, dẫn đến mức dùng RAM tăng, dẫn đến nhiều GC hơn, dẫn đến CPU khả dụng thậm chí thấp hơn nữa. Trong ngôn ngữ thông tục, điều này được gọi là "xoáy cái chết GC" (GC death spiral).
+Trong kịch bản này có thể xảy ra một vòng lặp luẩn quẩn (vicious cycle): CPU khả dụng giảm khiến yêu cầu xử lý chậm hơn, khiến mức dùng RAM tăng, khiến GC chạy nhiều hơn, và điều đó lại khiến CPU khả dụng giảm thêm nữa. Trong ngôn ngữ thông tục, điều này được gọi là "xoáy cái chết GC" (GC death spiral).
 
 #### Giảm các tỷ lệ hit cache (cache hit rates)
 
@@ -133,7 +133,7 @@ Trong các tình huống phức tạp như kịch bản trên, ít khả năng c
 
 Việc cạn tài nguyên có thể dẫn đến các server sập; ví dụ, các server có thể sập khi quá nhiều RAM được cấp phát cho một container. Một khi vài server sập do quá tải, tải trên các server còn lại có thể tăng lên, khiến chúng cũng sập. Vấn đề có xu hướng lăn như quả tuyết và chẳng bao lâu tất cả các server bắt đầu crash-loop (vòng lặp sập). Thường rất khó để thoát khỏi kịch bản này, bởi vì ngay khi các server quay lại online, chúng lập tức bị dồn một tỷ lệ yêu cầu cực kỳ cao và gần như ngay lập tức thất bại.
 
-Ví dụ, nếu một dịch vụ khỏe mạnh ở 10.000 QPS, nhưng bắt đầu một sự thất bại lan truyền do các lần sập ở 11.000 QPS, việc giảm tải xuống 9.000 QPS gần như chắc chắn sẽ không dừng được các lần sập. Điều này là vì dịch vụ phải xử lý nhu cầu tăng lên trong khi sức chứa đã giảm; thường chỉ một phần nhỏ các server đủ khỏe để xử lý yêu cầu. Tỷ lệ server đủ khỏe phụ thuộc vào một số yếu tố: tốc độ mà hệ thống có thể khởi chạy các task, tốc độ mà binary có thể bắt đầu phục vụ ở sức chứa đầy đủ, và một task mới khởi chạy có thể trụ được trước tải trong bao lâu. Trong ví dụ này, nếu 10% server đủ khỏe để xử lý yêu cầu, thì tỷ lệ yêu cầu sẽ cần giảm xuống khoảng 1.000 QPS để hệ thống có thể ổn định và phục hồi.
+Ví dụ, nếu một dịch vụ khỏe mạnh ở 10.000 QPS, nhưng bắt đầu một sự thất bại lan truyền do các lần sập ở 11.000 QPS, việc giảm tải xuống 9.000 QPS gần như chắc chắn sẽ không dừng được các lần sập. Lý do là dịch vụ vẫn phải xử lý nhu cầu tăng lên trong khi sức chứa đã giảm; thường chỉ một phần nhỏ các server đủ khỏe để xử lý yêu cầu. Tỷ lệ server đủ khỏe phụ thuộc vào một số yếu tố: tốc độ mà hệ thống có thể khởi chạy các task, tốc độ mà binary có thể bắt đầu phục vụ ở sức chứa đầy đủ, và một task mới khởi chạy có thể trụ được trước tải trong bao lâu. Trong ví dụ này, nếu 10% server đủ khỏe để xử lý yêu cầu, thì tỷ lệ yêu cầu sẽ cần giảm xuống khoảng 1.000 QPS để hệ thống có thể ổn định và phục hồi.
 
 Tương tự, các server có thể có vẻ không khỏe đối với tầng cân bằng tải, dẫn đến sức chứa cân bằng tải giảm: các server có thể chuyển sang trạng thái “lame duck” (xem [Một Cách tiếp cận Vững chắc cho các Task Không khỏe mạnh: Trạng thái Lame Duck](https://sre.google/sre-book/load-balancing-datacenter/#robust-approach-unhealthy-tasks-lame-duck-state)) hoặc thất bại các kiểm tra sức khỏe mà không sập. Hiệu ứng có thể rất giống với việc sập: nhiều server hơn có vẻ không khỏe, các server khỏe có xu hướng chỉ chấp nhận yêu cầu trong một khoảng thời gian rất ngắn trước khi trở nên không khỏe, và ít server hơn tham gia vào việc xử lý yêu cầu.
 
@@ -169,7 +169,7 @@ Thực hiện lập kế hoạch sức chứa
 
 Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra một sự thất bại lan truyền. Lập kế hoạch sức chứa nên được kết hợp với kiểm thử hiệu năng để xác định mức tải mà tại đó dịch vụ sẽ thất bại. Ví dụ, nếu điểm gãy của mọi cluster là 5.000 QPS, tải được phân bố đều giữa các cluster,<sup>[3](#fn3)</sup> và tải đỉnh của dịch vụ là 19.000 QPS, thì cần khoảng sáu cluster để chạy dịch vụ ở mức *N* + 2.
 
-Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự thất bại lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự thất bại lan truyền. Khi bạn mất những phần lớn của hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự thất bại lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
+Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự thất bại lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự thất bại lan truyền. Khi bạn mất một phần lớn hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự thất bại lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
 
 <a id="quan-ly-hang-doi"></a>
 
@@ -191,7 +191,7 @@ Các yêu cầu xếp hàng tiêu tốn bộ nhớ và làm tăng độ trễ. V
 
 Một cách đơn giản để gánh nhẹ tải là thực hiện throttle (giới hạn) theo task dựa trên CPU, bộ nhớ, hoặc chiều dài hàng đợi; việc giới hạn chiều dài hàng đợi như đã thảo luận trong [Quản lý Hàng đợi](#quan-ly-hang-doi) là một dạng của chiến lược này. Ví dụ, một cách tiếp cận hiệu quả là trả về HTTP 503 (dịch vụ không khả dụng) cho bất kỳ yêu cầu đến nào khi có nhiều hơn một số lượng cho trước các yêu cầu client đang hoạt động.
 
-Việc thay đổi phương pháp xếp hàng từ *first-in, first-out* (FIFO, vào trước ra trước) chuẩn sang *last-in, first-out* (LIFO, vào sau ra trước), hoặc sử dụng thuật toán *controlled delay* (CoDel, độ trễ được kiểm soát) [[Nic12]](https://sre.google/sre-book/bibliography#Nic12) hoặc các cách tiếp cận tương tự, có thể giảm tải bằng cách loại bỏ các yêu cầu ít có khả năng đáng để xử lý [[Mau15]](https://sre.google/sre-book/bibliography#Mau15). Nếu một lần tìm kiếm web của người dùng chậm vì một RPC đã được xếp hàng trong 10 giây, có khả năng lớn là người dùng đã bỏ cuộc và tải lại trình duyệt, phát ra một yêu cầu khác: không có ý nghĩa gì trong việc phản hồi cái đầu tiên, vì nó sẽ bị bỏ qua! Chiến lược này hoạt động tốt khi kết hợp với việc lan truyền các deadline RPC xuyên suốt stack, được mô tả trong [Độ trễ và Deadline](#do-ley-va-deadline).
+Việc thay đổi phương pháp xếp hàng từ *first-in, first-out* (FIFO, vào trước ra trước) chuẩn sang *last-in, first-out* (LIFO, vào sau ra trước), hoặc sử dụng thuật toán *controlled delay* (CoDel, độ trễ được kiểm soát) [[Nic12]](https://sre.google/sre-book/bibliography#Nic12) hoặc các cách tiếp cận tương tự, có thể giảm tải bằng cách loại bỏ các yêu cầu ít có khả năng đáng để xử lý [[Mau15]](https://sre.google/sre-book/bibliography#Mau15). Nếu một lần tìm kiếm web của người dùng chậm vì một RPC đã được xếp hàng trong 10 giây, có khả năng lớn là người dùng đã bỏ cuộc và tải lại trình duyệt, phát ra một yêu cầu khác: lúc này việc phản hồi yêu cầu đầu tiên là vô nghĩa, vì nó sẽ bị bỏ qua! Chiến lược này hoạt động tốt khi kết hợp với việc lan truyền các deadline RPC xuyên suốt stack, được mô tả trong [Độ trễ và Deadline](#do-ley-va-deadline).
 
 Các cách tiếp cận tinh vi hơn bao gồm việc xác định các client để có chọn lọc hơn về công việc nào bị bỏ, hoặc chọn các yêu cầu quan trọng hơn và ưu tiên chúng. Các chiến lược như vậy nhiều khả năng cần thiết cho các dịch vụ dùng chung.
 
@@ -386,7 +386,7 @@ Tuy nhiên, giả sử các backend liên lạc chéo giữa chúng với nhau. 
     
 -   Nếu sự liên lạc nội tầng tăng lên để đáp ứng một số kiểu thất bại hoặc điều kiện tải nặng (ví dụ, cân bằng tải lại tích cực hơn dưới tải cao), sự liên lạc nội tầng có thể nhanh chóng chuyển từ mức yêu cầu nội tầng thấp sang cao khi tải tăng đủ.
     
-    Ví dụ, giả sử một người dùng có một backend chính và một backend phụ hot standby (dự phòng nóng) được xác định trước trong một cluster khác, có thể tiếp quản người dùng. Backend chính proxy các yêu cầu đến backend phụ do các lỗi từ tầng thấp hơn hoặc để ứng phó với tải nặng trên master. Nếu toàn bộ hệ thống quá tải, việc proxy từ chính sang phụ có khả năng tăng lên và thêm nhiều tải hơn nữa cho hệ thống, do chi phí bổ sung của việc phân tích và chờ yêu cầu đến phụ trên chính.
+    Ví dụ, giả sử một người dùng có một backend chính và một backend phụ hot standby (dự phòng nóng) được xác định trước trong một cluster khác, có thể tiếp quản người dùng. Backend chính proxy các yêu cầu đến backend phụ do các lỗi từ tầng thấp hơn hoặc để ứng phó với tải nặng trên master. Nếu toàn bộ hệ thống quá tải, việc proxy từ chính sang phụ có khả năng tăng lên và thêm nhiều tải hơn nữa cho hệ thống, do backend chính phải tốn thêm chi phí phân tích và chờ yêu cầu chuyển đến phụ.
     
 -   Tùy thuộc vào mức độ quan trọng của sự liên lạc giữa các tầng, việc khởi tạo (bootstrap) hệ thống có thể trở nên phức tạp hơn.
     
@@ -505,7 +505,7 @@ Nếu các server theo một cách nào đó bị kẹt (wedged) và không ti�
 -   Một số yêu cầu đang hoạt động không có deadline nhưng đang tiêu tốn tài nguyên, dẫn đến chúng chặn các thread
 -   Các server đang bị deadlock
 
-Hãy chắc chắn rằng bạn xác định nguồn của sự thất bại lan truyền trước khi khởi động lại các server. Hãy chắc chắn rằng hành động này sẽ không chỉ đơn giản là dịch chuyển tải đi nơi khác. Triển khai canary thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự thất bại lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
+Hãy xác định rõ nguồn gốc của sự thất bại lan truyền trước khi khởi động lại server, và đảm bảo rằng hành động này không chỉ đơn thuần đẩy tải sang nơi khác. Triển khai canary thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự thất bại lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
 
 ## Bỏ Traffic (Drop Traffic)
 

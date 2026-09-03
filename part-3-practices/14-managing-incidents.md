@@ -9,7 +9,7 @@
 *Tác giả:* Andrew Stribblehill<sup>[1](#fn1)</sup>
 *Biên tập:* Kavita Guliani
 
-Quản lý incident (sự cố) hiệu quả là chìa khóa để hạn chế sự gián đoạn mà incident gây ra và khôi phục hoạt động business bình thường nhanh nhất có thể. Nếu bạn không kịch bản hóa (game out) trước [phản ứng của mình với các incident tiềm tàng](https://sre.google/resources/practices-and-processes/anatomy-of-an-incident/), cách quản lý incident có nguyên tắc có thể bị phá vỡ ngay trong các tình huống thực tế.
+Quản lý incident (sự cố) hiệu quả là chìa khóa để hạn chế sự gián đoạn mà incident gây ra và khôi phục hoạt động business bình thường nhanh nhất có thể. Nếu bạn không hình dung và diễn tập trước [phản ứng của mình với các incident tiềm tàng](https://sre.google/resources/practices-and-processes/anatomy-of-an-incident/), cách quản lý incident có nguyên tắc có thể bị phá vỡ ngay trong các tình huống thực tế.
 
 Chương này xem qua chân dung của một incident trở nên mất kiểm soát do các thực hành quản lý incident ad hoc (tùy hứng), phác thảo một cách tiếp cận có quản lý đối với incident, rồi xem lại cùng incident đó có thể đã diễn ra thế nào nếu được xử lý với một quy trình quản lý incident tốt.
 
@@ -83,7 +83,7 @@ Xem [Example Incident State Document](https://sre.google/sre-book/incident-docum
 
 ## Bàn giao (Handoff) Rõ ràng, Sống (Clear, Live Handoff)
 
-Điều thiết yếu là vai trò người chỉ huy incident phải được bàn giao rõ ràng vào cuối ngày làm việc. Nếu bạn bàn giao quyền chỉ huy cho ai đó ở một vị trí khác, bạn có thể cập nhật cho người chỉ huy mới qua điện thoại hay cuộc gọi video. Khi người chỉ huy mới đã được cập nhật đầy đủ, người chỉ huy ra đi nên nói rõ trong lúc bàn giao, cụ thể là "Giờ bạn là người chỉ huy incident nhé?", và không nên rời cuộc gọi cho đến khi có xác nhận bàn giao chắc chắn. Việc bàn giao nên được thông báo cho những người khác đang làm việc trên incident để rõ ai đang dẫn dắt nỗ lực quản lý incident vào mọi thời điểm.
+Điều thiết yếu là vai trò người chỉ huy incident phải được bàn giao rõ ràng vào cuối ngày làm việc. Nếu bạn bàn giao quyền chỉ huy cho ai đó ở một vị trí khác, bạn có thể cập nhật cho người chỉ huy mới qua điện thoại hay cuộc gọi video. Khi người chỉ huy mới đã được cập nhật đầy đủ, người chỉ huy sắp bàn giao nên nói rõ trong lúc bàn giao, cụ thể là "Giờ bạn là người chỉ huy incident nhé?", và không nên rời cuộc gọi cho đến khi có xác nhận bàn giao chắc chắn. Việc bàn giao nên được thông báo cho những người khác đang làm việc trên incident để rõ ai đang dẫn dắt nỗ lực quản lý incident vào mọi thời điểm.
 
 ## Một Incident Có Quản lý (A Managed Incident)
 

@@ -49,7 +49,7 @@ Các nhà thiết kế hệ thống không thể hy sinh tính đúng đắn đ�
 
 ## Động Lực Sử Dụng Consensus: Thất Bại Phối Hợp Trong Hệ Thống Phân Tán (Motivating the Use of Consensus: Distributed Systems Coordination Failure)
 
-Các hệ thống phân tán là phức tạp và vi tế để hiểu, giám sát, và gỡ lỗi. Các kỹ sư vận hành những hệ thống như vậy thường bất ngờ bởi hành vi của chúng trong sự hiện diện của các lỗi. Lỗi là những sự kiện tương đối hiếm, và việc kiểm thử hệ thống trong các điều kiện này không phải là thực hành thông thường. Rất khó để suy luận về hành vi hệ thống khi có lỗi xảy ra. Các network partition đặc biệt gây thách thức — một vấn đề tưởng như do một partition hoàn toàn gây ra thực ra có thể là kết quả của:
+Các hệ thống phân tán là phức tạp và vi tế để hiểu, giám sát, và gỡ lỗi. Các kỹ sư vận hành những hệ thống như vậy thường bất ngờ trước hành vi của chúng khi có lỗi xảy ra. Lỗi là những sự kiện tương đối hiếm, và việc kiểm thử hệ thống trong các điều kiện này không phải là thực hành thông thường. Rất khó để suy luận về hành vi hệ thống khi có lỗi xảy ra. Các network partition đặc biệt gây thách thức — một vấn đề tưởng như do một partition hoàn toàn gây ra thực ra có thể là kết quả của:
 
 - Một mạng rất chậm
 - Một số (nhưng không phải tất cả) các tin nhắn bị rơi
@@ -89,7 +89,7 @@ Các thuật toán distributed consensus có thể là *crash-fail* (giả đị
 
 Các thuật toán có thể xử lý các lỗi Byzantine hoặc phi-Byzantine. *Byzantine failure* xảy ra khi một tiến trình truyền đi những tin nhắn sai do bug hoặc hoạt động ác ý; nó tương đối tốn kém để xử lý và ít gặp hơn.
 
-Về mặt kỹ thuật, việc giải bài toán asynchronous distributed consensus trong thời gian có giới hạn là bất khả thi. Như *kết quả bất khả thi FLP* đạt giải Dijkstra Prize [\[Fis85\]](https://sre.google/sre-book/bibliography#Fis85) đã chứng minh, không có thuật toán asynchronous distributed consensus nào có thể đảm bảo tiến triển trong sự hiện diện của một mạng không tin cậy.
+Về mặt kỹ thuật, việc giải bài toán asynchronous distributed consensus trong thời gian có giới hạn là bất khả thi. Như *kết quả bất khả thi FLP* đạt giải Dijkstra Prize [\[Fis85\]](https://sre.google/sre-book/bibliography#Fis85) đã chứng minh, không có thuật toán asynchronous distributed consensus nào có thể đảm bảo tiến triển khi mạng không tin cậy.
 
 Trong thực tế, chúng ta tiến gần đến bài toán distributed consensus trong thời gian có giới hạn bằng cách đảm bảo rằng hệ thống có đủ các bản sao (replica) lành mạnh và kết nối mạng để tiến triển một cách tin cậy trong phần lớn thời gian. Ngoài ra, hệ thống nên có các backoff với độ trễ ngẫu nhiên. Cách thiết lập này vừa ngăn các lần thử lại gây ra các hiệu ứng dây chuyền, vừa tránh được vấn đề dueling proposers (các proposer đấu nhau) được mô tả sau trong chương này. Các giao thức đảm bảo an toàn (safety), và độ dự phòng đủ trong hệ thống khuyến khích hoạt động sống (liveness).
 
@@ -179,7 +179,7 @@ Quan niệm thông thường cho rằng các thuật toán consensus là quá ch
 
 Không có một thuật toán distributed consensus và nhân bản máy trạng thái "tốt nhất" duy nhất cho hiệu năng, vì hiệu năng phụ thuộc vào một số yếu tố liên quan đến khối lượng công việc (workload), các mục tiêu hiệu năng của hệ thống, và cách hệ thống được triển khai.<sup>[2](#fn2)</sup> Mặc dù một số phần sau trình bày các nghiên cứu nhằm tăng cường hiểu biết về những gì có thể đạt được với distributed consensus, nhưng nhiều hệ thống được mô tả hiện đã có sẵn và đang được sử dụng.
 
-Các *workload* có thể biến đổi theo nhiều cách, và việc hiểu cách chúng có thể biến đổi là then chốt để thảo luận về hiệu năng. Trong trường hợp một hệ thống consensus, workload có thể biến đổi theo các khía cạnh:
+Các *workload* có thể biến đổi theo nhiều cách, và việc hiểu cách chúng có thể biến đổi là then chốt để thảo luận về hiệu năng. Trong trường hợp một hệ thống consensus, workload có thể biến đổi theo các khía cạnh sau:
 
 - Thông lượng: số lượng các proposal được thực hiện mỗi đơn vị thời gian tại tải đỉnh (peak load)
 - Kiểu các request: tỷ lệ các thao tác làm thay đổi trạng thái
@@ -242,7 +242,7 @@ Quorum lease đặc biệt hữu ích cho các workload nặng đọc, trong đ�
 
 Các hệ thống consensus đối mặt với hai ràng buộc vật lý lớn về hiệu năng khi commit các thay đổi trạng thái. Một là thời gian vòng đi-về mạng và cái kia là thời gian cần để ghi dữ liệu vào bộ lưu trữ bền vững, điều sẽ được xem xét sau.
 
-Thời gian vòng đi-về mạng biến đổi rất lớn tùy thuộc vào vị trí nguồn và đích, vốn bị ảnh hưởng bởi cả khoảng cách vật lý giữa nguồn và đích, và bởi mức độ tắc nghẽn trên mạng. Trong một datacenter đơn, thời gian vòng đi-về giữa các máy nên ở mức cỡ một mili-giây. Một RTT (thời gian vòng đi-về) điển hình trong nước Mỹ là 45 mili-giây, và từ New York đến London là 70 mili-giây.
+Thời gian vòng đi-về mạng biến đổi rất lớn, tùy vào cả khoảng cách vật lý giữa nguồn và đích lẫn mức độ tắc nghẽn trên mạng. Trong một datacenter đơn, thời gian vòng đi-về giữa các máy nên ở mức cỡ một mili-giây. Một RTT (thời gian vòng đi-về) điển hình trong nước Mỹ là 45 mili-giây, và từ New York đến London là 70 mili-giây.
 
 Hiệu năng của hệ thống consensus trên một mạng diện cục bộ có thể sánh được với một hệ thống nhân bản leader-follower bất đồng bộ [\[Bol11\]](https://sre.google/sre-book/bibliography#Bol11), kiểu mà nhiều database truyền thống dùng để nhân bản. Tuy nhiên, phần lớn các lợi ích khả dụng của các hệ thống distributed consensus đòi hỏi các bản sao phải "xa nhau" để ở trong các domain lỗi khác nhau.
 
@@ -368,7 +368,7 @@ Khi thiết kế một bản triển khai, bạn phải đảm bảo có đủ d
 
 Nên lưu ý rằng việc thêm một bản sao trong một hệ thống quorum đa số có thể làm giảm khả dụng của hệ thống đôi chút (như được thể hiện trong [Hình 23-10](#hinh-23-10)). Một bản triển khai điển hình cho ZooKeeper hoặc Chubby dùng năm bản sao, nên một quorum đa số đòi hỏi ba bản sao. Hệ thống vẫn sẽ tiến triển nếu hai bản sao, hay 40%, không khả dụng. Với sáu bản sao, một quorum đòi hỏi bốn bản sao: chỉ 33% các bản sao có thể không khả dụng nếu hệ thống muốn vẫn sống.
 
-Các cân nhắc về domain lỗi do đó áp dụng càng mạnh hơn khi một bản sao thứ sáu được thêm: nếu một tổ chức có năm datacenter và thường chạy các nhóm consensus với năm tiến trình, một tiến trình trong mỗi datacenter, thì việc mất một datacenter vẫn còn lại một bản sao dự phòng trong mỗi nhóm. Nếu một bản sao thứ sáu được triển khai trong một trong năm datacenter, thì một sự cố ở datacenter đó sẽ loại bỏ cả hai bản sao dự phòng trong nhóm, từ đó làm giảm dung lượng đi 33%.
+Các cân nhắc về domain lỗi do đó áp dụng càng mạnh hơn khi một bản sao thứ sáu được thêm: nếu một tổ chức có năm datacenter và thường chạy các nhóm consensus với năm tiến trình, một tiến trình trong mỗi datacenter, thì khi mất một datacenter, mỗi nhóm vẫn còn lại một bản sao dự phòng. Nếu một bản sao thứ sáu được triển khai trong một trong năm datacenter, thì một sự cố ở datacenter đó sẽ loại bỏ cả hai bản sao dự phòng trong nhóm, từ đó làm giảm dung lượng đi 33%.
 
 <a id="hinh-23-10"></a>        ![Thêm một bản sao phụ trong một khu vực có thể làm giảm khả dụng của hệ thống. Chụm nhiều bản sao trong một datacenter đơn có thể làm giảm khả dụng của hệ thống: ở đây có một quorum mà không còn độ dự phòng nào.](../assets/imgs/fig-23-10.jpg)
 
@@ -382,7 +382,7 @@ Chúng ta đã thấy lý do vì sao nhiều hệ thống distributed consensus 
 
 Hình 23-11. Chụm các tiến trình leader dẫn đến việc sử dụng băng thông không đều
 
-Một bất lợi khác của việc triển khai các nhóm consensus trong nhiều datacenter (được thể hiện bằng [Hình 23-11](#hinh-23-11)) là sự thay đổi rất cực đoan của hệ thống có thể xảy ra nếu datacenter chứa các leader gặp một sự lỗi diện rộng (ví dụ sự lỗi điện, sự lỗi thiết bị mạng, hoặc đứt cáp quang). Như được thể hiện trong [Hình 23-12](#hinh-23-12), trong kịch bản sự lỗi này, tất cả các leader nên fail over một datacenter khác, hoặc chia đều hoặc cả đám vào một datacenter. Trong cả hai trường hợp, liên kết giữa hai datacenter còn lại sẽ đột nhiên nhận được nhiều lưu lượng mạng hơn rất nhiều từ hệ thống này. Đó sẽ là một thời điểm không may để phát hiện ra rằng dung lượng trên liên kết đó là không đủ.
+Một bất lợi khác của việc triển khai các nhóm consensus trong nhiều datacenter (được thể hiện bằng [Hình 23-11](#hinh-23-11)) là sự thay đổi rất cực đoan của hệ thống có thể xảy ra nếu datacenter chứa các leader gặp một sự lỗi diện rộng (ví dụ sự lỗi điện, sự lỗi thiết bị mạng, hoặc đứt cáp quang). Như được thể hiện trong [Hình 23-12](#hinh-23-12), trong kịch bản sự lỗi này, tất cả các leader sẽ fail over sang một datacenter khác, hoặc chia đều hoặc cả đám vào một datacenter. Trong cả hai trường hợp, liên kết giữa hai datacenter còn lại sẽ đột nhiên nhận được nhiều lưu lượng mạng hơn rất nhiều từ hệ thống này. Đó sẽ là một thời điểm không may để phát hiện ra rằng dung lượng trên liên kết đó là không đủ.
 
 <a id="hinh-23-12"></a>        ![Khi các leader chụm fail over cả đám, các mẫu sử dụng mạng thay đổi kịch tính.](../assets/imgs/fig-23-12.jpg)
 

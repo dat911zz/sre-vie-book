@@ -9,7 +9,7 @@
 *Tác giả:* Rob Ewaschuk
 *Biên tập:* Betsy Beyer
 
-Các đội SRE (Site Reliability Engineering — kỹ thuật độ tin cậy trang web) của Google có một số nguyên lý cơ bản và best practice (thực hành tốt nhất) để xây dựng các hệ thống [monitoring (giám sát) và alerting (cảnh báo)](https://sre.google/workbook/monitoring/) thành công. Chương này đưa ra hướng dẫn về việc vấn đề nào nên ngắt một người bằng một lần gọi trực (page), và cách xử lý các vấn đề chưa đủ nghiêm trọng để kích hoạt gọi trực.
+Các đội SRE (Site Reliability Engineering — kỹ thuật độ tin cậy trang web) của Google có một số nguyên lý cơ bản và best practice (thực hành tốt nhất) để xây dựng các hệ thống [monitoring (giám sát) và alerting (cảnh báo)](https://sre.google/workbook/monitoring/) thành công. Chương này đưa ra hướng dẫn về việc vấn đề gì nên khiến một người bị ngắt quãng bằng một lần gọi trực (page), và cách xử lý những vấn đề chưa đủ nghiêm trọng để kích hoạt gọi trực.
 
 ## Các Định nghĩa (Definitions)
 
@@ -111,7 +111,7 @@ Hệ thống giám sát của bạn nên giải quyết hai câu hỏi: cái gì
 
 ## Black-box so với White-box
 
-Chúng tôi kết hợp sử dụng mạnh mẽ giám sát white-box với các ứng dụng vừa phải nhưng quan trọng của giám sát black-box. Cách đơn giản nhất để nghĩ về black-box so với white-box là: giám sát black-box định hướng theo triệu chứng và phản ánh các vấn đề đang diễn ra — chứ không phải dự đoán —: "Hệ thống không hoạt động đúng, ngay bây giờ." Giám sát white-box dựa vào khả năng kiểm tra bên trong hệ thống, như log hoặc các endpoint (điểm cuối) HTTP, thông qua đo lường. Do đó, giám sát white-box cho phép phát hiện các vấn đề sắp xảy ra, các thất bại bị che giấu bởi retry (thử lại), v.v.
+Chúng tôi kết hợp sử dụng mạnh mẽ giám sát white-box với các ứng dụng vừa phải nhưng quan trọng của giám sát black-box. Cách đơn giản nhất để nghĩ về black-box so với white-box là: giám sát black-box định hướng theo triệu chứng và phản ánh các vấn đề đang diễn ra..., chứ không phải dự đoán: "Hệ thống không hoạt động đúng, ngay bây giờ." Giám sát white-box dựa vào khả năng kiểm tra bên trong hệ thống, như log hoặc các endpoint (điểm cuối) HTTP, thông qua đo lường. Do đó, giám sát white-box cho phép phát hiện các vấn đề sắp xảy ra, các thất bại bị che giấu bởi retry (thử lại), v.v.
 
 Lưu ý rằng trong một hệ thống nhiều tầng, triệu chứng của người này lại là nguyên nhân của người kia. Ví dụ, giả sử [hiệu năng của một database](https://sre.google/sre-book/data-integrity/) đang chậm. Các lần đọc database chậm là một triệu chứng đối với SRE database phát hiện ra chúng. Tuy nhiên, với SRE frontend quan sát một website chậm, chính những lần đọc database chậm đó lại là một nguyên nhân. Do đó, giám sát white-box đôi khi định hướng theo triệu chứng, đôi khi theo nguyên nhân, tùy thuộc vào mức độ thông tin mà white-box của bạn cung cấp.
 
@@ -238,7 +238,7 @@ Các lần gọi trực với phản ứng máy móc kiểu thuật toán nên l
 
 ## Về Lâu dài (The Long Run)
 
-Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi lần gọi trực như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của việc gọi trực có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất gọi trực (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài lần gọi trực liên quan) trong các báo cáo hàng quý với quản lý, để đảm bảo những người ra quyết định được cập nhật về tải máy gọi trực và sức khỏe tổng thể của các đội.
+Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi lần gọi trực như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của việc gọi trực có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất gọi trực trong các báo cáo hàng quý với quản lý (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài lần gọi trực liên quan). Việc này đảm bảo những người ra quyết định luôn được cập nhật về tải máy gọi trực và sức khỏe tổng thể của các đội.
 
 ## Kết luận
 

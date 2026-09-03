@@ -35,7 +35,7 @@ Chúng tôi muốn phát hiện các sự phụ thuộc ẩn vào một database
 
 Trong vài phút sau khi bắt đầu kiểm thử, nhiều dịch vụ phụ thuộc đã báo cáo rằng cả người dùng bên ngoài lẫn nội bộ đều không thể truy cập các hệ thống chính. Một số hệ thống chỉ có thể truy cập ngắt quãng hoặc một phần.
 
-Giả định rằng bài kiểm thử là thủ phạm, SRE lập tức hủy bỏ bài tập. Chúng tôi thử rollback thay đổi quyền truy cập nhưng không thành công. Thay vì hoảng loạn, chúng tôi lập tức tìm cách khôi phục quyền truy cập đúng. Bằng một cách tiếp cận đã được kiểm thử trước đó, chúng tôi khôi phục quyền truy cập cho các replica và failover. Song song, chúng tôi liên hệ các developer chính để sửa lỗi trong thư viện tầng ứng dụng của database.
+Cho rằng bài kiểm thử chính là thủ phạm, SRE lập tức hủy bỏ bài tập. Chúng tôi thử rollback thay đổi quyền truy cập nhưng không thành công. Thay vì hoảng loạn, chúng tôi lập tức tìm cách khôi phục quyền truy cập đúng. Bằng một cách tiếp cận đã được kiểm thử trước đó, chúng tôi khôi phục quyền truy cập cho các replica và failover. Song song, chúng tôi liên hệ các developer chính để sửa lỗi trong thư viện tầng ứng dụng của database.
 
 Trong vòng một giờ kể từ quyết định ban đầu, mọi quyền truy cập đều được khôi phục hoàn toàn và tất cả dịch vụ kết nối lại được. Tác động rộng của bài kiểm thử đã thúc đẩy một bản sửa lỗi nhanh và kỹ lưỡng cho các thư viện, cùng một kế hoạch kiểm thử lại định kỳ để ngăn một khiếm khuyết lớn như vậy tái diễn.
 
@@ -113,7 +113,7 @@ Trong một phần kiểm thử tự động hóa thường quy, hai yêu cầu 
 
 ## Phản ứng (Response)
 
-Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một lần gọi trực khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase; theo đúng quy trình, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó. Vì máy ở vị trí này đã bị xóa, chúng không thể phản hồi yêu cầu. Để tránh làm thất bại các yêu cầu đó hoàn toàn, họ rút traffic khỏi vị trí này. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
+Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một lần gọi trực khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase. Vì máy ở vị trí này đã bị xóa nên không thể phản hồi yêu cầu; để tránh làm các yêu cầu đó thất bại hoàn toàn, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó theo đúng quy trình. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
 
 Chẳng bao lâu, các pager (máy gọi trực) khắp nơi liên tục báo cho mọi cài đặt server như vậy trên toàn thế giới. Trước tình hình đó, các kỹ sư on-call vô hiệu hóa toàn bộ tự động hóa của đội để ngăn thiệt hại thêm. Ngay sau đó họ dừng hoặc đóng băng các tự động hóa bổ sung và bảo trì production.
 
@@ -137,7 +137,7 @@ Các kỹ sư nhanh chóng tuân theo các giao thức phản ứng sự cố, v
 
 ### Những gì chúng tôi đã học (What we learned)
 
-Nguyên nhân gốc rễ là server tự động hóa turndown thiếu các kiểm tra hợp lý (sanity check) phù hợp cho các lệnh nó gửi. Khi server chạy lại để ứng xử với lần turndown thất bại ban đầu, nó nhận được một phản hồi rỗng cho rack máy. Thay vì lọc phản hồi, nó truyền bộ lọc rỗng sang database máy, khiến database máy Diskerase tất cả các máy liên quan. Đúng vậy, đôi khi "không" thực sự có nghĩa là "tất cả". Database máy tuân theo, và luồng turndown bắt đầu nghiền qua các máy nhanh nhất có thể.
+Nguyên nhân gốc rễ là server tự động hóa turndown thiếu các kiểm tra hợp lý (sanity check) phù hợp cho các lệnh nó gửi. Khi server chạy lại để xử lý lần turndown thất bại ban đầu, nó nhận được một phản hồi rỗng cho rack máy. Thay vì lọc phản hồi, nó truyền bộ lọc rỗng sang database máy, khiến database máy Diskerase tất cả các máy liên quan. Đúng vậy, đôi khi "không" thực sự có nghĩa là "tất cả". Database máy tuân theo, và luồng turndown bắt đầu nghiền qua các máy nhanh nhất có thể.
 
 Việc cài đặt lại máy chậm và không đáng tin cậy. Nguyên nhân chủ yếu là dùng Giao thức Truyền tệp Tối giản (Trivial File Transfer Protocol, TFTP) ở mức Chất lượng Dịch vụ (Quality of Service, QoS) mạng thấp nhất từ các vị trí xa. BIOS (Basic Input/Output System — Hệ thống Nhập/Xuất Cơ bản) của mỗi máy xử lý kém các sự cố.<sup>[1](#fn1)</sup> Tùy vào card mạng, BIOS hoặc dừng hoặc rơi vào vòng lặp khởi động lại liên tục. Ở mỗi chu kỳ chúng không truyền được các tệp boot (khởi động) và càng làm quá tải các trình cài đặt. Các kỹ sư on-call khắc phục được bằng cách nâng mức ưu tiên của traffic cài đặt lên chút ít và dùng tự động hóa để khởi động lại các máy bị kẹt.
 

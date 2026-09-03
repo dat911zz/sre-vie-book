@@ -91,7 +91,7 @@ Tương tự, một kiểm thử hệ thống có thể dùng các tệp cấu h
 
 Tại Google, cấu hình dịch vụ web được mô tả trong các tệp lưu trữ trong hệ thống kiểm soát phiên bản. Với mỗi tệp cấu hình, một *kiểm thử cấu hình* riêng biệt xem xét production để xác định một binary thực sự được cấu hình ra sao và báo cáo các khác biệt so với tệp đó. Những kiểm thử này về bản chất không cô lập, vì chúng vận hành bên ngoài sandbox của hạ tầng kiểm thử.
 
-Kiểm thử cấu hình được xây dựng và kiểm thử cho một phiên bản cụ thể của tệp cấu hình đã check-in. Việc so sánh phiên bản nào của kiểm thử đang vượt qua với phiên bản mục tiêu cho tự động hóa ngụ ý chỉ ra production thực sự đang tụt hậu so với công việc kỹ thuật đang diễn ra đến mức nào.
+Kiểm thử cấu hình được xây dựng và kiểm thử cho một phiên bản cụ thể của tệp cấu hình đã check-in. So sánh phiên bản đang vượt qua kiểm thử với phiên bản mục tiêu của tự động hóa cho biết production thực sự đang tụt hậu bao xa so với công việc kỹ thuật đang diễn ra.
 
 Những kiểm thử cấu hình không cô lập này có xu hướng đặc biệt có giá trị như một phần của giải pháp giám sát phân tán, vì mẫu vượt qua/thất bại xuyên suốt production có thể xác định các đường xuyên suốt stack dịch vụ không có tổ hợp hợp lý của các cấu hình cục bộ. Các rule của giải pháp giám sát cố khớp các đường của yêu cầu người dùng thực (từ log truy vết) với tập hợp các đường không mong muốn đó. Bất kỳ sự khớp nào mà các rule tìm thấy đều trở thành cảnh báo rằng các release đang diễn ra và/hoặc các push không an toàn, cần hành động sửa chữa.
 
@@ -114,7 +114,7 @@ Kiểm thử cấu hình có thể rất đơn giản khi triển khai productio
 
 Để tiến hành canary test, một tập con các server được nâng cấp lên phiên bản hoặc cấu hình mới, sau đó được để trong một thời kỳ ấp ủ (incubation period). Nếu không có sai lệch (variance) bất ngờ nào, release tiếp tục và phần còn lại của các server được nâng cấp theo cách tiến bộ.<sup>[4](#fn4)</sup> Nếu có trục trặc, các server đã sửa đổi có thể nhanh chóng được hoàn tác về một trạng thái tốt đã biết. Chúng tôi thường gọi thời kỳ ấp ủ của các server đã nâng cấp là "baking the binary" (nướng binary).
 
-Canary test thực ra không phải là kiểm thử; đúng hơn, nó là chấp nhận người dùng có cấu trúc (structured user acceptance). Trong khi kiểm thử cấu hình và áp lực xác nhận sự tồn tại của một điều kiện cụ thể trên phần mềm tất định (deterministic), canary test mang tính ad hoc hơn. Nó chỉ phơi bày code đang kiểm thử với traffic production sống, ít dự đoán được hơn, do đó không hoàn hảo và không phải lúc nào cũng bắt được lỗi mới.
+Canary test thực ra không phải là kiểm thử; đúng hơn, nó là chấp nhận người dùng có cấu trúc (structured user acceptance). Trong khi kiểm thử cấu hình và áp lực xác nhận sự tồn tại của một điều kiện cụ thể trên phần mềm tất định (deterministic), canary test mang tính ad hoc hơn. Nó chỉ phơi bày code đang kiểm thử với traffic production thực tế, vốn khó dự đoán hơn nhiều, do đó không hoàn hảo và không phải lúc nào cũng bắt được lỗi mới.
 
 Để lấy ví dụ cụ thể về cách một canary có thể diễn ra: hãy cân nhắc một lỗi cơ bản tương đối hiếm khi ảnh hưởng đến traffic người dùng, đang được triển khai với rollout nâng cấp theo hàm mũ (exponential). Chúng tôi kỳ vọng một số lũy tiến tăng dần của các sai lệch được báo cáo CU = RK, trong đó R là tốc độ của các báo cáo đó, U là bậc (order) của lỗi (định nghĩa sau), và K là khoảng thời gian mà trong đó traffic tăng một hệ số e, tức 172%.<sup>[5](#fn5)</sup>
 
@@ -146,7 +146,7 @@ Một cách để thiết lập văn hóa kiểm thử mạnh mẽ<sup>[7](#fn7)
 
 Một tác vụ chính khác để tạo phần mềm được kiểm thử tốt là thiết lập hạ tầng kiểm thử. Nền tảng của hạ tầng kiểm thử mạnh là một hệ thống kiểm soát phiên bản (versioned source control) theo dõi mọi thay đổi của codebase.
 
-Khi source control đã có, bạn có thể thêm một hệ thống dựng liên tục (continuous build) dựng phần mềm và chạy kiểm thử mỗi khi code được đệ trình. Chúng tôi thấy tối ưu nếu hệ thống dựng thông báo cho kỹ sư ngay khoảnh khắc một thay đổi phá vỡ dự án phần mềm. Dù nghe có vẻ hiển nhiên, điều thiết yếu là phiên bản mới nhất của dự án phần mềm trong source control phải hoạt động hoàn toàn. Khi hệ thống dựng báo code bị hỏng, kỹ sư nên bỏ mọi tác vụ khác và ưu tiên sửa vấn đề. Việc đối xử nghiêm túc với các khiếm khuyết là phù hợp vì một số lý do:
+Khi source control đã có, bạn có thể thêm một hệ thống dựng liên tục (continuous build) dựng phần mềm và chạy kiểm thử mỗi khi code được đệ trình. Chúng tôi nhận thấy tốt nhất là hệ thống dựng nên thông báo cho kỹ sư ngay khoảnh khắc một thay đổi phá vỡ dự án phần mềm. Dù nghe có vẻ hiển nhiên, điều thiết yếu là phiên bản mới nhất của dự án phần mềm trong source control phải hoạt động hoàn toàn. Khi hệ thống dựng báo code bị hỏng, kỹ sư nên bỏ mọi tác vụ khác và ưu tiên sửa vấn đề. Việc đối xử nghiêm túc với các khiếm khuyết là phù hợp vì một số lý do:
 
 -   Thường khó sửa hơn nếu có các thay đổi đối với codebase sau khi khiếm khuyết được giới thiệu.
 -   Phần mềm bị hỏng làm chậm đội vì họ phải làm việc quanh sự hỏng hóc.
@@ -202,7 +202,7 @@ Công cụ tự động hóa cũng là phần mềm. Vì dấu chân rủi ro c�
 Các công cụ tự động hóa chia sẻ hai đặc tính:
 
 -   Thao tác thực tế được thực hiện là đối với một API vững chắc, có thể dự đoán, và được kiểm thử kỹ
--   Mục đích của thao tác là tác dụng phụ mà là một sự gián đoạn vô hình đối với một client API khác
+-   Mục đích thật sự của thao tác nằm ở tác dụng phụ của nó — một sự gián đoạn vô hình đối với một client API khác
 
 Kiểm thử có thể minh họa hành vi mong muốn của tầng dịch vụ khác, cả trước lẫn sau thay đổi. Thường có thể kiểm thử liệu trạng thái nội bộ, nhìn qua API, có hằng định xuyên suốt thao tác không. Ví dụ, database theo đuổi câu trả lời đúng, ngay cả khi một index phù hợp không khả dụng cho truy vấn. Mặt khác, một số bất biến (invariant) API được ghi tài liệu (như cache DNS giữ cho đến khi hết TTL) có thể không giữ được xuyên suốt thao tác. Ví dụ, nếu một thay đổi runlevel thay thế nameserver cục bộ bằng một caching proxy, cả hai lựa chọn có thể hứa giữ các tra cứu đã hoàn thành trong nhiều giây, nhưng không có khả năng trạng thái cache được bàn giao từ cái này sang cái kia.
 
@@ -233,7 +233,7 @@ Các kỹ thuật thống kê, như Lemon [[Ana07]](https://sre.google/sre-book/
 
 ## Nhu cầu về Tốc độ (The Need for Speed)
 
-Với mỗi phiên bản (patch) trong kho code, mỗi kiểm thử được định nghĩa cho ra một chỉ thị vượt qua hoặc thất bại. Chỉ thị đó có thể thay đổi giữa các lần chạy lặp lại trông giống hệt nhau. Bạn có thể ước tính khả năng thực tế kiểm thử vượt qua hay thất bại bằng cách lấy trung bình trên các lần chạy đó và tính sự không chắc chắn thống kê của khả năng này. Tuy nhiên, thực hiện phép tính này cho mỗi kiểm thử ở mỗi điểm phiên bản là không thể về mặt tính toán.
+Với mỗi phiên bản (patch) trong kho code, mỗi kiểm thử được định nghĩa cho ra một chỉ thị vượt qua hoặc thất bại. Chỉ thị đó có thể thay đổi giữa các lần chạy lặp lại trông giống hệt nhau. Bạn có thể ước tính xác suất thực tế mà một kiểm thử vượt qua hay thất bại bằng cách lấy trung bình trên các lần chạy đó và tính sự không chắc chắn thống kê của khả năng này. Tuy nhiên, thực hiện phép tính này cho mỗi kiểm thử ở mỗi điểm phiên bản là không thể về mặt tính toán.
 
 Thay vào đó, bạn phải hình thành các giả thuyết về nhiều kịch bản quan tâm và chạy số lượng lặp lại phù hợp cho mỗi kiểm thử và phiên bản để cho phép suy luận hợp lý. Một số kịch bản là vô hại (về mặt chất lượng code), trong khi những cái khác có thể hành động được. Các kịch bản này ảnh hưởng đến mọi nỗ lực kiểm thử ở các mức độ khác nhau và, vì chúng liên kết (coupled) với nhau, việc thu thập tin cậy và nhanh chóng một danh sách các giả thuyết có thể hành động (tức các thành phần thực sự bị hỏng) nghĩa là ước tính tất cả các kịch bản cùng một lúc.
 
@@ -249,7 +249,7 @@ Hạn chót không chính thức cho kiểm thử là điểm mà kỹ sư thự
 
 Giả sử một kỹ sư đang làm việc trên dịch vụ có hơn 21.000 kiểm thử đơn giản và thỉnh thoảng đề xuất một bản vá cho codebase. Để kiểm thử bản vá, bạn muốn so sánh vector các kết quả vượt qua/thất bại từ codebase trước bản vá với vector từ codebase sau bản vá. Một sự so sánh thuận lợi của hai vector tạm thời đủ điều kiện codebase như có thể release được. Sự đủ điều kiện này tạo động lực để chạy nhiều kiểm thử release và tích hợp, cũng như các kiểm thử binary phân tán khác xem xét việc scale của hệ thống (nếu bản vá dùng nhiều tài nguyên tính toán cục bộ hơn đáng kể) và độ phức tạp (nếu bản vá tạo ra khối lượng công việc siêu tuyến tính ở nơi khác).
 
-Với tốc độ nào bạn có thể cờ sai một bản vá của người dùng là gây hại bằng cách tính sai sự flaky của môi trường? Có vẻ người dùng sẽ phàn nàn gay gắt nếu 1 trong 10 bản vá bị từ chối. Nhưng việc từ chối 1 bản vá giữa 100 bản vá hoàn hảo có thể đi qua mà không ai bình luận.
+Với tần suất nào thì việc bạn tính sai độ flaky của môi trường sẽ khiến một bản vá vô hại của người dùng bị gắn cờ nhầm là có hại? Có vẻ người dùng sẽ phàn nàn gay gắt nếu 1 trong 10 bản vá bị từ chối. Nhưng việc từ chối 1 bản vá giữa 100 bản vá hoàn hảo có thể đi qua mà không ai bình luận.
 
 Điều này nghĩa là bạn quan tâm đến căn 42.000 (một cho mỗi kiểm thử được định nghĩa trước bản vá, và một cho mỗi kiểm thử sau bản vá) của 0.99 (phân số các bản vá được chấp nhận). Phép tính này:
 
@@ -308,7 +308,7 @@ Lợi ích của việc dùng protocol buffers<sup>[16](#fn16)</sup> là schema 
 
 Vai trò của SRE nhìn chung bao gồm việc viết các công cụ kỹ thuật hệ thống<sup>[17](#fn17)</sup> (nếu chưa ai khác đang viết) và thêm xác thực vững chắc kèm bao phủ kiểm thử. Mọi công cụ đều có thể hành vi bất ngờ do các bug không được kiểm thử bắt được, nên phòng thủ có độ sâu (defense in depth) là cần thiết. Khi một công cụ hành vi bất ngờ, kỹ sư cần tự tin nhất có thể rằng phần lớn công cụ khác của họ đang hoạt động đúng, và do đó có thể giảm nhẹ hoặc giải quyết tác dụng phụ của sự sai lầm đó. Một yếu tố chính của việc cung cấp độ tin cậy site là tìm mỗi dạng sai lầm được dự kiến và đảm bảo một kiểm thử nào đó (hoặc bộ xác thực input được kiểm thử của công cụ khác) báo cáo nó. Công cụ tìm ra vấn đề có thể không thể sửa hoặc thậm chí dừng nó, nhưng nên ít nhất báo cáo vấn đề trước khi một outage thảm khốc xảy ra.
 
-Ví dụ, hãy cân nhắc danh sách cấu hình của tất cả người dùng (như */etc/passwd* trên một máy kiểu Unix không có mạng) và hình dung một sửa khiến trình phân tích dừng sau khi phân tích chỉ một nửa tệp một cách vô tình. Vì các người dùng được tạo gần đây chưa được tải, máy nhiều khả năng tiếp tục chạy mà không có vấn đề, và nhiều người dùng có thể không nhận ra lỗi. Công cụ duy trì các thư mục home có thể dễ dàng nhận ra sự không khớp giữa các thư mục thực tế hiện diện và những cái được ngụ ý bởi (danh sách người dùng) (tách rời), và khẩn cấp báo cáo sự khác biệt. Giá trị của công cụ này nằm ở việc báo cáo vấn đề, và nó nên tránh cố khắc phục một mình (bằng cách xóa rất nhiều dữ liệu người dùng).
+Ví dụ, hãy cân nhắc danh sách cấu hình của tất cả người dùng (như */etc/passwd* trên một máy kiểu Unix không có mạng) và hình dung một sửa khiến trình phân tích dừng sau khi phân tích chỉ một nửa tệp một cách vô tình. Vì các người dùng được tạo gần đây chưa được tải, máy nhiều khả năng tiếp tục chạy mà không có vấn đề, và nhiều người dùng có thể không nhận ra lỗi. Công cụ duy trì các thư mục home có thể dễ dàng nhận ra sự không khớp giữa các thư mục thực tế hiện diện và các thư mục được ngụ ý bởi danh sách người dùng (vốn được duy trì tách rời), và khẩn cấp báo cáo sự khác biệt. Giá trị của công cụ này nằm ở việc báo cáo vấn đề, và nó nên tránh cố khắc phục một mình (bằng cách xóa rất nhiều dữ liệu người dùng).
 
 ## Các Mồi Production (Production Probes)
 
