@@ -113,7 +113,7 @@ Trong một phần kiểm thử tự động hóa thường quy, hai yêu cầu 
 
 ## Phản ứng (Response)
 
-Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một page (gọi trực) khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase; theo đúng quy trình, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó. Vì máy ở vị trí này đã bị xóa, chúng không thể phản hồi yêu cầu. Để tránh làm thất bại các yêu cầu đó hoàn toàn, họ rút traffic khỏi vị trí này. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
+Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một lần gọi trực khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase; theo đúng quy trình, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó. Vì máy ở vị trí này đã bị xóa, chúng không thể phản hồi yêu cầu. Để tránh làm thất bại các yêu cầu đó hoàn toàn, họ rút traffic khỏi vị trí này. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
 
 Chẳng bao lâu, các pager (máy gọi trực) khắp nơi liên tục báo cho mọi cài đặt server như vậy trên toàn thế giới. Trước tình hình đó, các kỹ sư on-call vô hiệu hóa toàn bộ tự động hóa của đội để ngăn thiệt hại thêm. Ngay sau đó họ dừng hoặc đóng băng các tự động hóa bổ sung và bảo trì production.
 
@@ -145,7 +145,7 @@ Hạ tầng cài đặt lại máy không thể xử lý việc thiết lập đ
 
 ## Mọi Vấn đề đều Có Giải pháp (All Problems Have Solutions)
 
-Thời gian và kinh nghiệm cho thấy các hệ thống không chỉ sẽ hỏng, mà sẽ hỏng theo những cách không ai lường trước được. Một trong những bài học lớn nhất Google rút ra là: một giải pháp luôn tồn tại, ngay cả khi nó không hiển nhiên, nhất là với người đang bị pager hét vào tai. Nếu bạn không nghĩ ra được giải pháp, hãy mở rộng phạm vi tìm kiếm. Kéo thêm đồng đội, tìm sự giúp đỡ, làm bất cứ điều gì cần làm, nhưng làm nhanh. Ưu tiên cao nhất là giải quyết vấn đề trước mắt thật nhanh. Thường thì người nắm nhiều trạng thái (state) nhất lại là người mà hành động của mình đã vô tình kích hoạt sự kiện. Hãy tận dụng người đó.
+Thời gian và kinh nghiệm cho thấy các hệ thống không chỉ sẽ hỏng, mà sẽ hỏng theo những cách không ai lường trước được. Một trong những bài học lớn nhất Google rút ra là: một giải pháp luôn tồn tại, ngay cả khi nó không hiển nhiên, nhất là với người đang bị máy gọi trực hét vào tai. Nếu bạn không nghĩ ra được giải pháp, hãy mở rộng phạm vi tìm kiếm. Kéo thêm đồng đội, tìm sự giúp đỡ, làm bất cứ điều gì cần làm, nhưng làm nhanh. Ưu tiên cao nhất là giải quyết vấn đề trước mắt thật nhanh. Thường thì người nắm nhiều trạng thái (state) nhất lại là người mà hành động của mình đã vô tình kích hoạt sự kiện. Hãy tận dụng người đó.
 
 Đặc biệt quan trọng, một khi tình huống khẩn cấp đã được kiểm soát, đừng quên dành thời gian dọn dẹp, viết báo cáo về incident, và…
 

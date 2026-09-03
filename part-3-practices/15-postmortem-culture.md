@@ -37,11 +37,11 @@ Khi một outage thực sự xảy ra, postmortem không được viết như m�
 
 #### Chỉ trích (Pointing fingers)
 
-"Chúng tôi cần viết lại toàn bộ hệ thống backend phức tạp này! Nó đã hỏng hàng tuần trong ba quý qua và tôi chắc tất cả chúng ta đều chán ngán việc vá víu từng chút một. Nói thật, nếu bị page (gọi trực) thêm một lần nữa tôi sẽ tự viết lại nó…"
+"Chúng tôi cần viết lại toàn bộ hệ thống backend phức tạp này! Nó đã hỏng hàng tuần trong ba quý qua và tôi chắc tất cả chúng ta đều chán ngán việc vá víu từng chút một. Nói thật, nếu bị gọi trực (page) thêm một lần nữa tôi sẽ tự viết lại nó…"
 
 #### Không đổ lỗi (Blameless)
 
-"Một mục hành động để viết lại toàn bộ hệ thống backend thực sự có thể ngăn những page phiền toái này tiếp diễn, và cuốn sổ tay bảo trì cho phiên bản này khá dài, rất khó để đào tạo đầy đủ. Tôi chắc những on-caller (người trực) trong tương lai sẽ cảm ơn chúng ta!"
+"Một mục hành động để viết lại toàn bộ hệ thống backend thực sự có thể ngăn những lần gọi trực phiền toái này tiếp diễn, và cuốn sổ tay bảo trì cho phiên bản này khá dài, rất khó để đào tạo đầy đủ. Tôi chắc những on-caller (người trực) trong tương lai sẽ cảm ơn chúng ta!"
 
 ### Thực hành Tốt nhất: Tránh Đổ lỗi và Giữ nó Xây dựng (Avoid Blame and Keep It Constructive)
 

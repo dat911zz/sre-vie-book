@@ -9,7 +9,7 @@
 *Tác giả:* Rob Ewaschuk
 *Biên tập:* Betsy Beyer
 
-Các đội SRE (Site Reliability Engineering — kỹ thuật độ tin cậy trang web) của Google có một số nguyên lý cơ bản và best practice (thực hành tốt nhất) để xây dựng các hệ thống [monitoring (giám sát) và alerting (cảnh báo)](https://sre.google/workbook/monitoring/) thành công. Chương này đưa ra hướng dẫn về việc vấn đề nào nên ngắt một người bằng một page (lời gọi trực), và cách xử lý các vấn đề chưa đủ nghiêm trọng để kích hoạt page.
+Các đội SRE (Site Reliability Engineering — kỹ thuật độ tin cậy trang web) của Google có một số nguyên lý cơ bản và best practice (thực hành tốt nhất) để xây dựng các hệ thống [monitoring (giám sát) và alerting (cảnh báo)](https://sre.google/workbook/monitoring/) thành công. Chương này đưa ra hướng dẫn về việc vấn đề nào nên ngắt một người bằng một lần gọi trực (page), và cách xử lý các vấn đề chưa đủ nghiêm trọng để kích hoạt gọi trực.
 
 ## Các Định nghĩa (Definitions)
 
@@ -33,7 +33,7 @@ Một ứng dụng (thường dựa trên web) cung cấp cái nhìn tóm tắt 
 
 #### Cảnh báo (Alert)
 
-Một thông báo được tạo ra để con người đọc, và được đẩy đến một hệ thống như hàng đợi bug hoặc ticket, một alias (biệt danh) email, hoặc một pager (thiết bị gọi trực). Tương ứng, các cảnh báo này được phân loại là *ticket* (yêu cầu xử lý), *email alert* (cảnh báo email),<sup>[1](#fn1)</sup> và *page* (lời gọi trực).
+Một thông báo được tạo ra để con người đọc, và được đẩy đến một hệ thống như hàng đợi bug hoặc ticket, một alias (biệt danh) email, hoặc một máy gọi trực (pager). Tương ứng, các cảnh báo này được phân loại là *ticket* (yêu cầu xử lý), *email alert* (cảnh báo email),<sup>[1](#fn1)</sup> và *gọi trực* (page).
 
 #### Nguyên nhân gốc rễ (Root cause)
 
@@ -78,7 +78,7 @@ Giám sát hệ thống cũng hữu ích trong việc cung cấp dữ liệu th�
 
 Giám sát và cảnh báo cho phép một hệ thống báo cho chúng tôi biết khi nó đang hỏng, hoặc có thể báo trước điều gì sắp hỏng. Khi hệ thống không thể tự sửa chữa tự động, chúng tôi muốn một người điều tra cảnh báo, xác định xem có vấn đề thực sự hiện hữu không, giảm thiểu vấn đề và xác định nguyên nhân gốc rễ. Trừ khi bạn đang thực hiện kiểm toán bảo mật (security auditing) trên các thành phần có phạm vi rất hẹp của một hệ thống, bạn không bao giờ nên kích hoạt cảnh báo chỉ vì "có gì đó có vẻ hơi lạ".
 
-Việc page (gọi trực) cho một người là một cách sử dụng khá đắt thời gian của một nhân viên. Nếu nhân viên đang ở nơi làm việc, một page ngắt luồng công việc của họ. Nếu nhân viên ở nhà, một page ngắt thời gian cá nhân của họ, và có thể cả giấc ngủ. Khi page xảy ra quá thường xuyên, nhân viên sẽ nghi ngờ, lướt qua hoặc thậm chí bỏ qua các cảnh báo đến, đôi khi bỏ qua cả một page "thực sự" bị che khuất bởi nhiễu. Các outage (mất dịch vụ) có thể bị kéo dài vì những nhiễu khác cản trở việc chẩn đoán và sửa chữa nhanh chóng. Các [hệ thống cảnh báo hiệu quả](https://sre.google/sre-book/practical-alerting/) có tín hiệu tốt và nhiễu rất thấp.
+Việc gọi ai đó đi trực là một cách sử dụng khá đắt thời gian của một nhân viên. Nếu nhân viên đang ở nơi làm việc, một lần gọi trực ngắt luồng công việc của họ. Nếu nhân viên ở nhà, một lần gọi trực ngắt thời gian cá nhân của họ, và có thể cả giấc ngủ. Khi gọi trực xảy ra quá thường xuyên, nhân viên sẽ nghi ngờ, lướt qua hoặc thậm chí bỏ qua các cảnh báo đến, đôi khi bỏ qua cả một lần gọi trực "thực sự" bị che khuất bởi nhiễu. Các outage (mất dịch vụ) có thể bị kéo dài vì những nhiễu khác cản trở việc chẩn đoán và sửa chữa nhanh chóng. Các [hệ thống cảnh báo hiệu quả](https://sre.google/sre-book/practical-alerting/) có tín hiệu tốt và nhiễu rất thấp.
 
 ## Đặt Các Kỳ vọng Hợp lý cho Giám sát
 
@@ -88,9 +88,9 @@ Nhìn chung, Google có xu hướng chọn các hệ thống giám sát đơn gi
 
 Google SRE chỉ đạt thành công hạn chế với các hệ phân cấp phụ thuộc (dependency hierarchy) phức tạp. Chúng tôi hiếm khi dùng các quy tắc kiểu "Nếu tôi biết database đang chậm, cảnh báo database chậm; nếu không, cảnh báo website nhìn chung đang chậm." Các quy tắc phụ thuộc lẫn nhau thường gắn với những phần rất ổn định của hệ thống chúng tôi, như hệ thống rút traffic người dùng khỏi một datacenter (trung tâm dữ liệu). Ví dụ, "Nếu một datacenter đã được rút traffic, thì đừng cảnh báo tôi về độ trễ của nó" là một quy tắc cảnh báo datacenter phổ biến. Ít đội tại Google duy trì các hệ phân cấp phụ thuộc phức tạp vì hạ tầng của chúng tôi liên tục được refactor (tái cấu trúc) ở một nhịp ổn định.
 
-Một số ý tưởng được mô tả trong chương này vẫn mang tính lý tưởng: luôn có dư địa để đi từ triệu chứng (symptom) sang nguyên nhân gốc rễ nhanh hơn, đặc biệt trong các hệ thống luôn thay đổi. Vì vậy, dù chương này nêu một số mục tiêu cho các hệ thống giám sát và một số cách để đạt được chúng, điều quan trọng là các hệ thống giám sát — đặc biệt đường dẫn quan trọng (critical path) từ khi một vấn đề production bắt đầu, qua một page đến một người, qua phân loại cơ bản và debug sâu — phải luôn đơn giản và dễ hiểu với mọi người trong đội.
+Một số ý tưởng được mô tả trong chương này vẫn mang tính lý tưởng: luôn có dư địa để đi từ triệu chứng (symptom) sang nguyên nhân gốc rễ nhanh hơn, đặc biệt trong các hệ thống luôn thay đổi. Vì vậy, dù chương này nêu một số mục tiêu cho các hệ thống giám sát và một số cách để đạt được chúng, điều quan trọng là các hệ thống giám sát — đặc biệt đường dẫn quan trọng (critical path) từ khi một vấn đề production bắt đầu, qua một lần gọi trực đến một người, qua phân loại cơ bản và debug sâu — phải luôn đơn giản và dễ hiểu với mọi người trong đội.
 
-Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực (pager) cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự thất bại rõ ràng.
+Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự thất bại rõ ràng.
 
 ## Triệu chứng so với Nguyên nhân (Symptoms Versus Causes)
 
@@ -145,7 +145,7 @@ Trong các hệ thống phức tạp, độ bão hòa có thể được bổ su
 
 Cuối cùng, độ bão hòa cũng liên quan đến các dự đoán về sự bão hòa sắp xảy ra, như "Trông database của bạn sẽ lấp đầy ổ cứng trong 4 giờ nữa."
 
-Nếu bạn đo cả bốn tín hiệu vàng và page một người khi một tín hiệu có vấn đề (hoặc, với độ bão hòa, sắp có vấn đề), dịch vụ của bạn sẽ ít nhất được giám sát bao phủ đàng hoàng.
+Nếu bạn đo cả bốn tín hiệu vàng và gọi một người đi trực khi một tín hiệu có vấn đề (hoặc, với độ bão hòa, sắp có vấn đề), dịch vụ của bạn sẽ ít nhất được giám sát bao phủ đàng hoàng.
 
 ## Lo lắng về Đuôi của Bạn (hay, Đo lường và Hiệu năng) (Worrying About Your Tail)
 
@@ -191,38 +191,38 @@ Theo kinh nghiệm của Google, việc thu thập và gộp cơ bản các metr
 
 Các nguyên lý bàn trong chương này có thể gắn kết thành một triết lý về giám sát và cảnh báo được tán thành và làm theo rộng rãi trong các đội SRE Google. Dù triết lý giám sát này hơi mang tính lý tưởng, nó là điểm khởi đầu tốt cho việc viết hoặc xem xét một cảnh báo mới, và có thể giúp tổ chức của bạn đặt những câu hỏi đúng, bất kể kích thước tổ chức hay độ phức tạp của dịch vụ hoặc hệ thống.
 
-Khi tạo các quy tắc cho giám sát và cảnh báo, việc đặt các câu hỏi sau có thể giúp bạn tránh các dương tính giả (false positives) và kiệt sức vì pager (pager burnout):<sup>[3](#fn3)</sup>
+Khi tạo các quy tắc cho giám sát và cảnh báo, việc đặt các câu hỏi sau có thể giúp bạn tránh các dương tính giả (false positives) và kiệt sức vì máy gọi trực (pager burnout):<sup>[3](#fn3)</sup>
 
 -   Quy tắc này có phát hiện *một điều kiện vốn chưa được phát hiện* mà khẩn cấp, có thể hành động, và đang hoặc sắp diễn ra có thể nhìn thấy được bởi người dùng không?<sup>[4](#fn4)</sup>
 -   Tôi có bao giờ có thể bỏ qua cảnh báo này vì biết nó vô hại không? Khi nào và vì sao tôi có thể bỏ qua, và làm thế nào để tránh kịch bản này?
 -   Cảnh báo này có chắc chắn chỉ ra rằng người dùng đang bị ảnh hưởng tiêu cực không? Có các trường hợp phát hiện được mà người dùng không bị ảnh hưởng tiêu cực, như traffic đã được rút hoặc các triển khai kiểm thử, nên được lọc ra không?
 -   Tôi có thể hành động để đáp lại cảnh báo này không? Hành động đó có khẩn cấp hay có thể chờ đến sáng không? Nó có thể được tự động hóa an toàn không? Hành động đó sẽ là một sửa chữa dài hạn hay chỉ một giải pháp tình huống ngắn hạn?
--   Có người khác cũng đang nhận page cho vấn đề này không, khiến ít nhất một trong các page trở nên không cần thiết?
+-   Có người khác cũng đang bị gọi trực cho vấn đề này không, khiến ít nhất một trong các lần gọi trực trở nên không cần thiết?
 
-Những câu hỏi này phản ánh một triết lý cơ bản về các page và pager:
+Những câu hỏi này phản ánh một triết lý cơ bản về gọi trực và máy gọi trực:
 
--   Mỗi lần pager reo, tôi nên có thể phản ứng với một cảm giác khẩn cấp. Tôi chỉ có thể phản ứng với cảm giác khẩn cấp vài lần một ngày trước khi kiệt sức.
--   Mọi page nên có thể hành động được.
--   Mọi phản ứng đối với một page nên đòi hỏi sự suy xét. Nếu một page chỉ đáng có một phản ứng robot, nó không nên là một page.
--   Các page nên dành cho một vấn đề mới hoặc một sự kiện chưa từng thấy trước.
+-   Mỗi lần máy gọi trực reo, tôi nên có thể phản ứng với một cảm giác khẩn cấp. Tôi chỉ có thể phản ứng với cảm giác khẩn cấp vài lần một ngày trước khi kiệt sức.
+-   Mọi lần gọi trực nên có thể hành động được.
+-   Mọi phản ứng đối với một lần gọi trực nên đòi hỏi sự suy xét. Nếu một lần gọi trực chỉ đáng có một phản ứng robot, nó không nên là một lần gọi trực.
+-   Các lần gọi trực nên dành cho một vấn đề mới hoặc một sự kiện chưa từng thấy trước.
 
-Một góc nhìn như vậy làm tan đi một số phân biệt: nếu một page thỏa mãn bốn gạch đầu dòng trước, không quan trọng việc page đó do giám sát white-box hay black-box kích hoạt. Góc nhìn này cũng khuếch đại một số phân biệt khác: nên dành nhiều nỗ lực hơn để bắt các triệu chứng hơn là các nguyên nhân; khi nói đến nguyên nhân, chỉ nên lo lắng về những nguyên nhân rất chắc chắn, rất sắp xảy ra.
+Một góc nhìn như vậy làm tan đi một số phân biệt: nếu một lần gọi trực thỏa mãn bốn gạch đầu dòng trước, không quan trọng việc lần gọi trực đó do giám sát white-box hay black-box kích hoạt. Góc nhìn này cũng khuếch đại một số phân biệt khác: nên dành nhiều nỗ lực hơn để bắt các triệu chứng hơn là các nguyên nhân; khi nói đến nguyên nhân, chỉ nên lo lắng về những nguyên nhân rất chắc chắn, rất sắp xảy ra.
 
 ## Giám sát cho Lâu dài (Monitoring for the Long Term)
 
 Trong các hệ thống production hiện đại, hệ thống giám sát theo dõi một hệ thống luôn phát triển với kiến trúc phần mềm, [đặc tính tải,](https://sre.google/workbook/managing-load/) và mục tiêu hiệu năng thay đổi. Một cảnh báo hiện tại hiếm gặp bất thường và khó tự động hóa có thể trở nên thường xuyên, có khi đến mức đáng có một script chắp vá (hacked-together) để giải quyết. Đến lúc đó, ai đó nên tìm và loại bỏ nguyên nhân gốc rễ của vấn đề; nếu không thể, phản ứng cảnh báo xứng đáng được tự động hóa hoàn toàn.
 
-Quan trọng là các quyết định về giám sát được đưa ra với mục tiêu dài hạn trong tâm trí. Mọi page xảy ra hôm nay khiến một người mất tập trung khỏi việc cải thiện hệ thống cho ngày mai, nên thường có lý do để chấp nhận một cú đánh ngắn hạn vào khả dụng hoặc hiệu năng nhằm cải thiện triển vọng dài hạn của hệ thống. Hãy xem hai nghiên cứu tình huống minh họa sự đánh đổi này.
+Quan trọng là các quyết định về giám sát được đưa ra với mục tiêu dài hạn trong tâm trí. Mọi lần gọi trực xảy ra hôm nay khiến một người mất tập trung khỏi việc cải thiện hệ thống cho ngày mai, nên thường có lý do để chấp nhận một cú đánh ngắn hạn vào khả dụng hoặc hiệu năng nhằm cải thiện triển vọng dài hạn của hệ thống. Hãy xem hai nghiên cứu tình huống minh họa sự đánh đổi này.
 
 ## SRE Bigtable: Một Câu chuyện về Cảnh báo Quá mức (A Tale of Over-Alerting)
 
 Hạ tầng nội bộ của Google thường được cung cấp và đo lường theo một service level objective (SLO — mục tiêu mức dịch vụ; xem [Service Level Objectives](04-service-level-objectives.md)). Nhiều năm trước, SLO của dịch vụ Bigtable dựa trên hiệu năng trung bình của một client tổng hợp (synthetic) có hành vi tốt. Do các vấn đề trong Bigtable và các tầng thấp hơn của stack lưu trữ, hiệu năng trung bình bị chi phối bởi một "đuôi" lớn: 5% yêu cầu tệ nhất thường chậm hơn đáng kể so với phần còn lại.
 
-Cảnh báo email kích hoạt khi SLO tiến gần, và cảnh báo paging kích hoạt khi SLO bị vượt quá. Cả hai loại cảnh báo đều bắn (firing) với số lượng lớn, tiêu tốn một lượng thời gian kỹ thuật không thể chấp nhận được: đội dành rất nhiều thời gian phân loại các cảnh báo để tìm ra ít cảnh báo thực sự có thể hành động, và chúng tôi thường bỏ lỡ các vấn đề thực sự ảnh hưởng đến người dùng, vì rất ít cảnh báo làm vậy. Nhiều page không khẩn cấp, do các vấn đề đã được hiểu rõ trong hạ tầng, và hoặc có các phản ứng máy móc (rote) hoặc không nhận được phản hồi.
+Cảnh báo email kích hoạt khi SLO tiến gần, và cảnh báo gọi trực kích hoạt khi SLO bị vượt quá. Cả hai loại cảnh báo đều bắn (firing) với số lượng lớn, tiêu tốn một lượng thời gian kỹ thuật không thể chấp nhận được: đội dành rất nhiều thời gian phân loại các cảnh báo để tìm ra ít cảnh báo thực sự có thể hành động, và chúng tôi thường bỏ lỡ các vấn đề thực sự ảnh hưởng đến người dùng, vì rất ít cảnh báo làm vậy. Nhiều lần gọi trực không khẩn cấp, do các vấn đề đã được hiểu rõ trong hạ tầng, và hoặc có các phản ứng máy móc (rote) hoặc không nhận được phản hồi.
 
 Để khắc phục, đội dùng một cách tiếp cận ba mũi nhọn: trong khi dốc sức cải thiện hiệu năng Bigtable, chúng tôi cũng tạm thời hạ mục tiêu SLO, dùng độ trễ yêu cầu phân vị thứ 75 (75th percentile). Chúng tôi cũng vô hiệu hóa các cảnh báo email, vì có quá nhiều đến mức dành thời gian chẩn đoán chúng là bất khả thi.
 
-Chiến lược này cho chúng tôi đủ không gian thở để thực sự sửa các vấn đề dài hạn trong Bigtable và các tầng thấp hơn của stack lưu trữ, thay vì liên tục vá các vấn đề chiến thuật. Các kỹ sư on-call thực sự có thể hoàn thành công việc khi không bị đánh thức bởi page vào mọi lúc. Cuối cùng, việc lùi lại tạm thời các cảnh báo cho phép chúng tôi tiến nhanh hơn về phía một dịch vụ tốt hơn.
+Chiến lược này cho chúng tôi đủ không gian thở để thực sự sửa các vấn đề dài hạn trong Bigtable và các tầng thấp hơn của stack lưu trữ, thay vì liên tục vá các vấn đề chiến thuật. Các kỹ sư on-call thực sự có thể hoàn thành công việc khi không bị đánh thức bởi gọi trực vào mọi lúc. Cuối cùng, việc lùi lại tạm thời các cảnh báo cho phép chúng tôi tiến nhanh hơn về phía một dịch vụ tốt hơn.
 
 ## Gmail: Các Phản ứng Có thể Dự đoán được, Có thể Script được từ Con người
 
@@ -232,17 +232,17 @@ Vào thời điểm đó, giám sát Gmail được cấu trúc sao cho các c�
 
 Để giải quyết, SRE Gmail xây dựng một công cụ giúp "gõ" (poke) scheduler theo cách vừa phải để giảm thiểu tác động đến người dùng. Đội có một vài cuộc thảo luận về việc có nên đơn giản tự động hóa toàn bộ vòng từ phát hiện vấn đề đến thúc đẩy bộ lập lịch lại, cho đến khi đạt một giải pháp dài hạn tốt hơn không, nhưng một số lo ngại loại giải pháp tình huống này sẽ trì hoãn một sửa chữa thực sự.
 
-Loại căng thẳng này phổ biến trong một đội, và thường phản ánh sự thiếu tin tưởng cơ bản vào khả năng tự kỷ luật của đội: trong khi một số thành viên muốn triển khai một "hack" (mẹo vá) để mua thêm thời gian cho một sửa chữa đúng đắn, những người khác lo ngại hack sẽ bị quên hoặc sửa chữa đúng đắn sẽ bị hạ thấp ưu tiên vô thời hạn. Lo ngại này có cơ sở, vì dễ dàng tích lũy các tầng nợ kỹ thuật (technical debt) không thể duy trì bằng cách vá các vấn đề thay vì thực hiện sửa chữa thực sự. Các quản lý và lãnh đạo kỹ thuật đóng vai trò quan trọng trong việc triển khai các sửa chữa thực sự, dài hạn bằng cách hỗ trợ và ưu tiên hóa các sửa chữa dài hạn có thể tốn thời gian, ngay cả khi cơn "đau" ban đầu của paging đã dịu đi.
+Loại căng thẳng này phổ biến trong một đội, và thường phản ánh sự thiếu tin tưởng cơ bản vào khả năng tự kỷ luật của đội: trong khi một số thành viên muốn triển khai một "hack" (mẹo vá) để mua thêm thời gian cho một sửa chữa đúng đắn, những người khác lo ngại hack sẽ bị quên hoặc sửa chữa đúng đắn sẽ bị hạ thấp ưu tiên vô thời hạn. Lo ngại này có cơ sở, vì dễ dàng tích lũy các tầng nợ kỹ thuật (technical debt) không thể duy trì bằng cách vá các vấn đề thay vì thực hiện sửa chữa thực sự. Các quản lý và lãnh đạo kỹ thuật đóng vai trò quan trọng trong việc triển khai các sửa chữa thực sự, dài hạn bằng cách hỗ trợ và ưu tiên hóa các sửa chữa dài hạn có thể tốn thời gian, ngay cả khi cơn "đau" ban đầu của việc gọi trực đã dịu đi.
 
-Các page với phản ứng máy móc kiểu thuật toán nên là một cờ đỏ. Sự không sẵn lòng của đội bạn trong việc tự động hóa các page như vậy ngụ ý đội thiếu niềm tin rằng họ có thể dọn nợ kỹ thuật của mình. Đây là một vấn đề lớn đáng được leo thang (escalate).
+Các lần gọi trực với phản ứng máy móc kiểu thuật toán nên là một cờ đỏ. Sự không sẵn lòng của đội bạn trong việc tự động hóa các lần gọi trực như vậy ngụ ý đội thiếu niềm tin rằng họ có thể dọn nợ kỹ thuật của mình. Đây là một vấn đề lớn đáng được leo thang (escalate).
 
 ## Về Lâu dài (The Long Run)
 
-Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi page như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của paging có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất page (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài page liên quan) trong các báo cáo hàng quý với quản lý, để đảm bảo những người ra quyết định được cập nhật về tải pager và sức khỏe tổng thể của các đội.
+Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi lần gọi trực như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của việc gọi trực có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất gọi trực (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài lần gọi trực liên quan) trong các báo cáo hàng quý với quản lý, để đảm bảo những người ra quyết định được cập nhật về tải máy gọi trực và sức khỏe tổng thể của các đội.
 
 ## Kết luận
 
-Một đường ống giám sát và cảnh báo khỏe mạnh là đơn giản và dễ lập luận. Nó tập trung chủ yếu vào các triệu chứng cho paging, dành các heuristic (quy tắc kinh nghiệm) định hướng theo nguyên nhân để hỗ trợ debug các vấn đề. Giám sát triệu chứng dễ hơn khi bạn giám sát càng "lên cao" trong stack, dù giám sát độ bão hòa và hiệu năng của các hệ thống con như database thường phải thực hiện trực tiếp trên chính hệ thống con đó. Các cảnh báo email có giá trị rất hạn chế và dễ bị tràn ngập bởi nhiễu; thay vào đó, bạn nên ưu tiên một dashboard giám sát tất cả các vấn đề subcritical (dưới mức nghiêm trọng) đang tiếp diễn cho loại thông tin thường kết thúc trong các cảnh báo email. Một dashboard cũng có thể ghép với một log, để phân tích các tương quan lịch sử.
+Một đường ống giám sát và cảnh báo khỏe mạnh là đơn giản và dễ lập luận. Nó tập trung chủ yếu vào các triệu chứng thuộc diện gọi trực, dành các heuristic (quy tắc kinh nghiệm) định hướng theo nguyên nhân để hỗ trợ debug các vấn đề. Giám sát triệu chứng dễ hơn khi bạn giám sát càng "lên cao" trong stack, dù giám sát độ bão hòa và hiệu năng của các hệ thống con như database thường phải thực hiện trực tiếp trên chính hệ thống con đó. Các cảnh báo email có giá trị rất hạn chế và dễ bị tràn ngập bởi nhiễu; thay vào đó, bạn nên ưu tiên một dashboard giám sát tất cả các vấn đề subcritical (dưới mức nghiêm trọng) đang tiếp diễn cho loại thông tin thường kết thúc trong các cảnh báo email. Một dashboard cũng có thể ghép với một log, để phân tích các tương quan lịch sử.
 
 Về lâu dài, đạt được một vòng trực on-call và một sản phẩm thành công bao gồm việc chọn cảnh báo trên các triệu chứng hoặc các vấn đề thực sắp xảy ra, điều chỉnh các mục tiêu thành các mục tiêu thực sự có thể đạt được, và đảm bảo giám sát hỗ trợ chẩn đoán nhanh chóng.
 

@@ -22,8 +22,8 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 
 | Thuật ngữ (EN) | Bản dịch chuẩn | Biến thể đã phát hiện (SAI, cần thay) | Ghi chú |
 |---|---|---|---|
-| page (danh từ/động từ, on-call) | **page** (giữ nguyên, KHÔNG chia -ing), gloss `(gọi trực)` ở lần xuất hiện đầu mỗi file | paging (dạng -ing ghép vào cụm danh từ Việt: "sự kiện paging", "không paging"); "trang"; "cuộc gọi trực" (gloss dài, không dùng) | page = tin nhắn/cuộc gọi khẩn tới người on-call. Ch.6 phát hiện "kiệt quệ pager"→SAI ngữ pháp (đọc thành pager bị kiệt quệ), phải là "kiệt sức vì pager". KHÔNG nhầm với memory page (trang bộ nhớ — ngữ cảnh OS/kỹ thuật khác hẳn, xem ch.14 L22, ch.17 L209, luôn có gloss rõ "(memory page)"/"bộ nhớ" đi kèm). Không dùng "page" làm hậu tố tính từ kiểu "đáng page" |
-| pager | **pager** (giữ nguyên), gloss `(máy gọi trực)` ở lần xuất hiện đầu mỗi file | thiết bị gọi trực (quá dài, không dùng làm gloss chính) | pager = thiết bị/kênh nhận page. Phân biệt rõ với "page": pager là vật/kênh, page là sự kiện/tin nhắn |
+| page (danh từ/động từ, on-call) | **gọi trực**, gloss `(page)` ở lần xuất hiện đầu mỗi file, sau đó chỉ "gọi trực" | page (giữ nguyên EN — ĐÃ ĐỔI quy ước 2026-08-28, không còn dùng); paging (-ing); "trang" | page = tin nhắn/cuộc gọi khẩn tới người on-call. Dùng "gọi trực" làm danh từ ("một lần gọi trực", "3 lần gọi trực") và cụm động từ ("gọi ai đó đi trực", "bị gọi trực"). KHÔNG nhầm với memory page (trang bộ nhớ — ngữ cảnh OS/kỹ thuật khác hẳn, xem ch.14 L22, ch.17 L209, luôn có gloss rõ "(memory page)"/"bộ nhớ" đi kèm, KHÔNG đổi) |
+| pager | **máy gọi trực**, gloss `(pager)` ở lần xuất hiện đầu mỗi file, sau đó chỉ "máy gọi trực" | pager (giữ nguyên EN — ĐÃ ĐỔI quy ước 2026-08-28); "thiết bị gọi trực" (quá dài) | pager = thiết bị/kênh nhận page. Phân biệt rõ với "gọi trực": máy gọi trực là vật/kênh, gọi trực là sự kiện/tin nhắn. Thành ngữ "give back the pager" → "trả lại máy gọi trực" (giữ nghĩa ẩn dụ nhường quyền on-call, không chỉ vật lý) |
 | graceful degradation | **suy giảm nhẹ nhàng** | suy giảm tinh tế; suy giảm êm ả; suy giảm từ từ | Chốt theo bản đã dùng làm tên mục lớn ở ch.22 |
 | graceful load shedding | **gánh nhẹ tải một cách nhẹ nhàng** | loại bỏ tải một cách tinh tế | Đồng bộ tính từ "nhẹ nhàng" với graceful degradation |
 | thundering herd | **hiệu ứng bầy đàn (thundering herd)** | bầy đàn giông; "bầy thú đang gầm gừ" | Ch.22, 25, 27. Nhiều client đồng thời thực hiện cùng hành động |
@@ -435,3 +435,13 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   production". Ch.07/15/17/22/23/24/25 rà soát sạch không cần sửa (2 agent độc lập cùng xác nhận).
   1 false positive phát hiện và loại bỏ (báo cáo omission "unrelated" ở ch.26 L484 — thực tế đã có sẵn
   "không liên quan" trong bản dịch, agent đọc nhầm).
+- 2026-08-28: ĐỔI QUY ƯỚC page/pager — người dùng quyết định dịch hẳn sang tiếng Việt thay vì giữ nguyên
+  tiếng Anh, vì "gọi trực"/"máy gọi trực" đã dùng làm gloss quen thuộc xuyên suốt sách. Cập nhật entry
+  page/pager trong bảng (dòng 25-26): "page"→"gọi trực" là từ chính, "pager"→"máy gọi trực" là từ chính,
+  gloss `(page)`/`(pager)` chỉ ở lần xuất hiện đầu mỗi file. Retrofit toàn bộ 9 file đã dịch trước đó
+  (6 agent Sonnet 5 song song, mỗi agent tự Grep quét sạch rồi Edit, không bỏ sót): ch.06 (~20 chỗ),
+  ch.07 (1), ch.10 (1, giữ nguyên code literal `severity=page` và epigraph gloss), ch.11 (12 chỗ, chương
+  dùng nhiều nhất), ch.13 (2), ch.14 (2, giữ nguyên joke "trang (page) bộ nhớ"), ch.15 (2, giữ nguyên tên
+  riêng "Larry Page" ×2), ch.17 (0 — chỉ có memory page, không đụng), ch.22 (1), ch.26 (2). Verify cuối
+  bằng Grep toàn bộ 9 file: chỉ còn sót các trường hợp CỐ Ý giữ nguyên (gloss lần đầu, memory page, code
+  literal, tên riêng) — không còn "page"/"pager" on-call tiếng Anh trần nào sót.
