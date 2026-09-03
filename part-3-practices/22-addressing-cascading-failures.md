@@ -16,7 +16,7 @@
 >
 > Ade Oshineye, Google Developer Advocate (Nhà truyền bá Developer của Google)
 
-Một sự cố lan truyền (cascading failure) là một sự cố tăng lên theo thời gian do kết quả của phản hồi tích cực (positive feedback).<sup>[1](#fn1)</sup> Nó có thể xảy ra khi một phần của một hệ thống thất bại, làm tăng xác suất để các phần khác của hệ thống cũng thất bại. Ví dụ, một replica (bản sao) đơn lẻ của một dịch vụ có thể thất bại do quá tải (overload), làm tăng tải lên các replica còn lại và tăng xác suất để chúng cũng thất bại, tạo ra hiệu ứng domino kéo theo toàn bộ các replica của dịch vụ đi xuống.
+Một sự cố lan truyền (cascading failure) là một sự cố tăng lên theo thời gian do kết quả của phản hồi tích cực (positive feedback).<sup>[1](#fn1)</sup> Nó có thể xảy ra khi một phần của một hệ thống gặp sự cố, làm tăng xác suất để các phần khác của hệ thống cũng gặp sự cố. Ví dụ, một replica (bản sao) đơn lẻ của một dịch vụ có thể gặp sự cố do quá tải (overload), làm tăng tải lên các replica còn lại và tăng xác suất để chúng cũng gặp sự cố, tạo ra hiệu ứng domino kéo theo toàn bộ các replica của dịch vụ đi xuống.
 
 Chúng tôi sẽ dùng dịch vụ tìm kiếm Shakespeare được thảo luận trong [Shakespeare: A Sample Service](https://sre.google/sre-book/production-environment#xref_production-environment_shakespeare) làm một ví dụ xuyên suốt chương này. Cấu hình production (sản xuất) của nó có thể trông như [Hình 22-1](#hinh-22-1).
 
@@ -42,12 +42,12 @@ Giả sử frontend (mặt trước) trong cluster (cụm máy) A đang xử lý
 
 [Hình 22-2.](#hinh-22-2) Sự phân phối tải server bình thường giữa các cluster A và B.
 
-Nếu cluster B thất bại ([Hình 22-3](#hinh-22-3)), lượng yêu cầu đến cluster A tăng lên 1.200 QPS. Các frontend trong A không thể xử lý các yêu cầu ở mức 1.200 QPS, và do đó bắt đầu hết tài nguyên, khiến chúng sập (crash), bỏ lỡ các hạn chót (deadlines), hoặc hành xử sai theo cách khác. Kết quả là, tốc độ các yêu cầu được xử lý thành công trong A giảm xuống đáng kể dưới 1.000 QPS.
+Nếu cluster B gặp sự cố ([Hình 22-3](#hinh-22-3)), lượng yêu cầu đến cluster A tăng lên 1.200 QPS. Các frontend trong A không thể xử lý các yêu cầu ở mức 1.200 QPS, và do đó bắt đầu hết tài nguyên, khiến chúng sập (crash), bỏ lỡ các hạn chót (deadlines), hoặc hành xử sai theo cách khác. Kết quả là, tốc độ các yêu cầu được xử lý thành công trong A giảm xuống đáng kể dưới 1.000 QPS.
 
 
 <a id="hinh-22-3"></a>![Hình 22-3](../assets/imgs/fig-22-3.jpg)
 
-[Hình 22-3.](#hinh-22-3) Cluster B thất bại, gửi tất cả traffic đến cluster A.
+[Hình 22-3.](#hinh-22-3) Cluster B gặp sự cố, gửi tất cả traffic đến cluster A.
 
 Sự giảm này trong tốc độ thực hiện công việc hữu ích có thể lan sang các failure domain khác, thậm chí lan truyền toàn cục. Ví dụ, quá tải cục bộ trong một cluster có thể khiến các server của nó sập; để đáp lại, bộ điều khiển cân bằng tải (load balancing controller) chuyển các yêu cầu sang các cluster khác, làm quá tải các server ở đó, dẫn đến một sự cố quá tải toàn dịch vụ. Những sự kiện này có thể diễn ra không mất lâu (ví dụ, chỉ trong vòng vài phút), vì [bộ cân bằng tải](https://sre.google/sre-book/handling-overload/) và các hệ thống lên lịch task (nhiệm vụ) liên quan có thể phản ứng rất nhanh.
 
@@ -131,7 +131,7 @@ Trong các tình huống phức tạp như kịch bản trên, ít khả năng c
 
 ## Sự Không khả dụng của Dịch vụ (Service Unavailability)
 
-Việc cạn tài nguyên có thể dẫn đến các server sập; ví dụ, các server có thể sập khi quá nhiều RAM được cấp phát cho một container. Một khi vài server sập do quá tải, tải trên các server còn lại có thể tăng lên, khiến chúng cũng sập. Vấn đề có xu hướng lăn như quả tuyết và chẳng bao lâu tất cả các server bắt đầu crash-loop (vòng lặp sập). Thường rất khó để thoát khỏi kịch bản này, bởi vì ngay khi các server quay lại online, chúng lập tức bị dồn một tỷ lệ yêu cầu cực kỳ cao và gần như ngay lập tức thất bại.
+Việc cạn tài nguyên có thể dẫn đến các server sập; ví dụ, các server có thể sập khi quá nhiều RAM được cấp phát cho một container. Một khi vài server sập do quá tải, tải trên các server còn lại có thể tăng lên, khiến chúng cũng sập. Vấn đề có xu hướng lăn như quả tuyết và chẳng bao lâu tất cả các server bắt đầu crash-loop (vòng lặp sập). Thường rất khó để thoát khỏi kịch bản này, bởi vì ngay khi các server quay lại online, chúng lập tức bị dồn một tỷ lệ yêu cầu cực kỳ cao và gần như ngay lập tức gặp sự cố.
 
 Ví dụ, nếu một dịch vụ khỏe mạnh ở 10.000 QPS, nhưng bắt đầu một sự cố lan truyền do các lần sập ở 11.000 QPS, việc giảm tải xuống 9.000 QPS gần như chắc chắn sẽ không dừng được các lần sập. Lý do là dịch vụ vẫn phải xử lý nhu cầu tăng lên trong khi sức chứa đã giảm; thường chỉ một phần nhỏ các server đủ khỏe để xử lý yêu cầu. Tỷ lệ server đủ khỏe phụ thuộc vào một số yếu tố: tốc độ mà hệ thống có thể khởi chạy các task, tốc độ mà binary có thể bắt đầu phục vụ ở sức chứa đầy đủ, và một task mới khởi chạy có thể trụ được trước tải trong bao lâu. Trong ví dụ này, nếu 10% server đủ khỏe để xử lý yêu cầu, thì tỷ lệ yêu cầu sẽ cần giảm xuống khoảng 1.000 QPS để hệ thống có thể ổn định và phục hồi.
 
@@ -167,7 +167,7 @@ Hãy lưu ý rằng vì việc giới hạn tốc độ (rate limiting) thườn
 
 Thực hiện lập kế hoạch sức chứa
 
-Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra một sự cố lan truyền. Lập kế hoạch sức chứa nên được kết hợp với kiểm thử hiệu năng để xác định mức tải mà tại đó dịch vụ sẽ thất bại. Ví dụ, nếu điểm gãy của mọi cluster là 5.000 QPS, tải được phân bố đều giữa các cluster,<sup>[3](#fn3)</sup> và tải đỉnh của dịch vụ là 19.000 QPS, thì cần khoảng sáu cluster để chạy dịch vụ ở mức *N* + 2.
+Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra một sự cố lan truyền. Lập kế hoạch sức chứa nên được kết hợp với kiểm thử hiệu năng để xác định mức tải mà tại đó dịch vụ sẽ gặp sự cố. Ví dụ, nếu điểm gãy của mọi cluster là 5.000 QPS, tải được phân bố đều giữa các cluster,<sup>[3](#fn3)</sup> và tải đỉnh của dịch vụ là 19.000 QPS, thì cần khoảng sáu cluster để chạy dịch vụ ở mức *N* + 2.
 
 Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự cố lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự cố lan truyền. Khi bạn mất một phần lớn hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự cố lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
 
@@ -373,7 +373,7 @@ Nếu một task có cache vừa được khởi động lại, việc lấp đ�
 Nếu việc cache có một hiệu ứng đáng kể lên dịch vụ,<sup>[5](#fn5)</sup> bạn có thể muốn sử dụng một hoặc một số chiến lược sau:
 
 -   Cấp quá mức (overprovision) dịch vụ. Quan trọng là lưu ý sự khác biệt giữa một latency cache (cache độ trễ) và một capacity cache (cache sức chứa): khi một latency cache được áp dụng, dịch vụ có thể duy trì tải được kỳ vọng của mình ngay cả với một cache trống, nhưng một dịch vụ dùng một capacity cache không thể duy trì tải được kỳ vọng dưới một cache trống. Các chủ sở hữu dịch vụ nên thận trọng khi thêm các cache vào dịch vụ của họ, và đảm bảo rằng bất kỳ cache mới nào đều là các latency cache, hoặc được thiết kế đủ tốt để hoạt động an toàn như các capacity cache. Đôi khi các cache được thêm vào một dịch vụ để cải thiện hiệu năng, nhưng thực chất lại trở thành các phụ thuộc cứng.
--   Áp dụng các kỹ thuật phòng chống thất bại lan truyền nói chung. Cụ thể, các server nên từ chối các yêu cầu khi chúng quá tải hoặc đi vào các chế độ suy giảm, và các kiểm thử nên được thực hiện để xem dịch vụ hoạt động ra sao sau các sự kiện như một lần khởi động lại lớn.
+-   Áp dụng các kỹ thuật phòng chống sự cố lan truyền nói chung. Cụ thể, các server nên từ chối các yêu cầu khi chúng quá tải hoặc đi vào các chế độ suy giảm, và các kiểm thử nên được thực hiện để xem dịch vụ hoạt động ra sao sau các sự kiện như một lần khởi động lại lớn.
 -   Khi thêm tải vào một cluster, hãy tăng tải từ từ. Tỷ lệ yêu cầu ban đầu nhỏ sẽ làm ấm cache; một khi cache ấm, có thể thêm nhiều traffic hơn. Đây là một ý tưởng tốt để đảm bảo rằng tất cả các cluster mang tải định mức và các cache được giữ ấm.
 
 ## Luôn Đi Xuống Trong Stack (Always Go Downward in the Stack)
@@ -392,7 +392,7 @@ Tuy nhiên, giả sử các backend liên lạc chéo giữa chúng với nhau. 
     
     Thường tốt hơn là tránh sự liên lạc nội tầng — tức là các vòng tuần hoàn có thể trong đường dẫn liên lạc — trong đường dẫn yêu cầu người dùng. Thay vào đó, hãy để client thực hiện sự liên lạc. Ví dụ, nếu một frontend nói chuyện với một backend nhưng đoán sai backend, backend không nên proxy đến backend đúng. Thay vào đó, backend nên báo cho frontend biết để thử lại yêu cầu của nó trên backend đúng.
 
-## Các Điều kiện Kích hoạt cho Thất bại Lan truyền (Triggering Conditions for Cascading Failures)
+## Các Điều kiện Kích hoạt cho Sự cố Lan truyền (Triggering Conditions for Cascading Failures)
 
 Khi một dịch vụ dễ bị tổn thương trước các sự cố lan truyền, có một số nhiễu có thể khởi đầu hiệu ứng domino. Phần này xác định một số yếu tố kích hoạt các sự cố lan truyền.
 
@@ -434,7 +434,7 @@ Việc phụ thuộc vào slack CPU này như lưới an toàn của bạn là n
 
 ## Kiểm thử cho các Sự cố Lan truyền (Testing for Cascading Failures)
 
-Các cách cụ thể mà một dịch vụ sẽ thất bại có thể rất khó dự đoán từ các nguyên lý cơ bản. Phần này thảo luận các chiến lược kiểm thử có thể phát hiện xem các dịch vụ có dễ bị tổn thương trước các sự cố lan truyền hay không.
+Các cách cụ thể mà một dịch vụ sẽ gặp sự cố có thể rất khó dự đoán từ các nguyên lý cơ bản. Phần này thảo luận các chiến lược kiểm thử có thể phát hiện xem các dịch vụ có dễ bị tổn thương trước các sự cố lan truyền hay không.
 
 Bạn nên kiểm thử dịch vụ của mình để xác định nó hoạt động như thế nào dưới tải nặng, nhằm có được sự tin tưởng rằng nó sẽ không đi vào một sự cố lan truyền trong các hoàn cảnh khác nhau.
 
@@ -483,7 +483,7 @@ Ví dụ, giả sử frontend của bạn có các backend quan trọng và khô
 
 Ngoài việc kiểm thử hành vi khi backend không quan trọng không khả dụng, hãy kiểm thử cách frontend hoạt động nếu backend không quan trọng không bao giờ phản hồi (ví dụ, nếu nó đang blackholing các yêu cầu). Các backend được tuyên bố là không quan trọng vẫn có thể gây ra vấn đề trên các frontends khi các yêu cầu có các deadline dài. Frontend không nên bắt đầu từ chối nhiều yêu cầu, hết tài nguyên, hoặc phục vụ với độ trễ rất cao chỉ vì một backend không quan trọng đang blackholing.
 
-## Các Bước Lập Tức để Giải quyết Thất bại Lan truyền (Immediate Steps to Address Cascading Failures)
+## Các Bước Lập Tức để Giải quyết Sự cố Lan truyền (Immediate Steps to Address Cascading Failures)
 
 Một khi bạn đã xác định được rằng dịch vụ của bạn đang trải qua một sự cố lan truyền, bạn có thể sử dụng một vài chiến lược khác nhau để khắc phục tình huống — và tất nhiên, một sự cố lan truyền là một cơ hội tốt để áp dụng giao thức quản lý sự cố của bạn ([Quản lý Sự cố](https://sre.google/sre-book/managing-incidents/)).
 
@@ -534,11 +534,11 @@ Một số dịch vụ có tải quan trọng, nhưng không khẩn cấp. Hãy 
 
 Nếu một số truy vấn đang tạo ra tải nặng hoặc gây sập (ví dụ, các query of death), hãy cân nhắc chặn chúng hoặc loại bỏ chúng bằng các phương tiện khác.
 
-### Thất bại Lan truyền và Shakespeare
+### Sự cố Lan truyền và Shakespeare
 
 Một bộ phim tài liệu về các tác phẩm của Shakespeare được phát sóng ở Nhật Bản, và chỉ rõ dịch vụ Shakespeare của chúng ta như một nơi tuyệt vời để tiến hành nghiên cứu sâu hơn. Sau buổi phát sóng, traffic đến datacenter châu Á của chúng ta tăng vọt vượt quá sức chứa của dịch vụ. Vấn đề sức chứa này càng thêm trầm trọng do một bản cập nhật lớn cho dịch vụ Shakespeare đồng thời xảy ra trong datacenter đó.
 
-May mắn thay, một số biện pháp an toàn đã được đặt ra giúp giảm nhẹ tiềm năng thất bại. Quy trình Production Readiness Review đã xác định một số vấn đề mà đội đã xử lý. Ví dụ, các nhà phát triển đã xây dựng suy giảm nhẹ nhàng vào dịch vụ. Khi sức chứa trở nên khan hiếm, dịch vụ không còn trả về các hình ảnh cùng với văn bản hoặc các bản đồ nhỏ minh họa nơi một câu chuyện diễn ra nữa. Và tùy thuộc vào mục đích, một RPC bị time out hoặc không được thử lại (ví dụ, trong trường hợp các hình ảnh nêu ở trên), hoặc được thử lại với một exponential backoff ngẫu nhiên hóa. Mặc dù có các biện pháp an toàn này, các task vẫn thất bại lần lượt và sau đó được Borg khởi động lại, điều này đẩy số lượng task đang hoạt động xuống còn ít hơn nữa.
+May mắn thay, một số biện pháp an toàn đã được đặt ra giúp giảm nhẹ tiềm năng xảy ra sự cố. Quy trình Production Readiness Review đã xác định một số vấn đề mà đội đã xử lý. Ví dụ, các nhà phát triển đã xây dựng suy giảm nhẹ nhàng vào dịch vụ. Khi sức chứa trở nên khan hiếm, dịch vụ không còn trả về các hình ảnh cùng với văn bản hoặc các bản đồ nhỏ minh họa nơi một câu chuyện diễn ra nữa. Và tùy thuộc vào mục đích, một RPC bị time out hoặc không được thử lại (ví dụ, trong trường hợp các hình ảnh nêu ở trên), hoặc được thử lại với một exponential backoff ngẫu nhiên hóa. Mặc dù có các biện pháp an toàn này, các task vẫn lần lượt gặp sự cố và sau đó được Borg khởi động lại, điều này đẩy số lượng task đang hoạt động xuống còn ít hơn nữa.
 
 Kết quả là, một số biểu đồ trên dashboard dịch vụ chuyển sang một sắc đỏ đáng báo động và SRE bị gọi trực. Để đáp ứng, các SRE tạm thời thêm sức chứa cho datacenter châu Á bằng cách tăng số lượng task khả dụng cho job Shakespeare. Bằng cách đó, họ có thể khôi phục dịch vụ Shakespeare trong cluster châu Á.
 

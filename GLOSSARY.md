@@ -467,3 +467,14 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   "khi nó gặp một sự thất bại, thử lại sau 1 giây" — request cụ thể fail, không phải sự kiện hệ thống) —
   5 chỗ giữ nguyên có chủ đích ở ch.12/17/21/27. "failure domain" không bị đụng (giữ nguyên EN theo quy
   ước riêng). Glossary bổ sung entry "failure" mới để chuẩn hóa cho các chương chưa dịch (Phần IV, V).
+- 2026-09-03: Người dùng phát hiện qua diff review: retrofit "sự thất bại"→"sự cố" đợt trước bỏ sót vài
+  chỗ gây MẤT NHẤT QUÁN trong cùng đoạn (ví dụ ch.25 L143: câu trước dùng "sự cố", câu ngay sau chỉ lại
+  đúng đối tượng đó bằng "Các loại thất bại này"). Dispatch 6 agent Sonnet 5 "chuyên gia" đọc kỹ ngữ cảnh
+  từng đoạn (không tìm-thay-thế máy móc) rà lại toàn bộ 11 file đã retrofit. Tìm thêm 16 lỗi nhất quán
+  thật, sửa hết: ch.22 nặng nhất (12 chỗ — 9 câu văn + PHÁT HIỆN QUAN TRỌNG: 3 tiêu đề mục con vẫn ghi
+  "Thất bại Lan truyền" thay vì "Sự cố Lan truyền" dù đã đổi tên chương chính, dòng 395/486/537), ch.24
+  (2 chỗ, section "Giải quyết Các Sự cố Một phần"), ch.21 (1 chỗ, 3 lần chỉ cùng khái niệm lẫn từ giữa
+  câu), ch.25 (1 chỗ L143 nêu trên). Ch.06/07/10/12/15/17/27 rà kỹ nhưng không tìm thêm lỗi — xác nhận
+  các chỗ "thất bại" còn lại đều đúng (động từ/thuật ngữ cố định như "single point of failure", "failure
+  mode", "assertion failure", "fail-fast"). Bài học: đợt retrofit thuật ngữ hàng loạt cần luôn có 1 lượt
+  QA thứ 2 đọc-theo-ngữ-cảnh riêng, vì tìm-thay-thế máy móc không bắt được các câu chỉ-lại (anaphora).

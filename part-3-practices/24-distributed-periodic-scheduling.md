@@ -131,7 +131,7 @@ Nếu một replica leader chết hoặc gặp trục trặc theo cách khác (v
 
 ### Giải quyết Các Sự cố Một phần (Resolving partial failures)
 
-Như đã đề cập, sự tương tác giữa replica leader và bộ lên lịch datacenter có thể thất bại giữa lúc gửi nhiều RPC mô tả một lần khởi chạy job cron logic duy nhất. Các hệ thống của chúng tôi nên có khả năng xử lý điều kiện này.
+Như đã đề cập, sự tương tác giữa replica leader và bộ lên lịch datacenter có thể gặp sự cố giữa lúc gửi nhiều RPC mô tả một lần khởi chạy job cron logic duy nhất. Các hệ thống của chúng tôi nên có khả năng xử lý điều kiện này.
 
 Hãy nhớ rằng mỗi lần khởi chạy job cron có hai điểm đồng bộ hóa:
 
@@ -149,7 +149,7 @@ Mỗi điều kiện trong số này đặt ra các ràng buộc đáng kể và
 
 Hầu hết hạ tầng khởi chạy các job logic trong datacenter (ví dụ, Mesos) cung cấp việc đặt tên cho các job datacenter đó, cho phép tra cứu trạng thái của các job, dừng các job, hoặc thực hiện các thao tác bảo trì khác. Một giải pháp hợp lý cho vấn đề idempotent là xây dựng các tên job trước (nhằm tránh gây ra bất kỳ thao tác thay đổi nào trên bộ lên lịch datacenter), rồi phân phối các tên này đến tất cả các replica của dịch vụ cron. Nếu leader của dịch vụ cron chết trong khi đang khởi chạy, leader mới đơn giản là tra cứu trạng thái của tất cả các tên đã tính trước và khởi chạy các tên bị thiếu.
 
-Lưu ý rằng, tương tự như cách chúng tôi nhận dạng từng lần khởi chạy job cron riêng lẻ bằng tên và thời gian khởi chạy của nó, điều quan trọng là các tên job được xây dựng trên bộ lên lịch datacenter phải bao gồm thời gian khởi chạy đã lên lịch cụ thể đó (hoặc có thông tin này có thể truy hồi được theo cách khác). Trong hoạt động thông thường, dịch vụ cron nên failover nhanh trong trường hợp leader thất bại, nhưng một failover nhanh không luôn xảy ra.
+Lưu ý rằng, tương tự như cách chúng tôi nhận dạng từng lần khởi chạy job cron riêng lẻ bằng tên và thời gian khởi chạy của nó, điều quan trọng là các tên job được xây dựng trên bộ lên lịch datacenter phải bao gồm thời gian khởi chạy đã lên lịch cụ thể đó (hoặc có thông tin này có thể truy hồi được theo cách khác). Trong hoạt động thông thường, dịch vụ cron nên failover nhanh trong trường hợp leader gặp sự cố, nhưng một failover nhanh không luôn xảy ra.
 
 Hãy nhớ rằng chúng tôi theo dõi thời gian khởi chạy đã lên lịch khi giữ trạng thái nội bộ giữa các replica. Tương tự, chúng tôi cần phân biệt tương tác của mình với bộ lên lịch datacenter, cũng bằng cách sử dụng thời gian khởi chạy đã lên lịch. Ví dụ, hãy xem xét một job cron sống ngắn nhưng chạy thường xuyên. Job cron khởi chạy, nhưng trước khi lần khởi chạy được truyền đạt đến tất cả các replica, leader crash và một failover bất thường dài — đủ dài để job cron hoàn thành thành công — diễn ra. Leader mới tra cứu trạng thái của job cron, quan sát thấy nó hoàn thành, và cố gắng khởi chạy job đó lại. Nếu thời gian khởi chạy đã được bao gồm, leader mới sẽ biết rằng job trên bộ lên lịch datacenter là kết quả của lần khởi chạy job cron cụ thể này, và lần khởi chạy trùng lặp này đã không xảy ra.
 
