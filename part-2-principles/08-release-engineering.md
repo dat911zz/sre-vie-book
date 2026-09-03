@@ -27,21 +27,21 @@ Google có một số lượng lớn các SRE được giao nhiệm vụ triển
 
 Một triết lý kỹ thuật và dịch vụ dẫn dắt release engineering, thể hiện qua bốn nguyên lý chính, được trình bày chi tiết trong các phần sau.
 
-## Mô hình Tự phục vụ (Self-Service Model)
+### Mô hình Tự phục vụ (Self-Service Model)
 
 Để làm việc ở quy mô, các đội phải tự túc. Release engineering đã phát triển các best practices và công cụ cho phép các đội phát triển sản phẩm của chúng tôi kiểm soát và vận hành các quy trình phát hành của chính họ. Mặc dù chúng tôi có hàng nghìn kỹ sư và sản phẩm, chúng tôi vẫn đạt được tốc độ phát hành cao vì các đội riêng lẻ có thể quyết định bao lâu và khi nào phát hành các phiên bản mới của sản phẩm mình. Các quy trình phát hành có thể được tự động hóa đến mức chỉ đòi hỏi sự tham gia tối thiểu từ các kỹ sư; nhiều dự án thậm chí được build và phát hành hoàn toàn tự động nhờ kết hợp giữa hệ thống build tự động hóa và các công cụ triển khai của chúng tôi. Các release thực sự là tự động, và chỉ đòi hỏi sự tham gia của kỹ sư nếu và khi có vấn đề nảy sinh.
 
-## Tốc độ Cao (High Velocity)
+### Tốc độ Cao (High Velocity)
 
 Phần mềm hướng người dùng (như nhiều thành phần của Google Search) được build lại thường xuyên, vì chúng tôi nhắm đến việc triển khai các tính năng hướng khách hàng càng nhanh càng tốt. Chúng tôi theo triết lý: các release thường xuyên dẫn đến ít thay đổi hơn giữa các phiên bản. Cách tiếp cận này khiến việc kiểm thử và debug dễ dàng hơn. Một số đội thực hiện các build theo giờ, rồi chọn phiên bản để thực sự triển khai vào production từ hồ (pool) các build kết quả. Việc lựa chọn dựa trên kết quả kiểm thử và các tính năng chứa trong một build cụ thể. Các đội khác đã áp dụng mô hình phát hành "Push on Green" (Đẩy khi Xanh) và triển khai mọi build vượt qua tất cả các kiểm thử [[Kle14]](https://sre.google/sre-book/bibliography#Kle14).
 
-## Các Build Hermetic (Hermetic Builds)
+### Các Build Hermetic (Hermetic Builds)
 
 Các công cụ build phải cho phép chúng tôi đảm bảo tính nhất quán và lặp lại được. Nếu hai người cố gắng build cùng một sản phẩm ở cùng một số revision (phiên bản) trong repository mã nguồn trên các machine khác nhau, chúng tôi kỳ vọng có kết quả giống hệt nhau.<sup>[1](#fn1)</sup> Các build của chúng tôi là hermetic, có nghĩa là chúng không nhạy cảm với các thư viện (libraries) và phần mềm khác được cài đặt trên machine build. Thay vào đó, các build phụ thuộc vào các phiên bản đã biết của các công cụ build, như các trình biên dịch, và các sự phụ thuộc, như các thư viện. Quy trình build là tự chứa (self-contained) và không được dựa vào các dịch vụ bên ngoài môi trường build.
 
 Việc build lại các release cũ khi chúng tôi cần sửa một bug trong phần mềm đang chạy trong production có thể là một thách thức. Chúng tôi hoàn thành tác vụ này bằng cách build lại ở cùng revision với build ban đầu và bao gồm các thay đổi cụ thể được nộp sau thời điểm đó. Chúng tôi gọi chiến thuật này là *cherry picking*. Các công cụ build của chúng tôi bản thân được phiên bản hóa dựa trên revision trong repository mã nguồn của dự án đang được build. Do đó, một dự án được build tháng trước sẽ không dùng phiên bản trình biên dịch tháng này nếu cần cherry pick, vì phiên bản đó có thể chứa các tính năng không tương thích hoặc không mong muốn.
 
-## Thi hành Các Chính sách và Quy trình (Enforcement of Policies and Procedures)
+### Thi hành Các Chính sách và Quy trình (Enforcement of Policies and Procedures)
 
 Nhiều tầng bảo mật và kiểm soát truy cập xác định ai có thể thực hiện các thao tác cụ thể khi phát hành một dự án. Các thao tác cần phê duyệt bao gồm:
 
@@ -58,17 +58,17 @@ Gần như tất cả các thay đổi đối với codebase đòi hỏi một c
 
 Google đã phát triển một hệ thống phát hành tự động hóa có tên *Rapid*. Rapid là một hệ thống tận dụng một số công nghệ của Google để cung cấp một khung (framework) tạo ra các release có khả năng mở rộng, hermetic và đáng tin cậy. Các phần sau mô tả vòng đời phần mềm tại Google và cách nó được quản lý bằng Rapid cùng các công cụ liên quan khác.
 
-## Build (Dựng) (Building)
+### Build (Dựng)
 
 Blaze<sup>[2](#fn2)</sup> là công cụ build được chọn của Google. Nó hỗ trợ build các binary từ một loạt các ngôn ngữ, bao gồm các ngôn ngữ chuẩn của chúng tôi là C++, Java, Python, Go và JavaScript. Các kỹ sư dùng Blaze để định nghĩa các mục tiêu build (build targets, ví dụ, đầu ra của một build, như một tệp JAR) và để quy định các sự phụ thuộc cho mỗi mục tiêu [[Kem11]](https://sre.google/sre-book/bibliography#Kem11). Khi thực hiện một build, Blaze tự động build các mục tiêu phụ thuộc.
 
 Các mục tiêu build cho các binary và kiểm thử unit được định nghĩa trong các tệp cấu hình dự án của Rapid. Các cờ cụ thể cho dự án, như một bộ định danh build độc nhất, được Rapid truyền cho Blaze. Tất cả các binary hỗ trợ một cờ hiển thị ngày build, số revision và bộ định danh build, cho phép chúng tôi dễ dàng liên kết một binary với một bản ghi về cách nó được build.
 
-## Nhánh (Branching) (Branching)
+### Nhánh (Branching)
 
-Tất cả code được check vào nhánh chính (main branch) của cây mã nguồn (mainline). Tuy nhiên, phần lớn các dự án lớn không phát hành trực tiếp từ mainline. Thay vào đó, chúng tôi tạo nhánh (branch) từ mainline ở một revision cụ thể và không bao giờ merge (hợp nhất) các thay đổi từ nhánh đó trở lại mainline. Các sửa lỗi được nộp vào mainline, rồi được cherry pick vào nhánh để bao gồm trong release. Thực hành này tránh vô tình nhặt lên các thay đổi không liên quan được nộp vào mainline kể từ khi build ban đầu xảy ra. Sử dụng phương pháp nhánh và cherry pick này, chúng tôi biết chính xác nội dung của mỗi release.
+Tất cả code được check vào nhánh chính (main branch) của cây mã nguồn (mainline). Tuy nhiên, phần lớn các dự án lớn không phát hành trực tiếp từ mainline. Thay vào đó, chúng tôi tạo nhánh (branch) từ mainline ở một revision cụ thể và không bao giờ merge (hợp nhất) các thay đổi từ nhánh đó trở lại mainline. Các sửa lỗi được nộp vào mainline, rồi được cherry pick vào nhánh để bao gồm trong release. Thực hành này tránh vô tình lấy phải các thay đổi không liên quan được nộp vào mainline kể từ khi build ban đầu xảy ra. Sử dụng phương pháp nhánh và cherry pick này, chúng tôi biết chính xác nội dung của mỗi release.
 
-## Kiểm thử (Testing)
+### Kiểm thử (Testing)
 
 Một hệ thống kiểm thử liên tục chạy [các kiểm thử unit](https://sre.google/sre-book/testing-reliability/) đối với code trong mainline mỗi khi một thay đổi được nộp, cho phép chúng tôi phát hiện các thất bại build và kiểm thử nhanh chóng. Release engineering khuyến nghị rằng các mục tiêu kiểm thử build liên tục tương ứng với cùng các mục tiêu kiểm thử chặn (gate) release dự án. Chúng tôi cũng khuyến nghị tạo các release ở số revision (phiên bản) của build kiểm thử liên tục cuối cùng hoàn thành thành công tất cả các kiểm thử. Những biện pháp này giảm nguy cơ các thay đổi tiếp theo trên mainline gây ra thất bại trong quá trình build tại thời điểm phát hành.
 
@@ -76,13 +76,13 @@ Trong quy trình phát hành, chúng tôi chạy lại các kiểm thử unit s�
 
 Để bổ sung cho hệ thống kiểm thử liên tục, chúng tôi dùng một môi trường kiểm thử độc lập chạy các kiểm thử cấp hệ thống trên các sản phẩm build đã đóng gói. Các kiểm thử này có thể được khởi động thủ công hoặc từ Rapid.
 
-## Đóng gói (Packaging) (Packaging)
+### Đóng gói (Packaging)
 
 Phần mềm được phân phối đến các machine production của chúng tôi qua Trình quản lý Gói Midas (Midas Package Manager, MPM) [[McN14c]](https://sre.google/sre-book/bibliography#McN14c). MPM lắp ráp các gói dựa trên các quy tắc Blaze liệt kê các sản phẩm build cần bao gồm, cùng với các chủ sở hữu và đặc quyền của chúng. Các gói được đặt tên (ví dụ, *search/shakespeare/frontend*), được phiên bản hóa với một hash (mã băm) độc nhất và được ký để đảm bảo tính xác thực. MPM hỗ trợ việc áp dụng các nhãn (labels) cho một phiên bản cụ thể của một gói. Rapid áp dụng một nhãn chứa ID build, điều này đảm bảo rằng một gói có thể được tham chiếu độc nhất bằng cách dùng tên của gói và nhãn này.
 
 Các nhãn có thể được áp dụng cho một gói MPM để chỉ ra vị trí của gói trong quy trình phát hành (ví dụ, `dev` (phát triển), `canary` (thử nghiệm) hoặc `production` (sản xuất)). Nếu bạn áp dụng một nhãn hiện có cho một gói mới, nhãn tự động được chuyển từ gói cũ sang gói mới. Ví dụ: nếu một gói được gắn nhãn `canary`, ai đó sau đó cài đặt phiên bản canary của gói đó sẽ tự động nhận phiên bản mới nhất của gói với nhãn `canary`.
 
-## Rapid
+### Rapid
 
 [Hình 8-1](#hinh-8-1) hiển thị các thành phần chính của hệ thống Rapid. Rapid được cấu hình bằng các tệp gọi là *blueprints* (bản thiết kế). Blueprints được viết bằng một ngôn ngữ cấu hình nội bộ và được dùng để định nghĩa các mục tiêu build và kiểm thử, các quy tắc cho triển khai, và thông tin quản trị (như các chủ sở hữu dự án). Các danh sách kiểm soát truy cập dựa trên vai trò (role-based access control lists) xác định ai có thể thực hiện các hành động cụ thể trên một dự án Rapid.
 
@@ -91,7 +91,7 @@ Các nhãn có thể được áp dụng cho một gói MPM để chỉ ra vị 
 
 [Hình 8-1.](#hinh-8-1) Khung nhìn đơn giản hóa về kiến trúc Rapid hiển thị các thành phần chính của hệ thống.
 
-Mỗi dự án Rapid có các luồng công việc (workflows) định nghĩa các hành động cần thực hiện trong quy trình phát hành. Các hành động luồng công việc có thể được thực hiện tuần tự hoặc song song, và một luồng công việc có thể khởi động các luồng công việc khác. Rapid phái (dispatch) các yêu cầu công việc đến các task chạy như một job Borg trên các server production của chúng tôi. Vì Rapid dùng hạ tầng production của chúng tôi, nó có thể xử lý hàng nghìn yêu cầu phát hành đồng thời.
+Mỗi dự án Rapid có các luồng công việc (workflows) định nghĩa các hành động cần thực hiện trong quy trình phát hành. Các hành động luồng công việc có thể được thực hiện tuần tự hoặc song song, và một luồng công việc có thể khởi động các luồng công việc khác. Rapid điều phối (dispatch) các yêu cầu công việc đến các task chạy như một job Borg trên các server production của chúng tôi. Vì Rapid dùng hạ tầng production của chúng tôi, nó có thể xử lý hàng nghìn yêu cầu phát hành đồng thời.
 
 Một quy trình phát hành điển hình diễn ra như sau:
 
@@ -102,7 +102,7 @@ Một quy trình phát hành điển hình diễn ra như sau:
 
 Rapid cho phép chúng tôi quản lý các nhánh release và cherry pick của mình; các yêu cầu cherry pick riêng lẻ có thể được phê duyệt hoặc từ chối để bao gồm trong một release.
 
-## Triển khai (Deployment) (Deployment)
+### Triển khai (Deployment)
 
 Rapid thường được dùng để trực tiếp điều khiển các triển khai đơn giản. Nó cập nhật các job Borg để dùng các gói MPM mới được build, dựa trên các định nghĩa triển khai trong các tệp blueprint và các trình thực thi task chuyên dụng.
 
@@ -124,7 +124,7 @@ Quản lý cấu hình là một lĩnh vực hợp tác đặc biệt chặt ch�
 
 *Đóng gói các tệp cấu hình vào các "gói cấu hình" MPM.* Chúng tôi có thể áp dụng nguyên lý hermetic cho quản lý cấu hình. Các cấu hình binary có xu hướng bị ràng buộc chặt với các phiên bản cụ thể của binary, nên chúng tôi tận dụng các hệ thống build và đóng gói để chụp nhanh (snapshot) và phát hành các tệp cấu hình bên cạnh các binary của chúng. Giống như cách chúng tôi xử lý các binary, chúng tôi có thể dùng ID build để tái tạo cấu hình tại một thời điểm cụ thể.
 
-Ví dụ, một thay đổi thực hiện một tính năng mới có thể được phát hành với một cài đặt flag cấu hình tính năng đó. Bằng cách tạo hai gói MPM, một cho binary và một cho cấu hình, chúng tôi giữ khả năng thay đổi mỗi gói độc lập. Đó là, nếu tính năng được phát hành với một cài đặt flag `first_folio` nhưng chúng tôi nhận ra rằng nó nên là `bad_quarto` thay vào đó — cả hai đều là tên vở kịch Shakespeare, đặt tên flag theo kiểu chơi chữ nội bộ — chúng tôi có thể cherry pick thay đổi đó lên nhánh release, build lại gói cấu hình rồi triển khai nó. Cách tiếp cận này có lợi thế là không đòi hỏi một build binary mới.
+Ví dụ, một thay đổi thực hiện một tính năng mới có thể được phát hành với một cài đặt flag cấu hình tính năng đó. Bằng cách tạo hai gói MPM, một cho binary và một cho cấu hình, chúng tôi giữ khả năng thay đổi mỗi gói độc lập. Đó là, nếu tính năng được phát hành với một cài đặt flag `first_folio` nhưng chúng tôi nhận ra rằng nó nên là `bad_quarto` thay vào đó chúng tôi có thể cherry pick thay đổi đó lên nhánh release, build lại gói cấu hình rồi triển khai nó. Cách tiếp cận này có lợi thế là không đòi hỏi một build binary mới.
 
 Chúng tôi có thể tận dụng chức năng nhãn của MPM để chỉ ra phiên bản nào của các gói MPM nên được cài đặt cùng nhau. Một nhãn `much_ado` có thể được áp dụng cho các gói MPM được mô tả trong đoạn trước, cho phép chúng tôi lấy cả hai gói sử dụng nhãn này. Khi một phiên bản mới của dự án được build, nhãn `much_ado` sẽ được áp dụng cho các gói mới. Vì các thẻ này là độc nhất trong không gian tên cho một gói MPM, chỉ gói mới nhất với thẻ đó sẽ được dùng.
 
@@ -136,7 +136,7 @@ Tóm lại, các chủ sở hữu dự án xem xét các tùy chọn khác nhau 
 
 Trong khi chương này đã đặc biệt thảo luận cách tiếp cận của Google đối với release engineering và các cách mà các kỹ sư phát hành làm việc, hợp tác với các SRE, thì những thực hành này cũng có thể được áp dụng rộng hơn.
 
-## Không chỉ dành cho các Googler (It's Not Just for Googlers)
+### Không chỉ dành cho các Googler (It's Not Just for Googlers)
 
 Khi được trang bị các công cụ đúng, tự động hóa thích hợp và các chính sách được định nghĩa rõ ràng, các developer và SRE không nên phải lo lắng về việc phát hành phần mềm. Các release có thể dễ dàng như đơn giản là nhấn một nút.
 
@@ -144,7 +144,7 @@ Khi được trang bị các công cụ đúng, tự động hóa thích hợp v
 
 Các Kỹ sư Phát hành của Google đã phát triển các công cụ của riêng mình vì sự cần thiết, do các công cụ mã nguồn mở hoặc do nhà cung cấp cung cấp không hoạt động ở quy mô mà chúng tôi đòi hỏi. Các công cụ tùy chỉnh cho phép chúng tôi bao gồm chức năng để hỗ trợ (và thậm chí thực thi) các chính sách quy trình phát hành. Tuy nhiên, các chính sách này trước tiên phải được định nghĩa để thêm các tính năng thích hợp vào các công cụ của chúng tôi, và tất cả các công ty nên dành công sức để định nghĩa các quy trình phát hành của mình bất kể các quy trình đó có thể được tự động hóa và/hoặc thực thi hay không.
 
-## Bắt đầu Release Engineering Ngay từ Đầu (Start Release Engineering at the Beginning)
+### Bắt đầu Release Engineering Ngay từ Đầu (Start Release Engineering at the Beginning)
 
 Release engineering thường là một ý nghĩ sau cùng, và cách suy nghĩ này phải thay đổi khi các nền tảng và dịch vụ tiếp tục tăng về kích thước và độ phức tạp.
 

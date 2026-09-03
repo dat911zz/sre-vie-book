@@ -90,7 +90,7 @@ Google SRE chỉ đạt thành công hạn chế với các hệ phân cấp ph�
 
 Một số ý tưởng được mô tả trong chương này vẫn mang tính lý tưởng: luôn có dư địa để đi từ triệu chứng (symptom) sang nguyên nhân gốc rễ nhanh hơn, đặc biệt trong các hệ thống luôn thay đổi. Vì vậy, dù chương này nêu một số mục tiêu cho các hệ thống giám sát và một số cách để đạt được chúng, điều quan trọng là các hệ thống giám sát — đặc biệt đường dẫn quan trọng (critical path) từ khi một vấn đề production bắt đầu, qua một lần gọi trực đến một người, qua phân loại cơ bản và debug sâu — phải luôn đơn giản và dễ hiểu với mọi người trong đội.
 
-Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự cố rõ ràng.
+Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực cần phải rất đơn giản và vững chắc. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự cố rõ ràng.
 
 ## Triệu chứng so với Nguyên nhân (Symptoms Versus Causes)
 
@@ -111,13 +111,13 @@ Hệ thống giám sát của bạn nên giải quyết hai câu hỏi: cái gì
 
 ## Black-box so với White-box
 
-Chúng tôi kết hợp sử dụng mạnh mẽ giám sát white-box với các ứng dụng vừa phải nhưng quan trọng của giám sát black-box. Cách đơn giản nhất để nghĩ về black-box so với white-box là: giám sát black-box định hướng theo triệu chứng và phản ánh các vấn đề đang diễn ra..., chứ không phải dự đoán: "Hệ thống không hoạt động đúng, ngay bây giờ." Giám sát white-box dựa vào khả năng kiểm tra bên trong hệ thống, như log hoặc các endpoint (điểm cuối) HTTP, thông qua đo lường. Do đó, giám sát white-box cho phép phát hiện các vấn đề sắp xảy ra, các thất bại bị che giấu bởi retry (thử lại), v.v.
+Chúng tôi kết hợp sử dụng mạnh mẽ giám sát white-box với các ứng dụng vừa phải nhưng quan trọng của giám sát black-box. Cách đơn giản nhất để nghĩ về black-box so với white-box là: giám sát black-box định hướng theo triệu chứng và phản ánh các vấn đề đang diễn ra..., chứ không phải dự đoán: "Hệ thống không hoạt động đúng, ngay bây giờ." Giám sát white-box dựa vào khả năng kiểm tra bên trong hệ thống, như log hoặc các endpoint (điểm cuối) HTTP, thông qua đo lường. Do đó, giám sát white-box cho phép phát hiện các vấn đề sắp xảy ra, các sự cố bị che giấu bởi việc thử lại (retry), v.v.
 
 Lưu ý rằng trong một hệ thống nhiều tầng, triệu chứng của người này lại là nguyên nhân của người kia. Ví dụ, giả sử [hiệu năng của một database](https://sre.google/sre-book/data-integrity/) đang chậm. Các lần đọc database chậm là một triệu chứng đối với SRE database phát hiện ra chúng. Tuy nhiên, với SRE frontend quan sát một website chậm, chính những lần đọc database chậm đó lại là một nguyên nhân. Do đó, giám sát white-box đôi khi định hướng theo triệu chứng, đôi khi theo nguyên nhân, tùy thuộc vào mức độ thông tin mà white-box của bạn cung cấp.
 
 Khi thu thập dữ liệu đo lường (telemetry) để debug, giám sát white-box là thiết yếu. Nếu các web server có vẻ chậm với các yêu cầu nặng database, bạn cần biết cả tốc độ mà web server cảm nhận database đang chạy và tốc độ mà database tự tin rằng mình đang chạy. Nếu không, bạn không thể phân biệt một server database thực sự chậm với một vấn đề mạng giữa web server và database.
 
-Đối với paging (gọi trực), lợi ích chính của giám sát black-box là buộc kỷ luật chỉ quấy rầy một người khi một vấn đề vừa đang tiếp diễn vừa đang góp phần vào các triệu chứng thực. Ngược lại, đối với các vấn đề chưa xảy ra nhưng sắp xảy ra, giám sát black-box khá vô dụng.
+Đối với gọi trực, lợi ích chính của giám sát black-box là buộc kỷ luật chỉ quấy rầy một người khi một vấn đề vừa đang tiếp diễn vừa đang góp phần vào các triệu chứng thực. Ngược lại, đối với các vấn đề chưa xảy ra nhưng sắp xảy ra, giám sát black-box khá vô dụng.
 
 <a id="bon-tin-hieu-vang"></a>
 
@@ -135,7 +135,7 @@ Một phép đo về mức độ nhu cầu đang đè lên hệ thống của b�
 
 #### Lỗi (Errors)
 
-Tỷ lệ các yêu cầu thất bại, hoặc rõ ràng (ví dụ HTTP 500), hoặc ngầm (ví dụ một phản hồi thành công HTTP 200 nhưng đi kèm nội dung sai), hoặc theo chính sách (ví dụ "Nếu bạn cam kết thời gian phản hồi một giây, bất kỳ yêu cầu nào vượt quá một giây là một lỗi"). Khi các mã phản hồi giao thức không đủ để biểu đạt tất cả các điều kiện thất bại, các giao thức phụ (nội bộ) có thể là cần thiết để theo dõi các chế độ thất bại một phần. Giám sát các trường hợp này có thể khác nhau đáng kể: bắt các HTTP 500 ở load balancer (bộ cân bằng tải) có thể làm tốt việc bắt tất cả các yêu cầu thất bại hoàn toàn, trong khi chỉ các kiểm thử hệ thống đầu-cuối (end-to-end) mới phát hiện ra bạn đang phục vụ nội dung sai.
+Tỷ lệ các yêu cầu thất bại, hoặc rõ ràng (ví dụ HTTP 500), hoặc ngầm (ví dụ một phản hồi thành công HTTP 200 nhưng đi kèm nội dung sai), hoặc theo chính sách (ví dụ "Nếu bạn cam kết thời gian phản hồi một giây, bất kỳ yêu cầu nào vượt quá một giây là một lỗi"). Khi các mã phản hồi giao thức không đủ để biểu đạt tất cả các điều kiện thất bại, các giao thức phụ (nội bộ) có thể là cần thiết để theo dõi các failure mode một phần. Giám sát các trường hợp này có thể khác nhau đáng kể: bắt các HTTP 500 ở load balancer (bộ cân bằng tải) có thể làm tốt việc bắt tất cả các yêu cầu thất bại hoàn toàn, trong khi chỉ các kiểm thử hệ thống đầu-cuối (end-to-end) mới phát hiện ra bạn đang phục vụ nội dung sai.
 
 #### Độ bão hòa (Saturation)
 
@@ -179,7 +179,7 @@ Việc chất chồng tất cả các yêu cầu này lên nhau có thể cộng
 
 Các nguồn của sự phức tạp tiềm năng là vô tận. Giống như mọi hệ thống phần mềm, giám sát có thể trở nên phức tạp đến mức dễ vỡ, khó thay đổi và là một gánh nặng bảo trì.
 
-Vì vậy, thiết kế hệ thống giám sát của bạn với mắt hướng đến sự đơn giản. Trong việc chọn cái gì để giám sát, hãy giữ các hướng dẫn sau trong tâm trí:
+Vì vậy, thiết kế hệ thống giám sát của bạn với sự đơn giản làm trọng tâm. Trong việc chọn cái gì để giám sát, hãy giữ các hướng dẫn sau trong tâm trí:
 
 -   Các quy tắc bắt các incident thực sự thường xuyên nhất nên đơn giản, có thể dự đoán, và đáng tin cậy nhất có thể.
 -   Việc thu thập dữ liệu, gộp, và [cấu hình cảnh báo](https://sre.google/workbook/alerting-on-slos/) hiếm khi được thực hành (e.g., ít hơn một lần một quý đối với một số đội SRE) nên được cân nhắc để loại bỏ.
@@ -193,7 +193,7 @@ Các nguyên lý bàn trong chương này có thể gắn kết thành một tri
 
 Khi tạo các quy tắc cho giám sát và cảnh báo, việc đặt các câu hỏi sau có thể giúp bạn tránh các dương tính giả (false positives) và kiệt sức vì máy gọi trực (pager burnout):<sup>[3](#fn3)</sup>
 
--   Quy tắc này có phát hiện *một điều kiện vốn chưa được phát hiện* mà khẩn cấp, có thể hành động, và đang hoặc sắp diễn ra có thể nhìn thấy được bởi người dùng không?<sup>[4](#fn4)</sup>
+-   Quy tắc này có phát hiện *một điều kiện chưa từng được phát hiện trước đó*, mang tính khẩn cấp, có thể hành động, và đang hoặc sắp diễn ra theo cách người dùng có thể thấy được không?<sup>[4](#fn4)</sup>
 -   Tôi có bao giờ có thể bỏ qua cảnh báo này vì biết nó vô hại không? Khi nào và vì sao tôi có thể bỏ qua, và làm thế nào để tránh kịch bản này?
 -   Cảnh báo này có chắc chắn chỉ ra rằng người dùng đang bị ảnh hưởng tiêu cực không? Có các trường hợp phát hiện được mà người dùng không bị ảnh hưởng tiêu cực, như traffic đã được rút hoặc các triển khai kiểm thử, nên được lọc ra không?
 -   Tôi có thể hành động để đáp lại cảnh báo này không? Hành động đó có khẩn cấp hay có thể chờ đến sáng không? Nó có thể được tự động hóa an toàn không? Hành động đó sẽ là một sửa chữa dài hạn hay chỉ một giải pháp tình huống ngắn hạn?
@@ -210,7 +210,7 @@ Một góc nhìn như vậy làm tan đi một số phân biệt: nếu một l�
 
 ## Giám sát cho Lâu dài (Monitoring for the Long Term)
 
-Trong các hệ thống production hiện đại, hệ thống giám sát theo dõi một hệ thống luôn phát triển với kiến trúc phần mềm, [đặc tính tải,](https://sre.google/workbook/managing-load/) và mục tiêu hiệu năng thay đổi. Một cảnh báo hiện tại hiếm gặp bất thường và khó tự động hóa có thể trở nên thường xuyên, có khi đến mức đáng có một script chắp vá (hacked-together) để giải quyết. Đến lúc đó, ai đó nên tìm và loại bỏ nguyên nhân gốc rễ của vấn đề; nếu không thể, phản ứng cảnh báo xứng đáng được tự động hóa hoàn toàn.
+Trong các hệ thống production hiện đại, hệ thống giám sát theo dõi một hệ thống luôn phát triển, với kiến trúc phần mềm, [đặc tính tải,](https://sre.google/workbook/managing-load/) và mục tiêu hiệu năng luôn thay đổi. Một cảnh báo hiện tại hiếm gặp bất thường và khó tự động hóa có thể trở nên thường xuyên, có khi đến mức đáng có một script chắp vá (hacked-together) để giải quyết. Đến lúc đó, ai đó nên tìm và loại bỏ nguyên nhân gốc rễ của vấn đề; nếu không thể, phản ứng cảnh báo xứng đáng được tự động hóa hoàn toàn.
 
 Quan trọng là các quyết định về giám sát được đưa ra với mục tiêu dài hạn trong tâm trí. Mọi lần gọi trực xảy ra hôm nay khiến một người mất tập trung khỏi việc cải thiện hệ thống cho ngày mai, nên thường có lý do để chấp nhận một cú đánh ngắn hạn vào khả dụng hoặc hiệu năng nhằm cải thiện triển vọng dài hạn của hệ thống. Hãy xem hai nghiên cứu tình huống minh họa sự đánh đổi này.
 
@@ -218,7 +218,7 @@ Quan trọng là các quyết định về giám sát được đưa ra với m�
 
 Hạ tầng nội bộ của Google thường được cung cấp và đo lường theo một service level objective (SLO — mục tiêu mức dịch vụ; xem [Service Level Objectives](04-service-level-objectives.md)). Nhiều năm trước, SLO của dịch vụ Bigtable dựa trên hiệu năng trung bình của một client tổng hợp (synthetic) có hành vi tốt. Do các vấn đề trong Bigtable và các tầng thấp hơn của stack lưu trữ, hiệu năng trung bình bị chi phối bởi một "đuôi" lớn: 5% yêu cầu tệ nhất thường chậm hơn đáng kể so với phần còn lại.
 
-Cảnh báo email kích hoạt khi SLO tiến gần, và cảnh báo gọi trực kích hoạt khi SLO bị vượt quá. Cả hai loại cảnh báo đều bắn (firing) với số lượng lớn, tiêu tốn một lượng thời gian kỹ thuật không thể chấp nhận được: đội dành rất nhiều thời gian phân loại các cảnh báo để tìm ra ít cảnh báo thực sự có thể hành động, và chúng tôi thường bỏ lỡ các vấn đề thực sự ảnh hưởng đến người dùng, vì rất ít cảnh báo làm vậy. Nhiều lần gọi trực không khẩn cấp, do các vấn đề đã được hiểu rõ trong hạ tầng, và hoặc có các phản ứng máy móc (rote) hoặc không nhận được phản hồi.
+Cảnh báo email kích hoạt khi SLO tiến gần, và cảnh báo gọi trực kích hoạt khi SLO bị vượt quá. Cả hai loại cảnh báo đều fire (kích hoạt) với số lượng lớn, tiêu tốn một lượng thời gian kỹ thuật không thể chấp nhận được: đội dành rất nhiều thời gian phân loại các cảnh báo để tìm ra ít cảnh báo thực sự có thể hành động, và chúng tôi thường bỏ lỡ các vấn đề thực sự ảnh hưởng đến người dùng, vì rất ít cảnh báo làm vậy. Nhiều lần gọi trực không khẩn cấp, do các vấn đề đã được hiểu rõ trong hạ tầng, và hoặc có các phản ứng máy móc (rote) hoặc không nhận được phản hồi.
 
 Để khắc phục, đội dùng một cách tiếp cận ba mũi nhọn: trong khi dốc sức cải thiện hiệu năng Bigtable, chúng tôi cũng tạm thời hạ mục tiêu SLO, dùng độ trễ yêu cầu phân vị thứ 75 (75th percentile). Chúng tôi cũng vô hiệu hóa các cảnh báo email, vì có quá nhiều đến mức dành thời gian chẩn đoán chúng là bất khả thi.
 
@@ -228,7 +228,7 @@ Chiến lược này cho chúng tôi đủ không gian thở để thực sự s
 
 Trong những ngày đầu của Gmail, dịch vụ được xây dựng trên một hệ thống quản lý quá trình phân tán được cải tiến (retrofitted) gọi là Workqueue, ban đầu tạo ra để xử lý batch (lô) các phần của index (chỉ mục) tìm kiếm. Workqueue được "thích ứng" cho các quá trình sống lâu rồi áp dụng cho Gmail, nhưng một số bug trong codebase (kho mã nguồn) tương đối mờ mịt trong scheduler (bộ lập lịch) chứng tỏ khó đánh bại.
 
-Vào thời điểm đó, giám sát Gmail được cấu trúc sao cho các cảnh báo bắn khi các task (nhiệm vụ) đơn lẻ bị Workqueue "bỏ lịch" (de-schedule). Cấu hình này kém lý tưởng vì ngay lúc đó Gmail đã có rất, rất nhiều nghìn task, mỗi task đại diện cho một phần nghìn người dùng. Chúng tôi quan tâm sâu sắc đến việc cung cấp trải nghiệm người dùng tốt cho người dùng Gmail, nhưng một cấu hình cảnh báo như vậy là không thể duy trì được.
+Vào thời điểm đó, giám sát Gmail được cấu trúc sao cho các cảnh báo fire khi các task (nhiệm vụ) đơn lẻ bị Workqueue "bỏ lịch" (de-schedule). Cấu hình này kém lý tưởng vì ngay lúc đó Gmail đã có rất, rất nhiều nghìn task, mỗi task đại diện cho một phần nghìn người dùng. Chúng tôi quan tâm sâu sắc đến việc cung cấp trải nghiệm người dùng tốt cho người dùng Gmail, nhưng một cấu hình cảnh báo như vậy là không thể duy trì được.
 
 Để giải quyết, SRE Gmail xây dựng một công cụ giúp "gõ" (poke) scheduler theo cách vừa phải để giảm thiểu tác động đến người dùng. Đội có một vài cuộc thảo luận về việc có nên đơn giản tự động hóa toàn bộ vòng từ phát hiện vấn đề đến thúc đẩy bộ lập lịch lại, cho đến khi đạt một giải pháp dài hạn tốt hơn không, nhưng một số lo ngại loại giải pháp tình huống này sẽ trì hoãn một sửa chữa thực sự.
 
@@ -238,7 +238,7 @@ Các lần gọi trực với phản ứng máy móc kiểu thuật toán nên l
 
 ## Về Lâu dài (The Long Run)
 
-Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi lần gọi trực như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của việc gọi trực có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất gọi trực trong các báo cáo hàng quý với quản lý (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài lần gọi trực liên quan). Việc này đảm bảo những người ra quyết định luôn được cập nhật về tải máy gọi trực và sức khỏe tổng thể của các đội.
+Một chủ đề phổ biến nối liền các ví dụ Bigtable và Gmail trước đó: một căng thẳng giữa khả dụng ngắn hạn và dài hạn. Thường thì, sức mạnh thuần túy của nỗ lực có thể giúp một hệ thống chệch choạc đạt khả dụng cao, nhưng con đường này thường ngắn ngủi, đầy kiệt sức và phụ thuộc vào một vài thành viên đội anh hùng. Chấp nhận một sự giảm khả dụng ngắn hạn có kiểm soát thường là một đánh đổi đau đớn, nhưng là đánh đổi chiến lược cho sự ổn định dài hạn của hệ thống. Quan trọng là không nên coi mỗi lần gọi trực như một sự kiện cô lập, mà xem xét liệu mức độ *tổng thể* của việc gọi trực có dẫn đến một hệ thống khỏe mạnh, khả dụng phù hợp với một đội khỏe mạnh, khả thi và có triển vọng dài hạn không. Chúng tôi xem xét các thống kê về tần suất gọi trực trong các báo cáo hàng quý với quản lý (thường biểu đạt như số incident mỗi ca trực, trong đó một incident có thể gồm một vài lần gọi trực liên quan). Việc này đảm bảo những người ra quyết định luôn được cập nhật về tải máy gọi trực và sức khỏe tổng thể của các đội.
 
 ## Kết luận
 

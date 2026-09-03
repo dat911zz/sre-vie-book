@@ -33,7 +33,7 @@ Tốc độ thay đổi nhanh này vừa cung cấp lý lẽ vừa tạo cơ h�
 
 Các kỹ sư phần mềm giỏi có rất nhiều chuyên môn trong việc viết mã và thiết kế, và hiểu rất tốt công nghệ của chính sản phẩm của họ. Tuy nhiên, chính những kỹ sư đó có thể không quen thuộc với những thách thức và bẫy của việc ra mắt một sản phẩm đến hàng triệu người dùng trong khi đồng thời giảm thiểu các sự cố và tối đa hóa hiệu suất.
 
-Google tiếp cận những thách thức vốn có của việc ra mắt bằng cách tạo ra một nhóm tư vấn chuyên trách trong SRE chịu trách nhiệm về mặt kỹ thuật của việc ra mắt một sản phẩm hoặc tính năng mới. Nhóm này gồm các kỹ sư phần mềm và kỹ sư hệ thống—một số từng có kinh nghiệm trong các nhóm SRE khác—chuyên hướng dẫn các nhà phát triển xây dựng các sản phẩm đáng tin cậy và nhanh đáp ứng các tiêu chuẩn của Google về sự vững chắc, khả năng mở rộng, và độ tin cậy. Nhóm tư vấn này, Launch Coordination Engineering (LCE), tạo thuận lợi cho một quy trình ra mắt suôn sẻ theo một vài cách:
+Google tiếp cận những thách thức vốn có của việc ra mắt bằng cách tạo ra một nhóm tư vấn chuyên trách trong SRE chịu trách nhiệm về mặt kỹ thuật của việc ra mắt một sản phẩm hoặc tính năng mới. Nhóm này gồm các kỹ sư phần mềm và kỹ sư hệ thống—một số từng có kinh nghiệm trong các nhóm SRE khác—chuyên hướng dẫn các nhà phát triển nhanh chóng xây dựng các sản phẩm đáng tin cậy, đáp ứng các tiêu chuẩn của Google về sự vững chắc, khả năng mở rộng, và độ tin cậy. Nhóm tư vấn này, Launch Coordination Engineering (LCE), tạo thuận lợi cho một quy trình ra mắt suôn sẻ theo một vài cách:
 
 -   Thăm dò (audit) các sản phẩm và dịch vụ về sự tuân thủ [các tiêu chuẩn độ tin cậy của Google](https://sre.google/resources/practices-and-processes/product-focused-reliability-for-sre/) và các thực hành tốt nhất, đồng thời cung cấp các hành động cụ thể để cải thiện độ tin cậy
 -   Đóng vai trò cầu nối giữa các nhóm khác nhau tham gia vào một lần ra mắt
@@ -49,15 +49,15 @@ Nhóm Launch Coordination Engineering của chúng tôi được cấu thành t�
 
 Một nhóm chuyên trách điều phối các lần ra mắt mang lại những lợi thế sau:
 
-#### Breadth of experience (Breadth of experience - chiều rộng kinh nghiệm)
+#### Chiều rộng kinh nghiệm (Breadth of experience)
 
 Là một nhóm thực sự liên sản phẩm (cross-product), các thành viên hoạt động trên gần như tất cả các lĩnh vực sản phẩm của Google. Kiến thức liên sản phẩm rộng rãi và các mối quan hệ với nhiều nhóm trên khắp công ty làm cho các LCE trở thành những phương tiện xuất sắc để chuyển giao kiến thức.
 
-Cross-functional perspective (Cross-functional perspective - góc nhìn liên chức năng)
+#### Góc nhìn liên chức năng (Cross-functional perspective)
 
 Các LCE có một góc nhìn toàn diện về lần ra mắt, điều cho phép họ điều phối giữa các nhóm khác nhau trong SRE, phát triển, và quản lý sản phẩm. Cách tiếp cận toàn diện này đặc biệt quan trọng cho các lần ra mắt phức tạp có thể trải dài hơn nửa tá nhóm trên nhiều múi giờ khác nhau.
 
-#### Objectivity (Objectivity - tính khách quan)
+#### Tính khách quan (Objectivity)
 
 Với tư cách là một cố vấn không thiên vị, một LCE đóng vai trò cân bằng và dàn xếp giữa các bên liên quan bao gồm SRE, nhà phát triển sản phẩm, quản lý sản phẩm, và tiếp thị.
 
@@ -77,7 +77,7 @@ Bắt được các lỗi hiển nhiên
 
 #### Thorough (Chu đáo)
 
-Đặt giải quyết các chi tiết quan trọng một cách nhất quán và có thể tái lập
+Giải quyết các chi tiết quan trọng một cách nhất quán và có thể tái lập
 
 #### Scalable (Có thể mở rộng)
 
@@ -103,9 +103,9 @@ Xác định các lớp các lần ra mắt luôn tuân theo một pattern (hìn
 
 Kinh nghiệm đã chứng minh rằng các kỹ sư có khả năng lách qua các quy trình mà họ cho là quá nặng nề hoặc mang lại giá trị không đủ—đặc biệt khi một nhóm đã ở chế độ crunch (tăng tốc gấp), và quy trình ra mắt được xem như chỉ là một mục khác đang chặn lần ra mắt của họ. Vì lý do này, LCE phải tối ưu hóa trải nghiệm ra mắt liên tục để đạt được sự cân bằng đúng giữa chi phí và lợi ích.
 
-### Checklist Ra Mát (The Launch Checklist)
+### Checklist Ra Mắt (The Launch Checklist)
 
-Các checklist được sử dụng để giảm thất bại và đảm bảo tính nhất quán và đầy đủ qua nhiều ngành nghề khác nhau. Các ví dụ phổ biến bao gồm các checklist trước khi bay của hàng không và các checklist phẫu thuật [[Gaw09]](https://sre.google/sre-book/bibliography#Gaw09). Tương tự, LCE sử dụng một checklist ra mắt để chứng nhận (qualify) một lần ra mắt. Checklist ([Launch Coordination Checklist](https://sre.google/sre-book/launch-checklist/)) giúp một LCE đánh giá lần ra mắt và cung cấp cho nhóm ra mắt các hành động cần thực hiện và các chỉ dẫn đến nhiều thông tin hơn. Dưới đây là một số ví dụ về các mục mà một checklist có thể bao gồm:
+Các checklist được sử dụng để giảm sai sót và đảm bảo tính nhất quán và đầy đủ qua nhiều ngành nghề khác nhau. Các ví dụ phổ biến bao gồm các checklist trước khi bay của hàng không và các checklist phẫu thuật [[Gaw09]](https://sre.google/sre-book/bibliography#Gaw09). Tương tự, LCE sử dụng một checklist ra mắt để chứng nhận (qualify) một lần ra mắt. Checklist ([Launch Coordination Checklist](https://sre.google/sre-book/launch-checklist/)) giúp một LCE đánh giá lần ra mắt và cung cấp cho nhóm ra mắt các hành động cần thực hiện và các chỉ dẫn đến nhiều thông tin hơn. Dưới đây là một số ví dụ về các mục mà một checklist có thể bao gồm:
 
 -   **Câu hỏi**: Bạn có cần một tên miền (domain name) mới?
     
@@ -124,7 +124,7 @@ Trên thực tế, có một số lượng gần như vô hạn các câu hỏi 
 
 Checklist cần sự chú ý liên tục để vẫn có liên quan và cập nhật: các khuyến nghị thay đổi theo thời gian, các hệ thống nội bộ được thay thế bởi các hệ thống khác, và các lĩnh vực lo ngại từ các lần ra mắt trước đó trở nên lỗi thời do các chính sách và quy trình mới. Các LCE biên soạn checklist liên tục và thực hiện các cập nhật nhỏ khi các thành viên nhóm chú ý đến các mục cần được sửa đổi. Một hoặc hai lần một năm, một thành viên nhóm xem xét toàn bộ checklist để xác định các mục lỗi thời, và sau đó làm việc với các chủ sở hữu dịch vụ và các chuyên gia về chủ đề để hiện đại hóa các phần của checklist.
 
-### Thúc Đẩy Sự hội Tụ và Đơn Giản Hóa (Driving Convergence and Simplification)
+### Thúc Đẩy Sự Hội Tụ và Đơn Giản Hóa (Driving Convergence and Simplification)
 
 Trong một tổ chức lớn, các kỹ sư có thể không hay biết về hạ tầng khả dụng cho các tác vụ phổ biến (chẳng hạn như rate limiting). Thiếu sự hướng dẫn phù hợp, họ có khả năng lại tự xây dựng các giải pháp đã tồn tại. Việc hội tụ về một tập các thư viện hạ tầng chung tránh kịch bản này và mang lại những lợi ích hiển nhiên cho công ty: nó cắt giảm công việc trùng lặp, làm cho kiến thức dễ chuyển giao hơn giữa các dịch vụ, và dẫn đến một mức độ chất lượng kỹ thuật và dịch vụ cao hơn do sự chú ý được tập trung dành cho hạ tầng.
 
@@ -170,7 +170,7 @@ Nhiều dịch vụ của các công ty chạy trong một hệ sinh thái nội
 
 Các tính năng mới có thể thể hiện một sự tăng sử dụng tạm thời vào lúc ra mắt mà lắng xuống trong vòng vài ngày. Loại workload hoặc sự pha trộn traffic từ một lần tăng đột biến ra mắt có thể khác biệt đáng kể so với trạng thái ổn định, làm lệch kết quả kiểm thử tải. Sự quan tâm của công chúng nổi tiếng là khó dự đoán, và một số sản phẩm của Google đã phải ứng phó với các lần tăng đột biến ra mắt cao gấp 15 lần so với ước tính ban đầu. Ra mắt ban đầu ở một khu vực hoặc một quốc gia mỗi lần giúp xây dựng niềm tin để xử lý các lần ra mắt lớn hơn.
 
-Năng lực có mối liên hệ chặt chẽ với mức dự phòng và khả năng vận hành liên tục. Ví dụ, nếu bạn cần ba triển khai được nhân bản để phục vụ 100% traffic của bạn vào lúc đỉnh, bạn cần duy trì bốn hoặc năm triển khai, một hoặc hai cái trong số đó là dự phòng, để che chở người dùng khỏi việc bảo trì và các sự cố bất ngờ. Các tài nguyên datacenter và mạng thường có một thời gian lead dài và cần được yêu cầu đủ sớm để công ty bạn có thể đạt được chúng.
+Năng lực có mối liên hệ chặt chẽ với mức dự phòng và khả năng vận hành liên tục. Ví dụ, nếu bạn cần ba triển khai được nhân bản để phục vụ 100% traffic của bạn vào lúc đỉnh, bạn cần duy trì bốn hoặc năm triển khai, một hoặc hai cái trong số đó là dự phòng, để che chở người dùng khỏi việc bảo trì và các sự cố bất ngờ. Các tài nguyên datacenter và mạng thường có thời gian chờ (lead time) dài và cần được yêu cầu đủ sớm để công ty bạn có thể đạt được chúng.
 
 #### Các câu hỏi checklist ví dụ
 
@@ -180,17 +180,17 @@ Năng lực có mối liên hệ chặt chẽ với mức dự phòng và khả 
 
 ### Các Chế Độ Lỗi (Failure Modes)
 
-Một cái nhìn có hệ thống vào các chế độ lỗi có thể của một dịch vụ mới đảm bảo độ tin cậy cao ngay từ đầu. Trong phần này của checklist, hãy xem xét mỗi thành phần và sự phụ thuộc và xác định tác động của sự hỏng hóc của chúng. Dịch vụ có thể xử lý được các sự hỏng hóc máy đơn lẻ không? Các sự cố datacenter? Các sự hỏng hóc mạng? Chúng ta xử lý dữ liệu đầu vào xấu như thế nào? Chúng ta có sẵn sàng cho khả năng của một cuộc tấn công từ chối dịch vụ (denial-of-service - DoS) không? Dịch vụ có thể tiếp tục phục vụ ở chế độ suy giảm (degraded mode) nếu một trong các sự phụ thuộc của nó bị hỏng không? Chúng ta xử lý sự không khả dụng của một sự phụ thuộc vào lúc khởi động của dịch vụ như thế nào? Trong khi chạy (during runtime)?
+Một cái nhìn có hệ thống vào các chế độ lỗi có thể của một dịch vụ mới đảm bảo độ tin cậy cao ngay từ đầu. Trong phần này của checklist, hãy xem xét mỗi thành phần và sự phụ thuộc và xác định tác động của sự hỏng hóc của chúng. Dịch vụ có thể xử lý được các sự cố máy đơn lẻ không? Các sự cố datacenter? Các sự cố mạng? Chúng ta xử lý dữ liệu đầu vào xấu như thế nào? Chúng ta có sẵn sàng cho khả năng của một cuộc tấn công từ chối dịch vụ (denial-of-service - DoS) không? Dịch vụ có thể tiếp tục phục vụ ở chế độ suy giảm (degraded mode) nếu một trong các sự phụ thuộc của nó bị hỏng không? Chúng ta xử lý sự không khả dụng của một sự phụ thuộc vào lúc khởi động của dịch vụ như thế nào? Trong khi chạy (during runtime)?
 
 #### Các câu hỏi checklist ví dụ
 
--   Bạn có bất kỳ điểm lỗi đơn lẻ (single points of failure) nào trong thiết kế của bạn không?
+-   Bạn có bất kỳ điểm thất bại duy nhất (single point of failure) nào trong thiết kế của bạn không?
 -   Bạn giảm thiểu sự không khả dụng của các sự phụ thuộc của mình như thế nào?
 
 #### Các hành động cần thực hiện ví dụ
 
 -   Triển khai các deadline cho request để tránh cạn kiệt tài nguyên cho các request chạy lâu.
--   Triển khai load shedding để từ chối các request mới sớm trong các tình trạng quá tải.
+-   Triển khai loại bỏ tải (load shedding) để từ chối các request mới sớm trong các tình trạng quá tải.
 
 ### Hành Vi của Client (Client Behavior)
 
@@ -209,7 +209,7 @@ Trên một website truyền thống, hiếm khi có nhu cầu phải tính đ�
 
 ### Các Quy Trình và Tự Động Hóa (Processes and Automation)
 
-Google khuyến khích các kỹ sư sử dụng các công cụ chuẩn để tự động hóa các quy trình phổ biến. Tuy nhiên, tự động hóa không bao giờ hoàn hảo, và mọi dịch vụ đều có các quy trình cần được thực hiện bởi một con người: tạo một release (phiên bản phát hành) mới, di chuyển dịch vụ đến một datacenter khác, khôi phục dữ liệu từ backup, và vân vân. Vì lý do độ tin cậy, chúng tôi nỗ lực để giảm thiểu các điểm lỗi đơn lẻ, bao gồm cả con người.
+Google khuyến khích các kỹ sư sử dụng các công cụ chuẩn để tự động hóa các quy trình phổ biến. Tuy nhiên, tự động hóa không bao giờ hoàn hảo, và mọi dịch vụ đều có các quy trình cần được thực hiện bởi một con người: tạo một release (phiên bản phát hành) mới, di chuyển dịch vụ đến một datacenter khác, khôi phục dữ liệu từ backup, và vân vân. Vì lý do độ tin cậy, chúng tôi nỗ lực để giảm thiểu các điểm thất bại duy nhất, bao gồm cả con người.
 
 Các quy trình còn lại này nên được tài liệu hóa trước khi ra mắt để đảm bảo rằng thông tin được chuyển từ tâm trí của một kỹ sư ra giấy trong khi nó vẫn còn mới, và rằng nó khả dụng trong một tình trạng khẩn cấp. Các quy trình nên được tài liệu hóa theo cách mà bất kỳ thành viên nào của nhóm cũng có thể thực hiện một quy trình nhất định trong một tình trạng khẩn cấp.
 
@@ -225,7 +225,7 @@ Các quy trình còn lại này nên được tài liệu hóa trước khi ra m
 
 ### Quy Trình Phát Triển (Development Process)
 
-Google là một người dùng rộng rãi của version control (kiểm soát phiên bản), và hầu như tất cả các quy trình phát triển đều được tích hợp sâu với hệ thống này. Nhiều thực hành tốt nhất của chúng tôi xoay quanh cách sử dụng hệ thống kiểm soát phiên bản một cách hiệu quả. Ví dụ, chúng tôi thực hiện phần lớn việc phát triển trên nhánh mainline (nhánh chính), nhưng các release được xây dựng trên các nhánh riêng cho từng release. Việc thiết lập này làm cho việc sửa các bug trong một release trở nên dễ dàng mà không kéo theo những thay đổi không liên quan từ mainline.
+Google là một người dùng rộng rãi của version control (kiểm soát phiên bản), và hầu như tất cả các quy trình phát triển đều được tích hợp sâu với hệ thống này. Nhiều thực hành tốt nhất của chúng tôi xoay quanh cách sử dụng hệ thống kiểm soát phiên bản một cách hiệu quả. Ví dụ, chúng tôi thực hiện phần lớn việc phát triển trên nhánh mainline, nhưng các release được xây dựng trên các nhánh riêng cho từng release. Việc thiết lập này làm cho việc sửa các bug trong một release trở nên dễ dàng mà không kéo theo những thay đổi không liên quan từ mainline.
 
 Google cũng sử dụng version control cho các mục đích khác, chẳng hạn như lưu trữ các file cấu hình. Nhiều lợi ích của version control — theo dõi lịch sử, gán các thay đổi cho các cá nhân, và code review — cũng áp dụng cho các file cấu hình. Trong một số trường hợp, chúng tôi cũng tự động đẩy các thay đổi từ hệ thống kiểm soát phiên bản đến các server trực tiếp, sao cho một kỹ sư chỉ cần đệ trình một thay đổi để đưa nó lên production.
 
@@ -246,7 +246,7 @@ Google cũng sử dụng version control cho các mục đích khác, chẳng h�
 
 ### Lập Kế Hoạch Triển Khai (Rollout Planning)
 
-Trong các hệ thống phân tán lớn, ít sự kiện nào xảy ra tức thời. Vì lý do độ tin cậy, sự tức thời như vậy thường không lý tưởng dù sao. Một lần ra mắt phức tạp có thể yêu cầu kích hoạt các tính năng cá nhân trên một số hệ thống phụ khác nhau, và mỗi thay đổi cấu hình đó có thể mất hàng giờ để hoàn thành. Một cấu hình chạy tốt trên instance thử nghiệm không có nghĩa là cùng cấu hình đó có thể được triển khai đến instance trực tiếp. Đôi khi một vũ điệu phức tạp hoặc tính năng đặc biệt được yêu cầu để làm cho tất cả các thành phần ra mắt sạch sẽ và theo đúng thứ tự.
+Trong các hệ thống phân tán lớn, ít sự kiện nào xảy ra tức thời. Vì lý do độ tin cậy, sự tức thời như vậy thường không lý tưởng dù sao. Một lần ra mắt phức tạp có thể yêu cầu kích hoạt từng tính năng riêng lẻ trên một số hệ thống phụ khác nhau, và mỗi thay đổi cấu hình đó có thể mất hàng giờ để hoàn thành. Một cấu hình chạy tốt trên instance thử nghiệm không có nghĩa là cùng cấu hình đó có thể được triển khai đến instance trực tiếp. Đôi khi một vũ điệu phức tạp hoặc tính năng đặc biệt được yêu cầu để làm cho tất cả các thành phần ra mắt sạch sẽ và theo đúng thứ tự.
 
 Các yêu cầu bên ngoài từ các nhóm như tiếp thị và PR (quan hệ công chúng) có thể thêm các rắc rối khác. Ví dụ, một nhóm có thể cần một tính năng khả dụng kịp thời cho bài thuyết trình chính (keynote) tại một hội nghị, nhưng cần giữ tính năng ẩn cho đến trước bài keynote.
 
@@ -261,7 +261,7 @@ Các biện pháp dự phòng là một phần khác của lập kế hoạch tr
 
 Như đã mô tả trong các phần khác của cuốn sách này, Google đã phát triển một số kỹ thuật để vận hành các hệ thống đáng tin cậy qua nhiều năm. Một số kỹ thuật trong số này đặc biệt phù hợp để ra mắt các sản phẩm một cách an toàn. Chúng cũng mang lại các lợi thế trong quá trình vận hành bình thường của dịch vụ, nhưng đặc biệt quan trọng là thực hiện chúng đúng trong giai đoạn ra mắt.
 
-### Triển Khai Từ Chậm và Theo Giai Đoạn (Gradual and Staged Rollouts)
+### Triển Khai Từ Từ và Theo Giai Đoạn (Gradual and Staged Rollouts)
 
 Một châm ngôn của quản trị hệ thống là "đừng bao giờ thay đổi một hệ thống đang chạy." Bất kỳ thay đổi nào đều đại diện cho rủi ro, và rủi ro nên được giảm thiểu để đảm bảo [độ tin cậy của một hệ thống.](https://sre.google/resources/practices-and-processes/product-focused-reliability-for-sre/) Điều gì đúng cho một hệ thống nhỏ bất kỳ thì đúng gấp đôi cho các hệ thống được nhân bản cao, phân phối toàn cầu như những hệ thống do Google vận hành.
 
@@ -303,29 +303,29 @@ Các dịch vụ có trạng thái (stateful) có xu hướng giới hạn các 
 
 ### Đối Phó Với Hành Vi Client Lạm Dụng (Dealing with Abusive Client Behavior)
 
-Ví dụ đơn giản nhất của hành vi client lạm dụng là một sự đánh giá sai về các tỷ lệ cập nhật. Một client mới đồng bộ hóa mỗi 60 giây, thay vì mỗi 600 giây, gây ra gấp 10 lần tải lên dịch vụ. Hành vi retry có một số bẫy ảnh hưởng đến cả các request do người dùng khởi tạo, cũng như các request do client khởi tạo. Hãy lấy ví dụ về một dịch vụ đang bị quá tải và vì vậy đang thất bại một số request: nếu các client thử lại các request thất bại, chúng thêm tải vào một dịch vụ đã bị quá tải, dẫn đến nhiều lần thử lại hơn và thậm chí nhiều request hơn. Thay vào đó, các client cần giảm tần suất thử lại, thường bằng cách thêm độ trễ tăng theo cấp số mũ giữa các lần thử lại, ngoài việc cẩn thận cân nhắc các loại lỗi xứng đáng để thử lại. Ví dụ, một lỗi mạng thường xứng đáng để thử lại, nhưng một lỗi HTTP 4xx (cho thấy một lỗi ở phía client) thường thì không.
+Ví dụ đơn giản nhất của hành vi client lạm dụng là một sự đánh giá sai về các tỷ lệ cập nhật. Một client mới đồng bộ hóa mỗi 60 giây, thay vì mỗi 600 giây, gây ra gấp 10 lần tải lên dịch vụ. Hành vi retry có một số bẫy ảnh hưởng đến cả các request do người dùng khởi tạo, cũng như các request do client khởi tạo. Hãy lấy ví dụ về một dịch vụ đang bị quá tải và vì vậy đang làm thất bại một số request: nếu các client thử lại các request thất bại, chúng thêm tải vào một dịch vụ đã bị quá tải, dẫn đến nhiều lần thử lại hơn và thậm chí nhiều request hơn. Thay vào đó, các client cần giảm tần suất thử lại, thường bằng cách thêm độ trễ tăng theo cấp số mũ giữa các lần thử lại, ngoài việc cẩn thận cân nhắc các loại lỗi xứng đáng để thử lại. Ví dụ, một lỗi mạng thường xứng đáng để thử lại, nhưng một lỗi HTTP 4xx (cho thấy một lỗi ở phía client) thường thì không.
 
 Sự đồng bộ hóa có chủ ý hoặc vô tình các request tự động trong một "hiệu ứng bầy đàn" (thundering herd, giống như những thứ được mô tả trong các chương [Định Kỳ Phân Tán với Cron](https://sre.google/sre-book/distributed-periodic-scheduling/) và [Pipeline Xử Lý Dữ Liệu](https://sre.google/sre-book/data-processing-pipelines/)) là một ví dụ phổ biến khác của hành vi client lạm dụng. Một nhà phát triển app điện thoại có thể quyết định rằng 2 giờ sáng là một thời điểm tốt để tải xuống các bản cập nhật, vì người dùng có khả năng đang ngủ và sẽ không bị phiền toái bởi việc tải xuống. Tuy nhiên, một thiết kế như vậy dẫn đến một loạt các request đến server tải xuống lúc 2 giờ sáng mỗi đêm, và gần như không có request vào bất kỳ thời điểm nào khác. Thay vào đó, mọi client nên chọn thời điểm cho loại request này một cách ngẫu nhiên.
 
-Tính ngẫu nhiên cũng cần được tiêm vào các quy trình định kỳ khác. Quay lại các lần thử lại được đề cập trước đó: hãy lấy ví dụ về một client gửi một request, và khi nó gặp một sự thất bại, thử lại sau 1 giây, sau đó 2 giây, sau đó 4 giây, và vân vân. Nếu không có tính ngẫu nhiên, một đợt tăng request ngắn dẫn đến tỷ lệ lỗi tăng có thể lặp lại chính nó do các lần thử lại sau 1 giây, sau đó 2 giây, sau đó 4 giây. Để làm cho đều các sự kiện được đồng bộ này, mỗi độ trễ cần được jitter (tức là, điều chỉnh bằng một lượng ngẫu nhiên).
+Tính ngẫu nhiên cũng cần được tiêm vào các quy trình định kỳ khác. Quay lại các lần thử lại được đề cập trước đó: hãy lấy ví dụ về một client gửi một request, và khi gặp lỗi, thử lại sau 1 giây, sau đó 2 giây, sau đó 4 giây, và vân vân. Nếu không có tính ngẫu nhiên, một đợt tăng request ngắn dẫn đến tỷ lệ lỗi tăng có thể lặp lại chính nó do các lần thử lại sau 1 giây, sau đó 2 giây, sau đó 4 giây. Để làm cho đều các sự kiện được đồng bộ này, mỗi độ trễ cần được jitter (tức là, điều chỉnh bằng một lượng ngẫu nhiên).
 
 Khả năng kiểm soát hành vi của một client từ phía server đã chứng minh là một công cụ quan trọng. Đối với một app trên một thiết bị, sự kiểm soát như vậy có thể có nghĩa là hướng dẫn client kiểm tra (check in) định kỳ với server và tải xuống một file cấu hình. File đó có thể bật hoặc tắt một số tính năng hoặc đặt các tham số, chẳng hạn như client đồng bộ hóa bao lâu một lần hoặc thử lại bao lâu một lần.
 
-Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không đang xử lý một mảnh tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, khi đó số phiên bản cần duy trì sẽ tăng theo cấp số nhân (combinatorial explosion).
+Cấu hình client thậm chí có thể bật một tính năng hoàn toàn mới hướng đến người dùng. Bằng cách đăng tải mã hỗ trợ tính năng mới trong ứng dụng client trước khi chúng tôi kích hoạt tính năng đó, chúng tôi giảm đáng kể rủi ro liên quan đến một lần ra mắt. Việc phát hành một phiên bản mới trở nên dễ dàng hơn nhiều nếu chúng tôi không cần duy trì các đường release song song cho một phiên bản có tính năng mới so với không có tính năng. Điều này đặc biệt đúng nếu chúng tôi không phải đang xử lý một tính năng mới đơn lẻ, mà là một tập các tính năng độc lập có thể được phát hành theo các lịch trình khác nhau, khi đó số phiên bản cần duy trì sẽ tăng theo cấp số nhân (combinatorial explosion).
 
 Việc có loại tính năng ngủ đông (dormant) này cũng làm cho việc hủy bỏ các lần ra mắt trở nên dễ dàng hơn khi các tác động bất lợi được phát hiện trong quá trình triển khai. Trong những trường hợp như vậy, chúng tôi đơn giản có thể chuyển tính năng sang tắt, lặp lại (iterate), và phát hành một phiên bản cập nhật của app. Nếu không có loại cấu hình client này, chúng tôi sẽ phải cung cấp một phiên bản app mới không có tính năng đó, và cập nhật app trên điện thoại của tất cả người dùng.
 
 ### Hành Vi Quá Tải và Kiểm Thử Tải (Overload Behavior and Load Tests)
 
-Các tình trạng quá tải là một chế độ lỗi đặc biệt phức tạp, và do đó xứng đáng được chú ý thêm. Sự thành công mất kiểm soát thường là nguyên nhân đáng được chào đón nhất của quá tải khi một dịch vụ mới ra mắt, nhưng có vô số các nguyên nhân khác, bao gồm các sự hỏng hóc cân bằng tải, các sự cố máy, hành vi client đồng bộ hóa, và các cuộc tấn công bên ngoài.
+Các tình trạng quá tải là một chế độ lỗi đặc biệt phức tạp, và do đó xứng đáng được chú ý thêm. Sự thành công mất kiểm soát thường là nguyên nhân đáng được chào đón nhất của quá tải khi một dịch vụ mới ra mắt, nhưng có vô số các nguyên nhân khác, bao gồm các sự cố cân bằng tải, các sự cố máy, hành vi client đồng bộ hóa, và các cuộc tấn công bên ngoài.
 
 Một mô hình ngây thơ giả định mức sử dụng CPU trên một máy cung cấp một dịch vụ nhất định tăng tuyến tính theo tải (ví dụ, số request hoặc lượng dữ liệu được xử lý), và một khi CPU khả dụng bị cạn kiệt, việc xử lý đơn giản là trở nên chậm hơn. Thật không may, các dịch vụ hiếm khi hành xử theo cách lý tưởng này trong thế giới thực. Nhiều dịch vụ chậm hơn nhiều khi chúng không được tải, thường do tác động của các loại cache khác nhau chẳng hạn như CPU caches, JIT caches, và các cache dữ liệu đặc thù cho dịch vụ. Khi tải tăng lên, thường có một khoảng trong đó mức sử dụng CPU và tải trên dịch vụ tương ứng tuyến tính, và thời gian phản hồi giữ tương đối ổn định.
 
 Ở một số điểm, nhiều dịch vụ đạt đến một điểm phi tuyến tính khi chúng tiến đến quá tải. Trong các trường hợp lành tính nhất, thời gian phản hồi đơn giản bắt đầu tăng lên, dẫn đến một trải nghiệm người dùng suy giảm nhưng không nhất thiết gây ra một sự cố (mặc dù một sự phụ thuộc chậm có thể gây ra các lỗi nhìn thấy được bởi người dùng lên trên stack, do vượt quá các deadline RPC). Trong các trường hợp gay gắt nhất, một dịch vụ bị khóa hoàn toàn (locks up) để phản ứng với quá tải.
 
-Để dẫn ra một ví dụ cụ thể về hành vi quá tải: một dịch vụ đã ghi log (nhật ký) thông tin gỡ rối để phản ứng với các lỗi backend. Hóa ra là việc ghi log thông tin gỡ rối đắt đỏ hơn việc xử lý phản ứng backend trong một trường hợp bình thường. Do đó, khi dịch vụ trở nên quá tải và timeout các phản ứng backend bên trong stack RPC của chính nó, dịch vụ dành thêm thời gian CPU để ghi log những phản ứng này, rồi timeout nhiều request hơn, cứ thế cho đến khi dịch vụ dừng hẳn. Trong các dịch vụ chạy trên Java Virtual Machine (JVM), một hiệu ứng tương tự của việc dừng hẳn đôi khi được gọi là "GC (garbage collection - thu gom rác) thrashing (lẫy lạch)." Trong kịch bản này, việc quản lý bộ nhớ nội bộ của máy ảo chạy trong các chu kỳ ngày càng gần hơn, cố gắng giải phóng bộ nhớ cho đến khi phần lớn thời gian CPU bị tiêu thụ bởi việc quản lý bộ nhớ.
+Để dẫn ra một ví dụ cụ thể về hành vi quá tải: một dịch vụ đã ghi log (nhật ký) thông tin gỡ rối để phản ứng với các lỗi backend. Hóa ra là việc ghi log thông tin gỡ rối đắt đỏ hơn việc xử lý phản ứng backend trong một trường hợp bình thường. Do đó, khi dịch vụ trở nên quá tải và timeout các phản ứng backend bên trong stack RPC của chính nó, dịch vụ dành thêm thời gian CPU để ghi log những phản ứng này, rồi timeout nhiều request hơn, cứ thế cho đến khi dịch vụ dừng hẳn. Trong các dịch vụ chạy trên Java Virtual Machine (JVM), một hiệu ứng tương tự của việc dừng hẳn đôi khi được gọi là "GC (garbage collection - thu gom rác) thrashing (giằng co)." Trong kịch bản này, việc quản lý bộ nhớ nội bộ của máy ảo chạy trong các chu kỳ ngày càng gần hơn, cố gắng giải phóng bộ nhớ cho đến khi phần lớn thời gian CPU bị tiêu thụ bởi việc quản lý bộ nhớ.
 
-Thật không may, rất khó để dự đoán từ các nguyên lý bậc nhất một dịch vụ sẽ phản ứng thế nào với quá tải. Do đó, load tests (kiểm thử tải) là một công cụ vô giá, cả vì lý do độ tin cậy và lập kế hoạch năng lực, và kiểm thử tải được yêu cầu cho phần lớn các lần ra mắt.
+Thật không may, rất khó để dự đoán từ các nguyên lý cơ bản (first principles) một dịch vụ sẽ phản ứng thế nào với quá tải. Do đó, load tests (kiểm thử tải) là một công cụ vô giá, cả vì lý do độ tin cậy và lập kế hoạch năng lực, và kiểm thử tải được yêu cầu cho phần lớn các lần ra mắt.
 
 ## Sự Phát Triển của LCE (Development of LCE)
 
@@ -342,7 +342,7 @@ Trong những năm đầu hình thành của Google, kích thước của nhóm 
 
 Trong vòng hai năm, các yêu cầu triển khai sản phẩm trong checklist ra mắt ngày càng dài và phức tạp. Kết hợp với sự phức tạp ngày càng tăng của môi trường triển khai của Google, việc cập nhật về cách thực hiện các thay đổi một cách an toàn trở nên ngày càng khó khăn cho các kỹ sư sản phẩm. Đồng thời, tổ chức SRE đang phát triển nhanh, và các SRE thiếu kinh nghiệm đôi khi quá thận trọng và e dè trước sự thay đổi. Google đối mặt với rủi ro rằng các cuộc đàm phán phát sinh giữa hai bên này sẽ làm giảm velocity của các lần ra mắt sản phẩm/tính năng.
 
-Để giảm thiểu kịch bản này từ góc nhìn kỹ thuật, SRE đã bố trí một nhóm nhỏ các LCE thời gian toàn thời gian vào năm 2004. Họ chịu trách nhiệm tăng tốc các lần ra mắt các sản phẩm và tính năng mới, trong khi đồng thời áp dụng chuyên môn SRE để đảm bảo rằng Google phát hành các sản phẩm đáng tin cậy với khả năng hoạt động cao và latency thấp.
+Để giảm thiểu kịch bản này từ góc nhìn kỹ thuật, SRE đã bố trí một nhóm nhỏ LCE toàn thời gian vào năm 2004. Họ chịu trách nhiệm tăng tốc các lần ra mắt các sản phẩm và tính năng mới, trong khi đồng thời áp dụng chuyên môn SRE để đảm bảo rằng Google phát hành các sản phẩm đáng tin cậy với khả năng hoạt động cao và latency thấp.
 
 Các LCE chịu trách nhiệm đảm bảo các lần ra mắt được thực hiện nhanh chóng mà không để các dịch vụ sụp đổ, và rằng nếu một lần ra mắt thất bại, nó không kéo theo các sản phẩm khác. Các LCE cũng chịu trách nhiệm giữ cho các bên liên quan được thông báo về bản chất và khả năng của những sự cố như vậy bất cứ khi nào những góc cạnh bị cắt để tăng tốc thời gian ra thị trường. Các buổi tư vấn của họ được chính thức hóa thành các Production Review (Rà soát Production).
 
@@ -366,7 +366,7 @@ Khi các sản phẩm thành công vượt xa mọi ước tính ban đầu, và
 
 #### Gánh nặng vận hành tăng lên (Growing operational load)
 
-Khi vận hành một dịch vụ sau khi ra mắt, operational load (gánh nặng vận hành), lượng kỹ thuật thủ công và lặp lại cần thiết để giữ cho một hệ thống hoạt động, có xu hướng tăng theo thời gian trừ khi có các nỗ lực để kiểm soát gánh nặng đó. Sự ồn ào của các thông báo tự động, sự phức tạp của các quy trình triển khai, và chi phí phụ của công việc bảo trì thủ công có xu hướng tăng theo thời gian và tiêu thụ ngày càng nhiều bandwidth của chủ sở hữu dịch vụ, để lại cho nhóm ít thời gian hơn cho phát triển tính năng. SRE có một mục tiêu được quảng bá nội bộ là giữ công việc vận hành dưới một mức tối đa 50%; xem [Loại Bỏ Toil (Công Việc Lặp Đi Lặp Lại)](https://sre.google/sre-book/eliminating-toil/). Giữ dưới mức tối đa này đòi hỏi việc theo dõi liên tục các nguồn của công việc vận hành, cũng như nỗ lực có mục tiêu để loại bỏ những nguồn này.
+Khi vận hành một dịch vụ sau khi ra mắt, operational load (gánh nặng vận hành), lượng kỹ thuật thủ công và lặp lại cần thiết để giữ cho một hệ thống hoạt động, có xu hướng tăng theo thời gian trừ khi có các nỗ lực để kiểm soát gánh nặng đó. Sự ồn ào của các thông báo tự động, sự phức tạp của các quy trình triển khai, và overhead (công việc phụ) của việc bảo trì thủ công có xu hướng tăng theo thời gian và tiêu thụ ngày càng nhiều bandwidth của chủ sở hữu dịch vụ, để lại cho nhóm ít thời gian hơn cho phát triển tính năng. SRE có một mục tiêu được quảng bá nội bộ là giữ công việc vận hành dưới một mức tối đa 50%; xem [Loại Bỏ Toil (Công Việc Lặp Đi Lặp Lại)](https://sre.google/sre-book/eliminating-toil/). Giữ dưới mức tối đa này đòi hỏi việc theo dõi liên tục các nguồn của công việc vận hành, cũng như nỗ lực có mục tiêu để loại bỏ những nguồn này.
 
 #### Sự biến động hạ tầng (Infrastructure churn)
 
@@ -376,7 +376,7 @@ Giải quyết những vấn đề này đòi hỏi các nỗ lực trên toàn 
 
 ## Kết Luận (Conclusion)
 
-Các công ty đang trải qua tăng trưởng nhanh với một tỷ lệ thay đổi cao đối với các sản phẩm và dịch vụ có thể có lợi từ tương đương của một vai trò Launch Coordination Engineering. Một nhóm như vậy đặc biệt có giá trị nếu một công ty lên kế hoạch tăng gấp đôi số nhà phát triển sản phẩm của mình mỗi một hoặc hai năm, nếu nó phải mở rộng scale các dịch vụ của mình đến hàng trăm triệu người dùng, và nếu độ tin cậy bất chấp một tỷ lệ thay đổi cao là quan trọng đối với người dùng của nó.
+Các công ty đang trải qua tăng trưởng nhanh với một tỷ lệ thay đổi cao đối với các sản phẩm và dịch vụ có thể hưởng lợi từ một vai trò tương đương với Launch Coordination Engineering. Một nhóm như vậy đặc biệt có giá trị nếu một công ty lên kế hoạch tăng gấp đôi số nhà phát triển sản phẩm của mình mỗi một hoặc hai năm, nếu nó phải mở rộng scale các dịch vụ của mình đến hàng trăm triệu người dùng, và nếu độ tin cậy bất chấp một tỷ lệ thay đổi cao là quan trọng đối với người dùng của nó.
 
 Nhóm LCE là giải pháp của Google cho vấn đề đạt được sự an toàn mà không gây cản trở sự thay đổi. Chương này đã giới thiệu một số kinh nghiệm được tích lũy bởi vai trò LCE độc đáo của chúng tôi trong một khoảng thời gian 10 năm dưới đúng những hoàn cảnh như vậy. Chúng tôi hy vọng rằng cách tiếp cận của chúng tôi sẽ truyền cảm hứng cho những người khác đối mặt với những thách thức tương tự trong các tổ chức của họ.
 

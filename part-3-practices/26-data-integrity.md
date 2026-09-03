@@ -49,7 +49,7 @@ Phần lớn các ứng dụng cloud computing tìm cách tối ưu hóa cho m�
 
 Uptime
 
-Còn được gọi là *availability*, tỷ lệ thời gian mà một dịch vụ có khả dụng cho người dùng của nó.
+Còn được gọi là *availability*, tỷ lệ thời gian mà một dịch vụ khả dụng cho người dùng của nó.
 
 Latency
 
@@ -89,21 +89,21 @@ Với sự xem xét đến những sự phụ thuộc và những điều phức
 
 ## Backup Đối Chọi Với Lưu Trữ (Backups Versus Archives)
 
-Theo truyền thống, các công ty "bảo vệ" dữ liệu khỏi việc mất mát bằng cách đầu tư vào các chiến lược backup. Tuy nhiên, trọng tâm thực sự của những nỗ lực backup như vậy nên là khôi phục dữ liệu, điều mà phân biệt các bản *backup thật* khỏi các lưu trữ lưu (archives). Như đôi khi được quan sát: Không ai thực sự *muốn* tạo backup; điều mà mọi người *thực sự* muốn là *khôi phục* (restore).
+Theo truyền thống, các công ty "bảo vệ" dữ liệu khỏi việc mất mát bằng cách đầu tư vào các chiến lược backup. Tuy nhiên, trọng tâm thực sự của những nỗ lực backup như vậy nên là khôi phục dữ liệu, điều mà phân biệt các bản *backup thật* khỏi các kho lưu trữ (archive). Như đôi khi được quan sát: Không ai thực sự *muốn* tạo backup; điều mà mọi người *thực sự* muốn là *khôi phục* (restore).
 
-"Backup" của bạn có thực sự là một lưu trữ lưu, chứ không phải phù hợp để sử dụng trong khôi phục thảm họa?
+"Backup" của bạn có thực sự là một kho lưu trữ, chứ không phải phù hợp để sử dụng trong khôi phục thảm họa?
 
 ![srle 26in02](../assets/imgs/fig-26-2.jpg)
 
 Hình 26-2.
 
-Sự khác biệt quan trọng nhất giữa backup và lưu trữ lưu là backup *có thể* được nạp lại vào một ứng dụng, trong khi lưu trữ lưu *không thể*. Do đó, backup và lưu trữ lưu có các trường hợp sử dụng khác biệt khá lớn.
+Sự khác biệt quan trọng nhất giữa backup và kho lưu trữ là backup *có thể* được nạp lại vào một ứng dụng, trong khi kho lưu trữ *không thể*. Do đó, backup và kho lưu trữ có các trường hợp sử dụng khác biệt khá lớn.
 
-*Lưu trữ lưu* an toàn giữ dữ liệu trong thời gian dài để đáp ứng các nhu cầu kiểm toán, truy tìm, và tuân thủ. Khôi phục dữ liệu cho các mục đích như vậy thường không cần phải hoàn thành trong các yêu cầu uptime của một dịch vụ. Ví dụ, bạn có thể cần giữ lại dữ liệu giao dịch tài chính trong bảy năm. Để đạt được mục tiêu này, bạn có thể di chuyển các log kiểm toán tích lũy đến lưu trữ lưu dài hạn tại một vị trí ngoài địa điểm (offsite) một lần một tháng. Việc truy xuất và khôi phục các log trong suốt một cuộc kiểm toán tài chính kéo dài một tháng có thể mất một tuần, và khung thời gian khôi phục một tuần này có thể chấp nhận được đối với một lưu trữ lưu.
+*Kho lưu trữ* an toàn giữ dữ liệu trong thời gian dài để đáp ứng các nhu cầu kiểm toán, truy tìm, và tuân thủ. Khôi phục dữ liệu cho các mục đích như vậy thường không cần phải hoàn thành trong các yêu cầu uptime của một dịch vụ. Ví dụ, bạn có thể cần giữ lại dữ liệu giao dịch tài chính trong bảy năm. Để đạt được mục tiêu này, bạn có thể di chuyển các log kiểm toán tích lũy đến kho lưu trữ dài hạn tại một vị trí ngoài địa điểm (offsite) một lần một tháng. Việc truy xuất và khôi phục các log trong suốt một cuộc kiểm toán tài chính kéo dài một tháng có thể mất một tuần, và khung thời gian khôi phục một tuần này có thể chấp nhận được đối với một kho lưu trữ.
 
 Mặt khác, khi thảm họa ập đến, dữ liệu phải được khôi phục từ *các bản backup thật* một cách nhanh chóng, tốt nhất là hoàn toàn nằm trong các nhu cầu uptime của một dịch vụ. Nếu không, những người dùng bị ảnh hưởng sẽ bị bỏ lại mà không có quyền truy cập hữu ích vào ứng dụng từ khi vấn đề data integrity bắt đầu cho đến khi nỗ lực khôi phục hoàn tất.
 
-Cũng quan trọng cần xem xét rằng vì dữ liệu mới nhất có nguy cơ cho đến khi được sao lưu an toàn, có thể là tối ưu để lên lịch cho các bản backup thật (đối với lưu trữ lưu) diễn ra hàng ngày, hàng giờ, hoặc thường xuyên hơn, sử dụng các cách tiếp cận full và incremental hoặc continuous (liên tục, dạng streaming).
+Cũng quan trọng cần xem xét rằng vì dữ liệu mới nhất có nguy cơ cho đến khi được sao lưu an toàn, có thể là tối ưu để lên lịch cho các bản backup thật (đối với kho lưu trữ) diễn ra hàng ngày, hàng giờ, hoặc thường xuyên hơn, sử dụng các cách tiếp cận full và incremental hoặc continuous (liên tục, dạng streaming).
 
 Do đó, khi xây dựng một chiến lược backup, hãy cân nhắc xem bạn cần phải có khả năng khôi phục từ một vấn đề nhanh đến mức nào, và bạn có thể chấp nhận mất bao nhiêu dữ liệu gần đây.
 
@@ -148,7 +148,7 @@ Bài học từ ví dụ này: Từ góc nhìn của người dùng, data integr
 
 Việc tạo backup là một nhiệm vụ bị bỏ bê kinh điển, được ủy thác, và bị trì hoãn trong quản trị hệ thống. Backup không phải là ưu tiên cao của bất kỳ ai — đó là một sự tiêu hao liên tục về thời gian và nguồn lực, và không mang lại lợi ích tức thì nào nhìn thấy được. Vì lý do này, việc thiếu tận tâm trong triển khai chiến lược backup thường chỉ nhận được một cái nhún vai thông cảm. Người ta có thể lập luận rằng, giống như hầu hết các biện pháp bảo vệ khỏi những nguy hiểm rủi ro thấp, thái độ như vậy là thực dụng. Vấn đề cơ bản với chiến lược cẩu thả này là những nguy hiểm mà nó kéo theo có thể là rủi ro thấp, nhưng chúng cũng có tác động cao. Khi dữ liệu của dịch vụ bạn không khả dụng, phản ứng của bạn có thể quyết định sự sống còn của dịch vụ, sản phẩm, và thậm chí công ty bạn.
 
-Thay vì tập trung vào công việc ít được cảm ơn là tạo backup, nó hữu ích hơn nhiều, không nói thì cũng dễ dàng hơn, để tạo động lực tham gia vào việc tạo backup bằng cách tập trung vào một nhiệm vụ có phần thưởng nhìn thấy được: *khôi phục* (restore)! *Backup là một loại thuế*, được trả liên tục cho dịch vụ cộng đồng về khả năng hoạt động dữ liệu được đảm bảo. Thay vì nhấn mạnh vào thuế, hãy thu hút sự chú ý vào dịch vụ mà thuế tài trợ: data availability. Chúng tôi không bắt các đội "luyện tập" backup của họ, thay vào đó:
+Thay vì tập trung vào công việc ít được cảm ơn là tạo backup, nó hữu ích hơn nhiều, không nói thì cũng dễ dàng hơn, để tạo động lực tham gia vào việc tạo backup bằng cách tập trung vào một nhiệm vụ có phần thưởng nhìn thấy được: *khôi phục* (restore)! *Backup là một loại thuế*, được trả liên tục cho dịch vụ cộng đồng là data availability được đảm bảo. Thay vì nhấn mạnh vào thuế, hãy thu hút sự chú ý vào dịch vụ mà thuế tài trợ: data availability. Chúng tôi không bắt các đội "luyện tập" backup của họ, thay vào đó:
 
 -   Các đội xác định các SLO cho data availability trong nhiều chế độ lỗi khác nhau.
 -   Một đội luyện tập và chứng minh khả năng đáp ứng những SLO đó.
@@ -181,11 +181,11 @@ Một nghiên cứu về 19 nỗ lực khôi phục dữ liệu tại Google ph�
 
 Một giải pháp backup và khôi phục cung cấp point-in-time recovery cho một ứng dụng xuyên suốt các datastore ACID và BASE của nó trong khi đáp ứng các mục tiêu uptime, latency, khả năng mở rộng, velocity, và chi phí nghiêm ngặt là một loài huyền thoại (chimera) ngày nay!
 
-Giải quyết vấn đề này bằng chính các lập trình viên của bạn liên quan đến việc hy sinh velocity. Nhiều dự án thỏa hiệp bằng cách áp dụng một chiến lược backup theo tầng mà không có point-in-time recovery. Ví dụ, các API bên dưới ứng dụng của bạn có thể hỗ trợ nhiều cơ chế khôi phục dữ liệu. Các snapshot cục bộ đắt đỏ có thể cung cấp sự bảo vệ hạn chế khỏi bug ứng dụng và cung cấp chức năng khôi phục nhanh, nên bạn có thể giữ lại vài ngày của những snapshot cục bộ như vậy, được chụp cách nhau vài giờ. Các bản sao full và incremental hiệu quả về chi phí mỗi hai ngày có thể được giữ lâu hơn. Point-in-time recovery là một tính năng rất tuyệt để có nếu một hoặc nhiều hơn những chiến lược này hỗ trợ nó.
+Giải quyết vấn đề này bằng chính các lập trình viên của bạn liên quan đến việc hy sinh velocity. Nhiều dự án thỏa hiệp bằng cách áp dụng một chiến lược backup theo tầng mà không có point-in-time recovery. Ví dụ, các API bên dưới ứng dụng của bạn có thể hỗ trợ nhiều cơ chế khôi phục dữ liệu. Các snapshot cục bộ đắt đỏ có thể cung cấp sự bảo vệ hạn chế khỏi bug ứng dụng và cung cấp chức năng khôi phục nhanh, nên bạn có thể giữ lại vài ngày của những snapshot cục bộ như vậy, được chụp cách nhau vài giờ. Các bản sao full và incremental hiệu quả về chi phí mỗi hai ngày có thể được giữ lâu hơn. Point-in-time recovery là một tính năng rất đáng có nếu một hoặc nhiều hơn những chiến lược này hỗ trợ nó.
 
 Hãy cân nhắc các tùy chọn khôi phục dữ liệu được cung cấp bởi các API cloud mà bạn sắp sử dụng. Hãy đánh đổi point-in-time recovery với một chiến lược theo tầng nếu cần thiết, nhưng đừng hạ xuống việc không sử dụng cái nào cả! Nếu bạn có thể có cả hai tính năng, hãy sử dụng cả hai tính năng. Mỗi tính năng trong số này (hoặc cả hai) sẽ có giá trị vào một thời điểm nào đó.
 
-### Thách Thúc Trong Việc Duy Trì Data Integrity Sâu và Rộng (Challenges of Maintaining Data Integrity Deep and Wide)
+### Thách Thức Trong Việc Duy Trì Data Integrity Sâu và Rộng (Challenges of Maintaining Data Integrity Deep and Wide)
 
 Trong việc thiết kế một chương trình data integrity, điều quan trọng là phải nhận ra rằng *replication và redundancy không phải là recoverability (khả năng khôi phục)*.
 
@@ -207,7 +207,7 @@ Thời gian giữ — bạn giữ các bản sao dữ liệu của mình trong b
 
 Trong khi có khả năng là bạn hoặc khách hàng của bạn sẽ nhanh chóng nhận thấy việc một cơ sở dữ liệu bị đổ trống đột ngột, một sự mất mát dữ liệu dần dần hơn có thể mất vài ngày để thu hút sự chú ý của người phù hợp. Khôi phục dữ liệu bị mất trong kịch bản sau đòi hỏi các snapshot được chụp từ xa hơn trong quá khứ. Khi đạt đến xa như vậy, bạn có thể muốn gộp dữ liệu đã khôi phục với trạng thái hiện tại. Việc làm như vậy làm phức tạp đáng kể quá trình khôi phục.
 
-## Cách Google SRE Đối Mặt Với Các Thách Thúc của Data Integrity (How Google SRE Faces the Challenges of Data Integrity)
+## Cách Google SRE Đối Mặt Với Các Thách Thức của Data Integrity (How Google SRE Faces the Challenges of Data Integrity)
 
 Giống như giả định của chúng tôi rằng các hệ thống nền tảng của Google dễ xảy ra lỗi, chúng tôi giả định rằng bất kỳ cơ chế bảo vệ nào của chúng tôi cũng chịu các lực lượng tương tự và có thể hỏng theo những cách giống nhau và vào những thời điểm bất tiện nhất. Duy trì một bảo đảm về data integrity ở quy mô lớn, một thách thức còn được làm phức tạp thêm bởi tốc độ thay đổi cao của các hệ thống phần mềm liên quan, đòi hỏi một số thực hành bổ sung nhưng độc lập, mỗi cái được chọn để đơn lẻ mang lại một mức độ bảo vệ cao.
 
@@ -340,7 +340,7 @@ Trong khi các thuật toán như vậy là không thể sai trong lý thuyết,
 
 Phần lớn, các [pipeline xác thực dữ liệu](https://sre.google/workbook/data-processing/) này được triển khai dưới dạng các tập hợp map-reduction hoặc Hadoop jobs. Thường, các pipeline như vậy được thêm như một ý nghĩ muộn cho các dịch vụ đã phổ biến và thành công. Đôi khi, các pipeline như vậy lần đầu tiên được thử khi các dịch vụ đạt đến giới hạn khả năng mở rộng và được xây dựng lại từ đầu. Google đã xây dựng các bộ xác thực (validators) để phản ứng với mỗi một trong những tình huống này.
 
-Việc chuyển một số nhà phát triển sang làm việc trên một pipeline xác thực dữ liệu có thể làm chậm velocity kỹ thuật trong ngắn hạn. Tuy nhiên, việc dành nguồn lực kỹ thuật cho xác thực dữ liệu mang lại cho các nhà phát triển khác lòng can đảm để di chuyển nhanh hơn trong dài hạn, bởi vì các kỹ sư biết rằng các bug data corruption ít có khả năng lẻn vào production mà không bị chú ý. Tương tự như những hiệu quả được hưởng khi unit test được giới thiệu sớm trong vòng đời dự án, một pipeline xác thực dữ liệu dẫn đến sự tăng tốc tổng thể của các dự án phát triển phần mềm.
+Việc chuyển một số nhà phát triển sang làm việc trên một pipeline xác thực dữ liệu có thể làm chậm velocity kỹ thuật trong ngắn hạn. Tuy nhiên, việc dành nguồn lực kỹ thuật cho xác thực dữ liệu mang lại cho các nhà phát triển khác lòng can đảm để di chuyển nhanh hơn trong dài hạn, bởi vì các kỹ sư biết rằng các bug data corruption ít có khả năng lẻn vào production mà không bị chú ý. Tương tự như những lợi ích đạt được khi unit test được giới thiệu sớm trong vòng đời dự án, một pipeline xác thực dữ liệu dẫn đến sự tăng tốc tổng thể của các dự án phát triển phần mềm.
 
 Để dẫn ra một ví dụ cụ thể: Gmail sở hữu một số bộ xác thực dữ liệu, mỗi cái đã phát hiện các vấn đề data integrity thực tế trong production. Các nhà phát triển Gmail tìm được sự an tâm từ kiến thức rằng các bug đưa đến những sự bất nhất trong dữ liệu production được phát hiện trong vòng 24 giờ, và rùng mình trước ý nghĩ chạy các bộ xác thực dữ liệu của họ ít thường xuyên hơn hàng ngày. Những bộ xác thực này, cùng với một văn hóa unit test và regression test và các thực hành tốt nhất khác, đã mang lại cho các nhà phát triển Gmail lòng can đảm để giới thiệu các thay đổi mã vào triển khai lưu trữ production của Gmail thường xuyên hơn một lần một tuần.
 
@@ -471,7 +471,7 @@ Trong khi đó, nhóm nguyên nhân gốc đã theo đuổi và từ bỏ một 
 
 ### Lốc khôi phục đầu tiên
 
-Một khi nhóm khôi phục đã xác định các băng backup, lốc khôi phục đầu tiên khởi động vào ngày 8 tháng 3. Việc yêu cầu 1,5 petabyte dữ liệu phân phối trên hàng nghìn băng từ lưu trữ offsite là một chuyện, nhưng việc trích xuất dữ liệu từ các băng là một chuyện hoàn toàn khác. Stack phần mềm backup băng tự chế không được thiết kế để xử lý một thao tác khôi phục đơn lẻ có kích thước lớn như vậy, nên lần khôi phục ban đầu được chia thành 5.475 tác vụ khôi phục. Sẽ mất một người vận hành gõ một lệnh khôi phục mỗi phút hơn ba ngày để yêu cầu nhiều lần khôi phục như vậy, và bất kỳ người vận hành nào chắc chắn sẽ mắc nhiều sai lầm. Chỉ riêng việc yêu cầu khôi phục từ hệ thống backup băng cần SRE phát triển một giải pháp theo chương trình.<sup>[11](#fn11)</sup>
+Một khi nhóm khôi phục đã xác định các băng backup, lốc khôi phục đầu tiên khởi động vào ngày 8 tháng 3. Việc yêu cầu 1,5 petabyte dữ liệu phân phối trên hàng nghìn băng từ lưu trữ offsite là một chuyện, nhưng việc trích xuất dữ liệu từ các băng là một chuyện hoàn toàn khác. Stack phần mềm backup băng tự chế không được thiết kế để xử lý một thao tác khôi phục đơn lẻ có kích thước lớn như vậy, nên lần khôi phục ban đầu được chia thành 5.475 tác vụ khôi phục. Một người vận hành gõ một lệnh khôi phục mỗi phút sẽ mất hơn ba ngày để yêu cầu nhiều lần khôi phục như vậy, và bất kỳ người vận hành nào chắc chắn sẽ mắc nhiều sai lầm. Chỉ riêng việc yêu cầu khôi phục từ hệ thống backup băng cần SRE phát triển một giải pháp theo chương trình.<sup>[11](#fn11)</sup>
 
 Đến nửa đêm ngày 9 tháng 3, Music SRE hoàn tất việc yêu cầu cả 5.475 lần khôi phục. Hệ thống backup băng bắt đầu thực hiện phép thuật của nó. Bốn giờ sau, nó phun ra một danh sách 5.337 băng backup cần gọi về từ các vị trí offsite. Trong tám giờ nữa, các băng đến một datacenter trong một loạt các lần giao bằng xe tải.
 

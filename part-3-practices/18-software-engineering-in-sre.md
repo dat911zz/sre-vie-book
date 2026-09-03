@@ -19,17 +19,17 @@ Theo nhiều cách, quy mô rộng lớn của production Google đã đòi hỏ
 
 Các SRE ở một vị trí độc đáo để phát triển phần mềm nội bộ một cách hiệu quả vì một số lý do:
 
--   Phạm vi và độ sâu của kiến thức production cụ thể của Google trong tổ chức SRE cho phép kỹ sư trong tổ chức SRE thiết kế và tạo phần mềm với các cân nhắc phù hợp cho các chiều kích như khả năng scale, suy giảm nhẹ nhàng (graceful degradation) khi thất bại, và khả năng dễ dàng giao tiếp với hạ tầng hoặc công cụ khác.
--   Vì SRE gắn bó với đối tượng, họ dễ hiểu các nhu cầu và yêu cầu của công cụ đang phát triển.
+-   Phạm vi và độ sâu của kiến thức production cụ thể của Google trong tổ chức SRE cho phép kỹ sư trong tổ chức SRE thiết kế và tạo phần mềm với các cân nhắc phù hợp cho các chiều kích như khả năng scale, suy giảm nhẹ nhàng (graceful degradation) khi có sự cố, và khả năng dễ dàng giao tiếp với hạ tầng hoặc công cụ khác.
+-   Vì SRE gắn bó sâu với lĩnh vực chuyên môn, họ dễ hiểu các nhu cầu và yêu cầu của công cụ đang phát triển.
 -   Mối quan hệ trực tiếp với người dùng dự định — các SRE đồng nghiệp — dẫn đến phản hồi người dùng thẳng thắn và có tín hiệu cao (high-signal). Việc release một công cụ đến một khán giả nội bộ quen thuộc với không gian vấn đề nghĩa là đội phát triển có thể khởi động và lặp lại (iterate) nhanh hơn. Người dùng nội bộ thường dễ chịu hơn với UI tối thiểu và các vấn đề sản phẩm alpha.
 
 Từ quan điểm thuần túy thực dụng, Google rõ ràng hưởng lợi từ việc có kỹ sư có kinh nghiệm SRE phát triển phần mềm. Theo thiết kế chủ ý, tốc độ tăng trưởng của các dịch vụ được SRE hỗ trợ vượt quá tốc độ tăng trưởng của tổ chức SRE; một trong những nguyên lý chỉ đường của SRE là "kích thước đội không nên scale trực tiếp với sự tăng trưởng dịch vụ." Việc đạt được tăng trưởng đội tuyến tính trước sự tăng trưởng dịch vụ theo hàm mũ đòi hỏi công việc tự động hóa không ngừng và các nỗ lực tinh giản công cụ, quy trình, và các khía cạnh khác của dịch vụ vốn đang gây ra sự kém hiệu quả trong vận hành production hàng ngày. Việc để những người có kinh nghiệm trực tiếp vận hành các hệ thống production phát triển các công cụ cuối cùng sẽ đóng góp vào các mục tiêu uptime và độ trễ là rất hợp lý.
 
 Mặt khác, các SRE cá nhân, cũng như tổ chức SRE rộng lớn hơn, cũng hưởng lợi từ việc phát triển phần mềm do SRE thúc đẩy.
 
-Các dự án phát triển phần mềm đầy đủ bên trong SRE cung cấp cơ hội phát triển nghề nghiệp cho SRE, cũng như một lối thoát cho các kỹ sư không muốn kỹ năng code của họ bị gỉ sét. Công việc dự án dài hạn cung cấp sự cân bằng cần thiết cho các ngắt (interrupts) và công việc on-call, và có thể mang lại sự hài lòng cho các kỹ sư muốn sự nghiệp của họ duy trì sự cân bằng giữa [kỹ thuật phần mềm và kỹ thuật hệ thống](https://sre.google/resources/practices-and-processes/enterprise-roadmap-to-sre/).
+Các dự án phát triển phần mềm đầy đủ bên trong SRE cung cấp cơ hội phát triển nghề nghiệp cho SRE, cũng như một lối thoát cho các kỹ sư không muốn kỹ năng code của họ bị gỉ sét. Công việc dự án dài hạn cung cấp sự cân bằng cần thiết cho các gián đoạn (interrupt) và công việc on-call, và có thể mang lại sự hài lòng cho các kỹ sư muốn sự nghiệp của họ duy trì sự cân bằng giữa [kỹ thuật phần mềm và kỹ thuật hệ thống](https://sre.google/resources/practices-and-processes/enterprise-roadmap-to-sre/).
 
-Ngoài việc thiết kế các công cụ tự động hóa và các nỗ lực khác để giảm khối lượng công việc cho kỹ sư trong SRE, các dự án phát triển phần mềm có thể tiếp tục mang lại lợi ích cho tổ chức SRE bằng cách thu hút và giữ chân các kỹ sư có nhiều loại kỹ năng khác nhau. Sự mong muốn của một đội đa dạng càng đúng với SRE, nơi một loạt nền tảng và cách tiếp cận giải quyết vấn đề có thể giúp ngăn các điểm mù (blind spots). Vì mục đích này, Google luôn cố bố trí nhân sự cho các đội SRE bằng một sự pha trộn giữa kỹ sư có kinh nghiệm phát triển phần mềm truyền thống và kỹ sư có kinh nghiệm kỹ thuật hệ thống.
+Ngoài việc thiết kế các công cụ tự động hóa và các nỗ lực khác để giảm khối lượng công việc cho kỹ sư trong SRE, các dự án phát triển phần mềm có thể tiếp tục mang lại lợi ích cho tổ chức SRE bằng cách thu hút và giữ chân các kỹ sư có nhiều loại kỹ năng khác nhau. Mong muốn có một đội đa dạng càng đúng với SRE, nơi một loạt nền tảng và cách tiếp cận giải quyết vấn đề có thể giúp ngăn các điểm mù (blind spots). Vì mục đích này, Google luôn cố bố trí nhân sự cho các đội SRE bằng một sự pha trộn giữa kỹ sư có kinh nghiệm phát triển phần mềm truyền thống và kỹ sư có kinh nghiệm kỹ thuật hệ thống.
 
 ## Nghiên cứu Tình huống Auxon: Bối cảnh Dự án và Không gian Vấn đề (Auxon Case Study: Project Background and Problem Space)
 
@@ -60,7 +60,7 @@ Một khi các tài nguyên cuối cùng đến (có thể theo các giai đoạ
 
 Nên nhấn mạnh rằng lập kế hoạch năng lực là một *chu kỳ* không bao giờ kết thúc: các giả định thay đổi, các triển khai trượt (slip), và ngân sách bị cắt, dẫn đến những lần sửa đổi liên tiếp trên "Kế hoạch" (The Plan). Mỗi sửa đổi có các hiệu ứng lan truyền (trickle-down) phải lan ra xuyên suốt kế hoạch của tất cả các quý tiếp theo. Ví dụ, một sự thiếu hụt trong quý này phải được bù đắp trong các quý sau. Lập kế hoạch năng lực truyền thống dùng nhu cầu làm động lực chính, và thủ công tạo hình nguồn cung để khớp với nhu cầu đáp lại mỗi thay đổi.
 
-### Vỡ vụn theo bản chất (Brittle by nature)
+### Mong manh theo bản chất (Brittle by nature)
 
 Lập kế hoạch năng lực truyền thống tạo ra một kế hoạch cấp phát tài nguyên có thể bị gián đoạn bởi bất kỳ thay đổi nào tưởng chừng nhỏ nhặt. Ví dụ:
 
@@ -73,7 +73,7 @@ Các thay đổi nhỏ đòi hỏi đối chiếu toàn bộ kế hoạch cấp 
 
 Ngoài ra, hãy cân nhắc rằng kế hoạch năng lực cho bất kỳ quý nào (hoặc khung thời gian khác) dựa trên kết quả dự kiến của kế hoạch năng lực các quý trước, nghĩa là một thay đổi trong bất kỳ quý nào dẫn đến công việc cập nhật các quý tiếp theo.
 
-### Cồng kềnh và không chính xác (Laborious and imprecise)
+### Vất vả và không chính xác (Laborious and imprecise)
 
 Đối với nhiều đội, quy trình thu thập dữ liệu cần thiết để tạo ra các dự báo nhu cầu là chậm và dễ sai. Và khi đến lúc tìm năng lực đáp ứng nhu cầu tương lai, không phải tài nguyên nào cũng phù hợp như nhau. Ví dụ, nếu yêu cầu độ trễ nghĩa là dịch vụ phải cam kết phục vụ nhu cầu người dùng trên cùng một châu lục với người dùng, việc thu thêm tài nguyên ở Bắc Mỹ sẽ không giải quyết thiếu hụt năng lực ở châu Á. Mỗi dự báo có các *ràng buộc* (constraints), tức các tham số về cách nó có thể được đáp ứng; các ràng buộc về bản chất liên quan đến ý định (intent), thảo luận ở phần tiếp theo.
 
@@ -145,9 +145,9 @@ Lập kế hoạch dựa trên ý định buộc những quyết định này đ
 
 Auxon là phiên bản của Google cho một giải pháp lập kế hoạch năng lực và cấp phát tài nguyên dựa trên ý định, và là một ví dụ điển hình của một sản phẩm kỹ thuật phần mềm được thiết kế và phát triển bởi SRE: một nhóm nhỏ kỹ sư phần mềm và một technical program manager (quản lý chương trình kỹ thuật) bên trong SRE đã xây dựng nó trong suốt hai năm. Auxon là một nghiên cứu tình huống hoàn hảo để minh họa cách phát triển phần mềm có thể được nuôi dưỡng trong SRE.
 
-Auxon được dùng tích cực để lập kế hoạch cho hàng triệu đô la tài nguyên máy tại Google. Nó đã trở thành một thành phần quan trọng của lập kế hoạch năng lực cho một số division (phân khu) lớn trong Google.
+Auxon được dùng tích cực để lập kế hoạch cho hàng triệu đô la tài nguyên máy tại Google. Nó đã trở thành một thành phần quan trọng của lập kế hoạch năng lực cho một số bộ phận (division) lớn trong Google.
 
-Với tư cách một sản phẩm, Auxon cung cấp các phương tiện để thu thập mô tả dựa trên ý định của các yêu cầu tài nguyên và phụ thuộc của một dịch vụ. Các ý định người dùng này được biểu đạt như những yêu cầu về cách chủ sở hữu muốn dịch vụ được provision (cấp phát). Các yêu cầu có thể được chỉ định như, "Dịch vụ của tôi phải là *N* + 2 mỗi châu lục" hoặc "Các server frontend (mặt trước) phải cách các server backend (phía sau) không quá 50 ms." Auxon thu thập thông tin này qua một ngôn ngữ cấu hình cho người dùng hoặc qua một API (Application Programming Interface — Giao diện Lập trình Ứng dụng) lập trình, qua đó chuyển đổi ý định con người thành các ràng buộc mà máy có thể phân tích. Các yêu cầu có thể được ưu tiên hóa, một tính năng hữu ích khi tài nguyên không đủ để đáp ứng tất cả các yêu cầu, và do đó phải thực hiện các đánh đổi. Những yêu cầu này — ý định — cuối cùng được biểu diễn bên trong như một chương trình nguyên hỗn hợp (mixed-integer) hoặc tuyến tính (linear program) khổng lồ. Auxon giải quyết chương trình tuyến tính, và dùng giải pháp bin packing thu được để định hình một kế hoạch cấp phát cho các tài nguyên.
+Với tư cách một sản phẩm, Auxon cung cấp các phương tiện để thu thập mô tả dựa trên ý định của các yêu cầu tài nguyên và phụ thuộc của một dịch vụ. Các ý định người dùng này được biểu đạt như những yêu cầu về cách chủ sở hữu muốn dịch vụ được provision (cấp phát). Các yêu cầu có thể được chỉ định như, "Dịch vụ của tôi phải là *N* + 2 mỗi châu lục" hoặc "Các server frontend phải cách các server backend không quá 50 ms." Auxon thu thập thông tin này qua một ngôn ngữ cấu hình cho người dùng hoặc qua một API (Application Programming Interface — Giao diện Lập trình Ứng dụng) lập trình, qua đó chuyển đổi ý định con người thành các ràng buộc mà máy có thể phân tích. Các yêu cầu có thể được ưu tiên hóa, một tính năng hữu ích khi tài nguyên không đủ để đáp ứng tất cả các yêu cầu, và do đó phải thực hiện các đánh đổi. Những yêu cầu này — ý định — cuối cùng được biểu diễn bên trong như một chương trình nguyên hỗn hợp (mixed-integer) hoặc tuyến tính (linear program) khổng lồ. Auxon giải quyết chương trình tuyến tính, và dùng giải pháp bin packing thu được để định hình một kế hoạch cấp phát cho các tài nguyên.
 
 [Hình 18-1](#hinh-18-1) và các giải thích tiếp theo phác thảo các thành phần chính của Auxon.
 
@@ -180,7 +180,7 @@ Trong suốt quá trình phát triển Auxon, đội SRE đằng sau sản phẩ
 
 ### Xấp xỉ (Approximation)
 
-Đừng bám chấp vào sự hoàn hảo hay tính thuần túy của giải pháp, đặc biệt khi các giới hạn của vấn đề chưa rõ. Hãy khởi động và lặp lại.
+Đừng cố chấp theo đuổi sự hoàn hảo hay tính thuần túy của giải pháp, đặc biệt khi các giới hạn của vấn đề chưa rõ. Hãy khởi động và lặp lại.
 
 Bất kỳ nỗ lực kỹ thuật phần mềm đủ phức tạp nào cũng chắc chắn sẽ gặp sự không chắc chắn về cách thiết kế một thành phần hoặc cách tiếp cận một vấn đề. Auxon gặp phải điều này sớm trong quá trình phát triển, vì thế giới lập trình tuyến tính là lãnh thổ chưa được khai phá đối với các thành viên đội. Các giới hạn của lập trình tuyến tính — dường như là một phần trung tâm của cách sản phẩm nhiều khả năng sẽ hoạt động — không được hiểu rõ. Để vượt qua sự lúng túng này, chúng tôi chọn ban đầu xây dựng một engine bộ giải đơn giản hóa (còn gọi là "Stupid Solver" — Bộ giải ngốc) áp dụng một số heuristics (thuật toán gần đúng) đơn giản về cách sắp xếp các dịch vụ dựa trên yêu cầu do người dùng chỉ định. Trong khi Stupid Solver sẽ không bao giờ tạo ra một giải pháp thực sự tối ưu, nó cho đội cảm giác rằng tầm nhìn của chúng tôi cho Auxon là có thể đạt được, ngay cả khi chúng tôi không xây dựng một thứ hoàn hảo từ ngày đầu tiên.
 
@@ -221,7 +221,7 @@ Các phiên bản ban đầu của Auxon cố ý nhắm đến các đội khôn
 
 ### Dịch vụ Khách hàng (Customer service)
 
-Ngay cả khi phần mềm phát triển trong SRE nhắm đến một khán giả gồm các TPM (Technical Program Manager — Quản lý Chương trình Kỹ thuật) và kỹ sư có khả năng kỹ thuật cao, bất kỳ phần mềm đủ đổi mới nào vẫn có một đường cong học tập cho người dùng mới. Đừng ngại cung cấp hỗ trợ khách hàng găng tay trắng (white glove) cho những người chấp nhận sớm để giúp họ vượt qua quy trình onboard. Đôi khi tự động hóa còn đi kèm một loạt mối lo ngại cảm xúc, như nỗi sợ rằng công việc của ai đó sẽ bị thay thế bởi một shell script (lệnh vỏ). Bằng cách làm việc một-một với các người dùng sớm, bạn có thể giải quyết những nỗi sợ đó một cách cá nhân, và chỉ ra rằng thay vì trực tiếp làm một tác vụ tẻ nhạt, đội giờ đây sở hữu các cấu hình, quy trình, và kết quả cuối cùng của công việc kỹ thuật của họ. Những người chấp nhận muộn hơn sẽ được thuyết phục bởi những ví dụ thành công của những người chấp nhận sớm.
+Ngay cả khi phần mềm phát triển trong SRE nhắm đến một khán giả gồm các TPM (Technical Program Manager — Quản lý Chương trình Kỹ thuật) và kỹ sư có khả năng kỹ thuật cao, bất kỳ phần mềm đủ đổi mới nào vẫn có một đường cong học tập cho người dùng mới. Đừng ngại cung cấp hỗ trợ khách hàng găng tay trắng (white glove) cho những người chấp nhận sớm để giúp họ vượt qua quy trình onboard. Đôi khi tự động hóa còn đi kèm một loạt mối lo ngại cảm xúc, như nỗi sợ rằng công việc của ai đó sẽ bị thay thế bởi một shell script. Bằng cách làm việc một-một với những người dùng sớm, bạn có thể giải quyết những nỗi sợ đó một cách cá nhân, và chỉ ra rằng thay vì trực tiếp làm một tác vụ tẻ nhạt, đội giờ đây sở hữu các cấu hình, quy trình, và kết quả cuối cùng của công việc kỹ thuật của họ. Những người chấp nhận muộn hơn sẽ được thuyết phục bởi những ví dụ thành công của những người chấp nhận sớm.
 
 Hơn nữa, vì các đội SRE của Google phân bố trên toàn cầu, những người ủng hộ chấp nhận sớm cho một dự án đặc biệt có lợi, vì họ có thể đóng vai trò như các chuyên gia địa phương cho những đội khác quan tâm đến việc thử dự án.
 
@@ -233,7 +233,7 @@ Chúng tôi cũng có ý thức tránh cạm bẫy của việc định nghĩa t
 
 ## Động lực Đội (Team Dynamics)
 
-Khi chọn các kỹ sư làm việc trên một sản phẩm phát triển phần mềm SRE, chúng tôi thấy lợi ích lớn từ việc tạo ra một đội hạt giống (seed team) kết hợp các người đa năng (generalists) có thể bắt kịp nhanh chóng một chủ đề mới với các kỹ sư có phạm vi rộng kiến thức và kinh nghiệm. Sự đa dạng kinh nghiệm che phủ các điểm mù cũng như cạm bẫy của việc giả định rằng use case của mọi đội giống như của bạn.
+Khi chọn các kỹ sư làm việc trên một sản phẩm phát triển phần mềm SRE, chúng tôi thấy lợi ích lớn từ việc tạo ra một đội hạt giống (seed team) kết hợp những người đa năng (generalists) có thể bắt kịp nhanh chóng một chủ đề mới với các kỹ sư có phạm vi rộng kiến thức và kinh nghiệm. Sự đa dạng kinh nghiệm che phủ các điểm mù cũng như cạm bẫy của việc giả định rằng use case của mọi đội giống như của bạn.
 
 Điều thiết yếu là đội bạn thiết lập mối quan hệ làm việc với các chuyên gia cần thiết, và cho các kỹ sư của bạn thoải mái làm việc trong một không gian vấn đề mới. Đối với các đội SRE tại phần lớn các công ty, việc dấn vào không gian vấn đề mới này đòi hỏi thuê ngoài các tác vụ hoặc làm việc với các nhà tư vấn, nhưng các đội SRE tại các tổ chức lớn hơn có thể hợp tác với các chuyên gia nội bộ. Trong các giai đoạn đầu của việc hình dung và thiết kế Auxon, chúng tôi đã trình bày tài liệu thiết kế của mình đến các đội nội bộ của Google chuyên về Operations Research (Nghiên cứu Vận hành) và Quantitative Analysis (Phân tích Định lượng) để tận dụng chuyên môn của họ và khởi tạo kiến thức của đội Auxon về lập kế hoạch năng lực.
 
@@ -277,7 +277,7 @@ Tiếp theo, hãy suy nghĩ về điều bạn muốn đạt được bằng cá
 
 **Tạo và truyền thông một thông điệp rõ ràng**
 
-Quan trọng là phải định nghĩa và truyền thông chiến lược, kế hoạch, và — quan trọng nhất — các lợi ích SRE đạt được từ nỗ lực này. Các SRE là một giống hoài nghi (thực tế, sự hoài nghi là một đặc tính mà chúng tôi chủ động tuyển dụng); phản hồi ban đầu của một SRE đối với một nỗ lực như vậy nhiều khả năng là, "điều đó nghe có vẻ như quá nhiều gánh nặng" hoặc "nó sẽ không bao giờ hoạt động." Hãy bắt đầu bằng cách tạo một lập luận thuyết phục về cách chiến lược này sẽ giúp SRE; ví dụ:
+Quan trọng là phải định nghĩa và truyền thông chiến lược, kế hoạch, và — quan trọng nhất — các lợi ích SRE đạt được từ nỗ lực này. Các SRE là kiểu người hay hoài nghi (thực tế, sự hoài nghi là một đặc tính mà chúng tôi chủ động tuyển dụng); phản hồi ban đầu của một SRE đối với một nỗ lực như vậy nhiều khả năng là, "điều đó nghe có vẻ như quá nhiều gánh nặng" hoặc "nó sẽ không bao giờ hoạt động." Hãy bắt đầu bằng cách tạo một lập luận thuyết phục về cách chiến lược này sẽ giúp SRE; ví dụ:
 
 -   Các giải pháp phần mềm nhất quán và được hỗ trợ tăng tốc quá trình ramp-up (chạy lên) cho các SRE mới.
 -   Giảm số cách để thực hiện cùng một tác vụ cho phép toàn bộ phòng ban hưởng lợi từ kỹ năng mà bất kỳ đội đơn lẻ nào đã phát triển, qua đó giúp kiến thức và nỗ lực có thể di chuyển xuyên suốt các đội.

@@ -67,10 +67,10 @@ Có thể được chỉ định đến các cộng tác viên trong tài liệu
 
 Viết postmortem cũng liên quan đến việc xem xét và phát hành chính thức. Trong thực tế, các đội chia sẻ bản thảo postmortem trong nội bộ trước và nhờ một nhóm kỹ sư cấp cao đánh giá mức độ đầy đủ của bản thảo. Các tiêu chí xem xét có thể bao gồm:
 
--   Dữ liệu incident chính có được thu thập cho tính lưu trữ không?
+-   Dữ liệu incident chính có được thu thập để lưu trữ cho hậu thế không?
 -   Các đánh giá tác động có đầy đủ không?
 -   Nguyên nhân gốc rễ có đủ sâu không?
--   Kế hoạch hành động có phù hợp và các sửa bug (lỗi) kết quả có ở mức ưu tiên phù hợp không?
+-   Kế hoạch hành động có phù hợp và các bug fix tương ứng có ở mức ưu tiên phù hợp không?
 -   Chúng tôi có chia sẻ kết quả với các bên liên quan thích hợp không?
 
 Khi việc xem xét ban đầu hoàn tất, postmortem được chia sẻ rộng hơn, thường là với đội kỹ thuật lớn hơn hoặc trên một danh sách email nội bộ. Mục tiêu của chúng tôi là đưa postmortem đến nhóm độc giả rộng nhất có thể hưởng lợi từ kiến thức hay bài học trong đó. Google có các quy tắc nghiêm ngặt về việc truy cập bất kỳ thông tin nào có thể xác định một người dùng cuối,<sup>[1](#fn1)</sup> và ngay cả tài liệu nội bộ như postmortem cũng không bao giờ chứa thông tin như vậy.
@@ -97,7 +97,7 @@ Nhóm này chia sẻ và thảo luận các postmortem nội bộ và bên ngoà
 
 Các đội tổ chức các câu lạc bộ đọc postmortem định kỳ, trong đó một postmortem thú vị hoặc có tác động được mang ra bàn (kèm một vài đồ uống ngon) cho một cuộc đối thoại mở giữa những người có liên quan, những người không liên quan, và các Googler (nhân viên Google) mới, về điều gì đã xảy ra, bài học mà incident truyền tải và hậu quả của nó. Thường, postmortem được xem xét đã có từ nhiều tháng hoặc nhiều năm trước!
 
-#### Vòng bánh Bất hạnh (Wheel of Misfortune)
+#### Bánh xe Bất hạnh (Wheel of Misfortune)
 
 Các SRE mới thường được "thưởng thức" bài tập Wheel of Misfortune (xem [Disaster Role Playing](https://sre.google/sre-book/accelerating-sre-on-call#xref_training_disaster-rpg)), trong đó một postmortem trước đó được diễn lại với một dàn kỹ sư đóng các vai trò như được nêu trong postmortem. Người chỉ huy incident ban đầu tham gia để trải nghiệm "thật" nhất có thể.
 
@@ -115,7 +115,7 @@ Các nhà sáng lập của Google, Larry Page và Sergey Brin, chủ trì TGIF 
 
 Tại Google, chúng tôi cố gắng giải quyết vấn đề ngay khi nó nảy sinh và chia sẻ các đổi mới nội bộ. Chúng tôi thường xuyên khảo sát các đội về cách quy trình postmortem đang hỗ trợ mục tiêu của họ và có thể cải thiện ra sao. Các câu hỏi chúng tôi đặt ra như: Văn hóa có đang hỗ trợ công việc của bạn không? Việc viết postmortem có kèm theo quá nhiều toil (công việc nhàm chán, thủ công) không (xem [Eliminating Toil](https://sre.google/sre-book/eliminating-toil/))? Thực hành tốt nhất nào mà đội bạn khuyến nghị cho các đội khác? Loại công cụ nào bạn muốn thấy được phát triển? Kết quả khảo sát cho các SRE tuyến đầu cơ hội yêu cầu các cải tiến nhằm nâng cao hiệu quả của văn hóa postmortem.
 
-Ngoài các khía cạnh vận hành của quản lý incident và theo dõi, thực hành postmortem đã ăn sâu vào văn hóa tại Google: giờ đây bất kỳ incident đáng kể nào đều được theo sau bởi một postmortem toàn diện là một chuẩn mực văn hóa.
+Ngoài các khía cạnh vận hành của quản lý incident và theo dõi, thực hành postmortem đã ăn sâu vào văn hóa tại Google: giờ đây, việc bất kỳ incident đáng kể nào cũng được theo sau bởi một postmortem toàn diện đã trở thành một chuẩn mực văn hóa.
 
 ## Kết luận và Những Cải tiến Liên tục (Conclusion and Ongoing Improvements)
 

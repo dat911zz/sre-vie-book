@@ -501,3 +501,33 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   Fix agent tự grep verify sau khi sửa; 2 fix agent báo đúng các chỗ sót ngoài danh sách (ch.31 L60 "đã nên
   page", "các người" ×5, ch.34 L24 "sự thất bại") → sửa tay bổ sung. Toàn bộ 34 chương + 5 file `_part.md` đã
   qua QA lớp 2.
+
+- 2026-09-03: QA LƯỢT 2 toàn bộ ch.06-27 (22 chương, ~1.1MB) theo yêu cầu người dùng sau khi Part IV-V lộ ra
+  nhiều mẫu lỗi hệ thống. 14 agent Sonnet 5 rà 3 lớp, prompt kèm danh sách mẫu lỗi vừa học (thành ngữ dịch
+  đen, cụt/thừa chữ, "các người", biến thể SAI của glossary…); 12 agent sửa song song + sửa tay ch.08/11 và
+  các mẫu cơ học toàn sách. Kết quả: 24 file, ~240 dòng sửa, ~250 điểm. Lỗi nghiêm trọng nhất: ch.19 L33 hai
+  câu PHỦ ĐỊNH NGƯỢC trong cùng đoạn ("non-interactive traffic may be routed…"→"không thể được định tuyến",
+  "applicable to stateless services"→"dịch vụ có trạng thái") — câu đọc trôi nên 2 lượt trước bỏ sót; ch.08
+  L127 câu chêm THÊM Ý không có trong nguyên bản và SAI SỰ THẬT (gọi First Folio/Bad Quarto là "tên vở kịch
+  Shakespeare" — thực ra là tên ấn bản in) → xóa; ch.23 L120 omission "by being implemented as an RSM"; ch.14
+  L22 "Independently"→"Đồng thời". Thành ngữ/từ đa nghĩa dịch đen còn sót: short-circuit→"ngắn mạch" (ch.17),
+  rules of thumb→"ngón tay cái" (×3), shipped→"vận chuyển", hand-holding→"giữ tay", brittle→"vỡ vụn",
+  laborious→"cồng kềnh", subject matter→"đối tượng", division→"phân khu", probe→"mồi", separator→"bộ phận",
+  rogue→"bất hợp pháp", predicate→"suy ra", conclusively→"quyết đoán", can't make progress→"không thể tiến bộ",
+  individual→"cá nhân". Từ vô nghĩa/cụt chữ: "tử tự khóa", "yếu tố gây nhân", "điểm liệt", "bám chấp", "Thách
+  Thúc" ×2, "lưu trữ lưu" ×7, "Vòng bánh", "Ra Mát", "Từ Chậm", "lẫy lạch", "Đánh Lành Các Thất Bại Dây
+  Chuyền" (link chéo ch.22), "chỉnh chu", mảnh "not" sót trong footnote ch.17. Phát hiện mẫu lỗi MỚI đáng lưu
+  ý: ch.07 dùng đúng cột "biến thể SAI" của bảng glossary làm gloss (bin-packing (gói chặt), proof of concept
+  (bằng chứng khái niệm), rate limiting (hạn chế tỷ lệ)) — có vẻ một bước áp glossary trước đây đọc nhầm cột;
+  đã rà toàn sách, chỉ ch.02 dính thêm 1 chỗ. Retrofit cơ học toàn sách: "chế độ thất bại"→"failure mode" (10
+  chỗ, 6 file), "điểm lỗi đơn lẻ"→"điểm thất bại duy nhất" (5), "êm ả"→"nhẹ nhàng" (8), "các người"→"những
+  người" (8), "các ngắt (interrupt)"→"gián đoạn" (2), "quy tắc ngón tay cái"→"nguyên tắc kinh nghiệm" (3).
+  Markdown: sửa phân cấp heading bị làm phẳng ở ch.08 (12), ch.14 (8), ch.20 (12), ch.23 (2); heading lặp gloss
+  "(X) (X)" ở ch.08 ×4, ch.12 ×2; ch.07 L183 emphasis lồng *…* hỏng render; ch.22 slug "do-ley-va-deadline"
+  →"do-tre-va-deadline"; ch.24 tag [[Ver15]] gắn nhầm cho Paxos. Từ chối đề xuất SAI: ch.07 đồng bộ 2 danh
+  sách 5 bậc (nguyên bản cố ý khác), ch.10 giữ EN "single point of failure" (glossary chốt "điểm thất bại duy
+  nhất"), ch.19 overhead (nghĩa byte, không phải công việc phụ), ch.07 L119 low-hanging fruit, và các đề xuất
+  "nghi ngờ" thuần sở thích. Bài học: (1) lỗi phủ định ngược và omission-1-vế là loại nguy hiểm nhất vì câu
+  vẫn trôi — chỉ bắt được khi đối chiếu nguyên bản từng câu; (2) khi glossary có cột "biến thể SAI", phải grep
+  toàn sách các biến thể đó định kỳ; (3) 1 agent Sonnet nhóm 3 chương lại tự cử agent con rồi trả placeholder
+  — phải nhắc lại mới trả kết quả thật (lỗi đã biết).

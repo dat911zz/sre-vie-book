@@ -9,7 +9,7 @@
 *Tác giả:* Alejandro Forero Cuervo
 *Biên tập:* Sarah Chavis
 
-Chương này tập trung vào cân bằng tải (load balancing) bên trong datacenter (trung tâm dữ liệu). Cụ thể, nó thảo luận các thuật toán để phân phối công việc bên trong một datacenter cho một luồng các truy vấn (query). Chúng tôi bao quát các chính sách cấp ứng dụng (application-level policies) để định tuyến các yêu cầu (request) đến các server đơn lẻ có thể xử lý chúng. Các nguyên lý mạng cấp thấp hơn (ví dụ, switch (bo mạch chuyển), định tuyến packet (gói tin)) và việc chọn datacenter nằm ngoài phạm vi của chương này.
+Chương này tập trung vào cân bằng tải (load balancing) bên trong datacenter (trung tâm dữ liệu). Cụ thể, nó thảo luận các thuật toán để phân phối công việc bên trong một datacenter cho một luồng các truy vấn (query). Chúng tôi bao quát các chính sách cấp ứng dụng (application-level policies) để định tuyến các yêu cầu (request) đến các server đơn lẻ có thể xử lý chúng. Các nguyên lý mạng cấp thấp hơn (ví dụ, switch (thiết bị chuyển mạch), định tuyến packet (gói tin)) và việc chọn datacenter nằm ngoài phạm vi của chương này.
 
 Giả sử có một luồng truy vấn đến datacenter — có thể từ chính datacenter, từ các datacenter từ xa, hoặc một hỗn hợp của cả hai — ở một tốc độ không vượt quá tài nguyên mà datacenter có để xử lý (hoặc chỉ vượt quá trong các khoảng thời gian rất ngắn). Cũng giả sử rằng bên trong datacenter có các *dịch vụ* (services) mà những truy vấn này hướng tới. Những dịch vụ này được cài đặt dưới dạng nhiều tiến trình server đồng nhất (homogeneous), thay thế được, phần lớn chạy trên các máy khác nhau. Các dịch vụ nhỏ nhất thường có ít nhất ba tiến trình như vậy (dùng ít hơn có nghĩa là mất 50% hoặc nhiều hơn năng lực khi mất một máy đơn lẻ), còn những cái lớn nhất có thể có hơn 10.000 tiến trình (tùy thuộc vào kích thước datacenter). Trong trường hợp điển hình, các dịch vụ gồm từ 100 đến 1.000 tiến trình. Chúng tôi gọi những tiến trình này là *backend tasks* (nhiệm vụ phía sau, hoặc đơn giản là *backends*). Các task (nhiệm vụ) khác, gọi là *client tasks* (nhiệm vụ khách hàng), giữ các kết nối đến các backend task. Với mỗi truy vấn đến, một client task phải quyết định backend task nào nên xử lý nó. Các client giao tiếp với các backends bằng một giao thức cài đặt trên sự kết hợp của TCP và UDP.
 
@@ -43,13 +43,13 @@ Ví dụ này minh họa cách các thực hành cân bằng tải trong-datacen
 
 Trước khi có thể quyết định backend task nào nên nhận một yêu cầu client, chúng tôi cần xác định — và tránh — các task không khỏe mạnh (unhealthy) trong bể backend.
 
-## Một Cách tiếp cận Đơn giản cho các Task Không khỏe mạnh: Flow Control (A Simple Approach to Unhealthy Tasks: Flow Control)
+### Một Cách tiếp cận Đơn giản cho các Task Không khỏe mạnh: Flow Control (A Simple Approach to Unhealthy Tasks: Flow Control)
 
 Giả sử các client task của chúng tôi theo dõi số lượng yêu cầu đang hoạt động (active) mà chúng đã gửi trên mỗi kết nối đến một backend task. Khi số đếm yêu cầu đang hoạt động này chạm đến một giới hạn được cấu hình, client coi backend đó là không khỏe mạnh và ngừng gửi yêu cầu cho nó. Đối với phần lớn các backends, 100 là một giới hạn hợp lý; trong trường hợp trung bình, các yêu cầu có xu hướng kết thúc đủ nhanh để rất hiếm khi số yêu cầu đang hoạt động từ một client nhất định đạt đến giới hạn này trong điều kiện vận hành bình thường. Hình thức (rất cơ bản!) của flow control này cũng đóng vai trò như một dạng cân bằng tải đơn giản: nếu một backend task nhất định trở nên quá tải và các yêu cầu bắt đầu xếp hàng, các client sẽ tránh backend đó, và khối lượng công việc trải ra một cách tự nhiên giữa các backend task khác.
 
 Thật không may, cách tiếp cận rất đơn giản này chỉ bảo vệ các backend task chống lại những dạng quá tải rất cực đoan, và các backends rất dễ trở nên quá tải trước khi giới hạn này kịp được chạm đến. Điều ngược lại cũng đúng: trong một số trường hợp, các client có thể chạm đến giới hạn này khi các backend của chúng vẫn còn rất nhiều tài nguyên dự phòng. Ví dụ, một số backends có thể có các yêu cầu sống rất dài (very long-lived) khiến chúng không thể phản hồi nhanh. Chúng tôi đã thấy những trường hợp mà giới hạn mặc định này lại phản tác dụng, khiến tất cả các backend task trở nên không thể truy cập, với các yêu cầu bị chặn trong các client cho đến khi hết thời gian (time out) và thất bại. Việc tăng giới hạn yêu cầu đang hoạt động có thể tránh tình huống này, nhưng không giải quyết được vấn đề cơ bản là làm thế nào để biết một task thực sự không khỏe mạnh hay chỉ đơn giản là phản hồi chậm.
 
-## Một Cách tiếp cận Vững chắc cho các Task Không khỏe mạnh: Trạng thái Lame Duck (A Robust Approach to Unhealthy Tasks: Lame Duck State)
+### Một Cách tiếp cận Vững chắc cho các Task Không khỏe mạnh: Trạng thái Lame Duck (A Robust Approach to Unhealthy Tasks: Lame Duck State)
 
 Từ quan điểm của client, một backend task có thể ở trong một trong các trạng thái sau:
 
@@ -73,7 +73,7 @@ Lợi ích chính của việc cho phép một task tồn tại trong trạng th
 2.  Backend task chuyển sang trạng thái vịt què và yêu cầu các client của nó gửi các yêu cầu mới đến các backend task khác. Điều này được thực hiện thông qua một lời gọi API trong cài đặt RPC, được gọi một cách rõ ràng trong bộ xử lý SIGTERM (SIGTERM handler).
 3.  Bất kỳ yêu cầu nào đang diễn ra, được bắt đầu trước khi backend task vào trạng thái vịt què (hoặc sau khi nó vào trạng thái đó nhưng trước khi một client phát hiện), đều được thực thi bình thường.
 4.  Khi các phản hồi chảy ngược về các client, số lượng yêu cầu đang hoạt động cho backend dần dần giảm về zero.
-5.  Sau một khoảng thời gian được cấu hình, backend task hoặc thoát sạch hoặc bị trình lên lịch job giết (kill). Khoảng thời gian nên đủ lớn để tất cả các yêu cầu điển hình có đủ thời gian kết thúc. Giá trị này phụ thuộc vào dịch vụ, nhưng một quy tắc ngón tay cái tốt là từ 10s đến 150s tùy theo độ phức tạp của client.
+5.  Sau một khoảng thời gian được cấu hình, backend task hoặc thoát sạch hoặc bị trình lên lịch job giết (kill). Khoảng thời gian nên đủ lớn để tất cả các yêu cầu điển hình có đủ thời gian kết thúc. Giá trị này phụ thuộc vào dịch vụ, nhưng một nguyên tắc kinh nghiệm tốt là từ 10s đến 150s tùy theo độ phức tạp của client.
 
 Chiến lược này cũng cho phép một client thiết lập các kết nối đến các backend task trong khi các task đó đang thực hiện các thủ tục khởi tạo có thể kéo dài (và do đó chưa sẵn sàng bắt đầu phục vụ). Các backend task có thể thay vào đó bắt đầu nghe các kết nối chỉ khi chúng sẵn sàng phục vụ, nhưng việc làm như vậy sẽ trì hoãn việc đàm phán kết nối một cách không cần thiết. Ngay khi backend task sẵn sàng bắt đầu phục vụ, nó gửi tín hiệu rõ ràng cho các client.
 
@@ -81,11 +81,11 @@ Chiến lược này cũng cho phép một client thiết lập các kết nối
 
 Ngoài việc quản lý sức khỏe, một cân nhắc khác cho cân bằng tải là *subsetting*: giới hạn bể các backend task tiềm tàng mà một client task tương tác.
 
-Mỗi client trong hệ thống RPC của chúng tôi duy trì một bể các kết nối sống dài đến các backend của nó để gửi các yêu cầu mới. Những kết nối này thường được thiết lập sớm khi client khởi động và thường tiếp tục mở, với các yêu cầu chảy qua chúng, cho đến khi client kết thúc. Một mô hình thay thế là thiết lập và tháo gỡ một kết nối cho mỗi yêu cầu, nhưng mô hình này có chi phí tài nguyên và độ trễ đáng kể. Trong trường hợp góc (corner case) mà một kết nối vẫn rảnh trong một thời gian dài, cài đặt RPC của chúng tôi có một tối ưu hóa chuyển kết nối sang một chế độ "không hoạt động" rẻ hơn, trong đó, ví dụ, tần suất kiểm tra sức khỏe được giảm và kết nối TCP cơ bản bị hủy bỏ để nhường chỗ cho UDP.
+Mỗi client trong hệ thống RPC của chúng tôi duy trì một bể các kết nối sống dài đến các backend của nó để gửi các yêu cầu mới. Những kết nối này thường được thiết lập sớm khi client khởi động và thường tiếp tục mở, với các yêu cầu chảy qua chúng, cho đến khi client kết thúc. Một mô hình thay thế là thiết lập và tháo gỡ một kết nối cho mỗi yêu cầu, nhưng mô hình này có chi phí tài nguyên và độ trễ đáng kể. Trong trường hợp khó (corner case) mà một kết nối vẫn rảnh trong một thời gian dài, cài đặt RPC của chúng tôi có một tối ưu hóa chuyển kết nối sang một chế độ "không hoạt động" rẻ hơn, trong đó, ví dụ, tần suất kiểm tra sức khỏe được giảm và kết nối TCP cơ bản bị hủy bỏ để nhường chỗ cho UDP.
 
-Mỗi kết nối đòi hỏi một số bộ nhớ và CPU (do việc kiểm tra sức khỏe định kỳ) ở cả hai đầu. Trong khi overhead (chi phí phụ) này nhỏ về mặt lý thuyết, nó có thể nhanh chóng trở nên đáng kể khi tích lũy xuyên suốt nhiều máy. Subsetting tránh tình huống một client kết nối đến một số lượng rất lớn các backend task, hoặc một backend task nhận kết nối từ một số lượng rất lớn các client task. Trong cả hai trường hợp, bạn có thể lãng phí rất nhiều tài nguyên cho lợi ích rất ít.
+Mỗi kết nối đòi hỏi một số bộ nhớ và CPU (do việc kiểm tra sức khỏe định kỳ) ở cả hai đầu. Trong khi overhead (công việc phụ) này nhỏ về mặt lý thuyết, nó có thể nhanh chóng trở nên đáng kể khi tích lũy xuyên suốt nhiều máy. Subsetting tránh tình huống một client kết nối đến một số lượng rất lớn các backend task, hoặc một backend task nhận kết nối từ một số lượng rất lớn các client task. Trong cả hai trường hợp, bạn có thể lãng phí rất nhiều tài nguyên cho lợi ích rất ít.
 
-## Chọn Tập phù hợp (Picking the Right Subset)
+### Chọn Tập phù hợp (Picking the Right Subset)
 
 Việc chọn đúng tập (subset) rút gọn về việc chọn bao nhiêu backend task mà mỗi client kết nối đến — kích thước tập (subset size) — và thuật toán chọn. Chúng tôi thường dùng một kích thước tập từ 20 đến 100 backend task, nhưng kích thước tập "đúng" cho một hệ thống phụ thuộc mạnh mẽ vào hành vi điển hình của dịch vụ bạn. Ví dụ, bạn có thể muốn dùng một kích thước tập lớn hơn nếu:
 
@@ -94,11 +94,11 @@ Việc chọn đúng tập (subset) rút gọn về việc chọn bao nhiêu bac
 
 Một khi kích thước tập được xác định, chúng tôi cần một thuật toán để định nghĩa tập các backend task mà mỗi client task sẽ dùng. Điều này có thể tưởng chừng là một tác vụ đơn giản, nhưng nó nhanh chóng trở nên phức tạp khi làm việc với các hệ thống quy mô lớn, nơi việc provision (cấp phát) hiệu quả là thiết yếu và các lần khởi động lại hệ thống là điều chắc chắn xảy ra.
 
-Thuật toán chọn tập mà các client dùng nên gán backend một cách đồng đều để tối ưu hóa việc provision tài nguyên. Ví dụ, nếu [subsetting làm quá tải](https://sre.google/sre-book/load-balancing-datacenter/) một backend bằng 10%, toàn bộ tập các backends cần được provision vượt (overprovisioned) bằng 10%. Thuật toán cũng nên xử lý các lần khởi động lại và sự cố êm ả và vững chắc bằng cách tiếp tục tải các backend đồng đều nhất có thể trong khi tối thiểu hóa sự churn (sự thay đổi). Ở đây, "churn" liên quan đến việc chọn lại backend thay thế. Ví dụ, khi một backend task trở nên không khả dụng, các client của nó có thể cần tạm thời chọn một backend thay thế. Khi một backend thay thế được chọn, các client phải tạo các kết nối TCP mới (và nhiều khả năng thực hiện đàm phán cấp ứng dụng), tạo ra một overhead bổ sung. Tương tự, khi một client task khởi động lại, nó cần mở lại các kết nối đến tất cả các backend của mình.
+Thuật toán chọn tập mà các client dùng nên gán backend một cách đồng đều để tối ưu hóa việc provision tài nguyên. Ví dụ, nếu [subsetting làm quá tải](https://sre.google/sre-book/load-balancing-datacenter/) một backend bằng 10%, toàn bộ tập các backends cần được provision vượt (overprovisioned) bằng 10%. Thuật toán cũng nên xử lý các lần khởi động lại và sự cố một cách nhẹ nhàng và vững chắc bằng cách tiếp tục tải các backend đồng đều nhất có thể trong khi tối thiểu hóa sự churn (sự thay đổi). Ở đây, "churn" liên quan đến việc chọn lại backend thay thế. Ví dụ, khi một backend task trở nên không khả dụng, các client của nó có thể cần tạm thời chọn một backend thay thế. Khi một backend thay thế được chọn, các client phải tạo các kết nối TCP mới (và nhiều khả năng thực hiện đàm phán cấp ứng dụng), tạo ra một overhead bổ sung. Tương tự, khi một client task khởi động lại, nó cần mở lại các kết nối đến tất cả các backend của mình.
 
 Thuật toán cũng nên xử lý các lần thay đổi kích thước (resize) trong số lượng client và/hoặc số lượng backend, với sự churn kết nối tối thiểu và không cần biết trước các con số đó. Tính năng này đặc biệt quan trọng (và khó khăn) khi toàn bộ tập client hoặc backend task được khởi động lại lần lượt một (ví dụ, để push một phiên bản mới). Khi các backend được push, chúng tôi muốn các client tiếp tục phục vụ một cách trong suốt, với sự churn kết nối ít nhất có thể.
 
-## Một Thuật toán Chọn Tập: Random Subsetting (Phân tập Ngẫu nhiên) (A Subset Selection Algorithm: Random Subsetting)
+### Một Thuật toán Chọn Tập: Random Subsetting (Phân tập Ngẫu nhiên) (A Subset Selection Algorithm: Random Subsetting)
 
 Một cài đặt ngây thơ (naive) của một thuật toán chọn tập có thể cho mỗi client xáo trộn (shuffle) danh sách các backends một lần, rồi lấp đầy tập của nó bằng cách chọn các backend có thể phân giải/khỏe mạnh từ danh sách. Việc xáo trộn một lần rồi chọn các backend từ đầu danh sách xử lý các lần khởi động lại và sự cố một cách vững chắc (ví dụ, với sự churn tương đối ít) vì nó loại trừ rõ ràng chúng khỏi việc xem xét. Tuy nhiên, chúng tôi nhận thấy rằng chiến lược này thực tế hoạt động rất kém trong hầu hết các kịch bản vì nó trải tải rất không đều.
 
@@ -124,7 +124,7 @@ Thật không may, các kích thước tập nhỏ hơn dẫn đến sự mất 
 
 Chúng tôi kết luận rằng để random subsetting trải tải tương đối đều trên tất cả các task khả dụng, chúng tôi sẽ cần các kích thước tập lớn đến 75%. Một tập lớn như vậy đơn giản là không thực tế; phương sai (variance) trong số lượng client kết nối đến một task chỉ quá lớn để có thể coi random subsetting là một chính sách chọn tập tốt ở quy mô.
 
-## Một Thuật toán Chọn Tập: Deterministic Subsetting (Phân tập Xác định) (A Subset Selection Algorithm: Deterministic Subsetting)
+### Một Thuật toán Chọn Tập: Deterministic Subsetting (Phân tập Xác định) (A Subset Selection Algorithm: Deterministic Subsetting)
 
 Giải pháp của Google cho các giới hạn của random subsetting là phân tập *xác định* (deterministic). Code sau đây cài đặt thuật toán này, được mô tả chi tiết bên dưới:
 
@@ -185,22 +185,22 @@ Bây giờ khi đã thiết lập nền tảng cho cách một client task duy t
 
 Các chính sách cân bằng tải có thể rất đơn giản và không tính đến bất kỳ thông tin nào về trạng thái của các backend (ví dụ, *Round Robin* — Vòng quay), hoặc có thể vận hành với nhiều thông tin hơn về các backend (ví dụ, *Least-Loaded Round Robin* — Vòng quay ít tải nhất, hoặc *Weighted Round Robin* — Vòng quay có trọng số).
 
-## Round Robin Đơn giản (Simple Round Robin)
+### Round Robin Đơn giản (Simple Round Robin)
 
 Một cách tiếp cận rất đơn giản cho [cân bằng tải](https://sre.google/sre-book/handling-overload/) là cho mỗi client gửi các yêu cầu theo kiểu vòng quay đến từng backend task trong tập của nó mà nó có thể kết nối thành công và không ở trạng thái vịt què. Trong nhiều năm, đây là cách tiếp cận phổ biến nhất của chúng tôi, và nó vẫn được nhiều dịch vụ sử dụng.
 
-Thật không may, trong khi Round Robin có lợi thế là rất đơn giản và thực hiện đáng kể tốt hơn so với việc chọn các backend task ngẫu nhiên, kết quả của chính sách này có thể rất kém. Dù các con số thực tế phụ thuộc vào nhiều yếu tố như chi phí truy vấn thay đổi và sự đa dạng máy, chúng tôi nhận thấy rằng Round Robin có thể dẫn đến một sự trải rộng lên đến 2 lần trong mức tiêu thụ CPU giữa task ít tải nhất và task nhiều tải nhất. Một sự trải rộng như vậy cực kỳ lãng phí và xảy ra vì một số lý do, bao gồm:
+Thật không may, trong khi Round Robin có lợi thế là rất đơn giản và hoạt động tốt hơn đáng kể so với việc chọn các backend task ngẫu nhiên, kết quả của chính sách này có thể rất kém. Dù các con số thực tế phụ thuộc vào nhiều yếu tố như chi phí truy vấn thay đổi và sự đa dạng máy, chúng tôi nhận thấy rằng Round Robin có thể dẫn đến một sự trải rộng lên đến 2 lần trong mức tiêu thụ CPU giữa task ít tải nhất và task nhiều tải nhất. Một sự trải rộng như vậy cực kỳ lãng phí và xảy ra vì một số lý do, bao gồm:
 
 -   Subsetting nhỏ
 -   Chi phí truy vấn thay đổi
 -   Sự đa dạng máy
 -   Các yếu tố hiệu năng không thể dự đoán
 
-## Subsetting nhỏ (Small subsetting)
+#### Subsetting nhỏ (Small subsetting)
 
 Một trong những lý do đơn giản nhất khiến Round Robin phân phối tải kém là không phải tất cả các client của nó đều phát ra yêu cầu ở cùng tốc độ. Tốc độ yêu cầu khác nhau giữa các client đặc biệt dễ xảy ra khi các tiến trình khác biệt rất nhiều cùng chia sẻ các backend. Trong trường hợp này, và đặc biệt nếu bạn đang dùng các kích thước tập tương đối nhỏ, các backend trong tập của các client tạo ra nhiều traffic nhất sẽ tự nhiên có xu hướng nhiều tải hơn.
 
-## Chi phí truy vấn thay đổi (Varying query costs)
+#### Chi phí truy vấn thay đổi (Varying query costs)
 
 Nhiều dịch vụ xử lý các yêu cầu đòi hỏi lượng tài nguyên xử lý khác nhau rất lớn. Trong thực tế, chúng tôi nhận thấy rằng ngữ nghĩa của nhiều dịch vụ trong Google đến mức các yêu cầu đắt tiền nhất tiêu thụ 1000 lần (hoặc nhiều hơn) CPU so với các yêu cầu rẻ nhất. Cân bằng tải bằng Round Robin còn khó khăn hơn khi chi phí truy vấn không thể dự đoán trước. Ví dụ, một truy vấn như "trả về tất cả các email nhận được bởi user XYZ trong ngày qua" có thể rất rẻ (nếu user nhận ít email trong ngày) hoặc cực kỳ đắt tiền.
 
@@ -208,13 +208,13 @@ Cân bằng tải trong một hệ thống có sự chênh lệch lớn về chi
 
 Để giữ các giao diện (và cài đặt của chúng) đơn giản, các dịch vụ thường được định nghĩa sao cho các yêu cầu đắt tiền nhất được phép tiêu thụ 100, 1.000, hoặc thậm chí 10.000 lần nhiều tài nguyên hơn so với các yêu cầu rẻ nhất. Tuy nhiên, việc các yêu cầu có mức tiêu thụ tài nguyên thay đổi theo mỗi yêu cầu đồng nghĩa với việc một số backend task sẽ xui xẻo và thỉnh thoảng nhận nhiều yêu cầu đắt tiền hơn những task khác. Mức độ tình huống này ảnh hưởng đến cân bằng tải phụ thuộc vào việc các yêu cầu đắt tiền nhất đắt đến mức nào. Ví dụ, cho một trong những backends Java của chúng tôi, các truy vấn tiêu thụ trung bình khoảng 15 ms CPU, nhưng một số truy vấn có thể dễ dàng đòi hỏi lên đến 10 giây. Mỗi task trong backend này đặt trước nhiều CPU core (nhân), điều này giúp giảm độ trễ bằng cách cho phép một số phép tính diễn ra song song. Nhưng bất chấp những core đặt trước này, khi một backend nhận một trong những truy vấn lớn, tải của nó tăng đáng kể trong vài giây. Một task hoạt động kém có thể hết bộ nhớ hoặc thậm chí ngừng phản hồi hoàn toàn (ví dụ, do memory thrashing — dao động bộ nhớ), nhưng ngay cả trong trường hợp bình thường (tức là backend có đủ tài nguyên và tải của nó trở lại bình thường một khi truy vấn lớn hoàn thành), độ trễ của các yêu cầu khác vẫn bị ảnh hưởng do sự cạnh tranh tài nguyên với yêu cầu đắt tiền.
 
-## Sự đa dạng máy (Machine diversity)
+#### Sự đa dạng máy (Machine diversity)
 
 Một thách thức khác cho Simple Round Robin là thực tế rằng không phải tất cả các máy trong cùng một datacenter nhất thiết giống nhau. Một datacenter có thể có các máy với các CPU hiệu năng khác nhau, và do đó, cùng một yêu cầu có thể đại diện cho lượng công việc khác nhau đáng kể trên các máy khác nhau.
 
 Việc ứng phó với sự đa dạng máy — mà *không* đòi hỏi sự đồng nhất nghiêm ngặt — là một thách thức trong nhiều năm tại Google. Về mặt lý thuyết, giải pháp cho việc làm việc với năng lực tài nguyên dị thể (heterogeneous) trong một hạm đội (fleet) là đơn giản: scale các đặt trước CPU tùy theo loại trình xử lý/máy. Tuy nhiên, trong thực tế, việc triển khai giải pháp này đòi hỏi nỗ lực đáng kể, vì nó yêu cầu trình lên lịch job của chúng tôi phải tính đến các mức tương đương tài nguyên dựa trên hiệu năng máy trung bình qua việc lấy mẫu các dịch vụ. Ví dụ, 2 đơn vị CPU trong máy X (một máy "chậm") tương đương với 0,8 đơn vị CPU trong máy Y (một máy "nhanh"). Với thông tin này, trình lên lịch job sau đó được yêu cầu điều chỉnh các đặt trước CPU cho một tiến trình dựa trên hệ số tương đương và loại máy mà tiến trình được lên lịch. Để giảm nhẹ độ phức tạp này, chúng tôi đã tạo ra một đơn vị ảo cho tốc độ CPU gọi là "GCU" (Google Compute Units — Đơn vị Tính toán Google). GCU trở thành tiêu chuẩn để mô hình hóa tốc độ CPU, và được dùng để duy trì một ánh xạ từ mỗi kiến trúc CPU trong các datacenter của chúng tôi đến GCU tương ứng dựa trên hiệu năng của nó.
 
-## Các yếu tố hiệu năng không thể dự đoán (Unpredictable performance factors)
+#### Các yếu tố hiệu năng không thể dự đoán (Unpredictable performance factors)
 
 Có lẽ yếu tố gây phức tạp lớn nhất cho Simple Round Robin là các máy — hoặc, chính xác hơn, hiệu năng của các backend task — có thể khác nhau rất lớn do một số khía cạnh *không thể dự đoán*, thứ không thể được tính đến một cách tĩnh.
 
@@ -230,7 +230,7 @@ Khi một task được khởi động lại, nó thường đòi hỏi nhiều 
 
 Nếu chính sách cân bằng tải của bạn không thể thích nghi với các hạn chế hiệu năng không lường trước, bạn sẽ về cơ bản kết thúc với một sự phân phối tải không tối ưu khi vận hành ở quy mô.
 
-## Least-Loaded Round Robin (Vòng quay ít tải nhất) (Least-Loaded Round Robin)
+### Least-Loaded Round Robin (Vòng quay ít tải nhất) (Least-Loaded Round Robin)
 
 Một cách tiếp cận thay thế cho Simple Round Robin là cho mỗi client task theo dõi số lượng yêu cầu đang hoạt động mà nó có đến mỗi backend task trong tập của nó, rồi sử dụng Round Robin *trong số tập các task có số lượng yêu cầu đang hoạt động nhỏ nhất*.
 
@@ -262,7 +262,7 @@ Tất cả những gì đã nói, chúng tôi đã học (theo cách khó khăn!
 
 Least-Loaded Round Robin có hai giới hạn quan trọng:
 
-**Số đếm các yêu cầu đang hoạt động có thể không phải là một đại lý (proxy) rất tốt cho khả năng của một backend nhất định**
+**Số đếm các yêu cầu đang hoạt động có thể không phải là một chỉ số đại diện (proxy) rất tốt cho khả năng của một backend nhất định**
 
 Nhiều yêu cầu dành phần đáng kể thời gian sống của chúng chỉ để chờ phản hồi từ mạng (tức là chờ các phản hồi cho các yêu cầu mà chúng khởi tạo đến các backend khác) và rất ít thời gian cho việc xử lý thực. Ví dụ, một backend task có thể xử lý gấp đôi số yêu cầu so với một task khác (ví dụ, vì nó chạy trên một máy với CPU nhanh gấp đôi), nhưng độ trễ của các yêu cầu của nó có thể vẫn xấp xỉ giống như độ trễ của các yêu cầu trong task khác (vì các yêu cầu dành phần lớn thời gian chỉ để chờ mạng phản hồi). Trong trường hợp này, vì việc chặn (blocking) trên I/O (nhập/xuất) thường tiêu thụ zero CPU, rất ít RAM, và không dùng băng thông, chúng tôi vẫn muốn gửi gấp đôi số yêu cầu đến backend nhanh hơn. Tuy nhiên, Least-Loaded Round Robin sẽ coi cả hai backend task là nhiều tải như nhau.
 
@@ -270,9 +270,9 @@ Nhiều yêu cầu dành phần đáng kể thời gian sống của chúng ch�
 
 Tức là, mỗi client task chỉ có một tầm nhìn rất hạn chế vào trạng thái của các backend task của nó: chỉ qua các yêu cầu của chính nó.
 
-Trong thực tế, chúng tôi nhận thấy rằng các dịch vụ lớn dùng Least-Loaded Round Robin sẽ thấy backend task nhiều tải nhất của chúng sử dụng gấp đôi CPU so với task ít tải nhất, thực hiện kém xấp xỉ như Round Robin.
+Trong thực tế, chúng tôi nhận thấy rằng các dịch vụ lớn dùng Least-Loaded Round Robin sẽ thấy backend task nhiều tải nhất của chúng sử dụng gấp đôi CPU so với task ít tải nhất, hoạt động kém xấp xỉ như Round Robin.
 
-## Weighted Round Robin (Vòng quay có trọng số) (Weighted Round Robin)
+### Weighted Round Robin (Vòng quay có trọng số) (Weighted Round Robin)
 
 Weighted Round Robin là một chính sách cân bằng tải quan trọng, cải thiện trên Simple và Least-Loaded Round Robin bằng cách tích hợp thông tin do backend cung cấp vào quá trình ra quyết định.
 

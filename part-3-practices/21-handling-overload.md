@@ -9,20 +9,20 @@
 *Tác giả:* Alejandro Forero Cuervo
 *Biên tập:* Sarah Chavis
 
-Việc tránh quá tải (overload) là một mục tiêu của các chính sách cân bằng tải. Nhưng dù chính sách cân bằng tải của bạn có hiệu quả đến đâu, *cuối cùng* một phần hệ thống sẽ trở nên quá tải. Việc xử lý các điều kiện quá tải êm ả (gracefully) là nền tảng để vận hành một hệ thống phục vụ đáng tin cậy.
+Việc tránh quá tải (overload) là một mục tiêu của các chính sách cân bằng tải. Nhưng dù chính sách cân bằng tải của bạn có hiệu quả đến đâu, *cuối cùng* một phần hệ thống sẽ trở nên quá tải. Việc xử lý các điều kiện quá tải một cách nhẹ nhàng (gracefully) là nền tảng để vận hành một hệ thống phục vụ đáng tin cậy.
 
 Một tùy chọn để xử lý quá tải là phục vụ các phản hồi suy giảm (degraded responses): những phản hồi kém chính xác hơn hoặc chứa ít dữ liệu hơn so với phản hồi bình thường, nhưng dễ tính toán hơn. Ví dụ:
 
 -   Thay vì tìm kiếm toàn bộ hệ thống (corpus) để đưa ra kết quả tốt nhất khả dụng cho một truy vấn tìm kiếm, chỉ tìm kiếm một phần nhỏ của tập ứng viên.
 -   Dựa vào một bản sao cục bộ của các kết quả có thể không hoàn toàn cập nhật, nhưng rẻ hơn để dùng so với việc truy cập vào kho lưu trữ chính thống (canonical storage).
 
-Tuy nhiên, dưới quá tải cực đoan, dịch vụ có thể thậm chí không thể tính toán và phục vụ được cả các phản hồi suy giảm. Lúc này nó có thể không còn tùy chọn tức thời nào ngoài việc phục vụ các lỗi. Một cách để giảm nhẹ kịch bản này là cân bằng traffic xuyên suốt các datacenter (trung tâm dữ liệu) sao cho không có datacenter nào nhận nhiều traffic hơn năng lực mà nó có để xử lý. Ví dụ, nếu một datacenter chạy 100 backend task (nhiệm vụ phía sau) và mỗi task có thể xử lý tối đa 500 yêu cầu mỗi giây, thuật toán cân bằng tải sẽ không cho phép gửi nhiều hơn 50.000 truy vấn mỗi giây đến datacenter đó. Tuy nhiên, ngay cả ràng buộc này cũng có thể là không đủ để tránh quá tải khi vận hành ở quy mô. Cuối cùng, tốt nhất là xây dựng các client (khách hàng) và backend để xử lý các hạn chế tài nguyên êm ả: chuyển hướng khi có thể, phục vụ các kết quả suy giảm khi cần thiết, và xử lý các lỗi tài nguyên một cách trong suốt khi mọi thứ khác đều thất bại.
+Tuy nhiên, dưới quá tải cực đoan, dịch vụ có thể thậm chí không thể tính toán và phục vụ được cả các phản hồi suy giảm. Lúc này nó có thể không còn tùy chọn tức thời nào ngoài việc phục vụ các lỗi. Một cách để giảm nhẹ kịch bản này là cân bằng traffic xuyên suốt các datacenter (trung tâm dữ liệu) sao cho không có datacenter nào nhận nhiều traffic hơn năng lực mà nó có để xử lý. Ví dụ, nếu một datacenter chạy 100 backend task (nhiệm vụ phía sau) và mỗi task có thể xử lý tối đa 500 yêu cầu mỗi giây, thuật toán cân bằng tải sẽ không cho phép gửi nhiều hơn 50.000 truy vấn mỗi giây đến datacenter đó. Tuy nhiên, ngay cả ràng buộc này cũng có thể là không đủ để tránh quá tải khi vận hành ở quy mô. Cuối cùng, tốt nhất là xây dựng các client (khách hàng) và backend để xử lý các hạn chế tài nguyên một cách nhẹ nhàng: chuyển hướng khi có thể, phục vụ các kết quả suy giảm khi cần thiết, và xử lý các lỗi tài nguyên một cách trong suốt khi mọi thứ khác đều thất bại.
 
 ## Các Cạm bẫy của "Số truy vấn mỗi giây" (The Pitfalls of "Queries per Second")
 
 Các truy vấn khác nhau có thể đòi hỏi tài nguyên khác nhau rất lớn. Chi phí của một truy vấn có thể thay đổi theo các yếu tố rất khác nhau, như code trong client phát ra chúng (đối với các dịch vụ có nhiều client khác nhau), hoặc thậm chí thời điểm trong ngày (ví dụ, người dùng tại nhà so với người dùng làm việc; hay traffic tương tác của người dùng cuối so với traffic theo lô).
 
-Chúng tôi học bài học này theo cách khó khăn: mô hình hóa năng lực dưới dạng "số truy vấn mỗi giây", hoặc dùng các đặc tính tĩnh của các yêu cầu được cho là một đại lý (proxy) cho tài nguyên mà chúng tiêu thụ (ví dụ, "các yêu cầu đọc bao nhiêu keys (khóa)"), thường là một metric (chỉ số) kém. Ngay cả khi những metric này hoạt động đầy đủ tại một thời điểm, các tỷ số có thể thay đổi. Đôi khi sự thay đổi diễn ra dần dần, nhưng đôi khi nó rất đột ngột (ví dụ, một phiên bản mới của phần mềm bất ngờ khiến một số tính năng của một số yêu cầu đòi hỏi ít tài nguyên hơn đáng kể). Một mục tiêu luôn di chuyển là một metric kém cho việc thiết kế và cài đặt cân bằng tải.
+Chúng tôi học bài học này theo cách khó khăn: mô hình hóa năng lực dưới dạng "số truy vấn mỗi giây", hoặc dùng các đặc tính tĩnh của các yêu cầu được cho là một chỉ số đại diện (proxy) cho tài nguyên mà chúng tiêu thụ (ví dụ, "các yêu cầu đọc bao nhiêu keys (khóa)"), thường là một metric (chỉ số) kém. Ngay cả khi những metric này hoạt động đầy đủ tại một thời điểm, các tỷ số có thể thay đổi. Đôi khi sự thay đổi diễn ra dần dần, nhưng đôi khi nó rất đột ngột (ví dụ, một phiên bản mới của phần mềm bất ngờ khiến một số tính năng của một số yêu cầu đòi hỏi ít tài nguyên hơn đáng kể). Một mục tiêu luôn di chuyển là một metric kém cho việc thiết kế và cài đặt cân bằng tải.
 
 Một giải pháp tốt hơn là đo lường năng lực trực tiếp bằng các tài nguyên khả dụng. Ví dụ, bạn có thể có tổng cộng 500 CPU core (nhân) và 1 TB bộ nhớ đặt trước cho một dịch vụ nhất định trong một datacenter. Một cách tự nhiên, dùng những con số đó trực tiếp để mô hình hóa năng lực của một datacenter sẽ hoạt động tốt hơn nhiều. Chúng tôi thường nói về *chi phí* (cost) của một yêu cầu để chỉ một phép đo chuẩn hóa về lượng thời gian CPU mà nó tiêu thụ (xuyên suốt các kiến trúc CPU khác nhau, có tính đến các khác biệt về hiệu năng).
 
@@ -53,7 +53,7 @@ Chúng tôi tổng hợp thông tin sử dụng toàn cục trong thời gian th
 
 ## Giới hạn phía Client (Client-Side Throttling)
 
-Khi một khách hàng hết định mức, một backend task nên từ chối các yêu cầu nhanh chóng, với kỳ vọng rằng việc trả về một lỗi "khách hàng hết định mức" tiêu thụ ít tài nguyên hơn đáng kể so với việc thực sự xử lý yêu cầu và phục vụ lại một phản hồi đúng. Tuy nhiên, logic này không đúng cho tất cả các dịch vụ. Ví dụ, việc từ chối một yêu cầu đòi hỏi một tra cứu RAM (bộ nhớ truy cập trực tiếp) đơn giản (nơi overhead (chi phí phụ) của việc xử lý giao thức yêu cầu/phản hồi lớn hơn đáng kể so với overhead của việc tạo ra phản hồi) gần như đắt đỏ ngang nhau như việc chấp nhận và chạy yêu cầu đó. Và ngay cả khi việc từ chối các yêu cầu tiết kiệm được nhiều tài nguyên, những yêu cầu đó *vẫn* tiêu thụ một lượng tài nguyên nhất định. Nếu số lượng yêu cầu bị từ chối đáng kể, những con số này sẽ cộng lại rất nhanh. Trong những trường hợp như vậy, backend có thể trở nên quá tải ngay cả khi phần lớn CPU của nó chỉ dành để từ chối các yêu cầu!
+Khi một khách hàng hết định mức, một backend task nên từ chối các yêu cầu nhanh chóng, với kỳ vọng rằng việc trả về một lỗi "khách hàng hết định mức" tiêu thụ ít tài nguyên hơn đáng kể so với việc thực sự xử lý yêu cầu và phục vụ lại một phản hồi đúng. Tuy nhiên, logic này không đúng cho tất cả các dịch vụ. Ví dụ, việc từ chối một yêu cầu đòi hỏi một tra cứu RAM (bộ nhớ truy cập trực tiếp) đơn giản (nơi overhead (công việc phụ) của việc xử lý giao thức yêu cầu/phản hồi lớn hơn đáng kể so với overhead của việc tạo ra phản hồi) gần như đắt đỏ ngang nhau như việc chấp nhận và chạy yêu cầu đó. Và ngay cả khi việc từ chối các yêu cầu tiết kiệm được nhiều tài nguyên, những yêu cầu đó *vẫn* tiêu thụ một lượng tài nguyên nhất định. Nếu số lượng yêu cầu bị từ chối đáng kể, những con số này sẽ cộng lại rất nhanh. Trong những trường hợp như vậy, backend có thể trở nên quá tải ngay cả khi phần lớn CPU của nó chỉ dành để từ chối các yêu cầu!
 
 Giới hạn phía client giải quyết vấn đề này.<sup>[1](#fn1)</sup> Khi một client phát hiện rằng một phần đáng kể các yêu cầu gần đây của nó đã bị từ chối do lỗi "hết định mức", nó bắt đầu tự điều chỉnh và giới hạn lượng traffic đến mà nó tạo ra. Các yêu cầu vượt quá giới hạn sẽ thất bại cục bộ mà thậm chí không chạm đến mạng.
 
@@ -98,11 +98,11 @@ Một cân nhắc bổ sung là giới hạn phía client có thể không hoạ
 
 `CRITICAL_PLUS`
 
-Đặt riêng cho các yêu cầu quan trọng nhất, những yêu cầu mà nếu thất bại sẽ dẫn đến tác động nghiêm trọng, nhìn thấy được bởi user.
+Đặt riêng cho các yêu cầu quan trọng nhất, những yêu cầu mà nếu thất bại sẽ gây tác động nghiêm trọng mà người dùng thấy rõ.
 
 `CRITICAL`
 
-Giá trị mặc định cho các yêu cầu được gửi từ các job production (sản xuất). Những yêu cầu này sẽ dẫn đến tác động nhìn thấy được bởi user, nhưng tác động có thể ít nghiêm trọng hơn so với `CRITICAL_PLUS`. Các dịch vụ được kỳ vọng provision đủ năng lực cho tất cả traffic `CRITICAL` và `CRITICAL_PLUS` được mong đợi.
+Giá trị mặc định cho các yêu cầu được gửi từ các job production (sản xuất). Những yêu cầu này sẽ gây tác động mà người dùng thấy được, nhưng tác động có thể ít nghiêm trọng hơn so với `CRITICAL_PLUS`. Các dịch vụ được kỳ vọng cấp đủ năng lực cho tất cả traffic `CRITICAL` và `CRITICAL_PLUS` dự kiến.
 
 `SHEDDABLE_PLUS`
 
@@ -138,7 +138,7 @@ Trong khi trung bình tải trình thực thi đã chứng tỏ là một tín h
 
 ## Xử lý Các Lỗi Quá tải (Handling Overload Errors)
 
-Ngoài việc xử lý tải một cách êm ả, chúng tôi đã dành không ít suy nghĩ cho cách các client nên phản ứng khi nhận được một phản hồi lỗi liên quan đến tải. Với [các lỗi quá tải,](https://sre.google/sre-book/addressing-cascading-failures/) chúng tôi phân biệt giữa hai tình huống khả thi.
+Ngoài việc xử lý tải một cách nhẹ nhàng, chúng tôi đã dành không ít suy nghĩ cho cách các client nên phản ứng khi nhận được một phản hồi lỗi liên quan đến tải. Với [các lỗi quá tải,](https://sre.google/sre-book/addressing-cascading-failures/) chúng tôi phân biệt giữa hai tình huống khả thi.
 
 **Một tập con lớn các backend task trong datacenter bị quá tải.**
 
@@ -158,7 +158,7 @@ Ngay cả khi một backend chỉ hơi quá tải, một yêu cầu client thư�
 
 Khi một client nhận được một phản hồi lỗi "task quá tải", nó cần quyết định liệu có nên thử lại yêu cầu không. Chúng tôi có một số cơ chế đặt ra để tránh việc thử lại khi một phần đáng kể các task trong một cluster (cụm máy) bị quá tải.
 
-Đầu tiên, chúng tôi cài đặt một *ngân sách thử lại mỗi yêu cầu* (per-request retry budget) tối đa ba lần thử. Nếu một yêu cầu đã thất bại ba lần, chúng tôi để sự thất bại bọt lên đến người gọi. Lý lẽ là nếu một yêu cầu đã đáp xuống các task quá tải ba lần, khả năng việc thử lại nó sẽ có ích là tương đối thấp, vì toàn bộ datacenter nhiều khả năng đang quá tải.
+Đầu tiên, chúng tôi cài đặt một *ngân sách thử lại mỗi yêu cầu* (per-request retry budget) tối đa ba lần thử. Nếu một yêu cầu đã thất bại ba lần, chúng tôi để lỗi đó nổi lên tới người gọi. Lý lẽ là nếu một yêu cầu đã đáp xuống các task quá tải ba lần, khả năng việc thử lại nó sẽ có ích là tương đối thấp, vì toàn bộ datacenter nhiều khả năng đang quá tải.
 
 Thứ hai, chúng tôi cài đặt một *ngân sách thử lại mỗi client* (per-client retry budget). Mỗi client theo dõi tỷ số giữa các yêu cầu và các lần thử lại. Một yêu cầu chỉ được thử lại khi tỷ số này dưới 10%. Lý lẽ là nếu chỉ một tập con nhỏ các task bị quá tải, sẽ có rất ít nhu cầu phải thử lại.
 
@@ -203,11 +203,11 @@ Việc xử lý các đợt yêu cầu kết nối mới là một vấn đề t
 
 Chương này và [Cân bằng Tải trong Datacenter](https://sre.google/sre-book/load-balancing-datacenter/) đã thảo luận cách các kỹ thuật khác nhau (deterministic subsetting, Weighted Round Robin, giới hạn phía client, các định mức khách hàng, v.v.) có thể giúp trải tải trên các task trong một datacenter tương đối đều. Tuy nhiên, những cơ chế này phụ thuộc vào sự lan truyền trạng thái trên một hệ thống phân tán. Trong khi chúng hoạt động khá tốt trong trường hợp chung, việc ứng dụng thực tế đã dẫn đến một số ít tình huống mà chúng hoạt động không hoàn hảo.
 
-Kết quả, chúng tôi coi việc đảm bảo rằng các task đơn lẻ được bảo vệ chống lại quá tải là điều thiết yếu. Nói đơn giản: một backend task được provision để phục vụ một tốc độ traffic nhất định nên tiếp tục phục vụ traffic ở tốc độ đó mà không có bất kỳ tác động đáng kể nào đến độ trễ, bất kể bao nhiêu traffic vượt mức được ném vào task. Hệ quả là, backend task không nên sụp đổ và sập dưới tải. Những tuyên bố này nên đúng cho đến một tốc độ traffic nhất định — đâu đó trên 2 lần hoặc thậm chí 10 lần so với mức task được provision để xử lý. Chúng tôi chấp nhận rằng có thể có một điểm mà tại đó một hệ thống bắt đầu sụp đổ, và việc nâng ngưỡng mà sự sụp đổ này xảy ra trở nên tương đối khó khăn để đạt được.
+Kết quả là, chúng tôi coi việc đảm bảo rằng các task đơn lẻ được bảo vệ chống lại quá tải là điều thiết yếu. Nói đơn giản: một backend task được provision để phục vụ một tốc độ traffic nhất định nên tiếp tục phục vụ traffic ở tốc độ đó mà không có bất kỳ tác động đáng kể nào đến độ trễ, bất kể bao nhiêu traffic vượt mức được ném vào task. Hệ quả là, backend task không nên sụp đổ và sập dưới tải. Những tuyên bố này nên đúng cho đến một tốc độ traffic nhất định — đâu đó trên 2 lần hoặc thậm chí 10 lần so với mức task được provision để xử lý. Chúng tôi chấp nhận rằng có thể có một điểm mà tại đó một hệ thống bắt đầu sụp đổ, và việc nâng ngưỡng mà sự sụp đổ này xảy ra trở nên tương đối khó khăn để đạt được.
 
 Chìa khóa là phải coi những điều kiện suy giảm này một cách nghiêm túc. Khi những điều kiện suy giảm này bị bỏ qua, nhiều hệ thống sẽ thể hiện hành vi khủng khiếp. Và khi công việc chồng chất, các task cuối cùng hết bộ nhớ và sập (hoặc kết thúc bằng việc đốt cháy gần như toàn bộ CPU của chúng trong memory thrashing — dao động bộ nhớ), độ trễ bị ảnh hưởng khi traffic bị loại bỏ và các task cạnh tranh cho các tài nguyên. Nếu không được kiểm soát, sự cố trong một tập con của một hệ thống (như một backend task đơn lẻ) có thể kích hoạt sự cố của các thành phần hệ thống khác, và có thể kéo theo toàn bộ hệ thống (hoặc một tập con đáng kể) gặp sự cố. Tác động từ loại sự cố lan truyền (cascading failure) này có thể nghiêm trọng đến mức việc bảo vệ chống lại nó là thiết yếu cho bất kỳ hệ thống nào vận hành ở quy mô; xem [Đối phó với Các Sự cố Lan truyền](https://sre.google/sre-book/addressing-cascading-failures/).
 
-Một sai lầm phổ biến là giả định rằng một backend quá tải nên từ chối và ngừng chấp nhận tất cả traffic. Tuy nhiên, giả định này thực chất đi ngược lại mục tiêu của cân bằng tải vững chắc. Chúng tôi thực sự muốn backend tiếp tục chấp nhận nhiều traffic nhất có thể, nhưng chỉ nhận tải đó khi năng lực được giải phóng. Một backend hành vi tốt, được hỗ trợ bởi các chính sách cân bằng tải vững chắc, nên chỉ chấp nhận các yêu cầu mà nó có thể xử lý và từ chối phần còn lại một cách êm ả.
+Một sai lầm phổ biến là giả định rằng một backend quá tải nên từ chối và ngừng chấp nhận tất cả traffic. Tuy nhiên, giả định này thực chất đi ngược lại mục tiêu của cân bằng tải vững chắc. Chúng tôi thực sự muốn backend tiếp tục chấp nhận nhiều traffic nhất có thể, nhưng chỉ nhận tải đó khi năng lực được giải phóng. Một backend hành vi tốt, được hỗ trợ bởi các chính sách cân bằng tải vững chắc, nên chỉ chấp nhận các yêu cầu mà nó có thể xử lý và từ chối phần còn lại một cách nhẹ nhàng.
 
 Mặc dù chúng tôi có một loạt các công cụ để cài đặt cân bằng tải tốt và các cơ chế bảo vệ quá tải, không có viên đạn thần kỳ (magic bullet): cân bằng tải thường đòi hỏi sự hiểu biết sâu sắc về một hệ thống và ngữ nghĩa của các yêu cầu của nó. Các kỹ thuật được mô tả trong chương này đã tiến hóa cùng với nhu cầu của nhiều hệ thống tại Google, và nhiều khả năng sẽ tiếp tục tiến hóa khi bản chất của các hệ thống của chúng tôi tiếp tục thay đổi.
 

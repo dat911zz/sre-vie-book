@@ -8,7 +8,7 @@
 
 *Tác giả:* Chris Jones
 
-> Hãy được cảnh báo rằng việc là một chuyên gia là hơn cả việc hiểu một hệ thống được giả định hoạt động như thế nào. Chuyên môn đạt được bằng cách điều tra lý do tại sao một hệ thống không hoạt động.
+> Hãy nhớ rằng làm một chuyên gia không chỉ đơn thuần là hiểu một hệ thống được cho là sẽ hoạt động như thế nào. Chuyên môn đạt được bằng cách điều tra lý do tại sao một hệ thống không hoạt động.
 >
 > Brian Redman
 
@@ -24,9 +24,9 @@ Hãy xem xét một mô hình chung của quy trình troubleshooting. Những đ
 
 ## Lý thuyết (Theory)
 
-Một cách chính thức, chúng tôi có thể xem quy trình troubleshooting như một ứng dụng của phương pháp giả định-suy diễn (hypothetico-deductive method):<sup>[2](#fn2)</sup> với một tập các quan sát về một hệ thống và một nền tảng lý thuyết để hiểu hành vi của nó, chúng tôi lặp đi lặp lại giả thuyết (hypothesize) các nguyên nhân tiềm tàng cho sự cố và cố gắng kiểm thử những giả thuyết đó.
+Một cách chính thức, chúng tôi có thể xem quy trình troubleshooting như một ứng dụng của phương pháp giả định-suy diễn (hypothetico-deductive method):<sup>[2](#fn2)</sup> với một tập các quan sát về một hệ thống và một nền tảng lý thuyết để hiểu hành vi của nó, chúng tôi lặp đi lặp lại việc đưa ra giả thuyết (hypothesize) về các nguyên nhân tiềm tàng của sự cố và cố gắng kiểm thử những giả thuyết đó.
 
-Trong một mô hình lý tưởng hóa như [Hình 12-1](#hinh-12-1), chúng tôi bắt đầu với một báo cáo vấn đề (problem report) cho biết có điều gì đó sai với hệ thống. Sau đó chúng tôi có thể nhìn vào telemetry<sup>[3](#fn3)</sup> và các log (nhật ký) của hệ thống để hiểu trạng thái hiện tại của nó. Thông tin này, kết hợp với kiến thức của chúng tôi về cách hệ thống được xây dựng, cách nó đáng lẽ phải vận hành, và các chế độ thất bại (failure mode) của nó, cho phép xác định một số nguyên nhân có thể.
+Trong một mô hình lý tưởng hóa như [Hình 12-1](#hinh-12-1), chúng tôi bắt đầu với một báo cáo vấn đề (problem report) cho biết có điều gì đó sai với hệ thống. Sau đó chúng tôi có thể nhìn vào telemetry<sup>[3](#fn3)</sup> và các log (nhật ký) của hệ thống để hiểu trạng thái hiện tại của nó. Thông tin này, kết hợp với kiến thức của chúng tôi về cách hệ thống được xây dựng, cách nó đáng lẽ phải vận hành, và các failure mode của nó, cho phép xác định một số nguyên nhân có thể.
 
 
 <a id="hinh-12-1"></a>![Hình 12-1](../assets/imgs/fig-12-1.jpg)
@@ -44,7 +44,7 @@ Các phiên troubleshooting kém hiệu quả thường mắc lỗi ở các bư
 -   Đưa ra các lý thuyết hoàn toàn không có khả năng xảy ra về điều gì sai, hoặc bám vào nguyên nhân của các vấn đề trong quá khứ, lập luận rằng vì nó đã xảy ra một lần thì giờ chắc phải đang xảy ra lần nữa.
 -   Truy tìm các tương quan giả (spurious correlation) thực chất chỉ là trùng hợp hoặc có tương quan với các nguyên nhân chung.
 
-Cách sửa cạm bẫy chung thứ nhất và thứ hai là học hệ thống liên quan và trở nên rành rọt với các mẫu (pattern) thường dùng trong các hệ thống phân tán. Cạm bẫy thứ ba là một tập các sai lầm logic có thể tránh được bằng cách nhớ rằng không phải mọi sự cố đều có khả năng như nhau — như các bác sĩ được dạy, "khi nghe tiếng móng ngựa, hãy nghĩ đến ngựa chứ không phải ngựa vằn."<sup>[4](#fn4)</sup> Hãy nhớ rằng, khi mọi thứ bằng nhau, chúng ta nên ưu tiên các giải thích đơn giản hơn.<sup>[5](#fn5)</sup>
+Cách sửa cạm bẫy chung thứ nhất và thứ hai là học hệ thống liên quan và trở nên dày dạn kinh nghiệm với các mẫu (pattern) thường dùng trong các hệ thống phân tán. Cạm bẫy thứ ba là một tập các sai lầm logic có thể tránh được bằng cách nhớ rằng không phải mọi sự cố đều có khả năng như nhau — như các bác sĩ được dạy, "khi nghe tiếng móng ngựa, hãy nghĩ đến ngựa chứ không phải ngựa vằn."<sup>[4](#fn4)</sup> Hãy nhớ rằng, khi mọi thứ bằng nhau, chúng ta nên ưu tiên các giải thích đơn giản hơn.<sup>[5](#fn5)</sup>
 
 Cuối cùng, chúng ta nên nhớ rằng tương quan không phải là nhân quả (correlation is not causation):<sup>[6](#fn6)</sup> một số sự kiện có tương quan vì chúng chia sẻ một nguyên nhân chung — chẳng hạn packet loss (mất gói tin) trong một cluster (cụm máy) và các ổ cứng hỏng trong cluster đều do một sự mất điện — dù rõ ràng sự cố mạng không gây ra hỏng ổ cứng và ngược lại. Tệ hơn, khi các hệ thống lớn hơn, phức tạp hơn và khi nhiều metrics hơn được giám sát, sẽ khó tránh có những sự kiện tình cờ tương quan tốt với các sự kiện khác, thuần túy do trùng hợp.<sup>[7](#fn7)</sup>
 
@@ -56,13 +56,13 @@ Trong thực tế, tất nhiên, troubleshooting không bao giờ suôn sẻ nh�
 
 ## Báo cáo Vấn đề (Problem Report)
 
-Mọi vấn đề bắt đầu bằng một báo cáo vấn đề, có thể là một cảnh báo tự động hay một đồng nghiệp nói "Hệ thống chậm". Một báo cáo hiệu quả nên cho bạn biết hành vi *kỳ vọng*, hành vi *thực tế*, và, nếu có thể, cách tái hiện (reproduce) hành vi.<sup>[8](#fn8)</sup> Lý tưởng nhất, các báo cáo nên có một dạng nhất quán và được lưu ở một vị trí có thể tìm kiếm, như một hệ thống theo dõi bug (lỗi). Ở đây, các đội chúng tôi thường có các biểu mẫu (form) tùy chỉnh hoặc các ứng dụng web nhỏ, yêu cầu thông tin liên quan đến việc chẩn đoán các hệ thống cụ thể mà họ hỗ trợ, rồi tự động tạo và định tuyến một bug. Đây cũng là một chỗ thích hợp để cung cấp công cụ cho những người báo cáo vấn đề khi họ cố tự chẩn đoán hoặc tự sửa các vấn đề chung của mình.
+Mọi vấn đề bắt đầu bằng một báo cáo vấn đề, có thể là một cảnh báo tự động hay một đồng nghiệp nói "Hệ thống chậm". Một báo cáo hiệu quả nên cho bạn biết hành vi *kỳ vọng*, hành vi *thực tế*, và, nếu có thể, cách tái hiện (reproduce) hành vi.<sup>[8](#fn8)</sup> Lý tưởng nhất, các báo cáo nên có một dạng nhất quán và được lưu ở một vị trí có thể tìm kiếm, như một hệ thống theo dõi bug (lỗi). Ở đây, các đội của chúng tôi thường có các biểu mẫu (form) tùy chỉnh hoặc các ứng dụng web nhỏ, yêu cầu thông tin liên quan đến việc chẩn đoán các hệ thống cụ thể mà họ hỗ trợ, rồi tự động tạo và định tuyến một bug. Đây cũng là một chỗ thích hợp để cung cấp công cụ cho những người báo cáo vấn đề khi họ cố tự chẩn đoán hoặc tự sửa các vấn đề chung của mình.
 
 Tại Google, một thực hành phổ biến là mở một bug cho mọi vấn đề, kể cả những vấn đề nhận qua email hay nhắn tin tức thời. Làm vậy tạo ra một log các hoạt động điều tra và khắc phục, có thể tham chiếu trong tương lai. Nhiều đội không khuyến khích báo cáo vấn đề trực tiếp cho một người vì vài lý do: thực hành này thêm một bước phải ghi lại báo cáo vào bug, tạo ra các báo cáo chất lượng thấp hơn, lại không hiển thị cho các thành viên khác của đội, và có xu hướng dồn khối lượng giải quyết vấn đề lên một vài thành viên mà người báo cáo tình cờ biết, thay vì người đang trực hiện tại (xem thêm [Dealing with Interrupts](https://sre.google/sre-book/dealing-with-interrupts/)).
 
 ### Shakespeare Có một Vấn đề (Shakespeare Has a Problem)
 
-Bạn đang on-call (trực sự cố) cho dịch vụ tìm kiếm Shakespeare và nhận một cảnh báo, `Shakespeare-BlackboxProbe_SearchFailure`: giám sát hộp đen (black-box monitoring) của bạn không tìm thấy kết quả tìm kiếm cho "the forms of things unknown" trong năm phút qua. Hệ thống cảnh báo đã đệ trình một bug — kèm liên kết đến các kết quả gần đây của máy dò hộp đen và đến mục playbook (sổ tay kịch bản) cho cảnh báo này — và gán nó cho bạn. Đã đến lúc bung vào hành động!
+Bạn đang on-call (trực sự cố) cho dịch vụ tìm kiếm Shakespeare và nhận một cảnh báo, `Shakespeare-BlackboxProbe_SearchFailure`: giám sát hộp đen (black-box monitoring) của bạn không tìm thấy kết quả tìm kiếm cho "the forms of things unknown" trong năm phút qua. Hệ thống cảnh báo đã đệ trình một bug — kèm liên kết đến các kết quả gần đây của máy dò hộp đen và đến mục playbook (sổ tay kịch bản) cho cảnh báo này — và gán nó cho bạn. Đã đến lúc bắt tay vào hành động!
 
 ## Triage (Phân loại)
 
@@ -76,7 +76,7 @@ Các phi công mới được dạy rằng trách nhiệm đầu tiên của h�
 
 Nhận thức này thường khá gây bất an và phản trực giác với các SRE mới, đặc biệt là những người có kinh nghiệm trước đó ở các tổ chức phát triển sản phẩm.
 
-## Examine (Xét) (Examine)
+## Examine (Xét)
 
 Chúng tôi cần có thể xem xét điều mà mỗi thành phần trong hệ thống đang làm, để hiểu liệu nó có đang hoạt động đúng không.
 
@@ -92,7 +92,7 @@ Thật hữu ích khi có nhiều mức độ chi tiết (verbosity level) khả
 
 Một bước tiếp theo là thêm một ngôn ngữ chọn lọc (selection language) để bạn có thể nói "cho tôi xem các thao tác khớp với X", với một phạm vi X rộng — ví dụ các RPC (Remote Procedure Call — lời gọi thủ tục từ xa) `Set` có kích thước payload (bộ dữ liệu mang) dưới 1.024 byte, hoặc các thao tác mất lâu hơn 10 ms để trả về, hoặc những cái đã gọi `doSomethingInteresting()` trong *rpc\_handler.py*. Bạn có thể thậm chí muốn thiết kế hạ tầng logging của mình sao cho có thể bật nó khi cần, nhanh chóng và có chọn lọc.
 
-Việc phơi bày (exposing) trạng thái hiện tại là mánh khóe thứ ba trong hộp công cụ của chúng tôi. Ví dụ, các server Google có các endpoint (điểm cuối) hiển thị một mẫu các RPC đã gửi hoặc nhận gần đây, nên có thể hiểu bất kỳ server nào đang giao tiếp với server khác ra sao mà không cần tham chiếu một sơ đồ kiến trúc. Những endpoint này cũng hiển thị các histogram của các tốc độ lỗi và độ trễ cho mỗi loại RPC, để nhanh chóng nhận ra điều gì không ổn. Một số hệ thống có endpoint hiển thị cấu hình hiện tại hoặc cho phép xem xét dữ liệu của chúng; ví dụ các server Borgmon của Google ([Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)) có thể hiển thị các rule giám sát mà chúng đang dùng, và thậm chí cho phép theo dõi một phép tính cụ thể từng bước ngược về các metrics nguồn mà một giá trị được suy ra.
+Việc phơi bày (exposing) trạng thái hiện tại là thủ thuật thứ ba trong hộp công cụ của chúng tôi. Ví dụ, các server Google có các endpoint (điểm cuối) hiển thị một mẫu các RPC đã gửi hoặc nhận gần đây, nên có thể hiểu bất kỳ server nào đang giao tiếp với server khác ra sao mà không cần tham chiếu một sơ đồ kiến trúc. Những endpoint này cũng hiển thị các histogram của các tốc độ lỗi và độ trễ cho mỗi loại RPC, để nhanh chóng nhận ra điều gì không ổn. Một số hệ thống có endpoint hiển thị cấu hình hiện tại hoặc cho phép xem xét dữ liệu của chúng; ví dụ các server Borgmon của Google ([Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/)) có thể hiển thị các rule giám sát mà chúng đang dùng, và thậm chí cho phép theo dõi một phép tính cụ thể từng bước ngược về các metrics nguồn mà một giá trị được suy ra.
 
 Cuối cùng, bạn có thể thậm chí cần gắn phép đo (instrument) một client để thí nghiệm, nhằm khám phá một thành phần đang trả về gì làm phản hồi cho các yêu cầu.
 
@@ -116,11 +116,11 @@ Nó kỳ vọng nhận được một phản hồi có mã phản hồi HTTP 200
         "speaker": "Theseus"
     }\]
 
-Hệ thống được cấu hình để gửi một probe (mồi) một lần mỗi phút; trong mười phút qua, khoảng một nửa các probe thành công, dù không có mẫu nào nhận dạng được. Thật không may, máy dò không hiển thị cho bạn *điều gì* đã được trả về khi nó thất bại; bạn ghi chú để sửa điều đó trong tương lai.
+Hệ thống được cấu hình để gửi một probe (thăm dò) một lần mỗi phút; trong mười phút qua, khoảng một nửa các probe thành công, dù không có mẫu nào nhận dạng được. Thật không may, máy dò không hiển thị cho bạn *điều gì* đã được trả về khi nó thất bại; bạn ghi chú để sửa điều đó trong tương lai.
 
 Dùng `curl`, bạn thủ công gửi các yêu cầu đến endpoint tìm kiếm và nhận được một phản hồi thất bại với mã phản hồi HTTP 502 (Bad Gateway), không có payload. Nó có một HTTP header (tiêu đề), `X-Request-Trace`, liệt kê địa chỉ của các server backend (phía sau) chịu trách nhiệm trả lời cho yêu cầu đó. Với thông tin này, giờ bạn có thể xem xét những backend đó để kiểm tra chúng có đang phản hồi đúng không.
 
-## Diagnose (Chẩn đoán) (Diagnose)
+## Diagnose (Chẩn đoán)
 
 Một sự hiểu biết toàn diện về thiết kế hệ thống chắc chắn hữu ích để đưa ra các giả thuyết hợp lý về điều gì đã sai, nhưng cũng có một số thực hành tổng quát giúp được dù không có kiến thức miền (domain).
 
@@ -144,7 +144,7 @@ Một hệ thống trục trặc thường vẫn đang cố làm *điều gì đ
 
 **Ở đâu** trong code sắp xếp log mà nó được dùng? Khi đánh giá một regular expression (biểu thức chính quy) trên các đường dẫn đến các tệp log.
 
-**Các giải pháp**: Viết lại regular expression để tránh backtracking (truy lùi). Tìm trong codebase (kho mã nguồn) các mẫu tương tự. Cân nhắc dùng RE2, không backtrack và đảm bảo thời gian thực thi tăng tuyến tính theo kích thước input.<sup>[11](#fn11)</sup>
+**Các giải pháp**: Viết lại regular expression để tránh backtracking (quay lui). Tìm trong codebase (kho mã nguồn) các mẫu tương tự. Cân nhắc dùng RE2, không backtrack và đảm bảo thời gian thực thi tăng tuyến tính theo kích thước input.<sup>[11](#fn11)</sup>
 
 ### Điều gì đã chạm vào nó gần đây nhất (What touched it last)
 
@@ -173,9 +173,9 @@ Có một số yếu tố cần cân nhắc khi thiết kế các kiểm thử (
 -   Hãy cân nhắc điều hiển nhiên trước tiên: thực hiện các kiểm thử theo thứ tự giảm dần của khả năng xảy ra, cân nhắc các rủi ro có thể cho hệ thống từ kiểm thử. Thường hợp lý hơn là kiểm tra các vấn đề kết nối mạng giữa hai máy trước khi xem xét liệu một thay đổi cấu hình gần đây đã loại bỏ truy cập của một người dùng đến máy thứ hai hay chưa.
 -   Một thí nghiệm có thể cho kết quả gây hiểu lầm do các yếu tố gây nhiễu (confounding factor). Ví dụ, một rule firewall có thể chỉ cho phép truy cập từ một địa chỉ IP cụ thể, điều có thể làm việc ping database từ workstation (máy trạm) của bạn thất bại, dù ping từ máy của server logic ứng dụng đã thành công.
 -   Các kiểm thử chủ động (active) có thể có tác dụng phụ (side effect) làm thay đổi kết quả kiểm thử trong tương lai. Ví dụ, cho phép một tiến trình dùng nhiều CPU hơn có thể làm các thao tác nhanh hơn, nhưng cũng có thể tăng khả năng gặp data race (đua dữ liệu). Tương tự, bật logging chi tiết có thể làm một vấn đề độ trễ tồi tệ hơn và làm rối kết quả của bạn: vấn đề đang tự tồi tệ hơn, hay do logging?
--   Một số kiểm thử có thể không có tính quyết định, chỉ mang tính gợi ý. Có thể rất khó để làm cho race condition hay deadlock (tử tự khóa) xảy ra một cách kịp thời và tái hiện được, nên bạn có thể phải chấp nhận bằng chứng kém chắc chắn hơn rằng những cái đó là nguyên nhân.
+-   Một số kiểm thử có thể không có tính quyết định, chỉ mang tính gợi ý. Có thể rất khó để làm cho race condition hay deadlock (khóa chết) xảy ra một cách kịp thời và tái hiện được, nên bạn có thể phải chấp nhận bằng chứng kém chắc chắn hơn rằng những cái đó là nguyên nhân.
 
-Ghi chú rõ ràng về các ý tưởng bạn đã có, những kiểm thử đã chạy và các kết quả đã thấy.<sup>[13](#fn13)</sup> Đặc biệt khi đối phó với các trường hợp phức tạp và kéo dài, tài liệu này có thể quyết định trong việc giúp bạn nhớ chính xác điều gì đã xảy ra và ngăn việc lặp lại những bước này.<sup>[14](#fn14)</sup> Nếu bạn đã thực hiện kiểm thử chủ động bằng cách thay đổi một hệ thống — ví dụ cho một tiến trình nhiều tài nguyên hơn — việc thực hiện các thay đổi một cách có hệ thống và được ghi lại sẽ giúp bạn đưa hệ thống về cấu hình trước kiểm thử, thay vì để nó chạy trong một cấu hình hodge-podge (hỗn tạp) không xác định.
+Ghi chú rõ ràng về các ý tưởng bạn đã có, những kiểm thử đã chạy và các kết quả đã thấy.<sup>[13](#fn13)</sup> Đặc biệt khi đối phó với các trường hợp phức tạp và kéo dài, tài liệu này có thể đóng vai trò quyết định trong việc giúp bạn nhớ chính xác điều gì đã xảy ra và ngăn việc lặp lại những bước này.<sup>[14](#fn14)</sup> Nếu bạn đã thực hiện kiểm thử chủ động bằng cách thay đổi một hệ thống — ví dụ cho một tiến trình nhiều tài nguyên hơn — việc thực hiện các thay đổi một cách có hệ thống và được ghi lại sẽ giúp bạn đưa hệ thống về cấu hình trước kiểm thử, thay vì để nó chạy trong một cấu hình hodge-podge (hỗn tạp) không xác định.
 
 <a id="cac-ket-qua-am-la-ma-phuat"></a>
 
@@ -206,7 +206,7 @@ Trên hết, hãy công bố các kết quả khiến bạn bất ngờ, để n
 
 ## Chữa trị (Cure)
 
-Lý tưởng nhất, bạn giờ đã thu hẹp tập các nguyên nhân có thể xuống còn một. Tiếp theo, chúng tôi muốn chứng minh đó chính là nguyên nhân thực sự. Việc chứng minh dứt khoát rằng một yếu tố cụ thể *đã gây ra* một vấn đề — bằng cách tái hiện nó theo ý muốn — có thể khó thực hiện trong các hệ thống production; thường chúng tôi chỉ có thể tìm ra các yếu tố nhân quả *khả năng*, vì các lý do sau:
+Lý tưởng nhất, bạn giờ đã thu hẹp tập các nguyên nhân có thể xuống còn một. Tiếp theo, chúng tôi muốn chứng minh đó chính là nguyên nhân thực sự. Việc chứng minh dứt khoát rằng một yếu tố cụ thể *đã gây ra* một vấn đề — bằng cách tái hiện nó theo ý muốn — có thể khó thực hiện trong các hệ thống production; thường chúng tôi chỉ có thể tìm ra các yếu tố nhân quả *khả dĩ*, vì các lý do sau:
 
 -   *Các hệ thống là phức tạp*. Rất có thể có nhiều yếu tố, mỗi yếu tố riêng lẻ không đủ để là nguyên nhân, nhưng khi kết hợp lại thì lại là nguyên nhân.<sup>[15](#fn15)</sup> Các hệ thống thực cũng thường phụ thuộc vào đường dẫn (path-dependent), nghĩa là chúng phải ở trong một trạng thái cụ thể trước khi một sự cố xảy ra.
 -   *Việc tái hiện vấn đề trong một hệ thống production đang chạy có thể không phải là một tùy chọn*, hoặc vì độ phức tạp của việc đưa hệ thống vào trạng thái mà sự cố có thể được kích hoạt, hoặc vì thêm thời gian downtime có thể không thể chấp nhận được. Có một môi trường non-production có thể giảm nhẹ những thách thức này, dù với chi phí là phải có một bản sao khác của hệ thống để chạy.
@@ -280,7 +280,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn4"></a>[4](#fn4) Thuộc về Theodore Woodward, của Trường Y University of Maryland, vào những năm 1940. Xem [*https://en.wikipedia.org/wiki/Zebra\_(medicine)*](https://en.wikipedia.org/wiki/Zebra_\(medicine\)). Điều này hoạt động trong một số miền, nhưng trong một số hệ thống, cả các lớp sự cố có thể bị loại bỏ: ví dụ, sử dụng một cluster filesystem được thiết kế tốt có nghĩa là một vấn đề độ trễ ít có khả năng là do một disk (ổ đĩa) chết đơn lẻ.
 
-<a id="fn5"></a>[5](#fn5) Dao cạo của Occam (Occam's Razor); xem [*https://en.wikipedia.org/wiki/Occam%27s\_razor*](https://en.wikipedia.org/wiki/Occam%27s_razor). Nhưng hãy nhớ rằng có thể vẫn là trường hợp rằng có nhiều vấn đề; đặc biệt, có thể nhiều khả năng hơn rằng một hệ thống có một số vấn đề chung mức thấp, khi xét chung lại, giải thích tất cả các triệu chứng thay vì một vấn đề hiếm gây ra tất cả chúng. So sánh [*https://en.wikipedia.org/wiki/Hickam%27s\_dictum*](https://en.wikipedia.org/wiki/Hickam%27s_dictum).
+<a id="fn5"></a>[5](#fn5) Dao cạo của Occam (Occam's Razor); xem [*https://en.wikipedia.org/wiki/Occam%27s\_razor*](https://en.wikipedia.org/wiki/Occam%27s_razor). Nhưng hãy nhớ rằng vẫn có thể có nhiều vấn đề; đặc biệt, có thể nhiều khả năng hơn rằng một hệ thống có một số vấn đề chung mức thấp, khi xét chung lại, giải thích tất cả các triệu chứng thay vì một vấn đề hiếm gây ra tất cả chúng. So sánh [*https://en.wikipedia.org/wiki/Hickam%27s\_dictum*](https://en.wikipedia.org/wiki/Hickam%27s_dictum).
 
 <a id="fn6"></a>[6](#fn6) Tất nhiên, xem [*https://xkcd.com/552*](https://xkcd.com/552).
 
@@ -300,7 +300,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn14"></a>[14](#fn14) Xem thêm [Các Kết quả Âm là Ma thuật](#cac-ket-qua-am-la-ma-phuat) để có thêm về điểm này.
 
-<a id="fn15"></a>[15](#fn15) Xem [[Mea08]](https://sre.google/sre-book/bibliography#Mea08) về cách suy nghĩ về các hệ thống, và cũng [[Coo00]](https://sre.google/sre-book/bibliography#Coo00) và [[Dek14]](https://sre.google/sre-book/bibliography#Dek14) về các giới hạn của việc tìm một nguyên nhân gốc rễ đơn lẻ thay vì xem xét hệ thống và môi trường của nó cho các yếu tố gây nhân.
+<a id="fn15"></a>[15](#fn15) Xem [[Mea08]](https://sre.google/sre-book/bibliography#Mea08) về cách suy nghĩ về các hệ thống, và cũng [[Coo00]](https://sre.google/sre-book/bibliography#Coo00) và [[Dek14]](https://sre.google/sre-book/bibliography#Dek14) về các giới hạn của việc tìm một nguyên nhân gốc rễ đơn lẻ thay vì xem xét hệ thống và môi trường của nó cho các yếu tố nhân quả (causative factors).
 
 <a id="fn16"></a>[16](#fn16) Xem [*https://cloud.google.com/appengine*](https://cloud.google.com/appengine).
 

@@ -35,7 +35,7 @@ Thiết kế hệ thống có tính toán kỹ lưỡng nên bao quát một s�
 
 Nguyên nhân phổ biến nhất của các sự cố lan truyền là quá tải. Phần lớn các sự cố lan truyền được mô tả ở đây hoặc do trực tiếp server quá tải, hoặc do các dạng mở rộng hay biến thể của kịch bản này.
 
-Giả sử frontend (mặt trước) trong cluster (cụm máy) A đang xử lý 1.000 yêu cầu mỗi giây (QPS), như trong [Hình 22-2](#hinh-22-2).
+Giả sử frontend trong cluster (cụm máy) A đang xử lý 1.000 yêu cầu mỗi giây (QPS), như trong [Hình 22-2](#hinh-22-2).
 
 
 <a id="hinh-22-2"></a>![Hình 22-2](../assets/imgs/fig-22-2.jpg)
@@ -65,7 +65,7 @@ Nếu không có đủ CPU để xử lý tải yêu cầu, thường tất cả
 
 #### Tăng số lượng các yêu cầu đang bay (in-flight requests)
 
-Vì các yêu cầu mất lâu hơn để xử lý, nhiều yêu cầu hơn được xử lý đồng thời (cho đến một năng lực tối đa mà tại đó việc xếp hàng có thể xảy ra). Điều này ảnh hưởng đến hầu như tất cả các tài nguyên, bao gồm bộ nhớ, số lượng thread (luồng) đang hoạt động (trong mô hình server thread-mỗi-yêu-cầu), số lượng file descriptor (mô tả tệp), và các tài nguyên backend (phía sau) (những tài nguyên mà lần lượt có thể có các hiệu ứng khác).
+Vì các yêu cầu mất lâu hơn để xử lý, nhiều yêu cầu hơn được xử lý đồng thời (cho đến một năng lực tối đa mà tại đó việc xếp hàng có thể xảy ra). Điều này ảnh hưởng đến hầu như tất cả các tài nguyên, bao gồm bộ nhớ, số lượng thread (luồng) đang hoạt động (trong mô hình server thread-mỗi-yêu-cầu), số lượng file descriptor (mô tả tệp), và các tài nguyên backend (những tài nguyên mà lần lượt có thể có các hiệu ứng khác).
 
 **Các độ dài hàng đợi (queue) quá dài**
 
@@ -73,15 +73,15 @@ Nếu không có đủ năng lực để xử lý tất cả các yêu cầu ở
 
 #### Thread đói (Thread starvation)
 
-Khi một thread không thể tiến bộ vì đang chờ một lock (khóa), các kiểm tra sức khỏe (health checks) có thể thất bại nếu endpoint (điểm cuối) kiểm tra sức khỏe không thể được phục vụ kịp thời.
+Khi một thread không thể tiến triển vì đang chờ một lock (khóa), các kiểm tra sức khỏe (health checks) có thể thất bại nếu endpoint (điểm cuối) kiểm tra sức khỏe không thể được phục vụ kịp thời.
 
 #### CPU hoặc yêu cầu bị đói (CPU or request starvation)
 
-Các watchdog (chó canh) nội bộ<sup>[2](#fn2)</sup> trong server phát hiện rằng server không đang tiến bộ, dẫn đến sập server do CPU bị đói, hoặc do yêu cầu bị đói nếu các sự kiện watchdog được kích hoạt từ xa và được xử lý như một phần của hàng đợi yêu cầu.
+Các watchdog (chó canh) nội bộ<sup>[2](#fn2)</sup> trong server phát hiện rằng server không tiến triển được, dẫn đến sập server do CPU bị đói, hoặc do yêu cầu bị đói nếu các sự kiện watchdog được kích hoạt từ xa và được xử lý như một phần của hàng đợi yêu cầu.
 
 #### Bỏ lỡ các hạn chót RPC (Remote Procedure Call — lời gọi thủ tục từ xa)
 
-Khi một server trở nên quá tải, các phản hồi của nó cho các RPC từ các client (khách hàng) của nó đến muộn hơn, có thể vượt qua bất kỳ hạn chót nào mà những client đó đặt ra. Công việc mà server đã thực hiện để phản hồi lúc đó bị lãng phí, và các client có thể thử lại các RPC, dẫn đến quá tải còn nhiều hơn nữa.
+Khi một server trở nên quá tải, các phản hồi của nó cho các RPC từ các client của nó đến muộn hơn, có thể vượt qua bất kỳ hạn chót nào mà những client đó đặt ra. Công việc mà server đã thực hiện để phản hồi lúc đó bị lãng phí, và các client có thể thử lại các RPC, dẫn đến quá tải còn nhiều hơn nữa.
 
 #### Giảm lợi ích của cache CPU (CPU caching)
 
@@ -145,7 +145,7 @@ Các chính sách cân bằng tải tránh các server đã phục vụ lỗi c�
 
 Danh sách dưới đây trình bày các chiến lược cho [việc tránh server quá tải](https://sre.google/sre-book/handling-overload/) theo thứ tự ưu tiên xấp xỉ:
 
-Kiểm thử tải các giới hạn sức chứa của server, và kiểm thử chế độ thất bại cho quá tải
+Kiểm thử tải các giới hạn sức chứa của server, và kiểm thử failure mode khi quá tải
 
 Đây là bài tập quan trọng nhất bạn nên thực hiện để phòng tránh server quá tải. Trừ khi bạn kiểm thử trong một môi trường thực tế, rất khó để dự đoán chính xác tài nguyên nào sẽ cạn và việc tài nguyên đó cạn sẽ biểu hiện ra sao. Để biết chi tiết, xem [Kiểm thử cho các Sự cố Lan truyền](#kiem-thu-cho-cac-su-that-bai-lan-truyen).
 
@@ -191,7 +191,7 @@ Các yêu cầu xếp hàng tiêu tốn bộ nhớ và làm tăng độ trễ. V
 
 Một cách đơn giản để gánh nhẹ tải là thực hiện throttle (giới hạn) theo task dựa trên CPU, bộ nhớ, hoặc chiều dài hàng đợi; việc giới hạn chiều dài hàng đợi như đã thảo luận trong [Quản lý Hàng đợi](#quan-ly-hang-doi) là một dạng của chiến lược này. Ví dụ, một cách tiếp cận hiệu quả là trả về HTTP 503 (dịch vụ không khả dụng) cho bất kỳ yêu cầu đến nào khi có nhiều hơn một số lượng cho trước các yêu cầu client đang hoạt động.
 
-Việc thay đổi phương pháp xếp hàng từ *first-in, first-out* (FIFO, vào trước ra trước) chuẩn sang *last-in, first-out* (LIFO, vào sau ra trước), hoặc sử dụng thuật toán *controlled delay* (CoDel, độ trễ được kiểm soát) [[Nic12]](https://sre.google/sre-book/bibliography#Nic12) hoặc các cách tiếp cận tương tự, có thể giảm tải bằng cách loại bỏ các yêu cầu ít có khả năng đáng để xử lý [[Mau15]](https://sre.google/sre-book/bibliography#Mau15). Nếu một lần tìm kiếm web của người dùng chậm vì một RPC đã được xếp hàng trong 10 giây, có khả năng lớn là người dùng đã bỏ cuộc và tải lại trình duyệt, phát ra một yêu cầu khác: lúc này việc phản hồi yêu cầu đầu tiên là vô nghĩa, vì nó sẽ bị bỏ qua! Chiến lược này hoạt động tốt khi kết hợp với việc lan truyền các deadline RPC xuyên suốt stack, được mô tả trong [Độ trễ và Deadline](#do-ley-va-deadline).
+Việc thay đổi phương pháp xếp hàng từ *first-in, first-out* (FIFO, vào trước ra trước) chuẩn sang *last-in, first-out* (LIFO, vào sau ra trước), hoặc sử dụng thuật toán *controlled delay* (CoDel, độ trễ được kiểm soát) [[Nic12]](https://sre.google/sre-book/bibliography#Nic12) hoặc các cách tiếp cận tương tự, có thể giảm tải bằng cách loại bỏ các yêu cầu ít có khả năng đáng để xử lý [[Mau15]](https://sre.google/sre-book/bibliography#Mau15). Nếu một lần tìm kiếm web của người dùng chậm vì một RPC đã được xếp hàng trong 10 giây, có khả năng lớn là người dùng đã bỏ cuộc và tải lại trình duyệt, phát ra một yêu cầu khác: lúc này việc phản hồi yêu cầu đầu tiên là vô nghĩa, vì nó sẽ bị bỏ qua! Chiến lược này hoạt động tốt khi kết hợp với việc lan truyền các deadline RPC xuyên suốt stack, được mô tả trong [Độ trễ và Deadline](#do-tre-va-deadline).
 
 Các cách tiếp cận tinh vi hơn bao gồm việc xác định các client để có chọn lọc hơn về công việc nào bị bỏ, hoặc chọn các yêu cầu quan trọng hơn và ưu tiên chúng. Các chiến lược như vậy nhiều khả năng cần thiết cho các dịch vụ dùng chung.
 
@@ -208,7 +208,7 @@ Khi đánh giá các tùy chọn và triển khai, hãy lưu ý những điều 
 -   Suy giảm nhẹ nhàng không nên được kích hoạt quá thường xuyên — thường chỉ trong các trường hợp thất bại lập kế hoạch sức chứa hoặc sự dịch chuyển tải bất ngờ. Giữ hệ thống đơn giản và dễ hiểu, đặc biệt nếu nó không được dùng thường xuyên.
 -   Hãy nhớ rằng đường code bạn không bao giờ sử dụng chính là đường code (thường) không hoạt động. Trong hoạt động ở trạng thái ổn định, chế độ suy giảm nhẹ nhàng sẽ không được dùng, nghĩa là bạn sẽ có ít kinh nghiệm vận hành hơn với chế độ này và bất kỳ quirk (đặc điểm kỳ quặc) nào của nó, điều này *làm tăng* mức độ rủi ro. Bạn có thể đảm bảo rằng suy giảm nhẹ nhàng vẫn hoạt động bằng cách thường xuyên chạy một tập con nhỏ các server gần quá tải để tập luyện đường code này.
 -   Giám sát và cảnh báo khi quá nhiều server đi vào các chế độ này.
--   Gánh nhẹ tải và suy giảm nhẹ nhàng phức tạp có thể tự gây ra các vấn đề của riêng chúng — độ phức tạp quá mức có thể khiến server vấp phải chế độ suy giảm khi không mong muốn, hoặc đi vào các chu kỳ phản hồi vào những thời điểm không mong muốn. Hãy thiết kế một cách để nhanh chóng tắt suy giảm nhẹ nhàng phức tạp hoặc tinh chỉnh các tham số nếu cần. Việc lưu cấu hình này trong một hệ thống nhất quán mà mỗi server có thể theo dõi các thay đổi, chẳng hạn như Chubby, có thể tăng tốc độ triển khai, nhưng cũng giới thiệu các rủi ro thất bại đồng bộ của riêng nó.
+-   Gánh nhẹ tải và suy giảm nhẹ nhàng phức tạp có thể tự gây ra các vấn đề của riêng chúng — độ phức tạp quá mức có thể khiến server vấp phải chế độ suy giảm khi không mong muốn, hoặc đi vào các chu kỳ phản hồi vào những thời điểm không mong muốn. Hãy thiết kế một cách để nhanh chóng tắt suy giảm nhẹ nhàng phức tạp hoặc tinh chỉnh các tham số nếu cần. Việc lưu cấu hình này trong một hệ thống nhất quán mà mỗi server có thể theo dõi các thay đổi, chẳng hạn như Chubby, có thể tăng tốc độ triển khai, nhưng cũng tạo ra những rủi ro thất bại đồng bộ của riêng nó.
 
 ## Thử lại (Retries)
 
@@ -272,11 +272,11 @@ Khi phát ra các retries tự động, hãy lưu ý các cân nhắc sau:
 -   Giới hạn số retries cho mỗi yêu cầu. Đừng thử lại một yêu cầu nhất định vô hạn.
 -   Cân nhắc có một ngân sách retry (retry budget) cho toàn bộ server. Ví dụ, chỉ cho phép 60 retries mỗi phút trong một process, và nếu ngân sách retry bị vượt quá, đừng thử lại; chỉ cần để yêu cầu thất bại. Chiến lược này có thể giữ hiệu ứng retry trong tầm kiểm soát và là sự khác biệt giữa một thất bại lập kế hoạch sức chứa dẫn đến một số truy vấn bị bỏ và một sự cố lan truyền toàn cục.
 -   Suy nghĩ về dịch vụ một cách toàn diện và quyết định xem bạn thực sự có cần thực hiện retries ở một cấp cho trước không. Cụ thể, tránh khuếch đại các retries bằng cách phát ra retries ở nhiều cấp: một yêu cầu đơn lẻ ở tầng cao nhất có thể tạo ra một số lần thử lớn bằng *tích* của số lần thử ở mỗi tầng xuống tầng thấp nhất. Nếu cơ sở dữ liệu không thể phục vụ các yêu cầu vì nó quá tải, và các tầng backend, frontend, và JavaScript đều phát ra 3 retries (4 lần thử), thì một hành động người dùng đơn lẻ có thể tạo ra 64 lần thử (4^3) trên cơ sở dữ liệu. Hành vi này là không mong muốn khi cơ sở dữ liệu đang trả về các lỗi đó vì nó quá tải.
--   Sử dụng các mã phản hồi rõ ràng và cân nhắc cách các chế độ thất bại khác nhau nên được xử lý. Ví dụ, tách biệt các điều kiện lỗi có thể thử lại và không thể thử lại. Đừng thử lại các lỗi vĩnh viễn hoặc các yêu cầu sai định dạng trong một client, vì cả hai sẽ không bao giờ thành công. Trả về một trạng thái cụ thể khi quá tải để các client và các tầng khác lùi lại và không thử lại.
+-   Sử dụng các mã phản hồi rõ ràng và cân nhắc cách các failure mode khác nhau nên được xử lý. Ví dụ, tách biệt các điều kiện lỗi có thể thử lại và không thể thử lại. Đừng thử lại các lỗi vĩnh viễn hoặc các yêu cầu sai định dạng trong một client, vì cả hai sẽ không bao giờ thành công. Trả về một trạng thái cụ thể khi quá tải để các client và các tầng khác lùi lại và không thử lại.
 
 Trong một tình huống khẩn cấp, có thể không rõ ràng rằng một outage là do hành vi retry tồi. Các biểu đồ về tỷ lệ retry có thể là một dấu hiệu của hành vi retry tồi, nhưng có thể bị nhầm lẫn như một triệu chứng thay vì một nguyên nhân cộng hưởng. Về mặt giảm nhẹ, đây là một trường hợp đặc biệt của vấn đề sức chứa không đủ, với lưu ý bổ sung rằng bạn phải hoặc sửa hành vi retry (thường đòi hỏi một code push), giảm tải đáng kể, hoặc cắt đứt các yêu cầu hoàn toàn.
 
-<a id="do-ley-va-deadline"></a>
+<a id="do-tre-va-deadline"></a>
 
 ## Độ trễ và Deadline (Latency and Deadlines)
 
@@ -398,7 +398,7 @@ Khi một dịch vụ dễ bị tổn thương trước các sự cố lan truy�
 
 ## Cái chết của Process (Process Death)
 
-Một số server task có thể chết, làm giảm lượng sức chứa khả dụng. Các task có thể chết vì một Query of Death (một RPC mà nội dung của nó kích hoạt một sự cố trong process), các vấn đề cluster, các thất bại assertion (khẳng định), hoặc một số lý do khác. Một sự kiện rất nhỏ (ví dụ, một vài lần sập, hoặc các task được lên lịch lại sang các máy khác) có thể khiến một dịch vụ đang bên bờ vực sụp đổ gãy gục.
+Một số server task có thể chết, làm giảm lượng sức chứa khả dụng. Các task có thể chết vì một Query of Death (một RPC mà nội dung của nó kích hoạt một sự cố trong process), các vấn đề cluster, các thất bại assertion (khẳng định), hoặc một số lý do khác. Một sự kiện rất nhỏ (ví dụ, một vài lần sập, hoặc các task được lên lịch lại sang các máy khác) có thể khiến một dịch vụ đang bên bờ vực sụp đổ gục hẳn.
 
 ## Cập nhật Process (Process Updates)
 
@@ -422,7 +422,7 @@ Nếu dịch vụ của bạn là multihomed (đa nhà cung cấp), một phần
 
 ### Thay đổi hồ sơ yêu cầu (Request profile changes)
 
-Một dịch vụ backend có thể nhận các yêu cầu từ các cluster khác nhau vì một dịch vụ frontend đã dịch chuyển traffic của nó do các thay đổi cấu hình cân bằng tải, các thay đổi trong mix traffic, hoặc do cluster bị đầy. Ngoài ra, chi phí trung bình để xử lý một payload riêng lẻ có thể đã thay đổi do các thay đổi code hoặc cấu hình frontend. Tương tự, dữ liệu mà dịch vụ xử lý có thể đã thay đổi một cách tự nhiên do mức sử dụng tăng hoặc do sự khác nhau từ các người dùng hiện có: ví dụ, cả số lượng lẫn kích thước của các hình ảnh, *trên mỗi người dùng*, cho một dịch vụ lưu trữ ảnh có xu hướng tăng theo thời gian.
+Một dịch vụ backend có thể nhận các yêu cầu từ các cluster khác nhau vì một dịch vụ frontend đã dịch chuyển traffic của nó do các thay đổi cấu hình cân bằng tải, các thay đổi trong mix traffic, hoặc do cluster bị đầy. Ngoài ra, chi phí trung bình để xử lý một payload riêng lẻ có thể đã thay đổi do các thay đổi code hoặc cấu hình frontend. Tương tự, dữ liệu mà dịch vụ xử lý có thể đã thay đổi một cách tự nhiên do mức sử dụng tăng hoặc do sự khác nhau từ những người dùng hiện có: ví dụ, cả số lượng lẫn kích thước của các hình ảnh, *trên mỗi người dùng*, cho một dịch vụ lưu trữ ảnh có xu hướng tăng theo thời gian.
 
 ### Giới hạn tài nguyên (Resource limits)
 
@@ -440,7 +440,7 @@ Bạn nên kiểm thử dịch vụ của mình để xác định nó hoạt đ
 
 ## Kiểm thử Cho đến Thất bại và Hơn Thế Nữa (Test Until Failure and Beyond)
 
-Việc hiểu hành vi của dịch vụ dưới tải nặng có lẽ là bước đầu tiên quan trọng nhất trong việc tránh các sự cố lan truyền. Biết hệ thống của bạn hoạt động như thế nào khi nó quá tải giúp xác định các nhiệm vụ kỹ thuật nào quan trọng nhất cần sửa chữa lâu dài; ít nhất, kiến thức này cũng giúp khởi động quá trình debug cho các kỹ sư on-call (trực) khi một tình huống khẩn cấp xảy ra.
+Việc hiểu hành vi của dịch vụ dưới tải nặng có lẽ là bước đầu tiên quan trọng nhất trong việc tránh các sự cố lan truyền. Biết hệ thống của bạn hoạt động như thế nào khi nó quá tải giúp xác định các nhiệm vụ kỹ thuật nào quan trọng nhất cần sửa chữa lâu dài; ít nhất, kiến thức này cũng giúp khởi động quá trình debug cho các kỹ sư on-call (trực sự cố) khi một tình huống khẩn cấp xảy ra.
 
 Kiểm thử tải các thành phần cho đến khi chúng gãy. Khi tải tăng, một thành phần thường xử lý các yêu cầu thành công cho đến khi nó đạt đến một điểm mà nó không thể xử lý thêm. Ở điểm này, lý tưởng nhất là thành phần nên bắt đầu phục vụ các lỗi hoặc các kết quả suy giảm để đáp ứng tải bổ sung, nhưng không làm giảm đáng kể tỷ lệ yêu cầu xử lý thành công. Một thành phần rất dễ bị tổn thương trước một sự cố lan truyền sẽ bắt đầu sập hoặc phục vụ một tỷ lệ lỗi rất cao khi nó trở nên quá tải; một thành phần được thiết kế tốt hơn thay vào đó sẽ có thể từ chối một vài yêu cầu và sống sót.
 
@@ -493,7 +493,7 @@ Nếu hệ thống của bạn đang chạy ở sức chứa suy giảm và bạ
 
 ## Dừng các Kiểm tra sức khỏe Thất bại/Cái chết (Stop Health Check Failures/Deaths)
 
-Một số hệ thống lên lịch cluster, chẳng hạn như Borg, kiểm tra sức khỏe của các task trong một job và khởi động lại các task không khỏe mạnh. Thực hành này có thể tạo ra một chế độ thất bại mà ở đó chính việc kiểm tra sức khỏe lại làm cho dịch vụ không khỏe. Ví dụ, nếu một nửa các task không thể thực hiện bất kỳ công việc nào vì chúng đang khởi động, và một nửa còn lại sẽ sớm bị giết vì chúng quá tải và thất bại các kiểm tra sức khỏe, việc tạm thời vô hiệu hóa các kiểm tra sức khỏe có thể cho phép hệ thống ổn định cho đến khi tất cả các task đang chạy.
+Một số hệ thống lên lịch cluster, chẳng hạn như Borg, kiểm tra sức khỏe của các task trong một job và khởi động lại các task không khỏe mạnh. Thực hành này có thể tạo ra một failure mode mà ở đó chính việc kiểm tra sức khỏe lại làm cho dịch vụ không khỏe. Ví dụ, nếu một nửa các task không thể thực hiện bất kỳ công việc nào vì chúng đang khởi động, và một nửa còn lại sẽ sớm bị giết vì chúng quá tải và thất bại các kiểm tra sức khỏe, việc tạm thời vô hiệu hóa các kiểm tra sức khỏe có thể cho phép hệ thống ổn định cho đến khi tất cả các task đang chạy.
 
 Kiểm tra sức khỏe process (“binary này có đang phản hồi *bất kỳ điều gì* không?”) và kiểm tra sức khỏe dịch vụ (“binary này có khả năng phản hồi *lớp yêu cầu này* ngay bây giờ không?”) là hai thao tác khác nhau về mặt khái niệm. Kiểm tra sức khỏe process liên quan đến bộ lên lịch cluster, trong khi kiểm tra sức khỏe dịch vụ liên quan đến load balancer. Việc phân biệt rõ ràng giữa hai loại kiểm tra sức khỏe có thể giúp tránh kịch bản này.
 
@@ -540,9 +540,9 @@ Một bộ phim tài liệu về các tác phẩm của Shakespeare được ph�
 
 May mắn thay, một số biện pháp an toàn đã được đặt ra giúp giảm nhẹ tiềm năng xảy ra sự cố. Quy trình Production Readiness Review đã xác định một số vấn đề mà đội đã xử lý. Ví dụ, các nhà phát triển đã xây dựng suy giảm nhẹ nhàng vào dịch vụ. Khi sức chứa trở nên khan hiếm, dịch vụ không còn trả về các hình ảnh cùng với văn bản hoặc các bản đồ nhỏ minh họa nơi một câu chuyện diễn ra nữa. Và tùy thuộc vào mục đích, một RPC bị time out hoặc không được thử lại (ví dụ, trong trường hợp các hình ảnh nêu ở trên), hoặc được thử lại với một exponential backoff ngẫu nhiên hóa. Mặc dù có các biện pháp an toàn này, các task vẫn lần lượt gặp sự cố và sau đó được Borg khởi động lại, điều này đẩy số lượng task đang hoạt động xuống còn ít hơn nữa.
 
-Kết quả là, một số biểu đồ trên dashboard dịch vụ chuyển sang một sắc đỏ đáng báo động và SRE bị gọi trực. Để đáp ứng, các SRE tạm thời thêm sức chứa cho datacenter châu Á bằng cách tăng số lượng task khả dụng cho job Shakespeare. Bằng cách đó, họ có thể khôi phục dịch vụ Shakespeare trong cluster châu Á.
+Kết quả là, một số biểu đồ trên dashboard dịch vụ chuyển sang một sắc đỏ đáng báo động và SRE bị gọi trực (page). Để đáp ứng, các SRE tạm thời thêm sức chứa cho datacenter châu Á bằng cách tăng số lượng task khả dụng cho job Shakespeare. Bằng cách đó, họ có thể khôi phục dịch vụ Shakespeare trong cluster châu Á.
 
-Sau đó, đội SRE viết một postmortem (bài học sau sự cố) mô tả chi tiết chuỗi các sự kiện, điều gì đã diễn ra tốt đẹp, điều gì có thể đã diễn ra tốt hơn, và một số mục công việc để ngăn kịch bản này xảy ra lần nữa. Ví dụ, trong trường hợp một dịch vụ quá tải, load balancer GSLB sẽ chuyển hướng một số traffic đến các datacenter lân cận. Ngoài ra, đội SRE bật autoscaling (tự động điều chỉnh sức chứa), để số lượng task tự động tăng theo traffic, để họ không phải lo lắng về loại vấn đề này nữa.
+Sau đó, đội SRE viết một postmortem (báo cáo sau sự cố) mô tả chi tiết chuỗi các sự kiện, điều gì đã diễn ra tốt đẹp, điều gì có thể đã diễn ra tốt hơn, và một số mục công việc để ngăn kịch bản này xảy ra lần nữa. Ví dụ, trong trường hợp một dịch vụ quá tải, load balancer GSLB sẽ chuyển hướng một số traffic đến các datacenter lân cận. Ngoài ra, đội SRE bật autoscaling (tự động điều chỉnh sức chứa), để số lượng task tự động tăng theo traffic, để họ không phải lo lắng về loại vấn đề này nữa.
 
 ## Lời kết (Closing Remarks)
 
@@ -552,7 +552,7 @@ Nếu không có sự chăm sóc thích hợp, một số thay đổi hệ thố
 
 <a id="fn1"></a>[1](#fn1) Xem Wikipedia, “Positive feedback,” [*https://en.wikipedia.org/wiki/Positive_feedback*](https://en.wikipedia.org/wiki/Positive_feedback).
 
-<a id="fn2"></a>[2](#fn2) Một watchdog (trình canh) thường được cài đặt như một thread thức dậy định kỳ để xem liệu công việc đã được thực hiện kể từ lần kiểm tra trước hay không. Nếu không, nó giả định rằng server bị kẹt và giết nó. Ví dụ, các yêu cầu của một loại đã biết có thể được gửi đến server ở các khoảng thời gian đều đặn; nếu một yêu cầu không được nhận hoặc xử lý như mong đợi, điều này có thể chỉ ra sự cố — của server, của hệ thống đang gửi yêu cầu, hoặc của mạng trung gian.
+<a id="fn2"></a>[2](#fn2) Một watchdog thường được cài đặt như một thread thức dậy định kỳ để xem liệu công việc đã được thực hiện kể từ lần kiểm tra trước hay không. Nếu không, nó giả định rằng server bị kẹt và giết nó. Ví dụ, các yêu cầu của một loại đã biết có thể được gửi đến server ở các khoảng thời gian đều đặn; nếu một yêu cầu không được nhận hoặc xử lý như mong đợi, điều này có thể chỉ ra sự cố — của server, của hệ thống đang gửi yêu cầu, hoặc của mạng trung gian.
 
 <a id="fn3"></a>[3](#fn3) Đây thường không phải là một giả định tốt do yếu tố địa lý; xem thêm [Tổ chức Job và Dữ liệu](https://sre.google/sre-book/production-environment/#t-to-chuc-job-va-du-lieu).
 

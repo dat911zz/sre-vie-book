@@ -169,7 +169,7 @@ Chúng tôi cũng có thể truy vấn các chuỗi thời gian theo thời gian
 
 Borgmon thực chất chỉ là một máy tính (calculator) có thể lập trình, với một vài đường cú pháp (syntactic sugar) cho phép nó tạo ra cảnh báo. Các thành phần thu thập và lưu trữ dữ liệu đã mô tả ở trước đó chỉ là những điều phiền phức nhưng bắt buộc phải có để chiếc máy tính lập trình đó rốt cuộc phù hợp cho mục đích ở đây, như một hệ thống giám sát. :)
 
-> **Lưu ý:** Việc tập trung hóa đánh giá rule trong một hệ thống giám sát, thay vì ủy quyền cho các tiến trình con fork (chia nhánh), có nghĩa các phép tính có thể chạy song song trên nhiều target tương tự. Thực hành này giữ cấu hình tương đối nhỏ về kích thước (ví dụ, bằng cách loại bỏ sự lặp lại của code) nhưng mạnh mẽ hơn nhờ khả năng diễn đạt.
+> **Lưu ý:** Việc tập trung hóa đánh giá rule trong một hệ thống giám sát, thay vì ủy quyền cho các tiến trình con fork (tạo tiến trình con), có nghĩa các phép tính có thể chạy song song trên nhiều target tương tự. Thực hành này giữ cấu hình tương đối nhỏ về kích thước (ví dụ, bằng cách loại bỏ sự lặp lại của code) nhưng mạnh mẽ hơn nhờ khả năng diễn đạt.
 
 Mã chương trình Borgmon, còn gọi là *rule Borgmon*, gồm các biểu thức đại số đơn giản tính toán các chuỗi thời gian từ các chuỗi thời gian khác. Những rule này có thể khá mạnh mẽ vì chúng có thể truy vấn lịch sử của một chuỗi thời gian đơn lẻ (tức trục thời gian), truy vấn các tập con khác nhau của các label từ nhiều chuỗi thời gian cùng lúc (tức trục không gian), và áp dụng nhiều phép toán.
 
@@ -301,11 +301,11 @@ rules <<<
           labels { severity=page };
     >>>
 
-Ví dụ của chúng tôi giữ tỷ lệ tốc độ ở 0.15, vượt xa ngưỡng 0.01 trong rule cảnh báo. Tuy nhiên, số lỗi lúc này không lớn hơn 1, nên cảnh báo sẽ không bật. Khi số lỗi vượt quá 1, cảnh báo sẽ ở trạng thái *pending* (đang chờ) trong hai phút để đảm bảo nó không phải trạng thái nhất thời, và chỉ khi đó nó mới *fire* (kích hoạt cảnh báo).
+Ví dụ của chúng tôi giữ tỷ lệ tốc độ ở 0.15, vượt xa ngưỡng 0.01 trong rule cảnh báo. Tuy nhiên, số lỗi lúc này không lớn hơn 1, nên cảnh báo sẽ không bật. Khi số lỗi vượt quá 1, cảnh báo sẽ ở trạng thái *pending* (đang chờ) trong hai phút để đảm bảo nó không phải trạng thái nhất thời, và chỉ khi đó nó mới *fire*.
 
-Rule cảnh báo chứa một template (mẫu) nhỏ để điền một thông báo có chứa thông tin ngữ cảnh: cảnh báo cho job nào, tên cảnh báo, giá trị số của rule kích hoạt, v.v. Thông tin ngữ cảnh được Borgmon điền khi cảnh báo fire (kích hoạt cảnh báo) và được gửi trong Alert RPC (Remote Procedure Call — lời gọi thủ tục từ xa).
+Rule cảnh báo chứa một template (mẫu) nhỏ để điền một thông báo có chứa thông tin ngữ cảnh: cảnh báo cho job nào, tên cảnh báo, giá trị số của rule kích hoạt, v.v. Thông tin ngữ cảnh được Borgmon điền khi cảnh báo fire và được gửi trong Alert RPC (Remote Procedure Call — lời gọi thủ tục từ xa).
 
-Borgmon được kết nối với một dịch vụ vận hành tập trung, gọi là Alertmanager, nhận các Alert RPC khi rule lần đầu kích hoạt, rồi lại nhận khi cảnh báo được coi là "đang fire (kích hoạt cảnh báo)". Alertmanager chịu trách nhiệm định tuyến thông báo cảnh báo đến điểm đến đúng. Alertmanager có thể được cấu hình để:
+Borgmon được kết nối với một dịch vụ vận hành tập trung, gọi là Alertmanager, nhận các Alert RPC khi rule lần đầu kích hoạt, rồi lại nhận khi cảnh báo được coi là "đang fire". Alertmanager chịu trách nhiệm định tuyến thông báo cảnh báo đến điểm đến đúng. Alertmanager có thể được cấu hình để:
 
 -   Ức chế (inhibit) một số cảnh báo khi các cảnh báo khác đang hoạt động
 -   Loại bỏ trùng lặp (deduplicate) các cảnh báo từ nhiều Borgmon có cùng labelset
@@ -338,7 +338,7 @@ Prober có thể được trỏ đến miền frontend hoặc phía sau load bal
 
 ## Bảo trì Cấu hình (Maintaining the Configuration)
 
-Cấu hình Borgmon tách rời định nghĩa các rule khỏi các target được giám sát. Điều này có nghĩa là cùng một tập hợp rule có thể được áp dụng cho nhiều target cùng lúc, thay vì phải viết cấu hình gần như giống hệt nhau đi và lại. Sự tách biệt mối quan tâm này có thể có vẻ ngẫu nhiên, nhưng nó giảm đáng kể chi phí bảo trì việc giám sát bằng cách tránh nhiều sự lặp lại trong việc mô tả các hệ thống target.
+Cấu hình Borgmon tách rời định nghĩa các rule khỏi các target được giám sát. Điều này có nghĩa là cùng một tập hợp rule có thể được áp dụng cho nhiều target cùng lúc, thay vì phải viết đi viết lại cấu hình gần như giống hệt nhau. Sự tách biệt mối quan tâm này có thể có vẻ ngẫu nhiên, nhưng nó giảm đáng kể chi phí bảo trì việc giám sát bằng cách tránh nhiều sự lặp lại trong việc mô tả các hệ thống target.
 
 Borgmon cũng hỗ trợ các template ngôn ngữ. Hệ thống dạng macro (vĩ lệnh) này cho phép kỹ sư xây dựng các thư viện rule có thể tái sử dụng. Tính năng này một lần nữa giảm sự lặp lại, do đó giảm khả năng có bug trong cấu hình.
 
@@ -368,7 +368,7 @@ Sự tách rời này cho phép kích thước của hệ thống được giám
 
 Đảm bảo rằng chi phí bảo trì tăng dưới tuyến tính (sublinearly) so với kích thước dịch vụ là chìa khóa để giám sát (và mọi công việc vận hành duy trì) có thể bảo trì được. Chủ đề này lặp lại trong mọi công việc SRE, khi các SRE tìm cách mở rộng (scale) mọi khía cạnh của công việc họ lên quy mô toàn cầu.
 
-Mười năm là một khoảng thời gian dài, và tất nhiên, ngày nay diện mạo của cảnh quan giám sát trong Google đã tiến hóa qua các thí nghiệm và thay đổi, trong nỗ lực cải tiến liên tục khi công ty phát triển.
+Mười năm là một khoảng thời gian dài, và tất nhiên, ngày nay bức tranh giám sát tại Google đã tiến hóa qua các thí nghiệm và thay đổi, trong nỗ lực cải tiến liên tục khi công ty phát triển.
 
 Mặc dù Borgmon vẫn là nội bộ của Google, ý tưởng về việc xử lý dữ liệu chuỗi thời gian như một nguồn dữ liệu để tạo ra các cảnh báo giờ đã tiếp cận được với mọi người thông qua những công cụ mã nguồn mở như Prometheus, Riemann, Heka và Bosun, và có thể còn có thêm nhiều cái khác nữa khi bạn đọc điều này.
 
@@ -388,15 +388,15 @@ Mặc dù Borgmon vẫn là nội bộ của Google, ý tưởng về việc x�
 
 <a id="fn8"></a>[8](#fn8) Horizon 12 giờ này là một con số ma thuật (magic number) nhắm đến việc có đủ thông tin để debug một incident trong RAM cho các truy vấn nhanh mà không tốn *quá nhiều* RAM.
 
-<a id="fn9"></a>[9](#fn9) Các label `service` và `zone` được lược bỏ ở đây vì không gian, nhưng có mặt trong biểu thức được trả về.
+<a id="fn9"></a>[9](#fn9) Các label `service` và `zone` được lược bỏ ở đây để tiết kiệm không gian, nhưng có mặt trong biểu thức được trả về.
 
 <a id="fn10"></a>[10](#fn10) Việc tính tổng của các tốc độ thay vì tốc độ của các tổng bảo vệ kết quả chống lại việc đặt lại counter (counter resets) hoặc dữ liệu bị thiếu, có thể do một sự khởi động lại task hoặc một lần thu thập dữ liệu thất bại.
 
 <a id="fn11"></a>[11](#fn11) Mặc dù không có kiểu (untyped), phần lớn các varz là các counter đơn giản. Hàm rate của Borgmon xử lý tất cả các trường hợp khó (corner cases) của việc đặt lại counter.
 
-<a id="fn12"></a>[12](#fn12) Các label `service` và `zone` được lược bỏ vì không gian.
+<a id="fn12"></a>[12](#fn12) Các label `service` và `zone` được lược bỏ để tiết kiệm không gian.
 
-<a id="fn13"></a>[13](#fn13) Các label `service` và `zone` được lược bỏ vì không gian.
+<a id="fn13"></a>[13](#fn13) Các label `service` và `zone` được lược bỏ để tiết kiệm không gian.
 
 ---
 

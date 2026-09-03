@@ -61,7 +61,7 @@ Borg chịu trách nhiệm chạy các *job* của người dùng — server ch�
 
 Vì task được phân bổ linh hoạt trên các machine, chúng tôi không thể chỉ dựa vào địa chỉ IP và số cổng để tham chiếu. Giải pháp là thêm một tầng gián tiếp (indirection): khi khởi động một job, Borg cấp phát một tên và số index cho mỗi task bằng *Borg Naming Service* (BNS). Thay vì dùng địa chỉ IP và số cổng, các process khác kết nối đến task của Borg qua tên BNS — BNS sẽ dịch tên đó thành địa chỉ IP và số cổng. Ví dụ, đường dẫn BNS có thể là một chuỗi như `/bns/<*cluster*>/<*user*>/<*job name*>/<*task number*>`, sẽ được phân giải thành `<*IP address*>:<*port*>`.
 
-Borg cũng chịu trách nhiệm phân bổ tài nguyên cho job. Mọi job phải chỉ định tài nguyên yêu cầu (ví dụ: 3 core CPU, 2 GiB RAM). Từ danh sách yêu cầu của tất cả job, Borg binpack (gói chặt) task trên các machine theo cách tối ưu, đồng thời tính đến failure domain (miền lỗi). Ví dụ, Borg không chạy tất cả task của một job trên cùng một rack — làm vậy sẽ biến switch đầu rack thành single point of failure (điểm lỗi đơn lẻ) cho job đó.
+Borg cũng chịu trách nhiệm phân bổ tài nguyên cho job. Mọi job phải chỉ định tài nguyên yêu cầu (ví dụ: 3 core CPU, 2 GiB RAM). Từ danh sách yêu cầu của tất cả job, Borg bin-packing task trên các machine theo cách tối ưu, đồng thời tính đến failure domain (miền lỗi). Ví dụ, Borg không chạy tất cả task của một job trên cùng một rack — làm vậy sẽ biến switch đầu rack thành điểm thất bại duy nhất (single point of failure) cho job đó.
 
 Nếu một task cố dùng nhiều tài nguyên hơn đã yêu cầu, Borg sẽ kill task đó và khởi động lại (một task rơi vào crashloop — vòng lặp sập — còn tốt hơn một task không bao giờ được khởi động lại).
 
@@ -195,7 +195,7 @@ Chương này giới thiệu rất nhiều thuật ngữ; dù không cần nhớ
 
 <a id="fn4"></a>[4](#fn4) Protocol buffers là một cơ chế mở rộng trung lập ngôn ngữ, trung lập nền tảng, để phân chuỗi dữ liệu có cấu trúc. Để biết thêm chi tiết, xem [*https://developers.google.com/protocol-buffers/*](https://developers.google.com/protocol-buffers/).
 
-<a id="fn5"></a>[5](#fn5) Chúng tôi giả định rằng xác suất hai task hỏng đồng thời trong môi trường của chúng tôi đủ thấp để có thể bỏ qua. Các điểm lỗi đơn lẻ, như switch đầu rack hoặc phân phối điện, có thể làm cho giả định này không hợp lệ trong các môi trường khác.
+<a id="fn5"></a>[5](#fn5) Chúng tôi giả định rằng xác suất hai task hỏng đồng thời trong môi trường của chúng tôi đủ thấp để có thể bỏ qua. Các điểm thất bại duy nhất, như switch đầu rack hoặc phân phối điện, có thể làm cho giả định này không hợp lệ trong các môi trường khác.
 
 ---
 

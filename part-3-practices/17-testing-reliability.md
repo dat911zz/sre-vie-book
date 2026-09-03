@@ -61,7 +61,7 @@ Một *kiểm thử hệ thống* là kiểm thử có quy mô lớn nhất mà 
 
 #### Kiểm thử khói (Smoke tests)
 
-*Smoke tests*, trong đó kỹ sư kiểm thử các hành vi rất đơn giản nhưng quan trọng, là một trong những loại kiểm thử hệ thống đơn giản nhất. Smoke tests còn gọi là *sanity testing* (kiểm thử tính hợp lý), dùng để ngắt ngắn mạch (short-circuit) các kiểm thử bổ sung, tốn kém hơn.
+*Smoke tests*, trong đó kỹ sư kiểm thử các hành vi rất đơn giản nhưng quan trọng, là một trong những loại kiểm thử hệ thống đơn giản nhất. Smoke tests còn gọi là *sanity testing* (kiểm thử tính hợp lý), dùng để bỏ qua sớm (short-circuit) các kiểm thử bổ sung, tốn kém hơn.
 
 #### Kiểm thử Hiệu năng (Performance tests)
 
@@ -153,7 +153,7 @@ Khi source control đã có, bạn có thể thêm một hệ thống dựng li�
 -   Nhịp độ release, như build hàng đêm và hàng tuần, mất giá trị.
 -   Khả năng của đội phản ứng với yêu cầu release khẩn cấp (ví dụ, để đáp lại một tiết lộ lỗ hổng bảo mật) trở nên phức tạp và khó khăn hơn nhiều.
 
-Các khái niệm ổn định và linh hoạt (agility) truyền thống trong thế giới SRE luôn căng thẳng. Điểm liệt cuối cùng cho thấy một trường hợp thú vị mà sự ổn định thực sự thúc đẩy sự linh hoạt. Khi build được dự đoán là vững chắc và đáng tin cậy, developer có thể lặp lại (iterate) nhanh hơn!
+Các khái niệm ổn định và linh hoạt (agility) truyền thống trong thế giới SRE luôn căng thẳng. Gạch đầu dòng cuối cùng cho thấy một trường hợp thú vị mà sự ổn định thực sự thúc đẩy sự linh hoạt. Khi build được dự đoán là vững chắc và đáng tin cậy, developer có thể lặp lại (iterate) nhanh hơn!
 
 Một số hệ thống build như Bazel<sup>[8](#fn8)</sup> có các tính năng cho phép kiểm soát chính xác hơn đối với kiểm thử. Ví dụ, Bazel tạo ra đồ thị phụ thuộc (dependency graph) cho các dự án phần mềm. Khi một thay đổi được thực hiện trên một tệp, Bazel chỉ dựng lại phần phần mềm phụ thuộc vào tệp đó. Những hệ thống như vậy cung cấp build có thể tái lập (reproducible). Thay vì chạy tất cả kiểm thử ở mỗi lần submit, kiểm thử chỉ chạy cho code đã thay đổi. Kết quả, kiểm thử chạy rẻ hơn và nhanh hơn.
 
@@ -251,7 +251,7 @@ Giả sử một kỹ sư đang làm việc trên dịch vụ có hơn 21.000 ki
 
 Với tần suất nào thì việc bạn tính sai độ flaky của môi trường sẽ khiến một bản vá vô hại của người dùng bị gắn cờ nhầm là có hại? Có vẻ người dùng sẽ phàn nàn gay gắt nếu 1 trong 10 bản vá bị từ chối. Nhưng việc từ chối 1 bản vá giữa 100 bản vá hoàn hảo có thể đi qua mà không ai bình luận.
 
-Điều này nghĩa là bạn quan tâm đến căn 42.000 (một cho mỗi kiểm thử được định nghĩa trước bản vá, và một cho mỗi kiểm thử sau bản vá) của 0.99 (phân số các bản vá được chấp nhận). Phép tính này:
+Điều này nghĩa là bạn quan tâm đến căn bậc 42.000 (một cho mỗi kiểm thử được định nghĩa trước bản vá, và một cho mỗi kiểm thử sau bản vá) của 0.99 (phân số các bản vá được chấp nhận). Phép tính này:
 
 ```
 0.99^(1/42000) ≈ 0.9999995
@@ -279,7 +279,7 @@ Nếu bạn để người dùng thử nhiều phiên bản phần mềm hơn tr
 
 Nếu một SRE sửa đổi một tệp cấu hình hoặc điều chỉnh chiến lược của một công cụ tự động hóa (thay vì cài đặt một tính năng người dùng), công việc kỹ thuật khớp với cùng mô hình khái niệm. Khi định nghĩa nhịp độ release dựa trên độ tin cậy, thường có ý nghĩa để phân đoạn ngân sách độ tin cậy theo chức năng, hoặc (thuận tiện hơn) theo đội. Trong kịch bản đó, đội kỹ thuật tính năng nhắm đến việc đạt được một giới hạn không chắc chắn nhất định ảnh hưởng đến nhịp độ release mục tiêu. Đội SRE có ngân sách riêng với sự không chắc chắn liên quan riêng, và do đó một giới hạn trên cho tốc độ release của họ.
 
-Để tiếp tục đáng tin cậy và tránh scale số lượng SRE hỗ trợ một dịch vụ theo tuyến tính, môi trường production phải chạy phần lớn không có người giám sát (unattended). Để duy trì được điều đó, môi trường phải chống chịu với các lỗi nhỏ. Khi một sự kiện lớn đòi hỏi can thiệp thủ công của SRE xảy ra, các công cụ SRE dùng phải được kiểm thử phù hợp. Nếu không, sự can thiệp đó làm giảm sự tin tưởng rằng dữ liệu lịch sử còn áp dụng được cho tương lai gần. Sự giảm tin tưởng buộc phải chờ phân tích dữ liệu giám sát để loại bỏ sự không chắc chắn phát sinh. Trong khi thảo luận trước đó trong [Kiểm thử Các Công cụ Scale được](#kiem-thu-cac-cong-cu-scale-duoc) tập trung vào cách tận dụng cơ hội bao phủ kiểm thử cho một công cụ SRE, ở đây bạn thấy kiểm thử xác định bao lâu thì phù hợp để dùng công cụ đó trên production.
+Để duy trì độ tin cậy và tránh phải scale số lượng SRE hỗ trợ một dịch vụ theo tuyến tính, môi trường production phải chạy phần lớn không có người giám sát (unattended). Để duy trì được điều đó, môi trường phải chống chịu với các lỗi nhỏ. Khi một sự kiện lớn đòi hỏi can thiệp thủ công của SRE xảy ra, các công cụ SRE dùng phải được kiểm thử phù hợp. Nếu không, sự can thiệp đó làm giảm sự tin tưởng rằng dữ liệu lịch sử còn áp dụng được cho tương lai gần. Sự giảm tin tưởng buộc phải chờ phân tích dữ liệu giám sát để loại bỏ sự không chắc chắn phát sinh. Trong khi thảo luận trước đó trong [Kiểm thử Các Công cụ Scale được](#kiem-thu-cac-cong-cu-scale-duoc) tập trung vào cách tận dụng cơ hội bao phủ kiểm thử cho một công cụ SRE, ở đây bạn thấy kiểm thử xác định bao lâu thì phù hợp để dùng công cụ đó trên production.
 
 Tệp cấu hình nhìn chung tồn tại vì việc thay đổi cấu hình nhanh hơn dựng lại một công cụ. Độ trễ thấp này thường là một yếu tố giữ MTTR thấp. Tuy nhiên, những tệp đó cũng được thay đổi thường xuyên vì các lý do không cần độ trễ giảm. Khi nhìn từ quan điểm của độ tin cậy:
 
@@ -306,9 +306,9 @@ Nếu cấu hình được viết như văn bản trong một cú pháp (syntax)
 
 Lợi ích của việc dùng protocol buffers<sup>[16](#fn16)</sup> là schema được định nghĩa trước và tự động kiểm tra tại thời điểm tải, loại bỏ nhiều toil hơn nữa, trong khi vẫn cung cấp thời gian thực thi có giới hạn.
 
-Vai trò của SRE nhìn chung bao gồm việc viết các công cụ kỹ thuật hệ thống<sup>[17](#fn17)</sup> (nếu chưa ai khác đang viết) và thêm xác thực vững chắc kèm bao phủ kiểm thử. Mọi công cụ đều có thể hành vi bất ngờ do các bug không được kiểm thử bắt được, nên phòng thủ có độ sâu (defense in depth) là cần thiết. Khi một công cụ hành vi bất ngờ, kỹ sư cần tự tin nhất có thể rằng phần lớn công cụ khác của họ đang hoạt động đúng, và do đó có thể giảm nhẹ hoặc giải quyết tác dụng phụ của sự sai lầm đó. Một yếu tố chính của việc cung cấp độ tin cậy site là tìm mỗi dạng sai lầm được dự kiến và đảm bảo một kiểm thử nào đó (hoặc bộ xác thực input được kiểm thử của công cụ khác) báo cáo nó. Công cụ tìm ra vấn đề có thể không thể sửa hoặc thậm chí dừng nó, nhưng nên ít nhất báo cáo vấn đề trước khi một outage thảm khốc xảy ra.
+Vai trò của SRE nhìn chung bao gồm việc viết các công cụ kỹ thuật hệ thống<sup>[17](#fn17)</sup> (nếu chưa ai khác đang viết) và thêm xác thực vững chắc kèm bao phủ kiểm thử. Mọi công cụ đều có thể hành vi bất ngờ do các bug không được kiểm thử bắt được, nên phòng thủ nhiều lớp (defense in depth) là cần thiết. Khi một công cụ hành vi bất ngờ, kỹ sư cần tự tin nhất có thể rằng phần lớn công cụ khác của họ đang hoạt động đúng, và do đó có thể giảm nhẹ hoặc giải quyết tác dụng phụ của sự sai lầm đó. Một yếu tố chính của việc cung cấp độ tin cậy site là tìm mỗi dạng sai lầm được dự kiến và đảm bảo một kiểm thử nào đó (hoặc bộ xác thực input được kiểm thử của công cụ khác) báo cáo nó. Công cụ tìm ra vấn đề có thể không thể sửa hoặc thậm chí dừng nó, nhưng nên ít nhất báo cáo vấn đề trước khi một outage thảm khốc xảy ra.
 
-Ví dụ, hãy cân nhắc danh sách cấu hình của tất cả người dùng (như */etc/passwd* trên một máy kiểu Unix không có mạng) và hình dung một sửa khiến trình phân tích dừng sau khi phân tích chỉ một nửa tệp một cách vô tình. Vì các người dùng được tạo gần đây chưa được tải, máy nhiều khả năng tiếp tục chạy mà không có vấn đề, và nhiều người dùng có thể không nhận ra lỗi. Công cụ duy trì các thư mục home có thể dễ dàng nhận ra sự không khớp giữa các thư mục thực tế hiện diện và các thư mục được ngụ ý bởi danh sách người dùng (vốn được duy trì tách rời), và khẩn cấp báo cáo sự khác biệt. Giá trị của công cụ này nằm ở việc báo cáo vấn đề, và nó nên tránh cố khắc phục một mình (bằng cách xóa rất nhiều dữ liệu người dùng).
+Ví dụ, hãy cân nhắc danh sách cấu hình của tất cả người dùng (như */etc/passwd* trên một máy kiểu Unix không có mạng) và hình dung một sửa khiến trình phân tích dừng sau khi phân tích chỉ một nửa tệp một cách vô tình. Vì những người dùng được tạo gần đây chưa được tải, máy nhiều khả năng tiếp tục chạy mà không có vấn đề, và nhiều người dùng có thể không nhận ra lỗi. Công cụ duy trì các thư mục home có thể dễ dàng nhận ra sự không khớp giữa các thư mục thực tế hiện diện và các thư mục được ngụ ý bởi danh sách người dùng (vốn được duy trì tách rời), và khẩn cấp báo cáo sự khác biệt. Giá trị của công cụ này nằm ở việc báo cáo vấn đề, và nó nên tránh cố khắc phục một mình (bằng cách xóa rất nhiều dữ liệu người dùng).
 
 ## Các Mồi Production (Production Probes)
 
@@ -358,11 +358,11 @@ Kiểm thử là một trong những khoản đầu tư sinh lợi nhất mà k�
 
 <a id="fn3"></a>[3](#fn3) Xem [*https://dagger.dev/*](https://dagger.dev/).
 
-<a id="fn4"></a>[4](#fn4) Một quy tắc ngón tay cái tiêu chuẩn là bắt đầu bằng việc để release ảnh hưởng 0.1% traffic người dùng, và sau đó scale theo các bậc độ lớn mỗi 24 giờ trong khi thay đổi vị trí địa lý của các server đang được nâng cấp (sau đó ngày 2: 1%, ngày 3: 10%, ngày 4: 100%).
+<a id="fn4"></a>[4](#fn4) Một nguyên tắc kinh nghiệm tiêu chuẩn là bắt đầu bằng việc để release ảnh hưởng 0.1% traffic người dùng, và sau đó scale theo các bậc độ lớn mỗi 24 giờ trong khi thay đổi vị trí địa lý của các server đang được nâng cấp (sau đó ngày 2: 1%, ngày 3: 10%, ngày 4: 100%).
 
 <a id="fn5"></a>[5](#fn5) Ví dụ, giả định một khoảng cách 24 giờ của sự tăng trưởng hàm mũ liên tục giữa 1% và 10%, khoảng 37.500 giây, hoặc khoảng 10 giờ và 25 phút.
 
-<a id="fn6"></a>[6](#fn6) Chúng tôi đang sử dụng "order" (bậc) ở đây theo nghĩa bậc của "not ký hiệu big O" (big O notation). Để có thêm ngữ cảnh, xem [*https://en.wikipedia.org/wiki/Big\_O\_notation*](https://en.wikipedia.org/wiki/Big_O_notation).
+<a id="fn6"></a>[6](#fn6) Chúng tôi đang sử dụng "order" (bậc) ở đây theo nghĩa bậc trong "ký hiệu big O" (big O notation). Để có thêm ngữ cảnh, xem [*https://en.wikipedia.org/wiki/Big\_O\_notation*](https://en.wikipedia.org/wiki/Big_O_notation).
 
 <a id="fn7"></a>[7](#fn7) Để có thêm về chủ đề này, chúng tôi rất khuyên [[Bla14]](https://sre.google/sre-book/bibliography#Bla14) bởi đồng nghiệp trước đây của chúng tôi và cựu Googler, Mike Bland.
 

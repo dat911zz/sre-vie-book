@@ -11,15 +11,15 @@
 
 Hệ thống sẽ hỏng — đó là lẽ thường.
 
-Dù mức độ rủi ro hay quy mô tổ chức lớn nhỏ, điều quyết định sức khỏe lâu dài của một tổ chức — và cũng là điều phân biệt nó với những tổ chức khác — là cách những người trong cuộc phản ứng với một tình huống khẩn cấp. Ít có chúng ta phản ứng tốt một cách tự nhiên trong một tình huống khẩn cấp. Một phản ứng thích hợp đòi hỏi sự chuẩn bị và đào tạo thực hành định kỳ, có liên quan. Thiết lập và duy trì các quy trình đào tạo, kiểm thử đầy đủ đòi hỏi sự hậu thuẫn của hội đồng quản trị và ban quản lý, cùng sự chú tâm của nhân viên. Tất cả những yếu tố này đều cần thiết để nuôi dưỡng một môi trường cho phép các đội chi tiền, thời gian, năng lượng — và đôi khi cả uptime — nhằm đảm bảo rằng hệ thống, quy trình và con người đều phản ứng hiệu quả khi có tình huống khẩn cấp.
+Dù mức độ rủi ro hay quy mô tổ chức lớn nhỏ, điều quyết định sức khỏe lâu dài của một tổ chức — và cũng là điều phân biệt nó với những tổ chức khác — là cách những người trong cuộc phản ứng với một tình huống khẩn cấp. Rất ít người trong chúng ta phản ứng tốt một cách tự nhiên khi gặp tình huống khẩn cấp. Một phản ứng thích hợp đòi hỏi sự chuẩn bị và đào tạo thực hành định kỳ, có liên quan. Thiết lập và duy trì các quy trình đào tạo, kiểm thử đầy đủ đòi hỏi sự hậu thuẫn của hội đồng quản trị và ban quản lý, cùng sự chú tâm của nhân viên. Tất cả những yếu tố này đều cần thiết để nuôi dưỡng một môi trường cho phép các đội chi tiền, thời gian, năng lượng — và đôi khi cả uptime — nhằm đảm bảo rằng hệ thống, quy trình và con người đều phản ứng hiệu quả khi có tình huống khẩn cấp.
 
 Hãy lưu ý rằng chương về văn hóa postmortem (báo cáo sau sự cố) thảo luận các chi tiết về cách viết postmortems để đảm bảo rằng các incident (sự cố) đòi hỏi phản ứng khẩn cấp cũng trở thành một cơ hội học tập (xem [Postmortem Culture: Learning from Failure](https://sre.google/sre-book/postmortem-culture/)). Chương này cung cấp các ví dụ cụ thể hơn về những incident như vậy.
 
-## Phải Làm Gì Khi Các Hệ thống Bị Vỡ (What to Do When Systems Break)
+## Phải Làm Gì Khi Các Hệ thống Hỏng (What to Do When Systems Break)
 
 Đầu tiên, đừng hoảng loạn! Bạn không đơn độc, và bầu trời không sụp đổ. Bạn là một chuyên gia và được đào tạo để xử lý loại tình huống này. Thông thường, không ai gặp nguy hiểm về thể chất — chỉ có những electron đáng thương là gặp nguy hiểm. Trong trường hợp tồi tệ nhất, một nửa Internet bị sập. Vì vậy, hãy hít một hơi sâu…và tiếp tục.
 
-Nếu bạn cảm thấy choáng ngợp, hãy kéo thêm người vào. Đôi khi thậm chí có thể cần phải page (gọi trực) toàn bộ công ty. Nếu công ty của bạn có một quy trình phản ứng sự cố (incident response process) (xem [Managing Incidents](https://sre.google/sre-book/managing-incidents/)), hãy đảm bảo rằng bạn quen thuộc với nó và tuân theo quy trình đó.
+Nếu bạn cảm thấy choáng ngợp, hãy kéo thêm người vào. Đôi khi thậm chí có thể cần phải gọi trực (page) toàn bộ công ty. Nếu công ty của bạn có một quy trình phản ứng sự cố (incident response process) (xem [Managing Incidents](https://sre.google/sre-book/managing-incidents/)), hãy đảm bảo rằng bạn quen thuộc với nó và tuân theo quy trình đó.
 
 ## Tình huống Khẩn cấp do Kiểm thử Gây ra (Test-Induced Emergency)
 
@@ -45,7 +45,7 @@ Trong vòng một giờ kể từ quyết định ban đầu, mọi quyền truy
 
 Các dịch vụ phụ thuộc bị ảnh hưởng bởi incident đã lập tức leo thang các vấn đề trong công ty. Chúng tôi đã đoán đúng rằng thí nghiệm có kiểm soát của mình đã vượt khỏi tầm kiểm soát và lập tức hủy bỏ bài kiểm thử.
 
-Chúng tôi đã khôi phục hoàn toàn quyền truy cập trong vòng một giờ kể từ báo cáo đầu tiên, và đến lúc đó các hệ thống bắt đầu vận hành đúng. Một số đội chọn cách khác: cấu hình lại hệ thống của họ để né database kiểm thử. Những nỗ lực song song này giúp khôi phục dịch vụ nhanh nhất có thể.
+Chúng tôi đã khôi phục hoàn toàn quyền truy cập trong vòng một giờ kể từ báo cáo đầu tiên, và đến lúc đó các hệ thống bắt đầu vận hành đúng. Một số đội chọn cách khác: cấu hình lại hệ thống của họ để tránh database kiểm thử. Những nỗ lực song song này giúp khôi phục dịch vụ nhanh nhất có thể.
 
 Các mục hành động tiếp theo được giải quyết nhanh và kỹ lưỡng để tránh một outage tương tự, và chúng tôi thiết lập kiểm thử định kỳ để đảm bảo các khiếm khuyết như vậy không tái diễn.
 
@@ -109,13 +109,13 @@ Chúng tôi đã đầu tư rất nhiều thời gian và công sức vào tự 
 
 ## Chi tiết (Details)
 
-Trong một phần kiểm thử tự động hóa thường quy, hai yêu cầu turndown (tắt) liên tiếp được đệ trình cho cùng một cài đặt server sắp decommission (ngừng vận hành). Với yêu cầu turndown thứ hai, một bug tinh vi trong tự động hóa đã đẩy toàn bộ máy trong tất cả các cài đặt này trên toàn cầu vào hàng đợi Diskerase, nơi ổ cứng của chúng sẽ bị xóa; xem [Tự động hóa: Cho phép Thất bại ở Quy mô](https://sre.google/sre-book/automation-at-google#xref_automation_diskerase-sidebar) để biết thêm.
+Trong một phần kiểm thử tự động hóa thường quy, hai yêu cầu tắt (turndown) liên tiếp được đệ trình cho cùng một cài đặt server sắp decommission (ngừng vận hành). Với yêu cầu turndown thứ hai, một bug tinh vi trong tự động hóa đã đẩy toàn bộ máy trong tất cả các cài đặt này trên toàn cầu vào hàng đợi Diskerase, nơi ổ cứng của chúng sẽ bị xóa; xem [Tự động hóa: Cho phép Thất bại ở Quy mô](https://sre.google/sre-book/automation-at-google#xref_automation_diskerase-sidebar) để biết thêm.
 
 ## Phản ứng (Response)
 
-Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một lần gọi trực khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase. Vì máy ở vị trí này đã bị xóa nên không thể phản hồi yêu cầu; để tránh làm các yêu cầu đó thất bại hoàn toàn, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó theo đúng quy trình. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
+Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một lần gọi trực khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase. Vì máy ở vị trí này đã bị xóa nên không thể phản hồi yêu cầu; để tránh làm các yêu cầu đó thất bại hoàn toàn, các kỹ sư on-call rút traffic (drain) khỏi vị trí đó theo đúng quy trình. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
 
-Chẳng bao lâu, các pager (máy gọi trực) khắp nơi liên tục báo cho mọi cài đặt server như vậy trên toàn thế giới. Trước tình hình đó, các kỹ sư on-call vô hiệu hóa toàn bộ tự động hóa của đội để ngăn thiệt hại thêm. Ngay sau đó họ dừng hoặc đóng băng các tự động hóa bổ sung và bảo trì production.
+Chẳng bao lâu, các máy gọi trực (pager) khắp nơi liên tục báo cho mọi cài đặt server như vậy trên toàn thế giới. Trước tình hình đó, các kỹ sư on-call vô hiệu hóa toàn bộ tự động hóa của đội để ngăn thiệt hại thêm. Ngay sau đó họ dừng hoặc đóng băng các tự động hóa bổ sung và bảo trì production.
 
 Trong vòng một giờ, toàn bộ traffic được chuyển sang các vị trí khác. Người dùng có thể đã chịu độ trễ cao hơn, nhưng các yêu cầu vẫn được đáp ứng. Outage chính thức kết thúc.
 
@@ -167,11 +167,11 @@ Khi nói đến sự cố, lý thuyết và thực tế là hai thế giới r�
 
 ## Kết luận (Conclusion)
 
-Chúng tôi đã xem xét ba trường hợp khác nhau mà các phần hệ thống của chúng tôi bị hỏng. Dù cả ba tình huống khẩn cấp được kích hoạt theo những cách khác nhau — một bởi kiểm thử chủ động, một bởi thay đổi cấu hình, và một bởi tự động hóa turndown — các phản ứng chia sẻ nhiều đặc điểm. Người phản ứng không hoảng loạn. Họ kéo thêm người vào khi thấy cần. Họ nghiên cứu và học từ các outage trước đó, rồi xây dựng hệ thống để phản ứng tốt hơn với những loại outage đó. Mỗi khi một chế độ thất bại mới xuất hiện, họ ghi lại chế độ thất bại ấy. Việc theo dõi này giúp các đội khác học cách xử lý lỗi tốt hơn và củng cố hệ thống của mình chống lại các outage tương tự. Họ chủ động kiểm thử hệ thống. Những kiểm thử như vậy đảm bảo các thay đổi thực sự sửa được vấn đề gốc, và phát hiện các điểm yếu khác trước khi chúng trở thành outage.
+Chúng tôi đã xem xét ba trường hợp khác nhau mà các phần hệ thống của chúng tôi bị hỏng. Dù cả ba tình huống khẩn cấp được kích hoạt theo những cách khác nhau — một bởi kiểm thử chủ động, một bởi thay đổi cấu hình, và một bởi tự động hóa turndown — các phản ứng chia sẻ nhiều đặc điểm. Người phản ứng không hoảng loạn. Họ kéo thêm người vào khi thấy cần. Họ nghiên cứu và học từ các outage trước đó, rồi xây dựng hệ thống để phản ứng tốt hơn với những loại outage đó. Mỗi khi một failure mode mới xuất hiện, họ ghi lại failure mode ấy. Việc theo dõi này giúp các đội khác học cách xử lý lỗi tốt hơn và củng cố hệ thống của mình chống lại các outage tương tự. Họ chủ động kiểm thử hệ thống. Những kiểm thử như vậy đảm bảo các thay đổi thực sự sửa được vấn đề gốc, và phát hiện các điểm yếu khác trước khi chúng trở thành outage.
 
 Và khi các hệ thống của chúng tôi tiến hóa, chu kỳ vẫn tiếp diễn: mỗi outage hoặc mỗi bài kiểm thử đều mang lại những cải thiện dần cho cả quy trình lẫn hệ thống. Dù các nghiên cứu tình huống ở chương này đặc thù cho Google, cách tiếp cận phản ứng khẩn cấp này có thể áp dụng theo thời gian cho bất kỳ tổ chức nào, ở bất kỳ quy mô nào.
 
-<a id="fn1"></a>[1](#fn1) BIOS: Basic Input/Output System (Hệ thống Nhập/Xuất Cơ bản). BIOS là phần mềm được xây dựng vào một máy tính để gửi các lệnh đơn giản đến phần cứng, cho phép nhập và xuất trước khi hệ điều hành đã được tải.
+<a id="fn1"></a>[1](#fn1) BIOS: Basic Input/Output System (Hệ thống Nhập/Xuất Cơ bản). BIOS là phần mềm được xây dựng vào một máy tính để gửi các lệnh đơn giản đến phần cứng, cho phép nhập và xuất trước khi hệ điều hành được tải.
 
 ---
 

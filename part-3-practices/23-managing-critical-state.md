@@ -47,7 +47,7 @@ Các nhà phát triển cũng gặp khó khăn trong việc thiết kế các h�
 
 Các nhà thiết kế hệ thống không thể hy sinh tính đúng đắn để đạt được độ tin cậy hoặc hiệu năng, đặc biệt là quanh các trạng thái quan trọng. Ví dụ, hãy xét một hệ thống xử lý các giao dịch tài chính: các yêu cầu về độ tin cậy hoặc hiệu năng không mang lại nhiều giá trị nếu dữ liệu tài chính không chính xác. Các hệ thống cần có khả năng đồng bộ hóa tin cậy trạng thái quan trọng qua nhiều tiến trình. Các thuật toán distributed consensus cung cấp chức năng này.
 
-## Động Lực Sử Dụng Consensus: Thất Bại Phối Hợp Trong Hệ Thống Phân Tán (Motivating the Use of Consensus: Distributed Systems Coordination Failure)
+## Động Lực Sử Dụng Consensus: Sự Cố Phối Hợp Trong Hệ Thống Phân Tán (Motivating the Use of Consensus: Distributed Systems Coordination Failure)
 
 Các hệ thống phân tán là phức tạp và vi tế để hiểu, giám sát, và gỡ lỗi. Các kỹ sư vận hành những hệ thống như vậy thường bất ngờ trước hành vi của chúng khi có lỗi xảy ra. Lỗi là những sự kiện tương đối hiếm, và việc kiểm thử hệ thống trong các điều kiện này không phải là thực hành thông thường. Rất khó để suy luận về hành vi hệ thống khi có lỗi xảy ra. Các network partition đặc biệt gây thách thức — một vấn đề tưởng như do một partition hoàn toàn gây ra thực ra có thể là kết quả của:
 
@@ -117,7 +117,7 @@ Nhiều hệ thống sử dụng thành công các thuật toán consensus thự
 
 Một *replicated state machine* (máy trạng thái nhân bản, RSM) là một hệ thống thực thi cùng một tập các thao tác, theo cùng một thứ tự, trên nhiều tiến trình. RSM là khối xây dựng nền tảng của các thành phần và dịch vụ hệ thống phân tán hữu ích như lưu trữ dữ liệu hoặc cấu hình, khóa, và bầu leader (được mô tả chi tiết hơn sau đây).
 
-Các thao tác trên một RSM được định thứ tự toàn cầu thông qua một thuật toán consensus. Đây là một khái niệm mạnh mẽ: một số bài báo ([\[Agu10\]](https://sre.google/sre-book/bibliography#Agu10), [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), [\[Sch90\]](https://sre.google/sre-book/bibliography#Sch90)) chỉ ra rằng bất kỳ chương trình nào tất định (deterministic) đều có thể được cài đặt như một dịch vụ nhân bản khả dụng cao.
+Các thao tác trên một RSM được định thứ tự toàn cầu thông qua một thuật toán consensus. Đây là một khái niệm mạnh mẽ: một số bài báo ([\[Agu10\]](https://sre.google/sre-book/bibliography#Agu10), [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), [\[Sch90\]](https://sre.google/sre-book/bibliography#Sch90)) chỉ ra rằng bất kỳ chương trình nào tất định (deterministic) đều có thể được cài đặt như một dịch vụ nhân bản khả dụng cao bằng cách triển khai nó dưới dạng một RSM.
 
 Như được thể hiện trong [Hình 23-2](#hinh-23-2), các máy trạng thái nhân bản là một hệ thống được cài đặt ở một tầng logic phía trên thuật toán consensus. Thuật toán consensus lo việc đồng thuận về thứ tự các thao tác, và RSM thực thi các thao tác theo thứ tự đó. Bởi vì không phải mọi thành viên của nhóm consensus đều nhất thiết là thành viên của mỗi quorum consensus, nên các RSM có thể cần đồng bộ hóa trạng thái từ các tiến trình cùng cấp (peer). Theo Kirsch và Amir [\[Kir08\]](https://sre.google/sre-book/bibliography#Kir08), bạn có thể dùng một *giao thức cửa sổ trượt* để đối chiếu trạng thái giữa các tiến trình cùng cấp trong một RSM.
 
@@ -151,7 +151,7 @@ Một *barrier* (rào chắn) trong một phép tính phân tán là một nguy�
 
 Hình 23-4. Các barrier để phối hợp tiến trình trong phép tính MapReduce
 
-Barrier có thể được cài đặt bằng một tiến trình điều phối (coordinator) đơn, nhưng bản cài đặt này thêm một điểm lỗi đơn lẻ (single point of failure) thường không thể chấp nhận được. Barrier cũng có thể được cài đặt như một RSM. Dịch vụ consensus ZooKeeper có thể cài đặt mẫu barrier: xem [\[Hun10\]](https://sre.google/sre-book/bibliography#Hun10) và [\[Zoo14\]](https://sre.google/sre-book/bibliography#Zoo14).
+Barrier có thể được cài đặt bằng một tiến trình điều phối (coordinator) đơn, nhưng bản cài đặt này thêm một điểm thất bại duy nhất (single point of failure) thường không thể chấp nhận được. Barrier cũng có thể được cài đặt như một RSM. Dịch vụ consensus ZooKeeper có thể cài đặt mẫu barrier: xem [\[Hun10\]](https://sre.google/sre-book/bibliography#Hun10) và [\[Zoo14\]](https://sre.google/sre-book/bibliography#Zoo14).
 
 *Lock* là một nguyên thủy phối hợp hữu ích khác có thể được cài đặt như một RSM. Hãy xét một hệ thống phân tán trong đó các tiến trình worker tiêu thụ một cách nguyên tử một số tệp đầu vào và ghi các kết quả. Các distributed lock có thể được dùng để ngăn nhiều worker xử lý cùng một tệp đầu vào. Trên thực tế, việc dùng các lease có thể làm mới kèm timeout, thay vì khóa vô hạn, là điều thiết yếu, vì làm vậy ngăn các khóa bị giữ vô thời hạn bởi những tiến trình đã crash. Distributed locking nằm ngoài phạm vi của chương này, nhưng hãy lưu ý rằng distributed lock là một nguyên thủy hệ thống ở tầng thấp nên được dùng một cách cẩn thận. Hầu hết các ứng dụng nên dùng một hệ thống ở tầng cao hơn cung cấp các giao dịch phân tán.
 
@@ -159,7 +159,7 @@ Barrier có thể được cài đặt bằng một tiến trình điều phối
 
 Hàng đợi (queue) là một cấu trúc dữ liệu phổ biến, thường được dùng như một cách để phân phối các tác vụ giữa một số tiến trình worker.
 
-Các hệ thống dựa trên hàng đợi có thể chịu được việc thất bại và mất các node worker tương đối dễ dàng. Tuy nhiên, hệ thống phải đảm bảo rằng các tác vụ đã được nhận (claimed) được xử lý thành công. Vì mục đích đó, một *hệ thống lease* (được thảo luận trước đó liên quan đến khóa) được khuyến nghị thay vì việc xóa thẳng khỏi hàng đợi. Điểm bất lợi của các hệ thống dựa trên hàng đợi là việc mất hàng đợi khiến toàn bộ hệ thống không thể hoạt động. Việc cài đặt hàng đợi như một RSM có thể làm giảm thiểu rủi ro và làm toàn bộ hệ thống bền bỉ hơn nhiều.
+Các hệ thống dựa trên hàng đợi có thể chịu được sự cố và mất mát các node worker tương đối dễ dàng. Tuy nhiên, hệ thống phải đảm bảo rằng các tác vụ đã được nhận (claimed) được xử lý thành công. Vì mục đích đó, một *hệ thống lease* (được thảo luận trước đó liên quan đến khóa) được khuyến nghị thay vì việc xóa thẳng khỏi hàng đợi. Điểm bất lợi của các hệ thống dựa trên hàng đợi là việc mất hàng đợi khiến toàn bộ hệ thống không thể hoạt động. Việc cài đặt hàng đợi như một RSM có thể làm giảm thiểu rủi ro và làm toàn bộ hệ thống bền bỉ hơn nhiều.
 
 *Atomic broadcast* là một nguyên thủy hệ thống phân tán trong đó các tin nhắn được nhận một cách tin cậy và theo cùng một thứ tự bởi tất cả các bên tham gia. Đây là một khái niệm hệ thống phân tán cực kỳ mạnh mẽ và rất hữu ích trong việc thiết kế các hệ thống thực tiễn. Có một số lượng lớn các cơ sở hạ tầng nhắn tin publish-subscribe cho các nhà thiết kế hệ thống sử dụng, mặc dù không phải tất cả đều cung cấp các bảo đảm nguyên tử. Chandra và Toueg [\[Cha96\]](https://sre.google/sre-book/bibliography#Cha96) chứng minh tính tương đương giữa atomic broadcast và consensus.
 
@@ -218,7 +218,7 @@ Hình 23-8. Dueling proposers trong Multi-Paxos
 
 Tất cả các hệ thống consensus thực tiễn đều giải quyết vấn đề va chạm này, thường bằng cách bầu một tiến trình proposer thực hiện tất cả các proposal trong hệ thống, hoặc bằng cách dùng một proposer luân phiên (rotating) phân bổ cho mỗi tiến trình các khe (slots) nhất định cho các proposal của nó.
 
-Đối với các hệ thống dùng một tiến trình leader, quá trình bầu leader phải được chỉnh chu cẩn thận để cân bằng giữa việc hệ thống không khả dụng xảy ra khi không có leader với rủi ro dueling proposers. Điều quan trọng là cài đặt các timeout và các chiến lược backoff đúng. Nếu nhiều tiến trình phát hiện ra rằng không có leader và tất cả đều cố trở thành leader cùng lúc, thì không tiến trình nào có khả năng thành công (lại một lần nữa, dueling proposers). Việc đưa vào yếu tố ngẫu nhiên là cách tiếp cận tốt nhất. Raft [\[Ong14\]](https://sre.google/sre-book/bibliography#Ong14), ví dụ, có một phương pháp được suy nghĩ kỹ lưỡng để tiếp cận quá trình bầu leader.
+Đối với các hệ thống dùng một tiến trình leader, quá trình bầu leader phải được chỉn chu cẩn thận để cân bằng giữa việc hệ thống không khả dụng xảy ra khi không có leader với rủi ro dueling proposers. Điều quan trọng là cài đặt các timeout và các chiến lược backoff đúng. Nếu nhiều tiến trình phát hiện ra rằng không có leader và tất cả đều cố trở thành leader cùng lúc, thì không tiến trình nào có khả năng thành công (lại một lần nữa, dueling proposers). Việc đưa vào yếu tố ngẫu nhiên là cách tiếp cận tốt nhất. Raft [\[Ong14\]](https://sre.google/sre-book/bibliography#Ong14), ví dụ, có một phương pháp được suy nghĩ kỹ lưỡng để tiếp cận quá trình bầu leader.
 
 ## Mở Rộng Các Workload Nặng Đọc (Scaling Read-Heavy Workloads)
 
@@ -374,7 +374,7 @@ Các cân nhắc về domain lỗi do đó áp dụng càng mạnh hơn khi mộ
 
 Hình 23-10. Thêm một bản sao phụ trong một khu vực có thể làm giảm khả dụng của hệ thống. Chụm nhiều bản sao trong một datacenter đơn có thể làm giảm khả dụng của hệ thống: ở đây, có một quorum mà không còn độ dự phòng nào.
 
-Nếu các client dày đặc trong một khu vực địa lý cụ thể, tốt nhất là đặt các bản sao gần các client. Tuy nhiên, việc quyết định chính xác đặt các bản sao ở đâu có thể cần một chút suy nghĩ cẩn thận về cân bằng tải và cách một hệ thống xử lý quá tải. Như được thể hiện trong [Hình 23-11](#hinh-23-11), nếu một hệ thống đơn giản định tuyến các request đọc của client đến bản sao gần nhất, thì một cơn tăng vọt tải lớn tập trung trong một khu vực có thể làm choáng bản sao gần nhất, rồi đến bản sao gần thứ hai, và cứ thế — đây là *cascading failure* (xem [Đánh Lành Các Thất Bại Dây Chuyền](https://sre.google/sre-book/addressing-cascading-failures/)). Kiểu quá tải này thường có thể xảy ra do kết quả của việc các batch job bắt đầu, đặc biệt nếu một vài lô bắt đầu cùng lúc.
+Nếu các client dày đặc trong một khu vực địa lý cụ thể, tốt nhất là đặt các bản sao gần các client. Tuy nhiên, việc quyết định chính xác đặt các bản sao ở đâu có thể cần một chút suy nghĩ cẩn thận về cân bằng tải và cách một hệ thống xử lý quá tải. Như được thể hiện trong [Hình 23-11](#hinh-23-11), nếu một hệ thống đơn giản định tuyến các request đọc của client đến bản sao gần nhất, thì một cơn tăng vọt tải lớn tập trung trong một khu vực có thể làm choáng bản sao gần nhất, rồi đến bản sao gần thứ hai, và cứ thế — đây là *cascading failure* (xem [Đối phó với Các Sự cố Lan truyền](https://sre.google/sre-book/addressing-cascading-failures/)). Kiểu quá tải này thường có thể xảy ra do kết quả của việc các batch job bắt đầu, đặc biệt nếu một vài lô bắt đầu cùng lúc.
 
 Chúng ta đã thấy lý do vì sao nhiều hệ thống distributed consensus dùng một tiến trình leader để cải thiện hiệu năng. Tuy nhiên, điều quan trọng là hiểu rằng các bản sao leader sẽ dùng nhiều tài nguyên tính toán hơn, đặc biệt là năng lực mạng phát ra. Điều này là vì leader gửi các tin nhắn proposal bao gồm dữ liệu được đề xuất, trong khi các bản sao gửi các tin nhắn nhỏ hơn, thường chỉ chứa sự đồng ý với một ID giao dịch consensus cụ thể. Các tổ chức chạy các hệ thống consensus được chia shard cao với một số lượng tiến trình rất lớn có thể thấy cần thiết phải đảm bảo rằng các tiến trình leader cho các shard khác nhau được cân bằng tương đối đều trên các datacenter khác nhau. Làm vậy ngăn toàn bộ hệ thống bị nút thắt về năng lực mạng phát ra chỉ cho một datacenter, và tạo ra một dung lượng hệ thống tổng thể lớn hơn.
 
@@ -394,7 +394,7 @@ Tuy nhiên, kiểu triển khai này có thể dễ dàng là một kết quả 
 - Một thuật toán có thể cố gắng đặt các leader trên các máy có hiệu năng tốt nhất. Một cái bẫy của cách tiếp cận này là nếu một trong ba datacenter chứa các máy nhanh hơn, thì một tỷ lệ không cân xứng các lưu lượng sẽ được gửi đến datacenter đó, dẫn đến các thay đổi lưu lượng cực đoan nếu datacenter đó đi offline. Để tránh vấn đề này, thuật toán cũng phải tính đến sự cân bằng phân bố đối với khả năng máy khi chọn máy.
 - Một thuật toán bầu leader có thể thiên vị các tiến trình đã chạy lâu hơn. Các tiến trình chạy lâu hơn có tương quan khá cao với vị trí nếu các bản phát hành phần mềm được thực hiện theo từng datacenter.
 
-### Thành phần của Quorum (Quorum composition)
+## Thành phần của Quorum (Quorum composition)
 
 Khi xác định nơi đặt các bản sao trong một nhóm consensus, điều quan trọng là xem xét tác động của việc phân bố địa lý (hay, chính xác hơn, các độ trễ mạng giữa các bản sao) lên hiệu năng của nhóm.
 
@@ -430,7 +430,7 @@ Số lượng các thành viên đang chạy trong mỗi nhóm consensus, và tr
 
 Một tiến trình có thể đang chạy nhưng không thể tiến triển vì một lý do nào đó (ví dụ, liên quan đến phần cứng).
 
-#### Các bản sao liên tục bị tụt lại (persistently lagging replicas)
+### Các bản sao liên tục bị tụt lại (persistently lagging replicas)
 
 Các thành viên lành mạnh của một nhóm consensus vẫn có khả năng ở trong nhiều trạng thái khác nhau. Một thành viên nhóm có thể đang phục hồi trạng thái từ các peer sau khi khởi động, hoặc đang tụt lại phía sau quorum trong nhóm, hoặc có thể đã cập nhật và tham gia đầy đủ, và có thể là leader.
 
