@@ -1,4 +1,4 @@
-# Chương 22. Đối phó với Các Sự thất bại Lan truyền (Addressing Cascading Failures)
+# Chương 22. Đối phó với Các Sự cố Lan truyền (Addressing Cascading Failures)
 
 > **Nguyên bản:** [Chapter 22 - Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/)
 > **Nguồn:** Google SRE Book (O'Reilly)
@@ -16,7 +16,7 @@
 >
 > Ade Oshineye, Google Developer Advocate (Nhà truyền bá Developer của Google)
 
-Một sự thất bại lan truyền (cascading failure) là một sự thất bại tăng lên theo thời gian do kết quả của phản hồi tích cực (positive feedback).<sup>[1](#fn1)</sup> Nó có thể xảy ra khi một phần của một hệ thống thất bại, làm tăng xác suất để các phần khác của hệ thống cũng thất bại. Ví dụ, một replica (bản sao) đơn lẻ của một dịch vụ có thể thất bại do quá tải (overload), làm tăng tải lên các replica còn lại và tăng xác suất để chúng cũng thất bại, tạo ra hiệu ứng domino kéo theo toàn bộ các replica của dịch vụ đi xuống.
+Một sự cố lan truyền (cascading failure) là một sự cố tăng lên theo thời gian do kết quả của phản hồi tích cực (positive feedback).<sup>[1](#fn1)</sup> Nó có thể xảy ra khi một phần của một hệ thống thất bại, làm tăng xác suất để các phần khác của hệ thống cũng thất bại. Ví dụ, một replica (bản sao) đơn lẻ của một dịch vụ có thể thất bại do quá tải (overload), làm tăng tải lên các replica còn lại và tăng xác suất để chúng cũng thất bại, tạo ra hiệu ứng domino kéo theo toàn bộ các replica của dịch vụ đi xuống.
 
 Chúng tôi sẽ dùng dịch vụ tìm kiếm Shakespeare được thảo luận trong [Shakespeare: A Sample Service](https://sre.google/sre-book/production-environment#xref_production-environment_shakespeare) làm một ví dụ xuyên suốt chương này. Cấu hình production (sản xuất) của nó có thể trông như [Hình 22-1](#hinh-22-1).
 
@@ -25,15 +25,15 @@ Chúng tôi sẽ dùng dịch vụ tìm kiếm Shakespeare được thảo luậ
 
 [Hình 22-1.](#hinh-22-1) Ví dụ cấu hình production cho dịch vụ tìm kiếm Shakespeare.
 
-## Các Nguyên nhân của Các Sự thất bại Lan truyền và Thiết kế để Tránh chúng (Causes of Cascading Failures and Designing to Avoid Them)
+## Các Nguyên nhân của Các Sự cố Lan truyền và Thiết kế để Tránh chúng (Causes of Cascading Failures and Designing to Avoid Them)
 
-Thiết kế hệ thống có tính toán kỹ lưỡng nên bao quát một số kịch bản điển hình giải thích cho phần lớn các sự thất bại lan truyền.
+Thiết kế hệ thống có tính toán kỹ lưỡng nên bao quát một số kịch bản điển hình giải thích cho phần lớn các sự cố lan truyền.
 
 <a id="server-qua-tai"></a>
 
 ## Quá tải Server (Server Overload)
 
-Nguyên nhân phổ biến nhất của các sự thất bại lan truyền là quá tải. Phần lớn các sự thất bại lan truyền được mô tả ở đây hoặc do trực tiếp server quá tải, hoặc do các dạng mở rộng hay biến thể của kịch bản này.
+Nguyên nhân phổ biến nhất của các sự cố lan truyền là quá tải. Phần lớn các sự cố lan truyền được mô tả ở đây hoặc do trực tiếp server quá tải, hoặc do các dạng mở rộng hay biến thể của kịch bản này.
 
 Giả sử frontend (mặt trước) trong cluster (cụm máy) A đang xử lý 1.000 yêu cầu mỗi giây (QPS), như trong [Hình 22-2](#hinh-22-2).
 
@@ -49,13 +49,13 @@ Nếu cluster B thất bại ([Hình 22-3](#hinh-22-3)), lượng yêu cầu đ�
 
 [Hình 22-3.](#hinh-22-3) Cluster B thất bại, gửi tất cả traffic đến cluster A.
 
-Sự giảm này trong tốc độ thực hiện công việc hữu ích có thể lan sang các failure domain khác, thậm chí lan truyền toàn cục. Ví dụ, quá tải cục bộ trong một cluster có thể khiến các server của nó sập; để đáp lại, bộ điều khiển cân bằng tải (load balancing controller) chuyển các yêu cầu sang các cluster khác, làm quá tải các server ở đó, dẫn đến một sự thất bại quá tải toàn dịch vụ. Những sự kiện này có thể diễn ra không mất lâu (ví dụ, chỉ trong vòng vài phút), vì [bộ cân bằng tải](https://sre.google/sre-book/handling-overload/) và các hệ thống lên lịch task (nhiệm vụ) liên quan có thể phản ứng rất nhanh.
+Sự giảm này trong tốc độ thực hiện công việc hữu ích có thể lan sang các failure domain khác, thậm chí lan truyền toàn cục. Ví dụ, quá tải cục bộ trong một cluster có thể khiến các server của nó sập; để đáp lại, bộ điều khiển cân bằng tải (load balancing controller) chuyển các yêu cầu sang các cluster khác, làm quá tải các server ở đó, dẫn đến một sự cố quá tải toàn dịch vụ. Những sự kiện này có thể diễn ra không mất lâu (ví dụ, chỉ trong vòng vài phút), vì [bộ cân bằng tải](https://sre.google/sre-book/handling-overload/) và các hệ thống lên lịch task (nhiệm vụ) liên quan có thể phản ứng rất nhanh.
 
 ## Hết Tài nguyên (Resource Exhaustion)
 
 Việc cạn một tài nguyên có thể dẫn đến độ trễ (latency) cao hơn, tốc độ lỗi (error rates) tăng cao, hoặc sự xuất hiện của các kết quả kém chất lượng hơn. Đây thực chất là những hiệu ứng được mong đợi của việc cạn tài nguyên: rốt cuộc một thứ gì đó phải nhượng bộ khi tải tăng vượt quá những gì một server có thể xử lý.
 
-Tùy thuộc vào tài nguyên nào cạn trong một server và cách server được xây dựng, việc cạn tài nguyên có thể khiến server kém hiệu quả hơn hoặc gây ra sập server, buộc bộ cân bằng tải phải phân phối lại tải sang các server khác. Khi điều này xảy ra, tốc độ các yêu cầu được xử lý thành công có thể giảm và có thể kéo cả cluster hoặc toàn bộ dịch vụ vào một sự thất bại lan truyền.
+Tùy thuộc vào tài nguyên nào cạn trong một server và cách server được xây dựng, việc cạn tài nguyên có thể khiến server kém hiệu quả hơn hoặc gây ra sập server, buộc bộ cân bằng tải phải phân phối lại tải sang các server khác. Khi điều này xảy ra, tốc độ các yêu cầu được xử lý thành công có thể giảm và có thể kéo cả cluster hoặc toàn bộ dịch vụ vào một sự cố lan truyền.
 
 Các loại tài nguyên khác nhau có thể cạn, dẫn đến các hiệu ứng khác nhau lên các server.
 
@@ -125,7 +125,7 @@ Ví dụ, hãy hình dung kịch bản sau:
 6.  Kích thước cache giảm đồng nghĩa với ít entry (bản ghi) trong cache hơn, bên cạnh tỷ lệ hit thấp hơn.
 7.  Sự tăng trong số lần bỏ lỡ cache (cache miss) đồng nghĩa với việc nhiều yêu cầu hơn rơi xuống (fall through) đến backend để được phục vụ.
 8.  Backend, lần lượt, cạn CPU hoặc thread.
-9.  Cuối cùng, sự thiếu CPU khiến các kiểm tra sức khỏe cơ bản thất bại, khởi đầu một sự thất bại lan truyền.
+9.  Cuối cùng, sự thiếu CPU khiến các kiểm tra sức khỏe cơ bản thất bại, khởi đầu một sự cố lan truyền.
 
 Trong các tình huống phức tạp như kịch bản trên, ít khả năng chuỗi nhân quả sẽ được chẩn đoán hoàn toàn trong một lần outage (mất dịch vụ). Có thể rất khó để xác định rằng sự sập backend bắt nguồn từ một sự giảm tỷ lệ cache trong frontend, đặc biệt nếu các thành phần frontend và backend có các chủ sở hữu khác nhau.
 
@@ -133,7 +133,7 @@ Trong các tình huống phức tạp như kịch bản trên, ít khả năng c
 
 Việc cạn tài nguyên có thể dẫn đến các server sập; ví dụ, các server có thể sập khi quá nhiều RAM được cấp phát cho một container. Một khi vài server sập do quá tải, tải trên các server còn lại có thể tăng lên, khiến chúng cũng sập. Vấn đề có xu hướng lăn như quả tuyết và chẳng bao lâu tất cả các server bắt đầu crash-loop (vòng lặp sập). Thường rất khó để thoát khỏi kịch bản này, bởi vì ngay khi các server quay lại online, chúng lập tức bị dồn một tỷ lệ yêu cầu cực kỳ cao và gần như ngay lập tức thất bại.
 
-Ví dụ, nếu một dịch vụ khỏe mạnh ở 10.000 QPS, nhưng bắt đầu một sự thất bại lan truyền do các lần sập ở 11.000 QPS, việc giảm tải xuống 9.000 QPS gần như chắc chắn sẽ không dừng được các lần sập. Lý do là dịch vụ vẫn phải xử lý nhu cầu tăng lên trong khi sức chứa đã giảm; thường chỉ một phần nhỏ các server đủ khỏe để xử lý yêu cầu. Tỷ lệ server đủ khỏe phụ thuộc vào một số yếu tố: tốc độ mà hệ thống có thể khởi chạy các task, tốc độ mà binary có thể bắt đầu phục vụ ở sức chứa đầy đủ, và một task mới khởi chạy có thể trụ được trước tải trong bao lâu. Trong ví dụ này, nếu 10% server đủ khỏe để xử lý yêu cầu, thì tỷ lệ yêu cầu sẽ cần giảm xuống khoảng 1.000 QPS để hệ thống có thể ổn định và phục hồi.
+Ví dụ, nếu một dịch vụ khỏe mạnh ở 10.000 QPS, nhưng bắt đầu một sự cố lan truyền do các lần sập ở 11.000 QPS, việc giảm tải xuống 9.000 QPS gần như chắc chắn sẽ không dừng được các lần sập. Lý do là dịch vụ vẫn phải xử lý nhu cầu tăng lên trong khi sức chứa đã giảm; thường chỉ một phần nhỏ các server đủ khỏe để xử lý yêu cầu. Tỷ lệ server đủ khỏe phụ thuộc vào một số yếu tố: tốc độ mà hệ thống có thể khởi chạy các task, tốc độ mà binary có thể bắt đầu phục vụ ở sức chứa đầy đủ, và một task mới khởi chạy có thể trụ được trước tải trong bao lâu. Trong ví dụ này, nếu 10% server đủ khỏe để xử lý yêu cầu, thì tỷ lệ yêu cầu sẽ cần giảm xuống khoảng 1.000 QPS để hệ thống có thể ổn định và phục hồi.
 
 Tương tự, các server có thể có vẻ không khỏe đối với tầng cân bằng tải, dẫn đến sức chứa cân bằng tải giảm: các server có thể chuyển sang trạng thái “lame duck” (xem [Một Cách tiếp cận Vững chắc cho các Task Không khỏe mạnh: Trạng thái Lame Duck](https://sre.google/sre-book/load-balancing-datacenter/#robust-approach-unhealthy-tasks-lame-duck-state)) hoặc thất bại các kiểm tra sức khỏe mà không sập. Hiệu ứng có thể rất giống với việc sập: nhiều server hơn có vẻ không khỏe, các server khỏe có xu hướng chỉ chấp nhận yêu cầu trong một khoảng thời gian rất ngắn trước khi trở nên không khỏe, và ít server hơn tham gia vào việc xử lý yêu cầu.
 
@@ -147,7 +147,7 @@ Danh sách dưới đây trình bày các chiến lược cho [việc tránh ser
 
 Kiểm thử tải các giới hạn sức chứa của server, và kiểm thử chế độ thất bại cho quá tải
 
-Đây là bài tập quan trọng nhất bạn nên thực hiện để phòng tránh server quá tải. Trừ khi bạn kiểm thử trong một môi trường thực tế, rất khó để dự đoán chính xác tài nguyên nào sẽ cạn và việc tài nguyên đó cạn sẽ biểu hiện ra sao. Để biết chi tiết, xem [Kiểm thử cho các Sự thất bại Lan truyền](#kiem-thu-cho-cac-su-that-bai-lan-truyen).
+Đây là bài tập quan trọng nhất bạn nên thực hiện để phòng tránh server quá tải. Trừ khi bạn kiểm thử trong một môi trường thực tế, rất khó để dự đoán chính xác tài nguyên nào sẽ cạn và việc tài nguyên đó cạn sẽ biểu hiện ra sao. Để biết chi tiết, xem [Kiểm thử cho các Sự cố Lan truyền](#kiem-thu-cho-cac-su-that-bai-lan-truyen).
 
 Phục vụ các kết quả suy giảm
 
@@ -159,7 +159,7 @@ Các server nên tự bảo vệ mình khỏi việc trở nên quá tải và s
 
 Trang bị các hệ thống cấp cao hơn để từ chối yêu cầu, thay vì làm các server quá tải
 
-Hãy lưu ý rằng vì việc giới hạn tốc độ (rate limiting) thường không tính đến sức khỏe tổng thể của dịch vụ, nó có thể không ngăn được một sự thất bại đã khởi đầu. Các cài đặt giới hạn tốc độ đơn giản cũng có xu hướng để lại sức chứa không được sử dụng. Việc giới hạn tốc độ có thể được thực hiện ở một số nơi:
+Hãy lưu ý rằng vì việc giới hạn tốc độ (rate limiting) thường không tính đến sức khỏe tổng thể của dịch vụ, nó có thể không ngăn được một sự cố đã khởi đầu. Các cài đặt giới hạn tốc độ đơn giản cũng có xu hướng để lại sức chứa không được sử dụng. Việc giới hạn tốc độ có thể được thực hiện ở một số nơi:
 
 -   *Tại các reverse proxy*, bằng cách giới hạn khối lượng yêu cầu theo các tiêu chí như địa chỉ IP để giảm nhẹ các cuộc tấn công phủ nhận dịch vụ (denial-of-service) và các client lạm dụng.
 -   *Tại các load balancer*, bằng cách bỏ rơi các yêu cầu khi dịch vụ đi vào quá tải toàn cục. Tùy thuộc vào bản chất và độ phức tạp của dịch vụ, việc giới hạn tốc độ này có thể không phân biệt (“bỏ mọi traffic vượt X yêu cầu mỗi giây”) hoặc có chọn lọc hơn (“bỏ các yêu cầu không đến từ những người dùng gần đây đã tương tác với dịch vụ” hoặc “bỏ các yêu cầu cho các thao tác ưu tiên thấp như đồng bộ hóa nền, nhưng vẫn phục vụ các phiên người dùng tương tác”).
@@ -167,9 +167,9 @@ Hãy lưu ý rằng vì việc giới hạn tốc độ (rate limiting) thườn
 
 Thực hiện lập kế hoạch sức chứa
 
-Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra một sự thất bại lan truyền. Lập kế hoạch sức chứa nên được kết hợp với kiểm thử hiệu năng để xác định mức tải mà tại đó dịch vụ sẽ thất bại. Ví dụ, nếu điểm gãy của mọi cluster là 5.000 QPS, tải được phân bố đều giữa các cluster,<sup>[3](#fn3)</sup> và tải đỉnh của dịch vụ là 19.000 QPS, thì cần khoảng sáu cluster để chạy dịch vụ ở mức *N* + 2.
+Lập kế hoạch sức chứa tốt có thể giảm xác suất xảy ra một sự cố lan truyền. Lập kế hoạch sức chứa nên được kết hợp với kiểm thử hiệu năng để xác định mức tải mà tại đó dịch vụ sẽ thất bại. Ví dụ, nếu điểm gãy của mọi cluster là 5.000 QPS, tải được phân bố đều giữa các cluster,<sup>[3](#fn3)</sup> và tải đỉnh của dịch vụ là 19.000 QPS, thì cần khoảng sáu cluster để chạy dịch vụ ở mức *N* + 2.
 
-Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự thất bại lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự thất bại lan truyền. Khi bạn mất một phần lớn hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự thất bại lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
+Lập kế hoạch sức chứa giảm xác suất kích hoạt một sự cố lan truyền, nhưng không đủ để bảo vệ dịch vụ khỏi các sự cố lan truyền. Khi bạn mất một phần lớn hạ tầng trong một sự kiện đã hoặc chưa được lên kế hoạch, không có mức lập kế hoạch sức chứa nào có thể đủ để ngăn các sự cố lan truyền. Các vấn đề cân bằng tải, các partition mạng, hoặc sự tăng traffic không mong đợi có thể tạo ra các túi tải cao vượt quá những gì đã được lên kế hoạch. Một số hệ thống có thể tự động tăng số lượng task cho dịch vụ của bạn theo yêu cầu, điều có thể ngăn quá tải; tuy nhiên, lập kế hoạch sức chứa thích hợp vẫn là cần thiết.
 
 <a id="quan-ly-hang-doi"></a>
 
@@ -263,14 +263,14 @@ Ngay cả khi tỷ lệ các cuộc gọi đến `MakeRequest` giảm xuống m�
 
 Nếu một trong hai điều kiện này đúng, để thoát khỏi outage này, bạn phải giảm đáng kể hoặc loại bỏ tải trên các frontend cho đến khi các retries dừng lại và các backend ổn định.
 
-Mẫu hình này đã góp phần gây ra một vài sự thất bại lan truyền, cho dù các frontend và backend liên lạc qua các tin nhắn RPC, “frontend” là code JavaScript client phát ra các cuộc gọi `XmlHttpRequest` đến một endpoint và thử lại khi thất bại, hay các retries bắt nguồn từ một giao thức đồng bộ offline vốn thử lại một cách quyết liệt khi gặp thất bại.
+Mẫu hình này đã góp phần gây ra một vài sự cố lan truyền, cho dù các frontend và backend liên lạc qua các tin nhắn RPC, “frontend” là code JavaScript client phát ra các cuộc gọi `XmlHttpRequest` đến một endpoint và thử lại khi thất bại, hay các retries bắt nguồn từ một giao thức đồng bộ offline vốn thử lại một cách quyết liệt khi gặp thất bại.
 
 Khi phát ra các retries tự động, hãy lưu ý các cân nhắc sau:
 
 -   Hầu hết các chiến lược bảo vệ backend được mô tả trong [Phòng Tránh Server Quá Tải](#phong-tranh-server-qua-tai) đều áp dụng được. Cụ thể, kiểm thử hệ thống có thể làm nổi bật các vấn đề, và suy giảm nhẹ nhàng có thể giảm hiệu ứng của các retries lên backend.
 -   Luôn luôn dùng exponential backoff (lùi theo hàm mũ) có ngẫu nhiên hóa khi lên lịch các retries. Xem thêm ["Exponential Backoff and Jitter"](https://www.awsarchitectureblog.com/2015/03/backoff.html) trong AWS Architecture Blog [[Bro15]](https://sre.google/sre-book/bibliography#Bro15). Nếu các retries không được phân bố ngẫu nhiên trên cửa sổ thử lại, một nhiễu nhỏ (ví dụ, một blip mạng) có thể gây ra các gợn sóng retry được lên lịch tại cùng thời điểm, và điều đó có thể tự khuếch đại [[Flo94]](https://sre.google/sre-book/bibliography#Flo94).
 -   Giới hạn số retries cho mỗi yêu cầu. Đừng thử lại một yêu cầu nhất định vô hạn.
--   Cân nhắc có một ngân sách retry (retry budget) cho toàn bộ server. Ví dụ, chỉ cho phép 60 retries mỗi phút trong một process, và nếu ngân sách retry bị vượt quá, đừng thử lại; chỉ cần để yêu cầu thất bại. Chiến lược này có thể giữ hiệu ứng retry trong tầm kiểm soát và là sự khác biệt giữa một thất bại lập kế hoạch sức chứa dẫn đến một số truy vấn bị bỏ và một sự thất bại lan truyền toàn cục.
+-   Cân nhắc có một ngân sách retry (retry budget) cho toàn bộ server. Ví dụ, chỉ cho phép 60 retries mỗi phút trong một process, và nếu ngân sách retry bị vượt quá, đừng thử lại; chỉ cần để yêu cầu thất bại. Chiến lược này có thể giữ hiệu ứng retry trong tầm kiểm soát và là sự khác biệt giữa một thất bại lập kế hoạch sức chứa dẫn đến một số truy vấn bị bỏ và một sự cố lan truyền toàn cục.
 -   Suy nghĩ về dịch vụ một cách toàn diện và quyết định xem bạn thực sự có cần thực hiện retries ở một cấp cho trước không. Cụ thể, tránh khuếch đại các retries bằng cách phát ra retries ở nhiều cấp: một yêu cầu đơn lẻ ở tầng cao nhất có thể tạo ra một số lần thử lớn bằng *tích* của số lần thử ở mỗi tầng xuống tầng thấp nhất. Nếu cơ sở dữ liệu không thể phục vụ các yêu cầu vì nó quá tải, và các tầng backend, frontend, và JavaScript đều phát ra 3 retries (4 lần thử), thì một hành động người dùng đơn lẻ có thể tạo ra 64 lần thử (4^3) trên cơ sở dữ liệu. Hành vi này là không mong muốn khi cơ sở dữ liệu đang trả về các lỗi đó vì nó quá tải.
 -   Sử dụng các mã phản hồi rõ ràng và cân nhắc cách các chế độ thất bại khác nhau nên được xử lý. Ví dụ, tách biệt các điều kiện lỗi có thể thử lại và không thể thử lại. Đừng thử lại các lỗi vĩnh viễn hoặc các yêu cầu sai định dạng trong một client, vì cả hai sẽ không bao giờ thành công. Trả về một trạng thái cụ thể khi quá tải để các client và các tầng khác lùi lại và không thử lại.
 
@@ -394,27 +394,27 @@ Tuy nhiên, giả sử các backend liên lạc chéo giữa chúng với nhau. 
 
 ## Các Điều kiện Kích hoạt cho Thất bại Lan truyền (Triggering Conditions for Cascading Failures)
 
-Khi một dịch vụ dễ bị tổn thương trước các sự thất bại lan truyền, có một số nhiễu có thể khởi đầu hiệu ứng domino. Phần này xác định một số yếu tố kích hoạt các sự thất bại lan truyền.
+Khi một dịch vụ dễ bị tổn thương trước các sự cố lan truyền, có một số nhiễu có thể khởi đầu hiệu ứng domino. Phần này xác định một số yếu tố kích hoạt các sự cố lan truyền.
 
 ## Cái chết của Process (Process Death)
 
-Một số server task có thể chết, làm giảm lượng sức chứa khả dụng. Các task có thể chết vì một Query of Death (một RPC mà nội dung của nó kích hoạt một sự thất bại trong process), các vấn đề cluster, các thất bại assertion (khẳng định), hoặc một số lý do khác. Một sự kiện rất nhỏ (ví dụ, một vài lần sập, hoặc các task được lên lịch lại sang các máy khác) có thể khiến một dịch vụ đang bên bờ vực sụp đổ gãy gục.
+Một số server task có thể chết, làm giảm lượng sức chứa khả dụng. Các task có thể chết vì một Query of Death (một RPC mà nội dung của nó kích hoạt một sự cố trong process), các vấn đề cluster, các thất bại assertion (khẳng định), hoặc một số lý do khác. Một sự kiện rất nhỏ (ví dụ, một vài lần sập, hoặc các task được lên lịch lại sang các máy khác) có thể khiến một dịch vụ đang bên bờ vực sụp đổ gãy gục.
 
 ## Cập nhật Process (Process Updates)
 
-Việc đẩy một phiên bản mới của binary hoặc cập nhật cấu hình của nó có thể khởi đầu một sự thất bại lan truyền nếu một số lượng lớn các task bị ảnh hưởng đồng thời. Để ngăn kịch bản này, hãy hoặc tính đến lượng overhead sức chứa cần thiết khi thiết lập hạ tầng cập nhật của dịch vụ, hoặc đẩy ngoài giờ cao điểm (off-peak). Việc điều chỉnh động số lượng các task cập nhật đang hoạt động dựa trên khối lượng yêu cầu và sức chứa khả dụng có thể là một cách tiếp cận khả thi.
+Việc đẩy một phiên bản mới của binary hoặc cập nhật cấu hình của nó có thể khởi đầu một sự cố lan truyền nếu một số lượng lớn các task bị ảnh hưởng đồng thời. Để ngăn kịch bản này, hãy hoặc tính đến lượng overhead sức chứa cần thiết khi thiết lập hạ tầng cập nhật của dịch vụ, hoặc đẩy ngoài giờ cao điểm (off-peak). Việc điều chỉnh động số lượng các task cập nhật đang hoạt động dựa trên khối lượng yêu cầu và sức chứa khả dụng có thể là một cách tiếp cận khả thi.
 
 ## Các Triển khai Mới (New Rollouts)
 
-Một binary mới, các thay đổi cấu hình, hoặc một thay đổi đối với stack hạ tầng cơ sở có thể dẫn đến các thay đổi trong hồ sơ yêu cầu, việc sử dụng và giới hạn tài nguyên, các backend, hoặc một số thành phần hệ thống khác, và có thể kích hoạt một sự thất bại lan truyền.
+Một binary mới, các thay đổi cấu hình, hoặc một thay đổi đối với stack hạ tầng cơ sở có thể dẫn đến các thay đổi trong hồ sơ yêu cầu, việc sử dụng và giới hạn tài nguyên, các backend, hoặc một số thành phần hệ thống khác, và có thể kích hoạt một sự cố lan truyền.
 
-Trong một sự thất bại lan truyền, thường là khôn ngoan để kiểm tra các thay đổi gần đây và cân nhắc việc hoàn tác chúng, đặc biệt nếu những thay đổi đó đã ảnh hưởng đến sức chứa hoặc làm thay đổi hồ sơ yêu cầu.
+Trong một sự cố lan truyền, thường là khôn ngoan để kiểm tra các thay đổi gần đây và cân nhắc việc hoàn tác chúng, đặc biệt nếu những thay đổi đó đã ảnh hưởng đến sức chứa hoặc làm thay đổi hồ sơ yêu cầu.
 
 Dịch vụ của bạn nên thực hiện một số hình thức ghi log thay đổi (change logging), điều có thể giúp nhanh chóng xác định các thay đổi gần đây.
 
 ## Tăng trưởng Hữu cơ (Organic Growth)
 
-Trong nhiều trường hợp, một sự thất bại lan truyền không được kích hoạt bởi một thay đổi dịch vụ cụ thể, mà do sự tăng trưởng trong mức sử dụng không đi kèm với một sự điều chỉnh tương ứng đối với sức chứa.
+Trong nhiều trường hợp, một sự cố lan truyền không được kích hoạt bởi một thay đổi dịch vụ cụ thể, mà do sự tăng trưởng trong mức sử dụng không đi kèm với một sự điều chỉnh tương ứng đối với sức chứa.
 
 ## Các Thay đổi Đã lên Kế hoạch, Drains, hoặc Turndowns (Planned Changes, Drains, or Turndowns)
 
@@ -432,17 +432,17 @@ Việc phụ thuộc vào slack CPU này như lưới an toàn của bạn là n
 
 <a id="kiem-thu-cho-cac-su-that-bai-lan-truyen"></a>
 
-## Kiểm thử cho các Sự thất bại Lan truyền (Testing for Cascading Failures)
+## Kiểm thử cho các Sự cố Lan truyền (Testing for Cascading Failures)
 
-Các cách cụ thể mà một dịch vụ sẽ thất bại có thể rất khó dự đoán từ các nguyên lý cơ bản. Phần này thảo luận các chiến lược kiểm thử có thể phát hiện xem các dịch vụ có dễ bị tổn thương trước các sự thất bại lan truyền hay không.
+Các cách cụ thể mà một dịch vụ sẽ thất bại có thể rất khó dự đoán từ các nguyên lý cơ bản. Phần này thảo luận các chiến lược kiểm thử có thể phát hiện xem các dịch vụ có dễ bị tổn thương trước các sự cố lan truyền hay không.
 
-Bạn nên kiểm thử dịch vụ của mình để xác định nó hoạt động như thế nào dưới tải nặng, nhằm có được sự tin tưởng rằng nó sẽ không đi vào một sự thất bại lan truyền trong các hoàn cảnh khác nhau.
+Bạn nên kiểm thử dịch vụ của mình để xác định nó hoạt động như thế nào dưới tải nặng, nhằm có được sự tin tưởng rằng nó sẽ không đi vào một sự cố lan truyền trong các hoàn cảnh khác nhau.
 
 ## Kiểm thử Cho đến Thất bại và Hơn Thế Nữa (Test Until Failure and Beyond)
 
-Việc hiểu hành vi của dịch vụ dưới tải nặng có lẽ là bước đầu tiên quan trọng nhất trong việc tránh các sự thất bại lan truyền. Biết hệ thống của bạn hoạt động như thế nào khi nó quá tải giúp xác định các nhiệm vụ kỹ thuật nào quan trọng nhất cần sửa chữa lâu dài; ít nhất, kiến thức này cũng giúp khởi động quá trình debug cho các kỹ sư on-call (trực) khi một tình huống khẩn cấp xảy ra.
+Việc hiểu hành vi của dịch vụ dưới tải nặng có lẽ là bước đầu tiên quan trọng nhất trong việc tránh các sự cố lan truyền. Biết hệ thống của bạn hoạt động như thế nào khi nó quá tải giúp xác định các nhiệm vụ kỹ thuật nào quan trọng nhất cần sửa chữa lâu dài; ít nhất, kiến thức này cũng giúp khởi động quá trình debug cho các kỹ sư on-call (trực) khi một tình huống khẩn cấp xảy ra.
 
-Kiểm thử tải các thành phần cho đến khi chúng gãy. Khi tải tăng, một thành phần thường xử lý các yêu cầu thành công cho đến khi nó đạt đến một điểm mà nó không thể xử lý thêm. Ở điểm này, lý tưởng nhất là thành phần nên bắt đầu phục vụ các lỗi hoặc các kết quả suy giảm để đáp ứng tải bổ sung, nhưng không làm giảm đáng kể tỷ lệ yêu cầu xử lý thành công. Một thành phần rất dễ bị tổn thương trước một sự thất bại lan truyền sẽ bắt đầu sập hoặc phục vụ một tỷ lệ lỗi rất cao khi nó trở nên quá tải; một thành phần được thiết kế tốt hơn thay vào đó sẽ có thể từ chối một vài yêu cầu và sống sót.
+Kiểm thử tải các thành phần cho đến khi chúng gãy. Khi tải tăng, một thành phần thường xử lý các yêu cầu thành công cho đến khi nó đạt đến một điểm mà nó không thể xử lý thêm. Ở điểm này, lý tưởng nhất là thành phần nên bắt đầu phục vụ các lỗi hoặc các kết quả suy giảm để đáp ứng tải bổ sung, nhưng không làm giảm đáng kể tỷ lệ yêu cầu xử lý thành công. Một thành phần rất dễ bị tổn thương trước một sự cố lan truyền sẽ bắt đầu sập hoặc phục vụ một tỷ lệ lỗi rất cao khi nó trở nên quá tải; một thành phần được thiết kế tốt hơn thay vào đó sẽ có thể từ chối một vài yêu cầu và sống sót.
 
 Kiểm thử tải cũng tiết lộ điểm gãy ở đâu, một kiến thức nền tảng cho quy trình lập kế hoạch sức chứa. Nó cho phép bạn kiểm thử các lỗi hồi quy (regression), cấp tài nguyên cho các ngưỡng trường hợp xấu nhất, và đánh đổi giữa mức sử dụng (utilization) và các biên an toàn.
 
@@ -473,7 +473,7 @@ Hiểu cách các client lớn sử dụng dịch vụ của bạn. Ví dụ, b�
 
 Tùy thuộc vào dịch vụ của bạn, bạn có thể hoặc không kiểm soát được tất cả code client nói chuyện với dịch vụ của bạn. Tuy nhiên, vẫn là một ý tưởng tốt để có một sự hiểu biết về cách các client lớn tương tác với dịch vụ của bạn sẽ hoạt động.
 
-Các nguyên lý tương tự áp dụng cho các client nội bộ lớn. Kịch tính hóa (chạy tình huống giả định) các sự thất bại hệ thống với các client lớn nhất để xem chúng phản ứng như thế nào. Hỏi các client nội bộ về cách họ truy cập dịch vụ của bạn và họ sử dụng các cơ chế nào để xử lý sự thất bại của backend.
+Các nguyên lý tương tự áp dụng cho các client nội bộ lớn. Kịch tính hóa (chạy tình huống giả định) các sự cố hệ thống với các client lớn nhất để xem chúng phản ứng như thế nào. Hỏi các client nội bộ về cách họ truy cập dịch vụ của bạn và họ sử dụng các cơ chế nào để xử lý sự cố của backend.
 
 ## Kiểm thử các Backend Không Quan trọng (Test Noncritical Backends)
 
@@ -485,7 +485,7 @@ Ngoài việc kiểm thử hành vi khi backend không quan trọng không khả
 
 ## Các Bước Lập Tức để Giải quyết Thất bại Lan truyền (Immediate Steps to Address Cascading Failures)
 
-Một khi bạn đã xác định được rằng dịch vụ của bạn đang trải qua một sự thất bại lan truyền, bạn có thể sử dụng một vài chiến lược khác nhau để khắc phục tình huống — và tất nhiên, một sự thất bại lan truyền là một cơ hội tốt để áp dụng giao thức quản lý sự cố của bạn ([Quản lý Sự cố](https://sre.google/sre-book/managing-incidents/)).
+Một khi bạn đã xác định được rằng dịch vụ của bạn đang trải qua một sự cố lan truyền, bạn có thể sử dụng một vài chiến lược khác nhau để khắc phục tình huống — và tất nhiên, một sự cố lan truyền là một cơ hội tốt để áp dụng giao thức quản lý sự cố của bạn ([Quản lý Sự cố](https://sre.google/sre-book/managing-incidents/)).
 
 ## Tăng Tài nguyên (Increase Resources)
 
@@ -505,11 +505,11 @@ Nếu các server theo một cách nào đó bị kẹt (wedged) và không ti�
 -   Một số yêu cầu đang hoạt động không có deadline nhưng đang tiêu tốn tài nguyên, dẫn đến chúng chặn các thread
 -   Các server đang bị deadlock
 
-Hãy xác định rõ nguồn gốc của sự thất bại lan truyền trước khi khởi động lại server, và đảm bảo rằng hành động này không chỉ đơn thuần đẩy tải sang nơi khác. Triển khai canary thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự thất bại lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
+Hãy xác định rõ nguồn gốc của sự cố lan truyền trước khi khởi động lại server, và đảm bảo rằng hành động này không chỉ đơn thuần đẩy tải sang nơi khác. Triển khai canary thay đổi này, và thực hiện từ từ. Hành động của bạn có thể khuếch đại một sự cố lan truyền hiện có nếu outage thực sự là do một vấn đề như cache lạnh.
 
 ## Bỏ Traffic (Drop Traffic)
 
-Việc bỏ tải là một búa lớn, thường dành cho các tình huống mà bạn thực sự đang có một sự thất bại lan truyền và không thể sửa nó bằng các phương tiện khác. Ví dụ, nếu tải nặng khiến hầu hết các server sập ngay khi chúng vừa trở nên khỏe mạnh, bạn có thể đưa dịch vụ chạy lại bằng cách:
+Việc bỏ tải là một búa lớn, thường dành cho các tình huống mà bạn thực sự đang có một sự cố lan truyền và không thể sửa nó bằng các phương tiện khác. Ví dụ, nếu tải nặng khiến hầu hết các server sập ngay khi chúng vừa trở nên khỏe mạnh, bạn có thể đưa dịch vụ chạy lại bằng cách:
 
 1.  Giải quyết điều kiện kích hoạt ban đầu (bằng cách thêm sức chứa, ví dụ).
 2.  Giảm tải đủ để các lần sập dừng lại. Hãy cân nhắc quyết đoán ở đây — nếu toàn bộ dịch vụ đang crash-loop, chỉ cho phép, chẳng hạn, 1% traffic đi qua.
@@ -520,7 +520,7 @@ Chiến lược này cho phép các cache được làm ấm, các kết nối �
 
 Rõ ràng, chiến thuật này sẽ gây ra rất nhiều tổn hại mà người dùng có thể thấy. Liệu bạn có thể (hoặc thậm chí *có nên*) bỏ traffic một cách không phân biệt hay không phụ thuộc vào cách dịch vụ được cấu hình. Nếu bạn có một cơ chế để bỏ các traffic ít quan trọng hơn (ví dụ, prefetching, nạp trước), hãy sử dụng cơ chế đó trước.
 
-Quan trọng là phải lưu ý rằng chiến lược này chỉ cho phép bạn phục hồi từ một outage lan truyền một khi vấn đề nền tảng đã được sửa. Nếu vấn đề đã khởi đầu sự thất bại lan truyền không được sửa (ví dụ, sức chứa toàn cục không đủ), thì sự thất bại lan truyền có thể được kích hoạt lại ngay sau khi tất cả traffic quay lại. Do đó, trước khi sử dụng chiến lược này, hãy cân nhắc sửa (hoặc ít nhất là che đậy) nguyên nhân gốc rễ hoặc điều kiện kích hoạt. Ví dụ, nếu dịch vụ đã hết bộ nhớ và bây giờ đang trong một vòng xoáy cái chết, việc thêm nhiều bộ nhớ hoặc task hơn nên là bước đầu tiên của bạn.
+Quan trọng là phải lưu ý rằng chiến lược này chỉ cho phép bạn phục hồi từ một outage lan truyền một khi vấn đề nền tảng đã được sửa. Nếu vấn đề đã khởi đầu sự cố lan truyền không được sửa (ví dụ, sức chứa toàn cục không đủ), thì sự cố lan truyền có thể được kích hoạt lại ngay sau khi tất cả traffic quay lại. Do đó, trước khi sử dụng chiến lược này, hãy cân nhắc sửa (hoặc ít nhất là che đậy) nguyên nhân gốc rễ hoặc điều kiện kích hoạt. Ví dụ, nếu dịch vụ đã hết bộ nhớ và bây giờ đang trong một vòng xoáy cái chết, việc thêm nhiều bộ nhớ hoặc task hơn nên là bước đầu tiên của bạn.
 
 ## Đi vào các Chế độ Suy giảm (Enter Degraded Modes)
 
@@ -546,13 +546,13 @@ Sau đó, đội SRE viết một postmortem (bài học sau sự cố) mô tả
 
 ## Lời kết (Closing Remarks)
 
-Khi các hệ thống bị quá tải, một điều gì đó cần phải nhượng bộ để khắc phục tình huống. Một khi một dịch vụ vượt quá điểm gãy của nó, tốt hơn là cho phép một số lỗi mà người dùng có thể thấy hoặc các kết quả chất lượng thấp hơn lọt qua, thay vì cố gắng phục vụ đầy đủ mọi yêu cầu. Việc hiểu các điểm gãy đó ở đâu và hệ thống hoạt động như thế nào khi vượt qua chúng là thiết yếu đối với các chủ sở hữu dịch vụ muốn tránh các sự thất bại lan truyền.
+Khi các hệ thống bị quá tải, một điều gì đó cần phải nhượng bộ để khắc phục tình huống. Một khi một dịch vụ vượt quá điểm gãy của nó, tốt hơn là cho phép một số lỗi mà người dùng có thể thấy hoặc các kết quả chất lượng thấp hơn lọt qua, thay vì cố gắng phục vụ đầy đủ mọi yêu cầu. Việc hiểu các điểm gãy đó ở đâu và hệ thống hoạt động như thế nào khi vượt qua chúng là thiết yếu đối với các chủ sở hữu dịch vụ muốn tránh các sự cố lan truyền.
 
-Nếu không có sự chăm sóc thích hợp, một số thay đổi hệ thống nhằm giảm các lỗi nền tảng hoặc cải thiện trạng thái ổn định có thể khiến dịch vụ phơi bày trước rủi ro lớn hơn đối với một outage hoàn toàn. Thử lại khi thất bại, dịch chuyển tải đi từ các server không khỏe, giết các server không khỏe, thêm các cache để cải thiện hiệu năng hoặc giảm độ trễ: tất cả những điều này có thể được thực hiện để cải thiện trường hợp bình thường, nhưng cũng có thể làm tăng cơ hội gây ra một sự thất bại quy mô lớn. Hãy cẩn thận khi đánh giá các thay đổi để đảm bảo rằng một outage không bị đánh đổi lấy một outage khác.
+Nếu không có sự chăm sóc thích hợp, một số thay đổi hệ thống nhằm giảm các lỗi nền tảng hoặc cải thiện trạng thái ổn định có thể khiến dịch vụ phơi bày trước rủi ro lớn hơn đối với một outage hoàn toàn. Thử lại khi thất bại, dịch chuyển tải đi từ các server không khỏe, giết các server không khỏe, thêm các cache để cải thiện hiệu năng hoặc giảm độ trễ: tất cả những điều này có thể được thực hiện để cải thiện trường hợp bình thường, nhưng cũng có thể làm tăng cơ hội gây ra một sự cố quy mô lớn. Hãy cẩn thận khi đánh giá các thay đổi để đảm bảo rằng một outage không bị đánh đổi lấy một outage khác.
 
 <a id="fn1"></a>[1](#fn1) Xem Wikipedia, “Positive feedback,” [*https://en.wikipedia.org/wiki/Positive_feedback*](https://en.wikipedia.org/wiki/Positive_feedback).
 
-<a id="fn2"></a>[2](#fn2) Một watchdog (trình canh) thường được cài đặt như một thread thức dậy định kỳ để xem liệu công việc đã được thực hiện kể từ lần kiểm tra trước hay không. Nếu không, nó giả định rằng server bị kẹt và giết nó. Ví dụ, các yêu cầu của một loại đã biết có thể được gửi đến server ở các khoảng thời gian đều đặn; nếu một yêu cầu không được nhận hoặc xử lý như mong đợi, điều này có thể chỉ ra sự thất bại — của server, của hệ thống đang gửi yêu cầu, hoặc của mạng trung gian.
+<a id="fn2"></a>[2](#fn2) Một watchdog (trình canh) thường được cài đặt như một thread thức dậy định kỳ để xem liệu công việc đã được thực hiện kể từ lần kiểm tra trước hay không. Nếu không, nó giả định rằng server bị kẹt và giết nó. Ví dụ, các yêu cầu của một loại đã biết có thể được gửi đến server ở các khoảng thời gian đều đặn; nếu một yêu cầu không được nhận hoặc xử lý như mong đợi, điều này có thể chỉ ra sự cố — của server, của hệ thống đang gửi yêu cầu, hoặc của mạng trung gian.
 
 <a id="fn3"></a>[3](#fn3) Đây thường không phải là một giả định tốt do yếu tố địa lý; xem thêm [Tổ chức Job và Dữ liệu](https://sre.google/sre-book/production-environment/#t-to-chuc-job-va-du-lieu).
 

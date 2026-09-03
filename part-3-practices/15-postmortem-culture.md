@@ -25,7 +25,7 @@ Mục tiêu chính của [việc viết postmortem](https://sre.google/sre-book/
 -   Mất dữ liệu (data loss) bất kỳ loại nào
 -   Sự can thiệp của kỹ sư on-call (trực sự cố) (hoàn tác release — release rollback, định tuyến lại traffic — rerouting of traffic, v.v.)
 -   Một thời gian giải quyết trên một ngưỡng nào đó
--   Một sự thất bại của giám sát (monitoring) (thường ngụ ý việc phát hiện incident thủ công)
+-   Một sự cố của giám sát (monitoring) (thường ngụ ý việc phát hiện incident thủ công)
 
 Quan trọng là phải định nghĩa các tiêu chí postmortem trước khi incident xảy ra, để mọi người biết khi nào cần viết postmortem. Ngoài các triggers khách quan này, bất kỳ bên liên quan nào cũng có thể yêu cầu một postmortem cho một sự kiện.
 

@@ -278,7 +278,7 @@ Chúng tôi đã xem xét một số bước bạn có thể thực hiện để
 
 <a id="fn3"></a>[3](#fn3) Ví dụ, các biến đã xuất ra như được mô tả trong [Practical Alerting from Time-Series Data](https://sre.google/sre-book/practical-alerting/).
 
-<a id="fn4"></a>[4](#fn4) Thuộc về Theodore Woodward, của Trường Y University of Maryland, vào những năm 1940. Xem [*https://en.wikipedia.org/wiki/Zebra\_(medicine)*](https://en.wikipedia.org/wiki/Zebra_\(medicine\)). Điều này hoạt động trong một số miền, nhưng trong một số hệ thống, cả các lớp sự thất bại có thể bị loại bỏ: ví dụ, sử dụng một cluster filesystem được thiết kế tốt có nghĩa là một vấn đề độ trễ ít có khả năng là do một disk (ổ đĩa) chết đơn lẻ.
+<a id="fn4"></a>[4](#fn4) Thuộc về Theodore Woodward, của Trường Y University of Maryland, vào những năm 1940. Xem [*https://en.wikipedia.org/wiki/Zebra\_(medicine)*](https://en.wikipedia.org/wiki/Zebra_\(medicine\)). Điều này hoạt động trong một số miền, nhưng trong một số hệ thống, cả các lớp sự cố có thể bị loại bỏ: ví dụ, sử dụng một cluster filesystem được thiết kế tốt có nghĩa là một vấn đề độ trễ ít có khả năng là do một disk (ổ đĩa) chết đơn lẻ.
 
 <a id="fn5"></a>[5](#fn5) Dao cạo của Occam (Occam's Razor); xem [*https://en.wikipedia.org/wiki/Occam%27s\_razor*](https://en.wikipedia.org/wiki/Occam%27s_razor). Nhưng hãy nhớ rằng có thể vẫn là trường hợp rằng có nhiều vấn đề; đặc biệt, có thể nhiều khả năng hơn rằng một hệ thống có một số vấn đề chung mức thấp, khi xét chung lại, giải thích tất cả các triệu chứng thay vì một vấn đề hiếm gây ra tất cả chúng. So sánh [*https://en.wikipedia.org/wiki/Hickam%27s\_dictum*](https://en.wikipedia.org/wiki/Hickam%27s_dictum).
 

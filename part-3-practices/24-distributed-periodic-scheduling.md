@@ -11,7 +11,7 @@
 
 Chương này mô tả cách Google triển khai một dịch vụ cron (trình lên lịch) phân tán, phục vụ phần lớn các nhóm nội bộ có nhu cầu lên lịch định kỳ cho các job tính toán. Trong suốt quá trình tồn tại của cron, chúng tôi đã học được nhiều bài học về cách thiết kế và triển khai một dịch vụ mà thoạt nhìn có vẻ rất cơ bản. Ở đây, chúng tôi thảo luận về những vấn đề mà cron phân tán phải đối mặt và phác thảo một số giải pháp khả thi.
 
-Cron là một tiện ích Unix phổ biến được thiết kế để khởi chạy các job bất kỳ một cách định kỳ vào những thời điểm hoặc khoảng cách do người dùng định nghĩa. Chúng tôi đầu tiên phân tích các nguyên lý cơ bản của cron cùng các cách triển khai phổ biến nhất của nó, rồi xem xét một ứng dụng như cron có thể hoạt động thế nào trong một môi trường phân tán quy mô lớn để tăng cường độ tin cậy của hệ thống trước các sự thất bại của một máy riêng lẻ. Chúng tôi mô tả một hệ thống cron phân tán được triển khai trên một số lượng nhỏ các máy, nhưng có khả năng khởi chạy các job cron trên toàn bộ một datacenter cùng với một hệ thống lên lịch datacenter như Borg [[Ver15]](https://sre.google/sre-book/bibliography#Ver15).
+Cron là một tiện ích Unix phổ biến được thiết kế để khởi chạy các job bất kỳ một cách định kỳ vào những thời điểm hoặc khoảng cách do người dùng định nghĩa. Chúng tôi đầu tiên phân tích các nguyên lý cơ bản của cron cùng các cách triển khai phổ biến nhất của nó, rồi xem xét một ứng dụng như cron có thể hoạt động thế nào trong một môi trường phân tán quy mô lớn để tăng cường độ tin cậy của hệ thống trước các sự cố của một máy riêng lẻ. Chúng tôi mô tả một hệ thống cron phân tán được triển khai trên một số lượng nhỏ các máy, nhưng có khả năng khởi chạy các job cron trên toàn bộ một datacenter cùng với một hệ thống lên lịch datacenter như Borg [[Ver15]](https://sre.google/sre-book/bibliography#Ver15).
 
 ## Cron
 
@@ -49,7 +49,7 @@ Việc chuyển từ các máy riêng lẻ sang triển khai quy mô lớn đòi
 
 Trong các cách triển khai "thông thường", cron bị giới hạn trong một máy. Việc triển khai hệ thống quy mô lớn mở rộng giải pháp cron của chúng tôi sang nhiều máy.
 
-Lưu trữ dịch vụ cron của bạn trên một máy có thể là thảm họa về mặt độ tin cậy. Giả sử máy này nằm trong một datacenter với đúng 1.000 máy. Sự thất bại của chỉ 1/1000 số máy khả dụng của bạn có thể đánh sập toàn bộ dịch vụ cron. Vì những lý do rõ ràng, cách triển khai này không thể chấp nhận được.
+Lưu trữ dịch vụ cron của bạn trên một máy có thể là thảm họa về mặt độ tin cậy. Giả sử máy này nằm trong một datacenter với đúng 1.000 máy. Sự cố của chỉ 1/1000 số máy khả dụng của bạn có thể đánh sập toàn bộ dịch vụ cron. Vì những lý do rõ ràng, cách triển khai này không thể chấp nhận được.
 
 Để tăng độ tin cậy của cron, chúng tôi tách rời các tiến trình khỏi các máy. Nếu bạn muốn chạy một dịch vụ, đơn giản là chỉ định các yêu cầu của dịch vụ và datacenter mà nó nên chạy. Hệ thống lên lịch datacenter (chính nó cũng nên có độ tin cậy) quyết định máy hoặc các máy để triển khai dịch vụ của bạn, bên cạnh việc xử lý sự chết máy. Việc khởi chạy một job trong datacenter lúc đó hiệu quả trở thành việc gửi một hoặc nhiều RPC (Remote Procedure Call — lời gọi thủ tục từ xa) đến bộ lên lịch datacenter.
 
@@ -63,9 +63,9 @@ Các hệ thống đơn máy thường chỉ đặt chung tất cả các tiến
 
 Triển khai ở quy mô datacenter thường đồng nghĩa với việc triển khai vào các container thực thi sự cách ly. Sự cách ly là cần thiết vì kỳ vọng cơ bản là các tiến trình độc lập chạy trong cùng một datacenter không nên ảnh hưởng xấu đến lẫn nhau. Để thực thi kỳ vọng đó, bạn cần biết lượng tài nguyên cần thu thập trước cho bất kỳ tiến trình nào bạn muốn chạy — cả cho hệ thống cron lẫn các job mà nó khởi chạy. Một job cron có thể bị trì hoãn nếu datacenter không có tài nguyên khả dụng để đáp ứng nhu cầu của job cron đó. Yêu cầu về tài nguyên, cùng với nhu cầu của người dùng về giám sát các lần khởi chạy job cron, có nghĩa là chúng tôi cần theo dõi toàn bộ trạng thái của các lần khởi chạy job cron, từ lúc lên lịch khởi chạy cho đến khi kết thúc.
 
-Việc tách rời các lần khởi chạy tiến trình khỏi các máy cụ thể khiến hệ thống cron phơi bày trước sự thất bại khởi chạy một phần. Vì cấu hình job cron rất đa dạng, việc khởi chạy một job cron mới trong datacenter có thể cần nhiều RPC, sao cho đôi khi chúng tôi gặp kịch bản trong đó một số RPC thành công nhưng số khác không (ví dụ, vì tiến trình gửi các RPC đã chết giữa chừng khi thực hiện các tác vụ này). Thủ tục phục hồi của cron cũng phải tính đến kịch bản này.
+Việc tách rời các lần khởi chạy tiến trình khỏi các máy cụ thể khiến hệ thống cron phơi bày trước sự cố khởi chạy một phần. Vì cấu hình job cron rất đa dạng, việc khởi chạy một job cron mới trong datacenter có thể cần nhiều RPC, sao cho đôi khi chúng tôi gặp kịch bản trong đó một số RPC thành công nhưng số khác không (ví dụ, vì tiến trình gửi các RPC đã chết giữa chừng khi thực hiện các tác vụ này). Thủ tục phục hồi của cron cũng phải tính đến kịch bản này.
 
-Về chế độ thất bại, một datacenter là một hệ sinh thái phức tạp hơn đáng kể so với một máy riêng lẻ. Dịch vụ cron, vốn bắt đầu là một binary tương đối đơn giản trên một máy, giờ có nhiều phụ thuộc rõ ràng lẫn không rõ ràng khi được triển khai ở quy mô lớn hơn. Đối với một dịch vụ cơ bản như cron, chúng tôi muốn đảm bảo rằng ngay cả khi datacenter chịu một sự thất bại một phần (ví dụ, mất điện cục bộ hoặc các vấn đề với dịch vụ lưu trữ), dịch vụ vẫn có thể hoạt động. Bằng cách yêu cầu bộ lên lịch datacenter đặt các replica của cron ở các vị trí đa dạng trong datacenter, chúng tôi tránh được kịch bản trong đó sự thất bại của một đơn vị phân phối điện kéo sập tất cả các tiến trình của dịch vụ cron.
+Về chế độ thất bại, một datacenter là một hệ sinh thái phức tạp hơn đáng kể so với một máy riêng lẻ. Dịch vụ cron, vốn bắt đầu là một binary tương đối đơn giản trên một máy, giờ có nhiều phụ thuộc rõ ràng lẫn không rõ ràng khi được triển khai ở quy mô lớn hơn. Đối với một dịch vụ cơ bản như cron, chúng tôi muốn đảm bảo rằng ngay cả khi datacenter chịu một sự cố một phần (ví dụ, mất điện cục bộ hoặc các vấn đề với dịch vụ lưu trữ), dịch vụ vẫn có thể hoạt động. Bằng cách yêu cầu bộ lên lịch datacenter đặt các replica của cron ở các vị trí đa dạng trong datacenter, chúng tôi tránh được kịch bản trong đó sự cố của một đơn vị phân phối điện kéo sập tất cả các tiến trình của dịch vụ cron.
 
 Có thể triển khai một dịch vụ cron duy nhất trên toàn cầu, nhưng việc triển khai cron trong một datacenter đơn lẻ có những lợi ích: dịch vụ hưởng độ trễ thấp và cùng số phận với bộ lên lịch datacenter, phụ thuộc cốt lõi của cron.
 
@@ -89,7 +89,7 @@ Khi thiết kế cron phân tán, chúng tôi chọn phương án thứ hai. Ch�
 
 ## Việc Sử dụng Paxos (The Use of Paxos)
 
-Chúng tôi triển khai nhiều replica của dịch vụ cron và sử dụng thuật toán nhất trí phân tán Paxos [[Ver15]](https://sre.google/sre-book/managing-critical-state/) (xem [Quản lý Trạng thái Quan trọng: Nhất trí Phân tán cho Độ tin cậy](https://sre.google/sre-book/managing-critical-state/)) để đảm bảo chúng có trạng thái nhất quán. Cho đến khi đa số các thành viên trong nhóm khả dụng, hệ thống phân tán xét về tổng thể có thể xử lý thành công các thay đổi trạng thái mới bất chấp sự thất bại của các tập con bị giới hạn của hạ tầng.
+Chúng tôi triển khai nhiều replica của dịch vụ cron và sử dụng thuật toán nhất trí phân tán Paxos [[Ver15]](https://sre.google/sre-book/managing-critical-state/) (xem [Quản lý Trạng thái Quan trọng: Nhất trí Phân tán cho Độ tin cậy](https://sre.google/sre-book/managing-critical-state/)) để đảm bảo chúng có trạng thái nhất quán. Cho đến khi đa số các thành viên trong nhóm khả dụng, hệ thống phân tán xét về tổng thể có thể xử lý thành công các thay đổi trạng thái mới bất chấp sự cố của các tập con bị giới hạn của hạ tầng.
 
 Như [Hình 24-1](#hinh-24-1) cho thấy, cron phân tán sử dụng một job leader duy nhất, là replica duy nhất có thể sửa đổi trạng thái chia sẻ, cũng là replica duy nhất có thể khởi chạy các job cron. Chúng tôi tận dụng thực tế rằng biến thể của Paxos mà chúng tôi sử dụng, Fast Paxos [[Lam06]](https://sre.google/sre-book/bibliography#Lam06), sử dụng một replica leader bên trong như một tối ưu — replica leader của Fast Paxos đồng thời đóng vai trò là leader của dịch vụ cron.
 
@@ -117,7 +117,7 @@ Quan trọng là việc giao tiếp Paxos phải duy trì tính đồng bộ, v�
 
 Hình 24-2. Minh họa tiến trình của một lần khởi chạy job cron, từ góc nhìn của leader
 
-Việc hoàn thành lần khởi chạy job cron được thông báo đồng bộ qua Paxos đến các replica khác. Lưu ý rằng việc khởi chạy thành công hay thất bại do các nguyên nhân bên ngoài không quan trọng (ví dụ, nếu bộ lên lịch datacenter không khả dụng). Ở đây, chúng tôi đơn giản là theo dõi thực tế rằng dịch vụ cron đã cố gắng khởi chạy tại thời điểm đã lên lịch. Chúng tôi cũng cần có khả năng giải quyết các sự thất bại của hệ thống cron giữa chừng của thao tác này, như thảo luận trong phần tiếp theo.
+Việc hoàn thành lần khởi chạy job cron được thông báo đồng bộ qua Paxos đến các replica khác. Lưu ý rằng việc khởi chạy thành công hay thất bại do các nguyên nhân bên ngoài không quan trọng (ví dụ, nếu bộ lên lịch datacenter không khả dụng). Ở đây, chúng tôi đơn giản là theo dõi thực tế rằng dịch vụ cron đã cố gắng khởi chạy tại thời điểm đã lên lịch. Chúng tôi cũng cần có khả năng giải quyết các sự cố của hệ thống cron giữa chừng của thao tác này, như thảo luận trong phần tiếp theo.
 
 Một tính năng cực kỳ quan trọng khác của leader là rằng ngay khi nó mất vai trò leader vì bất kỳ lý do nào, nó phải lập tức dừng tương tác với bộ lên lịch datacenter. Việc giữ vai trò leader phải đảm bảo sự loại trừ tương hỗ khi truy cập bộ lên lịch datacenter. Nếu thiếu điều kiện loại trừ tương hỗ này, leader cũ và leader mới có thể thực hiện các hành động mâu thuẫn trên bộ lên lịch datacenter.
 
@@ -127,9 +127,9 @@ Các replica follower theo dõi trạng thái của thế giới, như được 
 
 Khi nhận được thông báo về một lần khởi chạy đã bắt đầu, replica follower cập nhật thời gian khởi chạy đã lên lịch tiếp theo cục bộ của nó cho job cron được cho. Thay đổi trạng thái cực kỳ quan trọng này (được thực hiện đồng bộ) đảm bảo rằng tất cả các lịch cron job trong hệ thống là nhất quán. Chúng tôi theo dõi tất cả các lần khởi chạy đang mở (các lần khởi chạy đã bắt đầu nhưng chưa hoàn thành).
 
-Nếu một replica leader chết hoặc gặp trục trặc theo cách khác (ví dụ, bị tách rời khỏi các replica khác trên mạng), một follower nên được bầu làm leader mới. Cuộc bầu cử phải hội tụ nhanh hơn một phút, để tránh rủi ro bỏ lỡ hoặc trì hoãn không hợp lý một lần khởi chạy job cron. Một khi leader được bầu, tất cả các lần khởi chạy đang mở (tức là các sự thất bại một phần) phải được kết thúc. Quá trình này có thể khá phức tạp, đặt ra các yêu cầu bổ sung cho cả hệ thống cron lẫn hạ tầng datacenter. Phần tiếp theo thảo luận cách giải quyết các sự thất bại một phần kiểu này.
+Nếu một replica leader chết hoặc gặp trục trặc theo cách khác (ví dụ, bị tách rời khỏi các replica khác trên mạng), một follower nên được bầu làm leader mới. Cuộc bầu cử phải hội tụ nhanh hơn một phút, để tránh rủi ro bỏ lỡ hoặc trì hoãn không hợp lý một lần khởi chạy job cron. Một khi leader được bầu, tất cả các lần khởi chạy đang mở (tức là các sự cố một phần) phải được kết thúc. Quá trình này có thể khá phức tạp, đặt ra các yêu cầu bổ sung cho cả hệ thống cron lẫn hạ tầng datacenter. Phần tiếp theo thảo luận cách giải quyết các sự cố một phần kiểu này.
 
-### Giải quyết Các sự Thất bại Một phần (Resolving partial failures)
+### Giải quyết Các Sự cố Một phần (Resolving partial failures)
 
 Như đã đề cập, sự tương tác giữa replica leader và bộ lên lịch datacenter có thể thất bại giữa lúc gửi nhiều RPC mô tả một lần khởi chạy job cron logic duy nhất. Các hệ thống của chúng tôi nên có khả năng xử lý điều kiện này.
 
@@ -145,7 +145,7 @@ Hai điểm này cho phép chúng tôi xác định giới hạn của lần kh�
 -   Tất cả các thao tác trên các hệ thống bên ngoài, mà chúng tôi có thể cần tiếp tục sau khi được bầu lại, phải có tính idempotent (tức là chúng tôi có thể an toàn thực hiện các thao tác đó lại)
 -   Chúng tôi phải có thể tra cứu trạng thái của tất cả các thao tác trên các hệ thống bên ngoài để xác định một cách không mơ hồ liệu chúng đã hoàn thành hay chưa
 
-Mỗi điều kiện trong số này đặt ra các ràng buộc đáng kể và có thể khó triển khai, nhưng khả năng đáp ứng được ít nhất một trong các điều kiện này là nền tảng cho việc hoạt động chính xác của một dịch vụ cron trong môi trường phân tán có thể chịu một hoặc nhiều sự thất bại một phần. Việc không xử lý điều này một cách thích hợp có thể dẫn đến các lần khởi chạy bị bỏ lỡ hoặc khởi chạy trùng lặp cùng một job cron.
+Mỗi điều kiện trong số này đặt ra các ràng buộc đáng kể và có thể khó triển khai, nhưng khả năng đáp ứng được ít nhất một trong các điều kiện này là nền tảng cho việc hoạt động chính xác của một dịch vụ cron trong môi trường phân tán có thể chịu một hoặc nhiều sự cố một phần. Việc không xử lý điều này một cách thích hợp có thể dẫn đến các lần khởi chạy bị bỏ lỡ hoặc khởi chạy trùng lặp cùng một job cron.
 
 Hầu hết hạ tầng khởi chạy các job logic trong datacenter (ví dụ, Mesos) cung cấp việc đặt tên cho các job datacenter đó, cho phép tra cứu trạng thái của các job, dừng các job, hoặc thực hiện các thao tác bảo trì khác. Một giải pháp hợp lý cho vấn đề idempotent là xây dựng các tên job trước (nhằm tránh gây ra bất kỳ thao tác thay đổi nào trên bộ lên lịch datacenter), rồi phân phối các tên này đến tất cả các replica của dịch vụ cron. Nếu leader của dịch vụ cron chết trong khi đang khởi chạy, leader mới đơn giản là tra cứu trạng thái của tất cả các tên đã tính trước và khởi chạy các tên bị thiếu.
 
@@ -173,7 +173,7 @@ Chúng tôi có hai lựa chọn chính để lưu trữ dữ liệu của mình
 
 Khi thiết kế hệ thống, chúng tôi kết hợp các yếu tố của cả hai lựa chọn.
 
-Chúng tôi lưu các log Paxos trên ổ đĩa cục bộ của máy mà các replica dịch vụ cron được lên lịch. Việc có ba replica trong vận hành mặc định có nghĩa là chúng tôi có ba bản sao của các log. Chúng tôi cũng lưu các snapshot trên ổ đĩa cục bộ. Tuy nhiên, vì chúng rất quan trọng, chúng tôi cũng sao lưu chúng lên một distributed filesystem, do đó bảo vệ khỏi các sự thất bại ảnh hưởng đến cả ba máy.
+Chúng tôi lưu các log Paxos trên ổ đĩa cục bộ của máy mà các replica dịch vụ cron được lên lịch. Việc có ba replica trong vận hành mặc định có nghĩa là chúng tôi có ba bản sao của các log. Chúng tôi cũng lưu các snapshot trên ổ đĩa cục bộ. Tuy nhiên, vì chúng rất quan trọng, chúng tôi cũng sao lưu chúng lên một distributed filesystem, do đó bảo vệ khỏi các sự cố ảnh hưởng đến cả ba máy.
 
 Chúng tôi không lưu các log trên distributed filesystem của mình. Chúng tôi có chủ đích quyết định rằng việc mất các log, vốn đại diện cho một lượng nhỏ các thay đổi trạng thái gần nhất, là một rủi ro có thể chấp nhận được. Việc lưu log trên distributed filesystem có thể kéo theo một mức phạt hiệu năng đáng kể do các thao tác ghi nhỏ thường xuyên. Việc mất đồng thời cả ba máy là ít có khả năng, và nếu sự mất đồng thời thực sự xảy ra, chúng tôi tự động phục hồi từ snapshot. Bằng cách đó, chúng tôi chỉ mất một lượng nhỏ log: những cái được chụp kể từ snapshot cuối cùng, mà chúng tôi thực hiện theo các khoảng thời gian có thể cấu hình. Tất nhiên, các đánh đổi này có thể khác nhau tùy thuộc vào chi tiết của hạ tầng, cũng như các yêu cầu đặt ra cho hệ thống cron.
 
@@ -201,7 +201,7 @@ Chúng tôi đã thảo luận về các ràng buộc mới được đòi hỏi
 
 <a id="fn1"></a>[1](#fn1) Chương này trước đây đã được xuất bản một phần trong *ACM Queue* (tháng Ba 2015, vol. 13, số 3).
 
-<a id="fn2"></a>[2](#fn2) Sự thất bại của từng job riêng lẻ nằm ngoài phạm vi của phân tích này.
+<a id="fn2"></a>[2](#fn2) Sự cố của từng job riêng lẻ nằm ngoài phạm vi của phân tích này.
 
 ---
 

@@ -29,6 +29,7 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 | thundering herd | **hiệu ứng bầy đàn (thundering herd)** | bầy đàn giông; "bầy thú đang gầm gừ" | Ch.22, 25, 27. Nhiều client đồng thời thực hiện cùng hành động |
 | distributed consensus | **nhất trí phân tán** | đồng thuận phân tán | Không dùng "đồng thuận" — dành riêng cho "consensus" thường (không phân tán) nếu cần phân biệt |
 | failure domain | **failure domain** (giữ nguyên) | domain lỗi; miền thất bại; miền lỗi | Jargon phổ biến, không dịch |
+| failure (danh từ, sự kiện hệ thống/dịch vụ hỏng) | **sự cố** | sự thất bại | "sự thất bại" nghe nặng nề, sách vở — quyết định 2026-09-03 sau khi phát hiện lặp 30 lần ở ch.22. Dùng "sự cố" cho failure-là-sự-kiện (device failure, cascading failure, component failure). Vẫn giữ "thất bại" cho failure-là-động-từ/kết-quả-nỗ-lực (nỗ lực thất bại, lần thử thất bại) — không đổi cách dùng đó |
 | churn | **churn** (giữ nguyên) | sự thay đổi; sự churn | |
 | lease | **lease** (giữ nguyên) | thuê quyền (thời hạn) | |
 | reverse engineering | **reverse engineering** (giữ nguyên) | phân tích ngược | |
@@ -458,3 +459,11 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
   từ thật (đã sửa). Ch.22 phát hiện thêm 1 vấn đề thuật ngữ toàn cục CHƯA quyết định: "sự thất bại" (dịch
   "failure") lặp hàng chục lần trong file, nghe nặng nề hơn "sự cố" — CHƯA áp dụng, cần người dùng chốt
   trước khi đổi hàng loạt.
+- 2026-09-03: Người dùng chốt quyết định "sự thất bại"→"sự cố" (xem entry mới "failure" trong bảng).
+  Retrofit 11 file có dùng "sự thất bại" như danh từ chỉ sự kiện hệ thống/dịch vụ hỏng (2 agent Sonnet 5
+  song song): ch.22 (34 chỗ, kể cả heading chương "Đối phó với Các Sự thất bại Lan truyền"→"...Sự cố Lan
+  truyền"), ch.24 (8), ch.07 (2), ch.06/10/12/15/17/21/25/27 (1-2 mỗi file). Phân biệt tốt và GIỮ NGUYÊN
+  "thất bại" khi mô tả kết quả một nỗ lực/hành động cụ thể (ví dụ "một sự thất bại của một cuộc di cư",
+  "khi nó gặp một sự thất bại, thử lại sau 1 giây" — request cụ thể fail, không phải sự kiện hệ thống) —
+  5 chỗ giữ nguyên có chủ đích ở ch.12/17/21/27. "failure domain" không bị đụng (giữ nguyên EN theo quy
+  ước riêng). Glossary bổ sung entry "failure" mới để chuẩn hóa cho các chương chưa dịch (Phần IV, V).

@@ -90,7 +90,7 @@ Google SRE chỉ đạt thành công hạn chế với các hệ phân cấp ph�
 
 Một số ý tưởng được mô tả trong chương này vẫn mang tính lý tưởng: luôn có dư địa để đi từ triệu chứng (symptom) sang nguyên nhân gốc rễ nhanh hơn, đặc biệt trong các hệ thống luôn thay đổi. Vì vậy, dù chương này nêu một số mục tiêu cho các hệ thống giám sát và một số cách để đạt được chúng, điều quan trọng là các hệ thống giám sát — đặc biệt đường dẫn quan trọng (critical path) từ khi một vấn đề production bắt đầu, qua một lần gọi trực đến một người, qua phân loại cơ bản và debug sâu — phải luôn đơn giản và dễ hiểu với mọi người trong đội.
 
-Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự thất bại rõ ràng.
+Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự cố rõ ràng.
 
 ## Triệu chứng so với Nguyên nhân (Symptoms Versus Causes)
 

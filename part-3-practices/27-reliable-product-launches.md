@@ -344,7 +344,7 @@ Trong vòng hai năm, các yêu cầu triển khai sản phẩm trong checklist 
 
 Để giảm thiểu kịch bản này từ góc nhìn kỹ thuật, SRE đã bố trí một nhóm nhỏ các LCE thời gian toàn thời gian vào năm 2004. Họ chịu trách nhiệm tăng tốc các lần ra mắt các sản phẩm và tính năng mới, trong khi đồng thời áp dụng chuyên môn SRE để đảm bảo rằng Google phát hành các sản phẩm đáng tin cậy với khả năng hoạt động cao và latency thấp.
 
-Các LCE chịu trách nhiệm đảm bảo các lần ra mắt được thực hiện nhanh chóng mà không để các dịch vụ sụp đổ, và rằng nếu một lần ra mắt thất bại, nó không kéo theo các sản phẩm khác. Các LCE cũng chịu trách nhiệm giữ cho các bên liên quan được thông báo về bản chất và khả năng của những sự thất bại như vậy bất cứ khi nào những góc cạnh bị cắt để tăng tốc thời gian ra thị trường. Các buổi tư vấn của họ được chính thức hóa thành các Production Review (Rà soát Production).
+Các LCE chịu trách nhiệm đảm bảo các lần ra mắt được thực hiện nhanh chóng mà không để các dịch vụ sụp đổ, và rằng nếu một lần ra mắt thất bại, nó không kéo theo các sản phẩm khác. Các LCE cũng chịu trách nhiệm giữ cho các bên liên quan được thông báo về bản chất và khả năng của những sự cố như vậy bất cứ khi nào những góc cạnh bị cắt để tăng tốc thời gian ra thị trường. Các buổi tư vấn của họ được chính thức hóa thành các Production Review (Rà soát Production).
 
 ### Sự Tiến Hóa của Checklist LCE (Evolution of the LCE Checklist)
 

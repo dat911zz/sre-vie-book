@@ -283,7 +283,7 @@ Nếu một SRE sửa đổi một tệp cấu hình hoặc điều chỉnh chi�
 
 Tệp cấu hình nhìn chung tồn tại vì việc thay đổi cấu hình nhanh hơn dựng lại một công cụ. Độ trễ thấp này thường là một yếu tố giữ MTTR thấp. Tuy nhiên, những tệp đó cũng được thay đổi thường xuyên vì các lý do không cần độ trễ giảm. Khi nhìn từ quan điểm của độ tin cậy:
 
--   Tệp cấu hình tồn tại để giữ MTTR thấp, chỉ được sửa đổi khi có sự thất bại, thì có nhịp độ release chậm hơn MTBF. Có thể có một lượng không chắc chắn đáng kể về việc một sửa đổi thủ công nhất định có thực sự tối ưu hay không, mà không làm ảnh hưởng đến độ tin cậy tổng thể của site.
+-   Tệp cấu hình tồn tại để giữ MTTR thấp, chỉ được sửa đổi khi có sự cố, thì có nhịp độ release chậm hơn MTBF. Có thể có một lượng không chắc chắn đáng kể về việc một sửa đổi thủ công nhất định có thực sự tối ưu hay không, mà không làm ảnh hưởng đến độ tin cậy tổng thể của site.
 -   Tệp cấu hình thay đổi nhiều hơn một lần mỗi release ứng dụng hướng người dùng (ví dụ, vì nó giữ trạng thái release) có thể là rủi ro lớn nếu những thay đổi này không được đối xử như các release ứng dụng. Nếu bao phủ kiểm thử và giám sát của tệp đó không tốt hơn đáng kể so với ứng dụng người dùng, tệp đó sẽ chi phối độ tin cậy site theo cách tiêu cực.
 
 Một phương pháp để xử lý các tệp cấu hình là đảm bảo mỗi tệp được phân loại dưới đúng một trong các tùy chọn trong danh sách trước, và thực thi quy tắc đó theo một cách nào đó. Nếu chọn chiến lược sau, hãy đảm bảo:

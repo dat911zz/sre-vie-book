@@ -82,7 +82,7 @@ Borgmon cũng ghi lại các biến "tổng hợp" (synthetic) cho mỗi target 
 
 Các biến tổng hợp này giúp việc viết các rule phát hiện khi các task (nhiệm vụ) được giám sát không khả dụng trở nên dễ dàng hơn.
 
-Thú vị là varz khá khác với SNMP (Simple Network Management Protocol — Giao thức Quản lý Mạng đơn giản), vốn "được thiết kế […] để có yêu cầu truyền tải (transport) tối thiểu và tiếp tục hoạt động khi phần lớn ứng dụng mạng khác thất bại" [[Mic03]](https://sre.google/sre-book/bibliography#Mic03). Việc quét (scraping) các target qua HTTP dường như đi ngược nguyên lý thiết kế này; tuy nhiên, kinh nghiệm cho thấy đây hiếm khi là vấn đề.<sup>[7](#fn7)</sup> Chính hệ thống đã được thiết kế để chống chịu các sự cố mạng và máy, và Borgmon cho phép kỹ sư viết các rule cảnh báo thông minh hơn bằng cách dùng chính sự thất bại của quá trình thu thập như một tín hiệu.
+Thú vị là varz khá khác với SNMP (Simple Network Management Protocol — Giao thức Quản lý Mạng đơn giản), vốn "được thiết kế […] để có yêu cầu truyền tải (transport) tối thiểu và tiếp tục hoạt động khi phần lớn ứng dụng mạng khác thất bại" [[Mic03]](https://sre.google/sre-book/bibliography#Mic03). Việc quét (scraping) các target qua HTTP dường như đi ngược nguyên lý thiết kế này; tuy nhiên, kinh nghiệm cho thấy đây hiếm khi là vấn đề.<sup>[7](#fn7)</sup> Chính hệ thống đã được thiết kế để chống chịu các sự cố mạng và máy, và Borgmon cho phép kỹ sư viết các rule cảnh báo thông minh hơn bằng cách dùng chính sự cố của quá trình thu thập như một tín hiệu.
 
 ## Lưu trữ trong Vùng Arena Chuỗi thời gian (Storage in the Time-Series Arena)
 
