@@ -22,6 +22,8 @@ chỉ ép nhất quán chú thích **trong phạm vi 1 file** (xem `.kilo/plans/
 
 | Thuật ngữ (EN) | Bản dịch chuẩn | Biến thể đã phát hiện (SAI, cần thay) | Ghi chú |
 |---|---|---|---|
+| page (danh từ/động từ, on-call) | **page** (giữ nguyên, KHÔNG chia -ing), gloss `(gọi trực)` ở lần xuất hiện đầu mỗi file | paging (dạng -ing ghép vào cụm danh từ Việt: "sự kiện paging", "không paging"); "trang"; "cuộc gọi trực" (gloss dài, không dùng) | page = tin nhắn/cuộc gọi khẩn tới người on-call. Ch.6 phát hiện "kiệt quệ pager"→SAI ngữ pháp (đọc thành pager bị kiệt quệ), phải là "kiệt sức vì pager". KHÔNG nhầm với memory page (trang bộ nhớ — ngữ cảnh OS/kỹ thuật khác hẳn, xem ch.14 L22, ch.17 L209, luôn có gloss rõ "(memory page)"/"bộ nhớ" đi kèm). Không dùng "page" làm hậu tố tính từ kiểu "đáng page" |
+| pager | **pager** (giữ nguyên), gloss `(máy gọi trực)` ở lần xuất hiện đầu mỗi file | thiết bị gọi trực (quá dài, không dùng làm gloss chính) | pager = thiết bị/kênh nhận page. Phân biệt rõ với "page": pager là vật/kênh, page là sự kiện/tin nhắn |
 | graceful degradation | **suy giảm nhẹ nhàng** | suy giảm tinh tế; suy giảm êm ả; suy giảm từ từ | Chốt theo bản đã dùng làm tên mục lớn ở ch.22 |
 | graceful load shedding | **gánh nhẹ tải một cách nhẹ nhàng** | loại bỏ tải một cách tinh tế | Đồng bộ tính từ "nhẹ nhàng" với graceful degradation |
 | thundering herd | **hiệu ứng bầy đàn (thundering herd)** | bầy đàn giông; "bầy thú đang gầm gừ" | Ch.22, 25, 27. Nhiều client đồng thời thực hiện cùng hành động |
@@ -419,3 +421,17 @@ lượng"; (8) ch.5 L50 "hiệu ứng thứ hai" thiếu chữ "bậc" (second-o
    nổ tổ hợp"→"bùng nổ tổ hợp" L314). Tổng: 32 sửa. +6 thuật ngữ mới (melt down, vice president, soft
    deletion, silver bullet, combinatorial explosion, hot standby). +1 entry cập nhật (thundering herd
    thêm biến thể "bầy thú đang gầm gừ"). +1 entry mới (debug). Glossary hiện có 111 thuật ngữ.
+- 2026-08-28: Rà soát tập trung "page"/"pager" ch.06-27 (phản hồi Discord: dịch lỏng lẻo ở ch.06),
+  5 agent Sonnet 5 độc lập, phát hiện GLOSSARY.md thiếu hẳn entry chính thức cho page/pager (nguyên nhân
+  gốc gây thiếu nhất quán) — đã bổ sung 2 entry mới (page, pager). Sửa 18 chỗ trên 6 chương:
+  ch.06 (7 sửa: L194 "kiệt quệ pager"→"kiệt sức vì pager" là lỗi ngữ pháp thật — đọc thành pager bị kiệt
+  quệ thay vì kiệt sức VÌ pager, đúng khớp nghi vấn Discord; L81/L93/L200/L206/L209/L237 dịch cứng/calque
+  theo cấu trúc câu tiếng Anh); ch.10 L314 "đáng page" hậu tố hóa lai căng→"đáng gọi trực (page-worthy)";
+  ch.11 (6 sửa: L28/L34×3/L65/L112 lẫn lộn "paging" dạng -ing với "page" dạng trần ngay trong cùng
+  đoạn/câu — chuẩn hóa về "page" trần; L114/L120 rút gọn "paging alerts" thành "page" gây tối nghĩa→thêm
+  lại "cảnh báo page"); ch.13 (2 sửa: L22 thiếu gloss lần đầu trong file; L116 gloss lệch "(cuộc gọi
+  trực)"→"(gọi trực)" cho đồng bộ); ch.14 L92 "sắc sảo" sai sắc thái cho "harsh" (chói tai, không phải
+  sharp-witted)→"chói tai"; ch.26 L484 trật tự từ "pager production" calque→"pager của hệ thống
+  production". Ch.07/15/17/22/23/24/25 rà soát sạch không cần sửa (2 agent độc lập cùng xác nhận).
+  1 false positive phát hiện và loại bỏ (báo cáo omission "unrelated" ở ch.26 L484 — thực tế đã có sẵn
+  "không liên quan" trong bản dịch, agent đọc nhầm).

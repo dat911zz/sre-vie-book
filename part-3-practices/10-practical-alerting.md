@@ -311,7 +311,7 @@ Borgmon được kết nối với một dịch vụ vận hành tập trung, g�
 -   Loại bỏ trùng lặp (deduplicate) các cảnh báo từ nhiều Borgmon có cùng labelset
 -   Fan-in (hội tụ) hoặc fan-out (tán ra) các cảnh báo dựa trên labelset của chúng khi nhiều cảnh báo có labelset tương tự cùng fire
 
-Như mô tả trong [Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), các đội gửi các cảnh báo đáng page (gọi trực) của họ đến vòng on-call và các cảnh báo quan trọng nhưng dưới mức tới hạn (subcritical) đến các hàng đợi ticket (yêu cầu). Tất cả cảnh báo khác nên được giữ lại như dữ liệu thông tin cho các dashboard (bảng điều khiển) trạng thái.
+Như mô tả trong [Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), các đội gửi các cảnh báo đáng gọi trực (page-worthy) của họ đến vòng on-call và các cảnh báo quan trọng nhưng dưới mức tới hạn (subcritical) đến các hàng đợi ticket (yêu cầu). Tất cả cảnh báo khác nên được giữ lại như dữ liệu thông tin cho các dashboard (bảng điều khiển) trạng thái.
 
 Một hướng dẫn toàn diện hơn về thiết kế cảnh báo có ở [Service Level Objectives](https://sre.google/sre-book/service-level-objectives/).
 

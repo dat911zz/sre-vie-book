@@ -89,7 +89,7 @@ Xem [Example Incident State Document](https://sre.google/sre-book/incident-docum
 
 Giờ hãy xem incident này có thể đã diễn ra thế nào nếu được xử lý bằng các nguyên lý của quản lý incident.
 
-Đã 2 giờ chiều, và Mary đang dùng ly cà phê thứ ba trong ngày. Tiếng pager sắc sảo khiến cô giật mình, vội nuốt thức uống xuống. Vấn đề: một datacenter đã ngừng phục vụ traffic. Cô bắt đầu điều tra. Chẳng bao lâu sau, một cảnh báo khác fire (kích hoạt) — datacenter thứ hai trong năm cũng đang hỏng. Vì đây là một vấn đề đang leo thang nhanh, cô biết mình sẽ được lợi từ cấu trúc khung quản lý incident.
+Đã 2 giờ chiều, và Mary đang dùng ly cà phê thứ ba trong ngày. Tiếng pager chói tai khiến cô giật mình, vội nuốt thức uống xuống. Vấn đề: một datacenter đã ngừng phục vụ traffic. Cô bắt đầu điều tra. Chẳng bao lâu sau, một cảnh báo khác fire (kích hoạt) — datacenter thứ hai trong năm cũng đang hỏng. Vì đây là một vấn đề đang leo thang nhanh, cô biết mình sẽ được lợi từ cấu trúc khung quản lý incident.
 
 Mary kéo Sabrina lại. "Bạn có thể nhận quyền chỉ huy không?" Gật đầu đồng ý, Sabrina nhanh chóng nhận bản tóm tắt từ Mary về những gì đã xảy ra đến giờ. Cô ghi lại các chi tiết này trong một email gửi đến một danh sách email đã thỏa thuận trước. Sabrina nhận ra mình chưa xác định được phạm vi tác động của incident, nên xin đánh giá của Mary. Mary trả lời: "Người dùng chưa bị ảnh hưởng; hy vọng ta không mất thêm datacenter thứ ba." Sabrina ghi lại phản hồi của Mary vào một tài liệu incident sống.
 

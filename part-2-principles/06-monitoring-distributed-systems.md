@@ -78,7 +78,7 @@ Giám sát hệ thống cũng hữu ích trong việc cung cấp dữ liệu th�
 
 Giám sát và cảnh báo cho phép một hệ thống báo cho chúng tôi biết khi nó đang hỏng, hoặc có thể báo trước điều gì sắp hỏng. Khi hệ thống không thể tự sửa chữa tự động, chúng tôi muốn một người điều tra cảnh báo, xác định xem có vấn đề thực sự hiện hữu không, giảm thiểu vấn đề và xác định nguyên nhân gốc rễ. Trừ khi bạn đang thực hiện kiểm toán bảo mật (security auditing) trên các thành phần có phạm vi rất hẹp của một hệ thống, bạn không bao giờ nên kích hoạt cảnh báo chỉ vì "có gì đó có vẻ hơi lạ".
 
-Page một người là một cách sử dụng khá đắt thời gian của một nhân viên. Nếu nhân viên đang ở nơi làm việc, một page ngắt luồng công việc của họ. Nếu nhân viên ở nhà, một page ngắt thời gian cá nhân của họ, và có thể cả giấc ngủ. Khi page xảy ra quá thường xuyên, nhân viên sẽ nghi ngờ, lướt qua hoặc thậm chí bỏ qua các cảnh báo đến, đôi khi bỏ qua cả một page "thực sự" bị che khuất bởi nhiễu. Các outage (mất dịch vụ) có thể bị kéo dài vì những nhiễu khác cản trở việc chẩn đoán và sửa chữa nhanh chóng. Các [hệ thống cảnh báo hiệu quả](https://sre.google/sre-book/practical-alerting/) có tín hiệu tốt và nhiễu rất thấp.
+Việc page (gọi trực) cho một người là một cách sử dụng khá đắt thời gian của một nhân viên. Nếu nhân viên đang ở nơi làm việc, một page ngắt luồng công việc của họ. Nếu nhân viên ở nhà, một page ngắt thời gian cá nhân của họ, và có thể cả giấc ngủ. Khi page xảy ra quá thường xuyên, nhân viên sẽ nghi ngờ, lướt qua hoặc thậm chí bỏ qua các cảnh báo đến, đôi khi bỏ qua cả một page "thực sự" bị che khuất bởi nhiễu. Các outage (mất dịch vụ) có thể bị kéo dài vì những nhiễu khác cản trở việc chẩn đoán và sửa chữa nhanh chóng. Các [hệ thống cảnh báo hiệu quả](https://sre.google/sre-book/practical-alerting/) có tín hiệu tốt và nhiễu rất thấp.
 
 ## Đặt Các Kỳ vọng Hợp lý cho Giám sát
 
@@ -90,7 +90,7 @@ Google SRE chỉ đạt thành công hạn chế với các hệ phân cấp ph�
 
 Một số ý tưởng được mô tả trong chương này vẫn mang tính lý tưởng: luôn có dư địa để đi từ triệu chứng (symptom) sang nguyên nhân gốc rễ nhanh hơn, đặc biệt trong các hệ thống luôn thay đổi. Vì vậy, dù chương này nêu một số mục tiêu cho các hệ thống giám sát và một số cách để đạt được chúng, điều quan trọng là các hệ thống giám sát — đặc biệt đường dẫn quan trọng (critical path) từ khi một vấn đề production bắt đầu, qua một page đến một người, qua phân loại cơ bản và debug sâu — phải luôn đơn giản và dễ hiểu với mọi người trong đội.
 
-Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến một pager cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự thất bại rõ ràng.
+Tương tự, để giữ nhiễu thấp và tín hiệu cao, các phần của hệ thống giám sát dẫn đến việc gọi trực (pager) cần phải rất đơn giản và vững. Các quy tắc tạo cảnh báo cho người nên dễ hiểu và thể hiện một sự thất bại rõ ràng.
 
 ## Triệu chứng so với Nguyên nhân (Symptoms Versus Causes)
 
@@ -191,22 +191,22 @@ Theo kinh nghiệm của Google, việc thu thập và gộp cơ bản các metr
 
 Các nguyên lý bàn trong chương này có thể gắn kết thành một triết lý về giám sát và cảnh báo được tán thành và làm theo rộng rãi trong các đội SRE Google. Dù triết lý giám sát này hơi mang tính lý tưởng, nó là điểm khởi đầu tốt cho việc viết hoặc xem xét một cảnh báo mới, và có thể giúp tổ chức của bạn đặt những câu hỏi đúng, bất kể kích thước tổ chức hay độ phức tạp của dịch vụ hoặc hệ thống.
 
-Khi tạo các quy tắc cho giám sát và cảnh báo, việc đặt các câu hỏi sau có thể giúp bạn tránh các dương tính giả (false positives) và kiệt quệ pager (pager burnout):<sup>[3](#fn3)</sup>
+Khi tạo các quy tắc cho giám sát và cảnh báo, việc đặt các câu hỏi sau có thể giúp bạn tránh các dương tính giả (false positives) và kiệt sức vì pager (pager burnout):<sup>[3](#fn3)</sup>
 
 -   Quy tắc này có phát hiện *một điều kiện vốn chưa được phát hiện* mà khẩn cấp, có thể hành động, và đang hoặc sắp diễn ra có thể nhìn thấy được bởi người dùng không?<sup>[4](#fn4)</sup>
 -   Tôi có bao giờ có thể bỏ qua cảnh báo này vì biết nó vô hại không? Khi nào và vì sao tôi có thể bỏ qua, và làm thế nào để tránh kịch bản này?
 -   Cảnh báo này có chắc chắn chỉ ra rằng người dùng đang bị ảnh hưởng tiêu cực không? Có các trường hợp phát hiện được mà người dùng không bị ảnh hưởng tiêu cực, như traffic đã được rút hoặc các triển khai kiểm thử, nên được lọc ra không?
 -   Tôi có thể hành động để đáp lại cảnh báo này không? Hành động đó có khẩn cấp hay có thể chờ đến sáng không? Nó có thể được tự động hóa an toàn không? Hành động đó sẽ là một sửa chữa dài hạn hay chỉ một giải pháp tình huống ngắn hạn?
--   Có người khác đang được page cho vấn đề này, khiến ít nhất một trong các page trở nên không cần thiết không?
+-   Có người khác cũng đang nhận page cho vấn đề này không, khiến ít nhất một trong các page trở nên không cần thiết?
 
 Những câu hỏi này phản ánh một triết lý cơ bản về các page và pager:
 
 -   Mỗi lần pager reo, tôi nên có thể phản ứng với một cảm giác khẩn cấp. Tôi chỉ có thể phản ứng với cảm giác khẩn cấp vài lần một ngày trước khi kiệt sức.
 -   Mọi page nên có thể hành động được.
--   Mọi phản ứng page nên đòi hỏi sự suy xét. Nếu một page chỉ đáng có một phản ứng robot, nó không nên là một page.
+-   Mọi phản ứng đối với một page nên đòi hỏi sự suy xét. Nếu một page chỉ đáng có một phản ứng robot, nó không nên là một page.
 -   Các page nên dành cho một vấn đề mới hoặc một sự kiện chưa từng thấy trước.
 
-Một góc nhìn như vậy làm tan đi một số phân biệt: nếu một page thỏa mãn bốn gạch đầu dòng trước, không quan trọng page do giám sát white-box hay black-box kích hoạt. Góc nhìn này cũng khuếch đại một số phân biệt khác: nên dành nhiều nỗ lực hơn để bắt các triệu chứng hơn là các nguyên nhân; khi nói đến nguyên nhân, chỉ nên lo lắng về những nguyên nhân rất chắc chắn, rất sắp xảy ra.
+Một góc nhìn như vậy làm tan đi một số phân biệt: nếu một page thỏa mãn bốn gạch đầu dòng trước, không quan trọng việc page đó do giám sát white-box hay black-box kích hoạt. Góc nhìn này cũng khuếch đại một số phân biệt khác: nên dành nhiều nỗ lực hơn để bắt các triệu chứng hơn là các nguyên nhân; khi nói đến nguyên nhân, chỉ nên lo lắng về những nguyên nhân rất chắc chắn, rất sắp xảy ra.
 
 ## Giám sát cho Lâu dài (Monitoring for the Long Term)
 
@@ -234,7 +234,7 @@ Vào thời điểm đó, giám sát Gmail được cấu trúc sao cho các c�
 
 Loại căng thẳng này phổ biến trong một đội, và thường phản ánh sự thiếu tin tưởng cơ bản vào khả năng tự kỷ luật của đội: trong khi một số thành viên muốn triển khai một "hack" (mẹo vá) để mua thêm thời gian cho một sửa chữa đúng đắn, những người khác lo ngại hack sẽ bị quên hoặc sửa chữa đúng đắn sẽ bị hạ thấp ưu tiên vô thời hạn. Lo ngại này có cơ sở, vì dễ dàng tích lũy các tầng nợ kỹ thuật (technical debt) không thể duy trì bằng cách vá các vấn đề thay vì thực hiện sửa chữa thực sự. Các quản lý và lãnh đạo kỹ thuật đóng vai trò quan trọng trong việc triển khai các sửa chữa thực sự, dài hạn bằng cách hỗ trợ và ưu tiên hóa các sửa chữa dài hạn có thể tốn thời gian, ngay cả khi cơn "đau" ban đầu của paging đã dịu đi.
 
-Các page với phản ứng máy móc, thuật toán nên là một cờ đỏ. Sự không sẵn lòng của đội bạn trong việc tự động hóa các page như vậy ngụ ý đội thiếu niềm tin rằng họ có thể dọn nợ kỹ thuật của mình. Đây là một vấn đề lớn đáng được leo thang (escalate).
+Các page với phản ứng máy móc kiểu thuật toán nên là một cờ đỏ. Sự không sẵn lòng của đội bạn trong việc tự động hóa các page như vậy ngụ ý đội thiếu niềm tin rằng họ có thể dọn nợ kỹ thuật của mình. Đây là một vấn đề lớn đáng được leo thang (escalate).
 
 ## Về Lâu dài (The Long Run)
 

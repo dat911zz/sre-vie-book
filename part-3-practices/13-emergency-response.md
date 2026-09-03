@@ -19,7 +19,7 @@ Hãy lưu ý rằng chương về văn hóa postmortem (báo cáo sau sự cố)
 
 Đầu tiên, đừng hoảng loạn! Bạn không đơn độc, và bầu trời không sụp đổ. Bạn là một chuyên gia và được đào tạo để xử lý loại tình huống này. Thông thường, không ai gặp nguy hiểm về thể chất — chỉ có những electron đáng thương là gặp nguy hiểm. Trong trường hợp tồi tệ nhất, một nửa Internet bị sập. Vì vậy, hãy hít một hơi sâu…và tiếp tục.
 
-Nếu bạn cảm thấy choáng ngợp, hãy kéo thêm người vào. Đôi khi thậm chí có thể cần phải page toàn bộ công ty. Nếu công ty của bạn có một quy trình phản ứng sự cố (incident response process) (xem [Managing Incidents](https://sre.google/sre-book/managing-incidents/)), hãy đảm bảo rằng bạn quen thuộc với nó và tuân theo quy trình đó.
+Nếu bạn cảm thấy choáng ngợp, hãy kéo thêm người vào. Đôi khi thậm chí có thể cần phải page (gọi trực) toàn bộ công ty. Nếu công ty của bạn có một quy trình phản ứng sự cố (incident response process) (xem [Managing Incidents](https://sre.google/sre-book/managing-incidents/)), hãy đảm bảo rằng bạn quen thuộc với nó và tuân theo quy trình đó.
 
 ## Tình huống Khẩn cấp do Kiểm thử Gây ra (Test-Induced Emergency)
 
@@ -113,7 +113,7 @@ Trong một phần kiểm thử tự động hóa thường quy, hai yêu cầu 
 
 ## Phản ứng (Response)
 
-Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một page (cuộc gọi trực) khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase; theo đúng quy trình, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó. Vì máy ở vị trí này đã bị xóa, chúng không thể phản hồi yêu cầu. Để tránh làm thất bại các yêu cầu đó hoàn toàn, họ rút traffic khỏi vị trí này. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
+Ngay sau khi yêu cầu turndown thứ hai được phát ra, các kỹ sư on-call nhận được một page (gọi trực) khi cài đặt server nhỏ đầu tiên bị đưa offline để decommission. Điều tra cho thấy các máy đã được chuyển vào hàng đợi Diskerase; theo đúng quy trình, các kỹ sư on-call rút (drain) traffic khỏi vị trí đó. Vì máy ở vị trí này đã bị xóa, chúng không thể phản hồi yêu cầu. Để tránh làm thất bại các yêu cầu đó hoàn toàn, họ rút traffic khỏi vị trí này. Traffic được định tuyến lại sang các vị trí có thể phản hồi đúng.
 
 Chẳng bao lâu, các pager (máy gọi trực) khắp nơi liên tục báo cho mọi cài đặt server như vậy trên toàn thế giới. Trước tình hình đó, các kỹ sư on-call vô hiệu hóa toàn bộ tự động hóa của đội để ngăn thiệt hại thêm. Ngay sau đó họ dừng hoặc đóng băng các tự động hóa bổ sung và bảo trì production.
 

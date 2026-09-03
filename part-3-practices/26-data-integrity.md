@@ -481,7 +481,7 @@ Bất chấp kinh nghiệm DiRT của nhóm, cuộc khôi phục khổng lồ 1,
 
 Đến sáng ngày 11 tháng 3, hơn 99,95% thao tác khôi phục đã hoàn thành, và việc gọi về các băng dự phòng bổ sung cho các file còn lại đang diễn ra. Mặc dù dữ liệu đã an toàn trên các filesystem phân tán, các bước khôi phục dữ liệu bổ sung vẫn cần thiết để làm cho chúng có thể truy cập được bởi người dùng. Nhóm Google Music bắt đầu thực hành các bước cuối cùng này của quy trình khôi phục dữ liệu song song trên một mẫu nhỏ các file âm thanh đã khôi phục để đảm bảo quy trình vẫn hoạt động như mong đợi.
 
-Vào khoảnh khắc đó, các pager production của Google Music reo lên do một sự cố production ảnh hưởng người dùng nghiêm trọng nhưng không liên quan—một sự cố đã kéo toàn bộ nhóm Google Music vào trong hai ngày. Nỗ lực khôi phục dữ liệu được tiếp tục vào ngày 13 tháng 3, khi tất cả 436.223 track âm thanh một lần nữa có thể truy cập được bởi người dùng của chúng. Chỉ trong chưa đầy 7 ngày, 1,5 petabyte dữ liệu âm thanh đã được tái lập cho người dùng với sự giúp đỡ của các bản backup băng offsite; 5 trong số 7 ngày cấu thành nên nỗ lực khôi phục dữ liệu thực.
+Vào khoảnh khắc đó, các pager của hệ thống production Google Music reo lên do một sự cố production ảnh hưởng người dùng nghiêm trọng nhưng không liên quan—một sự cố đã kéo toàn bộ nhóm Google Music vào trong hai ngày. Nỗ lực khôi phục dữ liệu được tiếp tục vào ngày 13 tháng 3, khi tất cả 436.223 track âm thanh một lần nữa có thể truy cập được bởi người dùng của chúng. Chỉ trong chưa đầy 7 ngày, 1,5 petabyte dữ liệu âm thanh đã được tái lập cho người dùng với sự giúp đỡ của các bản backup băng offsite; 5 trong số 7 ngày cấu thành nên nỗ lực khôi phục dữ liệu thực.
 
 ### Lốc khôi phục thứ hai
 
