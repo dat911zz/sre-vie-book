@@ -36,7 +36,7 @@
 |------|-----------|---------|
 | `_part.md` | CHANGED | 1 câu (bỏ `production (sản xuất)`) |
 | `01-introduction.md` | CHANGED | ~16 câu; sửa "dumb (vô tình)" → "đơn giản"; "instance (hồi vị trí)" → "thực thể" |
-| `02-production-environment.md` | CHANGED | ~10 câu; sửa "dumb", "map (bản đồ)" → "cấu trúc ánh xạ" |
+| `02-production-environment.md` | **PIPELINE HOÀN TẤT** | ~10 câu; sửa "dumb", "map (bản đồ)" → "cấu trúc ánh xạ" + QA lượt 2 (2026-09-03): gloss "binpack (gói chặt)"→"bin-packing", "điểm lỗi đơn lẻ"→"điểm thất bại duy nhất" (2) |
 
 ### Part II — Principles
 
@@ -46,10 +46,10 @@
 | `03-embracing-risk.md` | CHANGED | ~30 câu |
 | `04-service-level-objectives.md` | CHANGED | ~30 câu |
 | `05-eliminating-toil.md` | CHANGED | ~25 câu |
-| `06-monitoring-distributed-systems.md` | CHANGED | ~40 câu; sửa 2 H1→H2, bỏ trùng heading |
-| `07-automation-at-google.md` | CHANGED | ~40 câu; 7 H1→H2 |
-| `08-release-engineering.md` | CHANGED | ~30 câu |
-| `09-simplicity.md` | CHANGED | ~18 câu |
+| `06-monitoring-distributed-systems.md` | **PIPELINE HOÀN TẤT** | ~40 câu; sửa 2 H1→H2, bỏ trùng heading + QA lượt 2 (2026-09-03): "bắn (firing)"→"fire (kích hoạt)" ×2, "chế độ thất bại"→"failure mode", gloss paging lặp, "với mắt hướng đến" calque, 5 câu văn phong |
+| `07-automation-at-google.md` | **PIPELINE HOÀN TẤT** | ~40 câu; 7 H1→H2 + QA lượt 2 (2026-09-03): "hand-holding"→"giữ tay", markdown lồng *…* hỏng render, 3 gloss dùng đúng biến thể SAI của glossary (bin-packing/proof of concept/rate limiting), "tự soi xét nội tại"→"tự nội phản", heading "Cho phép Sự cố ở Quy mô"; từ chối 1 đề xuất SAI (đồng bộ 2 danh sách 5 bậc — nguyên bản cố ý khác nhau) |
+| `08-release-engineering.md` | **PIPELINE HOÀN TẤT** | ~30 câu + QA lượt 2 (2026-09-03): bỏ câu chêm THÊM Ý SAI SỰ THẬT (First Folio/Bad Quarto là ấn bản in, không phải "tên vở kịch"), 4 heading lặp gloss "(X) (X)", hạ 12 heading con về ### |
+| `09-simplicity.md` | **PIPELINE HOÀN TẤT** | ~18 câu + QA lượt 2 (2026-09-03): "shipped"→"vận chuyển", "rules of thumb"→"quy tắc ngón tay cái", "collaborators"→"cộng tác viên… mỗi người" (sai chủ thể), 3 văn phong |
 
 ### Part III — Practices
 
