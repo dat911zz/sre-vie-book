@@ -1,8 +1,8 @@
 # Báo cáo Rà soát & Tuỳ biến Chất lượng Bản dịch SRE Book
 
-**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10-27 Part 3, batch 1+2) / 2026-09-03 (ch.28-34 Part IV-V, QA lớp 2; ch.06-27 QA lượt 2)
+**Ngày:** 2026-08-25 (lần đầu) / 2026-08-26 (rà soát lại ch.1,2,3) / 2026-08-27 (ch.4-9 Part 2) / 2026-08-28 (ch.10-27 Part 3, batch 1+2) / 2026-09-03 (ch.28-34 Part IV-V, QA lớp 2; ch.06-27 QA lượt 2) / 2026-09-05 (soften pass toàn sách)
 **Phạm vi:** Toàn bộ 49 file `.md` trong `docs/sre/`
-**Trạng thái:** Hoàn tất — ch.1-34 (toàn bộ Part I-V) đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2
+**Trạng thái:** Hoàn tất — ch.1-34 (toàn bộ Part I-V) đã chạy đủ Giai đoạn 4→7 (glossary, văn phong, semantic, QA độc lập) + QA lớp 2 + **soften pass** (2026-09-05: model local softdream viết lại văn phong theo chính sách 2 tầng thuật ngữ, 2 lượt QA người/Claude, áp 1.665/2.109 đoạn; đoạn kể chuyện dịch incident/outage/push/bug/team/engineer, đoạn kỹ thuật giữ glossary EN; chi tiết `labs/sre-qa-loop/reports/soften-book/QA-VERDICT.md` bên CommandCenter)
 
 ---
 
